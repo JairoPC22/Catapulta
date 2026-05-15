@@ -324,7 +324,6 @@ textarea {
 
 /* Mobile menu */
 .mobile-menu {
-  display: none;
   position: fixed;
   top: var(--nav-h);
   left: 0;
@@ -337,17 +336,19 @@ textarea {
   padding: 1.5rem 6% 2rem;
   overflow-y: auto;
   z-index: 998;
-  transform: translateY(-8px);
+  transform: translateY(-12px);
   opacity: 0;
   pointer-events: none;
-  transition: opacity 0.25s ease, transform 0.25s ease;
+  visibility: hidden;
+  transition: opacity 0.28s ease, transform 0.28s ease, visibility 0s linear 0.28s;
 }
 
 .mobile-menu.open {
-  display: block;
   transform: translateY(0);
   opacity: 1;
   pointer-events: auto;
+  visibility: visible;
+  transition: opacity 0.28s ease, transform 0.28s ease, visibility 0s linear 0s;
 }
 
 .mobile-menu ul {
