@@ -10,14 +10,28 @@
   <meta property="og:image" content="https://catapultapay.com/assets/images/logoCatapultaPay.png" />
 <title>CatapultaPay — Simplificamos tus cobros, aceleramos tus ingresos</title>
 <link rel="icon" type="image/svg+xml" href="favicon.svg?v=1.1" />
-  <!-- Google Fonts -->
+  <!-- Google Fonts — non-blocking -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=DM+Sans:opsz,wght@9..40,300;400;500;600&display=swap" rel="stylesheet" />
+  <link rel="preload" as="style"
+    href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=DM+Sans:opsz,wght@9..40,300;400;500;600&display=swap"
+    onload="this.onload=null;this.rel='stylesheet'" />
+  <noscript>
+    <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=DM+Sans:opsz,wght@9..40,300;400;500;600&display=swap" rel="stylesheet" />
+  </noscript>
 
   <!-- Lucide Icons CDN -->
 <link rel="preconnect" href="https://unpkg.com" />
+  <link rel="preconnect" href="https://allstarterminals.com" />
+  <link rel="preconnect" href="https://dejavoo.io" />
+  <link rel="preconnect" href="https://images.ctfassets.net" />
+  <link rel="preconnect" href="https://www.payxpert.com" />
+  <link rel="preconnect" href="https://www.pax.us" />
+  <link rel="dns-prefetch" href="https://bryteps.com" />
+  <link rel="dns-prefetch" href="https://sunmis.myshopify.com" />
+  <link rel="dns-prefetch" href="https://images.squarespace-cdn.com" />
 <script src="https://unpkg.com/lucide@0.469.0/dist/umd/lucide.min.js"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@3.31.0/dist/tabler-icons.min.css" />
   <!-- Styles -->
   <link rel="stylesheet" href="styles.css" />
 </head>
@@ -229,12 +243,12 @@
         <div class="about-image-wrap reveal-left">
   <div class="about-video-wrap">
     <video
-      src="video1.mp4"
       class="about-video"
-      autoplay
       muted
       loop
       playsinline
+      preload="none"
+      data-src="video1.mp4"
     ></video>
     <div class="about-video-overlay"></div>
     <div class="about-video-scanline" aria-hidden="true"></div>
@@ -322,133 +336,658 @@
     </div>
   </div>
 
-<!-- ── CALCULADORA DE AHORRO ── -->
-<section id="calculator">
+<!-- ── TERMINAL INTERACTIVA ── -->
+<section id="terminal">
   <div class="container">
-    <div class="calc-wrapper reveal">
 
-      <div class="calc-header">
-        <div class="section-label">
-          <span class="dot" aria-hidden="true"></span>
-          Calculadora de ahorro
-        </div>
-        <h2 class="section-title">
-          Descubre cuánto puedes<br />
-          <em class="grad-text">ahorrar con nosotros.</em>
-        </h2>
-        <p class="section-desc">Mueve los controles y ve el impacto real en tu negocio.</p>
+
+<h2 class="sr-only">Simulador de terminal POS CatapultaPay — ingresa un monto con el teclado numérico, elige método de pago y procesa la transacción</h2>
+<style>
+/* ── Terminal Simulator ── */
+.pos-outer {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  padding: 1rem 0 2rem;
+  max-width: 760px;
+  margin: 0 auto;
+}
+.pos-scene {
+  display: flex;
+  gap: 28px;
+  align-items: flex-start;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+.pos-device {
+  width: 210px;
+  flex-shrink: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.pos-printer-top {
+  width: 154px;
+  height: 26px;
+  background: linear-gradient(180deg, #212538 0%, #1c2030 100%);
+  border-radius: 6px 6px 0 0;
+  border: 1.5px solid #2a2f4a;
+  border-bottom: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  box-shadow: 0 -3px 10px rgba(0,0,0,0.3);
+}
+.printer-slot { width: 72px; height: 3px; background: #0a0c14; border-radius: 2px; }
+.printer-led {
+  width: 6px; height: 6px; border-radius: 50%;
+  background: #0aab90;
+  box-shadow: 0 0 6px #0aab90;
+  transition: all 0.2s;
+}
+.printer-led.blink { animation: blinkLed 0.25s ease-in-out infinite; }
+@keyframes blinkLed { 0%,100%{opacity:1} 50%{opacity:0.15} }
+
+.pos-body {
+  width: 172px;
+  background: linear-gradient(160deg, #1e2235 0%, #181c2e 100%);
+  border: 1.5px solid #2a2f4a;
+  border-radius: 0 0 18px 18px;
+  padding: 10px 10px 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  box-shadow:
+    0 28px 60px rgba(0,0,0,0.6),
+    0 0 0 1px rgba(10,171,144,0.08),
+    inset 0 1px 0 rgba(255,255,255,0.04);
+}
+.pos-screen-wrap {
+  background: #0a0c18;
+  border-radius: 7px;
+  border: 1px solid #151828;
+  height: 190px;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  box-shadow: inset 0 2px 8px rgba(0,0,0,0.5);
+}
+.pos-topbar {
+  background: #070910;
+  padding: 4px 8px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-shrink: 0;
+}
+.topbar-brand { font-size: 8px; font-weight: 600; color: #0aab90; letter-spacing: 1.4px; text-transform: uppercase; }
+.topbar-time { font-size: 8px; color: #3a4560; }
+.pos-screen-body {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 10px 8px 8px;
+  gap: 0;
+}
+.screen-amount-display {
+  width: 100%;
+  background: rgba(10,171,144,0.04);
+  border: 1px solid rgba(10,171,144,0.12);
+  border-radius: 5px;
+  padding: 6px 8px;
+  margin-bottom: 8px;
+  min-height: 52px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  justify-content: center;
+}
+.screen-entry-label { font-size: 8px; color: #4a5870; text-transform: uppercase; letter-spacing: 0.5px; align-self: flex-start; }
+.screen-entry-value {
+  font-size: 26px;
+  font-weight: 500;
+  color: #ffffff;
+  line-height: 1;
+  letter-spacing: 1px;
+  transition: all 0.1s;
+  font-family: 'Courier New', monospace;
+}
+.screen-entry-value.has-value { color: #0aab90; }
+.screen-entry-cursor {
+  display: inline-block;
+  width: 2px; height: 22px;
+  background: #0aab90;
+  margin-left: 2px;
+  vertical-align: middle;
+  animation: cursorBlink 1s step-end infinite;
+}
+@keyframes cursorBlink { 0%,100%{opacity:1} 50%{opacity:0} }
+.screen-method-row {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 8px;
+  color: #45C0E8;
+  background: rgba(69,192,232,0.08);
+  border-radius: 3px;
+  padding: 2px 5px;
+  align-self: flex-start;
+  margin-bottom: 6px;
+}
+.screen-numpad {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 3px;
+  width: 100%;
+}
+.skey {
+  background: #151828;
+  border: 1px solid #202438;
+  border-radius: 3px;
+  padding: 4px 0;
+  font-size: 11px;
+  font-weight: 500;
+  color: #8090b0;
+  text-align: center;
+  cursor: pointer;
+  transition: background 0.12s, color 0.12s, transform 0.08s;
+  user-select: none;
+  -webkit-user-select: none;
+}
+.skey:hover { background: #202438; color: #a0b0d0; }
+.skey:active { transform: scale(0.88); background: #2a2f4a; }
+.skey.skey-ok { color: #0aab90; border-color: rgba(10,171,144,0.25); }
+.skey.skey-ok:hover { background: rgba(10,171,144,0.1); }
+.skey.skey-del { color: #e24b4a; border-color: rgba(226,75,74,0.2); }
+.skey.skey-del:hover { background: rgba(226,75,74,0.08); }
+
+.pos-reader-strip {
+  background: #151828;
+  border-radius: 5px;
+  padding: 5px 7px;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  border: 1px solid #202438;
+}
+.reader-track {
+  flex: 1; height: 3px;
+  background: #0a0c14;
+  border-radius: 2px;
+  overflow: hidden;
+  position: relative;
+}
+.reader-glow {
+  position: absolute; top: 0; left: -100%; width: 100%; height: 100%;
+  background: linear-gradient(90deg, transparent, #0aab90, transparent);
+}
+.reader-glow.active { animation: readerSwipe 0.55s ease-in-out; }
+@keyframes readerSwipe { 0%{left:-100%} 100%{left:100%} }
+.reader-tag { font-size: 7px; color: #2a3550; white-space: nowrap; }
+
+.pos-status-row { display: flex; justify-content: space-between; align-items: center; }
+.pos-pci { font-size: 7px; color: #2a3550; font-weight: 500; letter-spacing: 0.5px; }
+.pos-leds { display: flex; gap: 3px; }
+.pos-led { width: 4px; height: 4px; border-radius: 50%; background: #1a2030; }
+.pos-led.on { background: #0aab90; box-shadow: 0 0 4px #0aab90; }
+
+/* ── Panel derecho ── */
+.pos-right {
+  flex: 1;
+  min-width: 240px;
+  max-width: 300px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  background: var(--color-surface);
+  border: 1px solid var(--color-borderW);
+  border-radius: var(--radius-lg);
+  padding: 16px;
+}
+.panel-section-title {
+  font-size: 10px;
+  font-weight: 700;
+  color: var(--color-muted);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  margin-bottom: 6px;
+}
+.method-list { display: flex; flex-direction: column; gap: 6px; }
+.mcard {
+  background: var(--color-bg);
+  border: 1px solid var(--color-borderW);
+  border-radius: var(--radius-sm);
+  padding: 9px 12px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  cursor: pointer;
+  transition: border-color 0.15s, background 0.15s, transform 0.15s;
+}
+.mcard:hover { border-color: rgba(69,192,232,0.3); background: var(--color-surface2); transform: translateX(2px); }
+.mcard.active { border-color: #0aab90; background: rgba(10,171,144,0.05); }
+.mcard-icon { font-size: 17px; color: var(--color-muted); width: 24px; text-align: center; }
+.mcard.active .mcard-icon { color: #0aab90; }
+.mcard-info { flex: 1; }
+.mcard-name { font-size: 12px; font-weight: 600; color: var(--color-text); margin: 0; line-height: 1.2; }
+.mcard-sub { font-size: 11px; color: var(--color-muted); margin: 0; }
+.mcard-check { font-size: 14px; color: #0aab90; opacity: 0; transition: opacity 0.15s; }
+.mcard.active .mcard-check { opacity: 1; }
+
+.summary-box {
+  background: var(--color-bg);
+  border: 1px solid var(--color-borderW);
+  border-radius: var(--radius-sm);
+  padding: 12px 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+.summary-row { display: flex; justify-content: space-between; align-items: center; font-size: 12px; }
+.summary-key { color: var(--color-muted); }
+.summary-val { font-weight: 600; color: var(--color-text); }
+.summary-val.teal { color: #0aab90; }
+.summary-val.big { font-size: 18px; color: var(--color-text); font-weight: 700; }
+.summary-divider { height: 1px; background: var(--color-borderW); margin: 2px 0; }
+
+.charge-btn {
+  width: 100%;
+  padding: 11px 12px;
+  background: linear-gradient(130deg, #0aab90 0%, #0ecfad 100%);
+  border: none;
+  border-radius: var(--radius-sm);
+  font-size: 13px;
+  font-weight: 600;
+  color: #070E1C;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  transition: opacity 0.2s, transform 0.1s, box-shadow 0.2s;
+  box-shadow: 0 4px 16px rgba(10,171,144,0.25);
+}
+.charge-btn:hover:not(:disabled) { opacity: 0.9; box-shadow: 0 6px 28px rgba(10,171,144,0.4); transform: translateY(-1px); }
+.charge-btn:active:not(:disabled) { transform: scale(0.98); }
+.charge-btn:disabled { opacity: 0.35; cursor: not-allowed; box-shadow: none; }
+
+.ticket-area { max-height: 0; overflow: hidden; transition: max-height 0.65s cubic-bezier(0.4,0,0.2,1); }
+.ticket-area.open { max-height: 540px; }
+.ticket {
+  background: var(--color-bg);
+  border: 1px solid var(--color-borderW);
+  border-radius: var(--radius-sm);
+  padding: 14px 16px;
+  font-family: 'Courier New', monospace;
+  font-size: 11px;
+  color: var(--color-text);
+  margin-top: 4px;
+  position: relative;
+}
+.ticket-stripe {
+  position: absolute;
+  top: 0; left: 0; right: 0; height: 3px;
+  background: repeating-linear-gradient(90deg,#0aab90 0,#0aab90 8px,transparent 8px,transparent 12px);
+  border-radius: var(--radius-sm) var(--radius-sm) 0 0;
+}
+.t-center { text-align: center; }
+.t-brand { font-size: 13px; font-weight: 700; color: #0aab90; letter-spacing: 2px; }
+.t-sub { font-size: 9px; color: var(--color-muted); margin-top: 1px; }
+.t-hr { border: none; border-top: 1px dashed var(--color-borderW); margin: 8px 0; }
+.t-row { display: flex; justify-content: space-between; gap: 8px; margin: 3px 0; font-size: 11px; }
+.t-key { color: var(--color-muted); }
+.t-val { font-weight: 500; }
+.t-total { font-size: 15px; font-weight: 700; }
+.t-ok { font-size: 9px; font-weight: 700; color: #0aab90; letter-spacing: 1.5px; }
+.t-auth { font-size: 10px; color: #E8C97A; }
+.t-footer { font-size: 9px; color: var(--color-muted); line-height: 1.7; }
+
+.screen-processing-wrap, .screen-success-wrap {
+  display: flex; flex-direction: column; align-items: center; justify-content: center;
+  width: 100%; height: 100%; gap: 6px; text-align: center;
+}
+.spin-ring {
+  width: 32px; height: 32px;
+  border: 2px solid rgba(10,171,144,0.15);
+  border-top-color: #0aab90;
+  border-radius: 50%;
+  animation: spin 0.75s linear infinite;
+}
+@keyframes spin { to { transform: rotate(360deg); } }
+.proc-label { font-size: 10px; color: var(--color-muted); }
+.proc-dots::after { content: ''; animation: dotdot 1.2s steps(4) infinite; }
+@keyframes dotdot { 0%{content:''} 25%{content:'.'} 50%{content:'..'} 75%{content:'...'} }
+.ok-ring {
+  width: 38px; height: 38px;
+  border: 2px solid #0aab90;
+  border-radius: 50%;
+  background: rgba(10,171,144,0.1);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 18px; color: #0aab90;
+  animation: popRing 0.4s cubic-bezier(0.34,1.56,0.64,1);
+}
+@keyframes popRing { from{transform:scale(0)} to{transform:scale(1)} }
+.ok-label { font-size: 11px; font-weight: 600; color: #0aab90; letter-spacing: 0.5px; }
+.ok-amount { font-size: 20px; font-weight: 500; color: #fff; }
+.ok-auth { font-size: 9px; color: #E8C97A; background: rgba(232,201,122,0.1); padding: 2px 7px; border-radius: 3px; }
+.ok-thanks { font-size: 9px; color: #3a4560; }
+
+/* ── Responsive terminal ── */
+@media (max-width: 600px) {
+  .pos-scene { flex-direction: column; align-items: center; gap: 20px; }
+  .pos-right { max-width: 100%; min-width: 0; width: 100%; }
+}
+</style>
+
+<div class="pos-outer">
+  <div class="section-header reveal">
+    <div class="section-label" id="termLabel">
+      <span class="dot" aria-hidden="true"></span>
+      Terminal en vivo
+    </div>
+    <h2 class="section-title" id="termTitle">Así de fácil cobras con CatapultaPay</h2>
+    <p class="section-desc" id="termDesc">Ingresa el monto con el teclado, elige cómo cobrar y procesa en segundos.</p>
+  </div>
+
+  <div class="pos-scene">
+    <div class="pos-device">
+      <div class="pos-printer-top">
+        <div class="printer-slot"></div>
+        <div class="printer-led" id="printerLed"></div>
       </div>
-
-      <div class="calc-body">
-
-        <!-- Controles -->
-        <div class="calc-controls">
-
-          <div class="calc-field">
-            <div class="calc-field-header">
-              <label for="sliderSales">Ventas mensuales</label>
-              <span class="calc-field-value" id="valSales">$50,000</span>
+      <div class="pos-body">
+        <div class="pos-screen-wrap">
+          <div class="pos-topbar">
+            <span class="topbar-brand">CatapultaPay</span>
+            <span class="topbar-time" id="posClk">--:--</span>
+          </div>
+          <div class="pos-screen-body" id="screenBody">
+            <div class="screen-amount-display">
+              <span class="screen-entry-label">Ingresa monto</span>
+              <span class="screen-entry-value" id="screenAmt">$0.00<span class="screen-entry-cursor"></span></span>
             </div>
-            <div class="calc-slider-wrap">
-              <input
-                type="range"
-                id="sliderSales"
-                min="5000"
-                max="500000"
-                step="1000"
-                value="50000"
-                class="calc-slider"
-                aria-label="Ventas mensuales"
-              />
-              <div class="calc-slider-track">
-                <div class="calc-slider-fill" id="fillSales"></div>
-              </div>
+            <div class="screen-method-row" id="screenMethod">
+              <i class="ti ti-credit-card" style="font-size:9px;"></i>
+              <span id="screenMethodTxt">Chip · Visa ••4521</span>
             </div>
-            <div class="calc-slider-labels">
-              <span>$5,000</span>
-              <span>$500,000</span>
+            <div class="screen-numpad">
+              <div class="skey" onclick="padPress('1')">1</div>
+              <div class="skey" onclick="padPress('2')">2</div>
+              <div class="skey" onclick="padPress('3')">3</div>
+              <div class="skey" onclick="padPress('4')">4</div>
+              <div class="skey" onclick="padPress('5')">5</div>
+              <div class="skey" onclick="padPress('6')">6</div>
+              <div class="skey" onclick="padPress('7')">7</div>
+              <div class="skey" onclick="padPress('8')">8</div>
+              <div class="skey" onclick="padPress('9')">9</div>
+              <div class="skey skey-del" onclick="padPress('DEL')">⌫</div>
+              <div class="skey" onclick="padPress('0')">0</div>
+              <div class="skey skey-ok" onclick="padPress('OK')">OK</div>
             </div>
           </div>
-
-          <div class="calc-field">
-            <div class="calc-field-header">
-              <label for="sliderRate">Tu tasa actual de procesamiento</label>
-              <span class="calc-field-value" id="valRate">3.50%</span>
-            </div>
-            <div class="calc-slider-wrap">
-              <input
-                type="range"
-                id="sliderRate"
-                min="200"
-                max="450"
-                step="5"
-                value="350"
-                class="calc-slider"
-                aria-label="Tasa actual de procesamiento"
-              />
-              <div class="calc-slider-track">
-                <div class="calc-slider-fill" id="fillRate"></div>
-              </div>
-            </div>
-            <div class="calc-slider-labels">
-              <span>2.00%</span>
-              <span>4.50%</span>
-            </div>
-          </div>
-
-          <div class="calc-note">
-            <i data-lucide="info" aria-hidden="true"></i>
-            <span>Tasa CatapultaPay desde <strong>1.89%</strong> · Sin cargos ocultos</span>
-          </div>
-
         </div>
-
-        <!-- Resultados -->
-        <div class="calc-results">
-
-          <div class="calc-result-card calc-result-current">
-            <span class="calc-result-label">Pagas actualmente</span>
-            <span class="calc-result-amount" id="resCurrent">$1,750</span>
-            <span class="calc-result-sub">al mes en comisiones</span>
-          </div>
-
-          <div class="calc-result-divider" aria-hidden="true">
-            <div class="calc-result-divider-line"></div>
-            <i data-lucide="arrow-right" aria-hidden="true"></i>
-            <div class="calc-result-divider-line"></div>
-          </div>
-
-          <div class="calc-result-card calc-result-catapulta">
-            <span class="calc-result-label">Con CatapultaPay</span>
-            <span class="calc-result-amount grad-text" id="resCatapulta">$945</span>
-            <span class="calc-result-sub">al mes en comisiones</span>
-          </div>
-
-          <div class="calc-savings-box">
-            <div class="calc-savings-top">
-              <i data-lucide="trending-up" aria-hidden="true"></i>
-              <span>Tu ahorro estimado</span>
-            </div>
-            <div class="calc-savings-numbers">
-              <div class="calc-savings-item">
-                <span class="calc-savings-value" id="resSavingMonth">$805</span>
-                <span class="calc-savings-period">por mes</span>
-              </div>
-              <div class="calc-savings-sep" aria-hidden="true">·</div>
-              <div class="calc-savings-item">
-                <span class="calc-savings-value grad-text" id="resSavingYear">$9,660</span>
-                <span class="calc-savings-period">por año</span>
-              </div>
-            </div>
-            <a href="#contact" class="btn-primary calc-cta-btn">
-              Quiero ese ahorro <i data-lucide="arrow-right" aria-hidden="true"></i>
-            </a>
-          </div>
-
+        <div class="pos-reader-strip">
+          <i class="ti ti-credit-card" style="font-size:11px; color:#2a3550;"></i>
+          <div class="reader-track"><div class="reader-glow" id="readerGlow"></div></div>
+          <span class="reader-tag">Chip / Banda / NFC</span>
         </div>
-
+        <div class="pos-status-row">
+          <span class="pos-pci">PCI DSS v4</span>
+          <div class="pos-leds">
+            <div class="pos-led on"></div>
+            <div class="pos-led on"></div>
+            <div class="pos-led"></div>
+          </div>
+        </div>
       </div>
     </div>
+
+    <div class="pos-right">
+      <div>
+        <div class="panel-section-title">Método de cobro</div>
+        <div class="method-list">
+          <div class="mcard active" data-method="chip" data-icon="ti-credit-card" data-label="Chip · Visa ••4521" onclick="pickMethod(this)">
+            <div class="mcard-icon"><i class="ti ti-credit-card" aria-hidden="true"></i></div>
+            <div class="mcard-info">
+              <p class="mcard-name">Tarjeta con chip</p>
+              <p class="mcard-sub">•••• •••• •••• 4521 · Visa</p>
+            </div>
+            <i class="ti ti-circle-check mcard-check" aria-hidden="true"></i>
+          </div>
+          <div class="mcard" data-method="nfc" data-icon="ti-wifi" data-label="NFC · Apple/Google Pay" onclick="pickMethod(this)">
+            <div class="mcard-icon"><i class="ti ti-wifi" aria-hidden="true"></i></div>
+            <div class="mcard-info">
+              <p class="mcard-name">Sin contacto / NFC</p>
+              <p class="mcard-sub">Apple Pay · Google Pay</p>
+            </div>
+            <i class="ti ti-circle-check mcard-check" aria-hidden="true"></i>
+          </div>
+          <div class="mcard" data-method="swipe" data-icon="ti-arrows-right-left" data-label="Banda · Amex ••8834" onclick="pickMethod(this)">
+            <div class="mcard-icon"><i class="ti ti-arrows-right-left" aria-hidden="true"></i></div>
+            <div class="mcard-info">
+              <p class="mcard-name">Banda magnética</p>
+              <p class="mcard-sub">•••• •••• •••• 8834 · Amex</p>
+            </div>
+            <i class="ti ti-circle-check mcard-check" aria-hidden="true"></i>
+          </div>
+        </div>
+      </div>
+
+      <div>
+        <div class="panel-section-title">Resumen</div>
+        <div class="summary-box">
+          <div class="summary-row">
+            <span class="summary-key">Monto a cobrar</span>
+            <span class="summary-val big" id="sumAmt">$0.00</span>
+          </div>
+          <div class="summary-divider"></div>
+          <div class="summary-row">
+            <span class="summary-key">Tasa CatapultaPay</span>
+            <span class="summary-val teal">1.89%</span>
+          </div>
+          <div class="summary-row">
+            <span class="summary-key">Comisión estimada</span>
+            <span class="summary-val" id="sumFee">$0.00</span>
+          </div>
+          <div class="summary-row">
+            <span class="summary-key">Neto que recibes</span>
+            <span class="summary-val teal" id="sumNet">$0.00</span>
+          </div>
+        </div>
+      </div>
+
+      <button class="charge-btn" id="chargeBtn" disabled onclick="doCharge()">
+        <i class="ti ti-bolt" aria-hidden="true"></i>
+        Procesar pago
+      </button>
+
+      <div class="ticket-area" id="ticketArea">
+        <div class="ticket" id="ticketContent"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+/* ── Strings traducibles — actualizados por I18N.apply() ── */
+window.TERM = {
+  screenLabel:     'Ingresa monto',
+  processing:      'Procesando',
+  approved:        'APROBADO',
+  thanks:          'Gracias por su compra',
+  chipLabel:       'Chip · Visa ••4521',
+  nfcLabel:        'NFC · Apple/Google Pay',
+  swipeLabel:      'Banda · Amex ••8834',
+  ticketDate:      'Fecha',
+  ticketTime:      'Hora',
+  ticketTxn:       'TXN',
+  ticketMethod:    'Método',
+  ticketSubtotal:  'Subtotal',
+  ticketRate:      'Tasa (1.89%)',
+  ticketNet:       'Neto recibido',
+  ticketApproved:  'PAGO APROBADO',
+  ticketThanks:    'Gracias por usar CatapultaPay',
+  ticketLocale:    'es-MX',
+};
+
+let rawCents = 0;
+let busy = false;
+window.activeMethod = { method:'chip', icon:'ti-credit-card', label: window.TERM.chipLabel };
+
+function clock() {
+  const n = new Date();
+  const el = document.getElementById('posClk');
+  if (el) el.textContent = String(n.getHours()).padStart(2,'0') + ':' + String(n.getMinutes()).padStart(2,'0');
+}
+clock(); setInterval(clock, 20000);
+
+function fmtMoney(cents) {
+  const d = (cents / 100).toFixed(2);
+  const parts = d.split('.');
+  parts[0] = parts[0].replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+  return '$' + parts.join('.');
+}
+
+function updateDisplay() {
+  const el = document.getElementById('screenAmt');
+  if (!el) return;
+  el.innerHTML = (rawCents > 0 ? fmtMoney(rawCents) : '$0.00') + '<span class="screen-entry-cursor"></span>';
+  el.className = 'screen-entry-value' + (rawCents > 0 ? ' has-value' : '');
+  const amt = rawCents / 100;
+  const fee = amt * 0.0189;
+  document.getElementById('sumAmt').textContent = fmtMoney(rawCents);
+  document.getElementById('sumFee').textContent = '$' + fee.toFixed(2);
+  document.getElementById('sumNet').textContent = '$' + (amt - fee).toFixed(2);
+  document.getElementById('chargeBtn').disabled = rawCents < 100 || busy;
+}
+
+function padPress(key) {
+  if (busy) return;
+  if (key === 'DEL') { rawCents = Math.floor(rawCents / 10); }
+  else if (key === 'OK') { if (rawCents >= 100) doCharge(); return; }
+  else { if (rawCents > 9999999) return; rawCents = rawCents * 10 + parseInt(key); }
+  updateDisplay();
+}
+
+function pickMethod(el) {
+  if (busy) return;
+  document.querySelectorAll('.mcard').forEach(c => c.classList.remove('active'));
+  el.classList.add('active');
+  window.activeMethod = { method: el.dataset.method, icon: el.dataset.icon, label: el.dataset.label };
+  const mt = document.getElementById('screenMethodTxt');
+  if (mt) mt.textContent = window.activeMethod.label;
+  const mi = document.querySelector('#screenMethod i');
+  if (mi) { mi.className = 'ti ' + window.activeMethod.icon; mi.style.fontSize = '9px'; }
+}
+
+function doCharge() {
+  if (busy || rawCents < 100) return;
+  busy = true;
+  document.getElementById('chargeBtn').disabled = true;
+  document.getElementById('ticketArea').classList.remove('open');
+  const sb  = document.getElementById('screenBody');
+  const rg  = document.getElementById('readerGlow');
+  const led = document.getElementById('printerLed');
+
+  if (window.activeMethod.method === 'swipe') {
+    rg.classList.remove('active'); void rg.offsetWidth; rg.classList.add('active');
+  }
+
+  sb.innerHTML = `
+    <div class="screen-processing-wrap">
+      <div class="spin-ring"></div>
+      <div class="proc-label">${window.TERM.processing}<span class="proc-dots"></span></div>
+      <div style="font-size:9px;color:#2a3560;margin-top:2px;">${window.activeMethod.label}</div>
+    </div>`;
+
+  setTimeout(() => led.classList.add('blink'), 1400);
+
+  setTimeout(() => {
+    led.classList.remove('blink');
+    const auth = 'AUTH' + (Math.floor(Math.random()*900000)+100000);
+    sb.innerHTML = `
+      <div class="screen-success-wrap">
+        <div class="ok-ring"><i class="ti ti-check" style="font-size:18px;"></i></div>
+        <div class="ok-label">${window.TERM.approved}</div>
+        <div class="ok-amount">${fmtMoney(rawCents)}</div>
+        <div class="ok-auth">${auth}</div>
+        <div class="ok-thanks">${window.TERM.thanks}</div>
+      </div>`;
+    renderTicket(auth);
+    setTimeout(() => {
+      busy = false; rawCents = 0; updateDisplay();
+      sb.innerHTML = getIdleScreen();
+    }, 7000);
+  }, 2800);
+}
+
+function getIdleScreen() {
+  return `
+    <div class="screen-amount-display">
+      <span class="screen-entry-label">${window.TERM.screenLabel}</span>
+      <span class="screen-entry-value" id="screenAmt">$0.00<span class="screen-entry-cursor"></span></span>
+    </div>
+    <div class="screen-method-row" id="screenMethod">
+      <i class="ti ${window.activeMethod.icon}" style="font-size:9px;"></i>
+      <span id="screenMethodTxt">${window.activeMethod.label}</span>
+    </div>
+    <div class="screen-numpad">
+      <div class="skey" onclick="padPress('1')">1</div>
+      <div class="skey" onclick="padPress('2')">2</div>
+      <div class="skey" onclick="padPress('3')">3</div>
+      <div class="skey" onclick="padPress('4')">4</div>
+      <div class="skey" onclick="padPress('5')">5</div>
+      <div class="skey" onclick="padPress('6')">6</div>
+      <div class="skey" onclick="padPress('7')">7</div>
+      <div class="skey" onclick="padPress('8')">8</div>
+      <div class="skey" onclick="padPress('9')">9</div>
+      <div class="skey skey-del" onclick="padPress('DEL')">⌫</div>
+      <div class="skey" onclick="padPress('0')">0</div>
+      <div class="skey skey-ok" onclick="padPress('OK')">OK</div>
+    </div>`;
+}
+
+function renderTicket(auth) {
+  const now    = new Date();
+  const locale = window.TERM.ticketLocale;
+  const ds     = now.toLocaleDateString(locale, {day:'2-digit', month:'2-digit', year:'numeric'});
+  const ts     = now.toLocaleTimeString(locale, {hour:'2-digit', minute:'2-digit', second:'2-digit'});
+  const txn    = 'TXN-' + (Math.floor(Math.random()*9000000)+1000000);
+  const amtVal = rawCents / 100;
+  const fee    = (amtVal * 0.0189).toFixed(2);
+  const netFmt = (amtVal - parseFloat(fee)).toLocaleString('en-US', {minimumFractionDigits:2});
+  const methodSym = window.activeMethod.method==='nfc'?'((NFC))':window.activeMethod.method==='swipe'?'[SWIPE]':'[CHIP]';
+  document.getElementById('ticketContent').innerHTML = `
+    <div class="ticket-stripe"></div>
+    <div class="t-center" style="padding-top:4px;">
+      <div class="t-brand">CATAPULTAPAY</div>
+      <div class="t-sub">catapultapay.com · PCI DSS v4</div>
+    </div>
+    <hr class="t-hr">
+    <div class="t-row"><span class="t-key">${window.TERM.ticketDate}</span><span class="t-val">${ds}</span></div>
+    <div class="t-row"><span class="t-key">${window.TERM.ticketTime}</span><span class="t-val">${ts}</span></div>
+    <div class="t-row"><span class="t-key">${window.TERM.ticketTxn}</span><span class="t-val">${txn}</span></div>
+    <div class="t-row"><span class="t-key">${window.TERM.ticketMethod}</span><span class="t-val">${methodSym} ${window.activeMethod.label}</span></div>
+    <hr class="t-hr">
+    <div class="t-row"><span class="t-key">${window.TERM.ticketSubtotal}</span><span class="t-val">${fmtMoney(rawCents)}</span></div>
+    <div class="t-row"><span class="t-key">${window.TERM.ticketRate}</span><span class="t-val">$${fee}</span></div>
+    <div class="t-row"><span class="t-key">${window.TERM.ticketNet}</span><span class="t-val t-total">$${netFmt}</span></div>
+    <hr class="t-hr">
+    <div class="t-center">
+      <div style="font-size:20px;color:#0aab90;"><i class="ti ti-circle-check"></i></div>
+      <div class="t-ok">${window.TERM.ticketApproved}</div>
+      <div class="t-auth">${auth}</div>
+    </div>
+    <hr class="t-hr">
+    <div class="t-center t-footer">+1 (310) 948-6153 · info@catapultapay.com<br>${window.TERM.ticketThanks}</div>`;
+  document.getElementById('ticketArea').classList.add('open');
+}
+
+updateDisplay();
+</script>
   </div>
 </section>
 

@@ -180,6 +180,38 @@ const TRANSLATIONS = {
     'footer.rights': '© 2025 CATAPULTA PAYMENT SYSTEMS. Todos los derechos reservados.',
     'toast.msg': 'Mensaje enviado con éxito',
     'wa.href': 'https://wa.me/13109486153?text=Hola%2C+me+interesa+CatapultaPay',
+    // TERMINAL SIMULADOR
+    'term.label': 'Terminal en vivo',
+    'term.title': 'Así de fácil cobras con CatapultaPay',
+    'term.desc': 'Ingresa el monto con el teclado, elige cómo cobrar y procesa en segundos.',
+    'term.screen.label': 'Ingresa monto',
+    'term.method.title': 'Método de cobro',
+    'term.summary.title': 'Resumen',
+    'term.summary.amount': 'Monto a cobrar',
+    'term.summary.rate': 'Tasa CatapultaPay',
+    'term.summary.fee': 'Comisión estimada',
+    'term.summary.net': 'Neto que recibes',
+    'term.btn.process': 'Procesar pago',
+    'term.reader.tag': 'Chip / Banda / NFC',
+    'term.method.chip.name': 'Tarjeta con chip',
+    'term.method.chip.sub': '•••• •••• •••• 4521 · Visa',
+    'term.method.chip.label': 'Chip · Visa ••4521',
+    'term.method.nfc.name': 'Sin contacto / NFC',
+    'term.method.nfc.sub': 'Apple Pay · Google Pay',
+    'term.method.nfc.label': 'NFC · Apple/Google Pay',
+    'term.method.swipe.name': 'Banda magnética',
+    'term.method.swipe.sub': '•••• •••• •••• 8834 · Amex',
+    'term.method.swipe.label': 'Banda · Amex ••8834',
+    'term.processing': 'Procesando',
+    'term.approved': 'APROBADO',
+    'term.thanks': 'Gracias por su compra',
+    'term.ticket.date': 'Fecha', 'term.ticket.time': 'Hora',
+    'term.ticket.txn': 'TXN', 'term.ticket.method': 'Método',
+    'term.ticket.subtotal': 'Subtotal', 'term.ticket.rate': 'Tasa (1.89%)',
+    'term.ticket.net': 'Neto recibido',
+    'term.ticket.approved': 'PAGO APROBADO',
+    'term.ticket.thanks': 'Gracias por usar CatapultaPay',
+    'term.ticket.locale': 'es-MX',
   },
 
   /* ─────────── ENGLISH ─────────── */
@@ -356,6 +388,38 @@ const TRANSLATIONS = {
     'footer.rights': '© 2025 CATAPULTA PAYMENT SYSTEMS. All rights reserved.',
     'toast.msg': 'Message sent successfully',
     'wa.href': 'https://wa.me/13109486153?text=Hello%2C+I%27m+interested+in+CatapultaPay',
+    // TERMINAL SIMULATOR
+    'term.label': 'Live terminal',
+    'term.title': 'This easy to collect with CatapultaPay',
+    'term.desc': 'Enter the amount with the keypad, choose how to collect, and process in seconds.',
+    'term.screen.label': 'Enter amount',
+    'term.method.title': 'Payment method',
+    'term.summary.title': 'Summary',
+    'term.summary.amount': 'Amount to charge',
+    'term.summary.rate': 'CatapultaPay rate',
+    'term.summary.fee': 'Estimated fee',
+    'term.summary.net': 'Net you receive',
+    'term.btn.process': 'Process payment',
+    'term.reader.tag': 'Chip / Swipe / NFC',
+    'term.method.chip.name': 'Chip card',
+    'term.method.chip.sub': '•••• •••• •••• 4521 · Visa',
+    'term.method.chip.label': 'Chip · Visa ••4521',
+    'term.method.nfc.name': 'Contactless / NFC',
+    'term.method.nfc.sub': 'Apple Pay · Google Pay',
+    'term.method.nfc.label': 'NFC · Apple/Google Pay',
+    'term.method.swipe.name': 'Magnetic stripe',
+    'term.method.swipe.sub': '•••• •••• •••• 8834 · Amex',
+    'term.method.swipe.label': 'Swipe · Amex ••8834',
+    'term.processing': 'Processing',
+    'term.approved': 'APPROVED',
+    'term.thanks': 'Thank you for your purchase',
+    'term.ticket.date': 'Date', 'term.ticket.time': 'Time',
+    'term.ticket.txn': 'TXN', 'term.ticket.method': 'Method',
+    'term.ticket.subtotal': 'Subtotal', 'term.ticket.rate': 'Rate (1.89%)',
+    'term.ticket.net': 'Net received',
+    'term.ticket.approved': 'PAYMENT APPROVED',
+    'term.ticket.thanks': 'Thank you for using CatapultaPay',
+    'term.ticket.locale': 'en-US',
   }
 };
 
@@ -505,6 +569,7 @@ const I18N = {
     this._applyMarquee(t);
     this._applyAbout(t);
     this._applyStats(t);
+    this._applyTerminal(t);
     this._applyCalculator(t);
     this._applySolutions(t);
     this._applyCatalogHeader(t);
@@ -580,6 +645,93 @@ const I18N = {
     ['stats.years','stats.businesses','stats.partners','stats.support'].forEach((k,i) => {
       if (labels[i] && t[k]) labels[i].textContent = t[k];
     });
+  },
+
+  _applyTerminal(t) {
+    // Encabezado de sección
+    const label = this._q('#termLabel');
+    if (label && t['term.label']) {
+      const dot = label.querySelector('.dot');
+      label.textContent = t['term.label'];
+      if (dot) label.prepend(dot);
+    }
+    this._setText('#termTitle', 'term.title', t);
+    this._setText('#termDesc',  'term.desc',  t);
+
+    // Títulos de paneles
+    const panelTitles = this._qa('.panel-section-title');
+    if (panelTitles[0] && t['term.method.title']) panelTitles[0].textContent = t['term.method.title'];
+    if (panelTitles[1] && t['term.summary.title']) panelTitles[1].textContent = t['term.summary.title'];
+
+    // Etiquetas del resumen
+    const sumKeys = this._qa('.summary-key');
+    ['term.summary.amount','term.summary.rate','term.summary.fee','term.summary.net'].forEach((k,i) => {
+      if (sumKeys[i] && t[k]) sumKeys[i].textContent = t[k];
+    });
+
+    // Reader tag
+    this._setText('.reader-tag', 'term.reader.tag', t);
+
+    // Botón procesar
+    const chargeBtn = this._q('#chargeBtn');
+    if (chargeBtn && t['term.btn.process']) {
+      const icon = chargeBtn.querySelector('i') || chargeBtn.querySelector('svg');
+      chargeBtn.textContent = '';
+      if (icon) chargeBtn.appendChild(icon);
+      chargeBtn.appendChild(document.createTextNode(' ' + t['term.btn.process']));
+    }
+
+    // Tarjetas de método
+    [
+      { sel:'[data-method="chip"]',  nk:'term.method.chip.name',  sk:'term.method.chip.sub',  lk:'term.method.chip.label'  },
+      { sel:'[data-method="nfc"]',   nk:'term.method.nfc.name',   sk:'term.method.nfc.sub',   lk:'term.method.nfc.label'   },
+      { sel:'[data-method="swipe"]', nk:'term.method.swipe.name', sk:'term.method.swipe.sub', lk:'term.method.swipe.label' },
+    ].forEach(({ sel, nk, sk, lk }) => {
+      const card = this._q(sel);
+      if (!card) return;
+      const nameEl = card.querySelector('.mcard-name');
+      const subEl  = card.querySelector('.mcard-sub');
+      if (nameEl && t[nk]) nameEl.textContent = t[nk];
+      if (subEl  && t[sk]) subEl.textContent  = t[sk];
+      if (t[lk]) card.dataset.label = t[lk];
+    });
+
+    // Actualizar objeto TERM global (strings dinámicos)
+    if (window.TERM) {
+      const map = {
+        screenLabel:'term.screen.label', processing:'term.processing',
+        approved:'term.approved', thanks:'term.thanks',
+        chipLabel:'term.method.chip.label', nfcLabel:'term.method.nfc.label',
+        swipeLabel:'term.method.swipe.label',
+        ticketDate:'term.ticket.date', ticketTime:'term.ticket.time',
+        ticketTxn:'term.ticket.txn', ticketMethod:'term.ticket.method',
+        ticketSubtotal:'term.ticket.subtotal', ticketRate:'term.ticket.rate',
+        ticketNet:'term.ticket.net', ticketApproved:'term.ticket.approved',
+        ticketThanks:'term.ticket.thanks', ticketLocale:'term.ticket.locale',
+      };
+      Object.entries(map).forEach(([prop, key]) => {
+        if (t[key]) window.TERM[prop] = t[key];
+      });
+
+      // Si el método activo cambió de idioma, actualizar la pantalla
+      if (window.activeMethod) {
+        const methodLabels = {
+          chip:  t['term.method.chip.label'],
+          nfc:   t['term.method.nfc.label'],
+          swipe: t['term.method.swipe.label'],
+        };
+        const newLabel = methodLabels[window.activeMethod.method];
+        if (newLabel) {
+          window.activeMethod.label = newLabel;
+          const screenMethodTxt = document.getElementById('screenMethodTxt');
+          if (screenMethodTxt) screenMethodTxt.textContent = newLabel;
+        }
+      }
+    }
+
+    // Etiqueta de pantalla si está en reposo
+    const screenLabelEl = this._q('.screen-entry-label');
+    if (screenLabelEl && t['term.screen.label']) screenLabelEl.textContent = t['term.screen.label'];
   },
 
   _applyCalculator(t) {

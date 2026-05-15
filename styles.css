@@ -965,6 +965,28 @@ textarea {
   font-weight: 500;
 }
 
+/* ── TERMINAL SIMULADOR ── */
+#terminal {
+  padding: 110px 0;
+  background: var(--color-surface);
+  border-top: 1px solid var(--color-borderW);
+  border-bottom: 1px solid var(--color-borderW);
+  position: relative;
+  overflow: hidden;
+}
+#terminal::before {
+  content: '';
+  position: absolute;
+  top: -200px; left: 50%;
+  transform: translateX(-50%);
+  width: 700px; height: 700px;
+  background: radial-gradient(circle, rgba(14,207,173,0.05) 0%, transparent 68%);
+  pointer-events: none;
+}
+@media (max-width: 768px) {
+  #terminal { padding: 70px 5%; }
+}
+
 /* ── SOLUCIONES ── */
 #solutions {
   padding: 110px 0;

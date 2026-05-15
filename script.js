@@ -560,3 +560,22 @@ function initSavingsCalculator() {
   // Correr cálculo inicial
   calculate();
 }
+/* ────────────────────────────────────────────
+   LAZY LOAD VIDEO
+──────────────────────────────────────────── */
+(function initLazyVideo() {
+  const video = document.querySelector('video[data-src]');
+  if (!video) return;
+
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        video.src = video.dataset.src;
+        video.play().catch(() => {});
+        observer.unobserve(video);
+      }
+    });
+  }, { rootMargin: '200px' }); // Empieza a cargar 200px antes
+
+  observer.observe(video);
+})();
