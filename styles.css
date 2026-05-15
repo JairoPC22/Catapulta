@@ -778,6 +778,8 @@ textarea {
   object-fit: cover;
   display: block;
   transition: transform 0.6s ease;
+  background: var(--color-surface2);
+  contain: strict;
 }
 
 .about-image-wrap:hover .about-video {

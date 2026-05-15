@@ -212,6 +212,14 @@ const TRANSLATIONS = {
     'term.ticket.approved': 'PAGO APROBADO',
     'term.ticket.thanks': 'Gracias por usar CatapultaPay',
     'term.ticket.locale': 'es-MX',
+    'term.approach.card':  'Acerca tu tarjeta',
+    'term.approach.sub':   'o toca el lector',
+    'term.approach.hint':  'NFC · CHIP · SWIPE',
+    'term.cancel.btn':     '✕ Cancelar',
+    'term.noamount.title': 'Ingresa el monto',
+    'term.noamount.sub':   'antes de acercar\nla tarjeta',
+    'term.drag.hint':      'Arrastra la tarjeta sobre el terminal',
+    'term.reset.btn':      'Reiniciar terminal',
   },
 
   /* ─────────── ENGLISH ─────────── */
@@ -420,6 +428,14 @@ const TRANSLATIONS = {
     'term.ticket.approved': 'PAYMENT APPROVED',
     'term.ticket.thanks': 'Thank you for using CatapultaPay',
     'term.ticket.locale': 'en-US',
+    'term.approach.card':  'Tap or swipe your card',
+    'term.approach.sub':   'near the reader',
+    'term.approach.hint':  'NFC · CHIP · SWIPE',
+    'term.cancel.btn':     '✕ Cancel',
+    'term.noamount.title': 'Enter amount first',
+    'term.noamount.sub':   'before tapping\nyour card',
+    'term.drag.hint':      'Drag card onto the terminal',
+    'term.reset.btn':      'Reset terminal',
   }
 };
 
@@ -563,7 +579,11 @@ const I18N = {
     // Título de página
     if (t['page.title']) document.title = t['page.title'];
 
-    this._applyNav(t);
+    // ── Transición elegante ──
+    document.body.style.transition = 'opacity 0.18s ease';
+    document.body.style.opacity = '0.15';
+    setTimeout(() => {
+      this._applyNav(t);
     this._applyHero(t);
     this._applyDashboard(t);
     this._applyMarquee(t);
@@ -584,6 +604,13 @@ const I18N = {
     this._qa('.lang-btn').forEach(btn => {
       btn.classList.toggle('active', btn.dataset.lang === lang);
     });
+
+    // Fade in al terminar
+    requestAnimationFrame(() => {
+      document.body.style.opacity = '1';
+      setTimeout(() => { document.body.style.transition = ''; }, 200);
+    });
+    }, 160);
   },
 
   _applyNav(t) {
@@ -712,7 +739,34 @@ const I18N = {
       Object.entries(map).forEach(([prop, key]) => {
         if (t[key]) window.TERM[prop] = t[key];
       });
+// Actualizar TERM con nuevas claves
+    const termExtra = {
+      approachCard:  'term.approach.card',
+      approachSub:   'term.approach.sub',
+      approachHint:  'term.approach.hint',
+      cancelBtn:     'term.cancel.btn',
+      noAmountTitle: 'term.noamount.title',
+      noAmountSub:   'term.noamount.sub',
+      dragHint:      'term.drag.hint',
+      resetBtn:      'term.reset.btn',
+    };
+    Object.entries(termExtra).forEach(([prop, key]) => {
+      if (t[key] && window.TERM) window.TERM[prop] = t[key];
+    });
 
+    // Actualizar texto del hint y botón reset en el DOM
+    const dragHintSpan = document.querySelector('#dragHint span');
+    if (dragHintSpan && t['term.drag.hint']) dragHintSpan.textContent = t['term.drag.hint'];
+
+    const resetBtn = document.querySelector('[onclick="resetTerminal()"]');
+    if (resetBtn && t['term.reset.btn']) {
+      const icon = resetBtn.querySelector('i');
+      resetBtn.childNodes.forEach(n => { if (n.nodeType === 3) n.remove(); });
+      resetBtn.appendChild(document.createTextNode(' ' + t['term.reset.btn']));
+    }
+
+    // Si el método activo cambió de idioma, actualizar la pantalla
+    if (window.activeMethod) {
       // Si el método activo cambió de idioma, actualizar la pantalla
       if (window.activeMethod) {
         const methodLabels = {
@@ -732,6 +786,7 @@ const I18N = {
     // Etiqueta de pantalla si está en reposo
     const screenLabelEl = this._q('.screen-entry-label');
     if (screenLabelEl && t['term.screen.label']) screenLabelEl.textContent = t['term.screen.label'];
+    }
   },
 
   _applyCalculator(t) {
@@ -896,20 +951,25 @@ const I18N = {
   },
 
   /* ── Inicialización ── */
-  init() {
-    const saved = localStorage.getItem('cpay-lang') || 'es';
-    this.apply(saved);
-
-    // Sincronizar TODOS los lang-toggles (desktop + móvil)
-    document.querySelectorAll('.lang-toggle').forEach(toggle => {
-      toggle.addEventListener('click', e => {
-        const btn = e.target.closest('.lang-btn');
-        if (btn && btn.dataset.lang !== this.currentLang) {
+  _bindLangButtons() {
+    document.querySelectorAll('.lang-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        if (btn.dataset.lang !== this.currentLang) {
           this.apply(btn.dataset.lang);
         }
       });
     });
+  },
+
+  init() {
+    const saved = localStorage.getItem('cpay-lang') || 'es';
+    this.apply(saved);
+    this._bindLangButtons();
   }
 };
 
-document.addEventListener('DOMContentLoaded', () => I18N.init());
+if (document.readyState === 'loading') {
+  document.addEventListener('DOMContentLoaded', () => I18N.init());
+} else {
+  I18N.init();
+}

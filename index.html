@@ -254,6 +254,7 @@
       playsinline
       preload="none"
       data-src="video1.mp4"
+      style="will-change: auto;"
     ></video>
     <div class="about-video-overlay"></div>
     <div class="about-video-scanline" aria-hidden="true"></div>
@@ -402,7 +403,7 @@
   padding: 10px 10px 14px;
   display: flex;
   flex-direction: column;
-  gap: 8px;
+  gap: 6px;
   box-shadow:
     0 28px 60px rgba(0,0,0,0.6),
     0 0 0 1px rgba(10,171,144,0.08),
@@ -412,7 +413,7 @@
   background: #0a0c18;
   border-radius: 7px;
   border: 1px solid #151828;
-  height: 190px;
+  height: 242px;
   overflow: hidden;
   display: flex;
   flex-direction: column;
@@ -442,9 +443,9 @@
   background: rgba(10,171,144,0.04);
   border: 1px solid rgba(10,171,144,0.12);
   border-radius: 5px;
-  padding: 6px 8px;
-  margin-bottom: 8px;
-  min-height: 52px;
+  padding: 4px 8px;
+  margin-bottom: 3px;
+  min-height: 40px;
   display: flex;
   flex-direction: column;
   align-items: flex-end;
@@ -452,7 +453,7 @@
 }
 .screen-entry-label { font-size: 8px; color: #4a5870; text-transform: uppercase; letter-spacing: 0.5px; align-self: flex-start; }
 .screen-entry-value {
-  font-size: clamp(13px, 5.5vw, 26px);
+  font-size: clamp(12px, 4.5vw, 22px);
   font-weight: 500;
   color: #ffffff;
   line-height: 1;
@@ -483,7 +484,7 @@
   border-radius: 3px;
   padding: 2px 5px;
   align-self: flex-start;
-  margin-bottom: 6px;
+  margin-bottom: 3px;
 }
 .screen-numpad {
   display: grid;
@@ -495,7 +496,7 @@
   background: #151828;
   border: 1px solid #202438;
   border-radius: 3px;
-  padding: 4px 0;
+  padding: 5px 0;
   font-size: 11px;
   font-weight: 500;
   color: #8090b0;
@@ -507,10 +508,27 @@
 }
 .skey:hover { background: #202438; color: #a0b0d0; }
 .skey:active { transform: scale(0.88); background: #2a2f4a; }
-.skey.skey-ok { color: #0aab90; border-color: rgba(10,171,144,0.25); }
-.skey.skey-ok:hover { background: rgba(10,171,144,0.1); }
-.skey.skey-del { color: #e24b4a; border-color: rgba(226,75,74,0.2); }
-.skey.skey-del:hover { background: rgba(226,75,74,0.08); }
+.skey.skey-ok {
+  color: #070E1C !important;
+  background: #0aab90 !important;
+  border-color: #0aab90 !important;
+  font-weight: 700;
+  font-size: 9px;
+}
+.skey.skey-ok:hover {
+  opacity: 0.88;
+  box-shadow: 0 2px 8px rgba(10,171,144,0.5);
+}
+.skey.skey-del {
+  color: #fff !important;
+  background: #c0392b !important;
+  border-color: #c0392b !important;
+  font-weight: 700;
+  font-size: 9px;
+}
+.skey.skey-del:hover {
+  background: #e74c3c !important;
+}
 
 .pos-reader-strip {
   background: #151828;
@@ -682,7 +700,111 @@
 .ok-amount { font-size: 20px; font-weight: 500; color: #fff; }
 .ok-auth { font-size: 9px; color: #E8C97A; background: rgba(232,201,122,0.1); padding: 2px 7px; border-radius: 3px; }
 .ok-thanks { font-size: 9px; color: #3a4560; }
+/* ── Draggable cards ── */
+.drag-hint {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 11px;
+  color: var(--color-muted);
+  justify-content: center;
+  padding: 8px 0 4px;
+  opacity: 0.7;
+}
+.drag-hint i { font-size: 13px; }
 
+.draggable-cards {
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+  padding: 4px 0 2px;
+}
+
+.drag-card {
+  width: 118px;
+  height: 72px;
+  border-radius: 8px;
+  background: linear-gradient(135deg, #1a3a6e 0%, #0d2247 100%);
+  border: 1px solid rgba(255,255,255,0.15);
+  padding: 9px 11px 8px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  cursor: grab;
+  user-select: none;
+  -webkit-user-select: none;
+  position: relative;
+  transition: transform 0.15s ease, box-shadow 0.15s ease, opacity 0.15s;
+  flex-shrink: 0;
+}
+
+.drag-card--dark {
+  background: linear-gradient(135deg, #1a1a2e 0%, #0f0f1e 100%);
+}
+
+.drag-card:hover {
+  transform: translateY(-3px) scale(1.03);
+  box-shadow: 0 8px 24px rgba(0,0,0,0.5);
+}
+
+.drag-card:active { cursor: grabbing; opacity: 0.85; }
+
+.drag-card.dragging {
+  opacity: 0.5;
+  transform: scale(0.96);
+}
+
+.drag-card-chip {
+  width: 18px;
+  height: 13px;
+  background: linear-gradient(135deg, #E8C97A, #c9a84c);
+  border-radius: 3px;
+}
+
+.drag-card-nfc-icon {
+  font-size: 16px;
+  color: rgba(255,255,255,0.7);
+}
+
+.drag-card-num {
+  font-size: 8px;
+  color: rgba(255,255,255,0.85);
+  letter-spacing: 0.5px;
+  font-family: 'Courier New', monospace;
+}
+
+.drag-card-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.drag-card-brand {
+  font-size: 9px;
+  font-weight: 700;
+  color: #fff;
+  letter-spacing: 1px;
+  font-style: italic;
+}
+
+.drag-card-type {
+  font-size: 7px;
+  color: rgba(255,255,255,0.55);
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+}
+
+/* Drop zone activa */
+.pos-device.drop-active .pos-screen-wrap {
+  box-shadow: 0 0 0 2px #0aab90, inset 0 0 14px rgba(10,171,144,0.2);
+  transition: box-shadow 0.2s ease;
+}
+
+.pos-device.drop-active .pos-reader-strip {
+  background: rgba(10,171,144,0.12);
+  border-color: rgba(10,171,144,0.35);
+  transition: all 0.2s ease;
+}
 /* ── Responsive terminal ── */
 @media (max-width: 600px) {
   .pos-scene { flex-direction: column; align-items: center; gap: 20px; }
@@ -731,9 +853,9 @@
               <div class="skey" onclick="padPress('7')">7</div>
               <div class="skey" onclick="padPress('8')">8</div>
               <div class="skey" onclick="padPress('9')">9</div>
-              <div class="skey skey-del" onclick="padPress('DEL')">⌫</div>
+              <div class="skey skey-del" onclick="padPress('DEL')">⌫ CLR</div>
               <div class="skey" onclick="padPress('0')">0</div>
-              <div class="skey skey-ok" onclick="padPress('OK')">OK</div>
+              <div class="skey skey-ok" onclick="padPress('OK')">✓ OK</div>
             </div>
           </div>
         </div>
@@ -807,13 +929,56 @@
         </div>
       </div>
 
-      <button class="charge-btn" id="chargeBtn" disabled onclick="doCharge()">
+      <button class="charge-btn" id="chargeBtn" disabled onclick="doCharge()" style="display:none;">
         <i class="ti ti-bolt" aria-hidden="true"></i>
         Procesar pago
       </button>
 
       <div class="ticket-area" id="ticketArea">
         <div class="ticket" id="ticketContent"></div>
+      </div>
+
+      <div class="drag-hint" id="dragHint">
+        <i class="ti ti-credit-card" aria-hidden="true"></i>
+        <span>Arrastra la tarjeta sobre el terminal</span>
+      </div>
+      <button onclick="resetTerminal()"
+        style="width:100%;display:flex;align-items:center;justify-content:center;gap:6px;
+        margin-top:2px;padding:7px 12px;
+        background:transparent;
+        border:1px solid rgba(255,255,255,0.09);
+        border-radius:8px;
+        font-size:11px;font-weight:600;
+        color:var(--color-muted);
+        cursor:pointer;font-family:var(--font-body);
+        transition:color 0.15s,border-color 0.15s,background 0.15s;"
+        onmouseover="this.style.color='#e24b4a';this.style.borderColor='rgba(226,75,74,0.4)';this.style.background='rgba(226,75,74,0.06)'"
+        onmouseout="this.style.color='';this.style.borderColor='rgba(255,255,255,0.09)';this.style.background='transparent'">
+        <i class="ti ti-rotate" style="font-size:13px;"></i>
+        Reiniciar terminal
+      </button>
+
+      <div class="draggable-cards" id="draggableCards">
+        <div class="drag-card" id="dragChip" draggable="true"
+          data-method="chip" data-icon="ti-credit-card" data-label="Chip · Visa ••4521"
+          title="Arrastrar al terminal">
+          <div class="drag-card-chip"></div>
+          <div class="drag-card-num">•••• •••• •••• 4521</div>
+          <div class="drag-card-row">
+            <span class="drag-card-brand">VISA</span>
+            <span class="drag-card-type">Chip</span>
+          </div>
+        </div>
+        <div class="drag-card drag-card--dark" id="dragNfc" draggable="true"
+          data-method="nfc" data-icon="ti-wifi" data-label="NFC · Apple/Google Pay"
+          title="Arrastrar al terminal">
+          <i class="ti ti-wifi drag-card-nfc-icon" aria-hidden="true"></i>
+          <div class="drag-card-num">Apple / Google Pay</div>
+          <div class="drag-card-row">
+            <span class="drag-card-brand">NFC</span>
+            <span class="drag-card-type">Sin contacto</span>
+          </div>
+        </div>
       </div>
     </div>
   </div>
@@ -839,7 +1004,50 @@ window.TERM = {
   ticketApproved:  'PAGO APROBADO',
   ticketThanks:    'Gracias por usar CatapultaPay',
   ticketLocale:    'es-MX',
+  approachCard:    'Acerca tu tarjeta',
+  approachSub:     'o toca el lector',
+  approachHint:    'NFC · CHIP · SWIPE',
+  cancelBtn:       '✕ Cancelar',
+  noAmountTitle:   'Ingresa el monto',
+  noAmountSub:     'antes de acercar\nla tarjeta',
+  resetBtn:        'Reiniciar terminal',
+  dragHint:        'Arrastra la tarjeta sobre el terminal',
 };
+
+/* Sincronizar TERM con el idioma guardado al cargar */
+(function syncTermOnLoad() {
+  const saved = localStorage.getItem('cpay-lang') || 'es';
+  if (saved === 'en') {
+    const enMap = {
+      screenLabel:    'Enter amount',
+      processing:     'Processing',
+      approved:       'APPROVED',
+      thanks:         'Thank you for your purchase',
+      chipLabel:      'Chip · Visa ••4521',
+      nfcLabel:       'NFC · Apple/Google Pay',
+      swipeLabel:     'Swipe · Amex ••8834',
+      ticketDate:     'Date',
+      ticketTime:     'Time',
+      ticketTxn:      'TXN',
+      ticketMethod:   'Method',
+      ticketSubtotal: 'Subtotal',
+      ticketRate:     'Rate (1.89%)',
+      ticketNet:      'Net received',
+      ticketApproved: 'PAYMENT APPROVED',
+      ticketThanks:   'Thank you for using CatapultaPay',
+      ticketLocale:   'en-US',
+      approachCard:   'Tap or swipe your card',
+      approachSub:    'near the reader',
+      approachHint:   'NFC · CHIP · SWIPE',
+      cancelBtn:      '✕ Cancel',
+      noAmountTitle:  'Enter amount first',
+      noAmountSub:    'before tapping\nyour card',
+      resetBtn:       'Reset terminal',
+      dragHint:       'Drag card onto the terminal',
+    };
+    Object.assign(window.TERM, enMap);
+  }
+})();
 
 let rawCents = 0;
 let busy = false;
@@ -869,15 +1077,67 @@ function updateDisplay() {
   document.getElementById('sumAmt').textContent = fmtMoney(rawCents);
   document.getElementById('sumFee').textContent = '$' + fee.toFixed(2);
   document.getElementById('sumNet').textContent = '$' + (amt - fee).toFixed(2);
-  document.getElementById('chargeBtn').disabled = rawCents < 100 || busy;
+
+  /* Indicador visual: hint de "OK" cuando hay monto válido */
+  const okKey = document.querySelector('.skey-ok');
+  if (okKey) {
+    if (rawCents >= 100 && !busy) {
+      okKey.style.animation = 'dotGlow 1.2s ease-in-out infinite';
+      okKey.style.boxShadow = '0 0 8px rgba(10,171,144,0.6)';
+    } else {
+      okKey.style.animation = '';
+      okKey.style.boxShadow = '';
+    }
+  }
 }
 
 function padPress(key) {
   if (busy) return;
-  if (key === 'DEL') { rawCents = Math.floor(rawCents / 10); }
-  else if (key === 'OK') { if (rawCents >= 100) doCharge(); return; }
-  else { if (rawCents > 9999999) return; rawCents = rawCents * 10 + parseInt(key); }
-  updateDisplay();
+  if (key === 'DEL') {
+    rawCents = Math.floor(rawCents / 10);
+    updateDisplay();
+  } else if (key === 'OK') {
+    if (rawCents >= 100) {
+      /* Solo muestra el prompt — no procesa hasta que arrastren la tarjeta */
+      const sb = document.getElementById('screenBody');
+      if (!sb) return;
+      sb.innerHTML = `
+        <div class="screen-processing-wrap">
+          <div style="font-size:24px;color:#45C0E8;animation:floatUp 1.5s ease-in-out infinite;">
+            <i class="ti ti-credit-card"></i>
+          </div>
+          <div style="font-size:11px;font-weight:700;color:#D8E8F5;margin-top:4px;">
+            ${fmtMoney(rawCents)}
+          </div>
+         <div style="font-size:9px;color:#45C0E8;margin-top:6px;text-align:center;line-height:1.6;">
+        ${window.TERM.approachCard}<br/>${window.TERM.approachSub}
+      </div>
+      <div style="margin-top:8px;display:flex;align-items:center;gap:5px;">
+        <div style="width:28px;height:2px;background:rgba(69,192,232,0.2);border-radius:2px;overflow:hidden;position:relative;">
+          <div style="position:absolute;top:0;left:-100%;width:100%;height:100%;background:#45C0E8;animation:readerSwipe 1.4s ease-in-out infinite;"></div>
+        </div>
+        <span style="font-size:7px;color:#2a3560;letter-spacing:0.5px;">${window.TERM.approachHint}</span>
+        <div style="width:28px;height:2px;background:rgba(69,192,232,0.2);border-radius:2px;overflow:hidden;position:relative;">
+          <div style="position:absolute;top:0;left:-100%;width:100%;height:100%;background:#45C0E8;animation:readerSwipe 1.4s ease-in-out infinite 0.7s;"></div>
+        </div>
+      </div>
+      <div style="margin-top:8px;">
+        <div class="skey skey-del" onclick="cancelWait()" style="font-size:8px;padding:3px 10px;width:auto;display:inline-block;">${window.TERM.cancelBtn}</div>
+      </div>
+        </div>`;
+      window._waitingForCard = true;
+    }
+  } else {
+    if (rawCents > 9999999) return;
+    rawCents = rawCents * 10 + parseInt(key);
+    updateDisplay();
+  }
+}
+
+function cancelWait() {
+  window._waitingForCard = false;
+  const sb = document.getElementById('screenBody');
+  if (sb) sb.innerHTML = getIdleScreen();
 }
 
 function pickMethod(el) {
@@ -893,6 +1153,7 @@ function pickMethod(el) {
 
 function doCharge() {
   if (busy || rawCents < 100) return;
+  window._waitingForCard = false;
   busy = true;
   document.getElementById('chargeBtn').disabled = true;
   document.getElementById('ticketArea').classList.remove('open');
@@ -900,19 +1161,44 @@ function doCharge() {
   const rg  = document.getElementById('readerGlow');
   const led = document.getElementById('printerLed');
 
-  if (window.activeMethod.method === 'swipe') {
-    rg.classList.remove('active'); void rg.offsetWidth; rg.classList.add('active');
-  }
-
+  /* ── PASO 1: Pide pasar la tarjeta ── */
   sb.innerHTML = `
     <div class="screen-processing-wrap">
-      <div class="spin-ring"></div>
-      <div class="proc-label">${window.TERM.processing}<span class="proc-dots"></span></div>
-      <div style="font-size:9px;color:#2a3560;margin-top:2px;">${window.activeMethod.label}</div>
+      <div style="font-size:22px;color:#45C0E8;margin-bottom:4px;animation:floatUp 1.5s ease-in-out infinite;">
+        <i class="ti ti-credit-card"></i>
+      </div>
+      <div style="font-size:10px;font-weight:700;color:#D8E8F5;letter-spacing:0.5px;">
+        ${fmtMoney(rawCents)}
+      </div>
+      <div style="font-size:9px;color:#45C0E8;margin-top:6px;text-align:center;line-height:1.5;">
+        ${window.TERM.approachCard}<br/>${window.TERM.approachSub}
+      </div>
+      <div style="margin-top:8px;display:flex;align-items:center;gap:5px;">
+        <div style="width:28px;height:2px;background:rgba(69,192,232,0.2);border-radius:2px;overflow:hidden;position:relative;">
+          <div style="position:absolute;top:0;left:-100%;width:100%;height:100%;background:#45C0E8;animation:readerSwipe 1.4s ease-in-out infinite;"></div>
+        </div>
+        <span style="font-size:7px;color:#2a3560;">${window.TERM.approachHint}</span>
+        <div style="width:28px;height:2px;background:rgba(69,192,232,0.2);border-radius:2px;overflow:hidden;position:relative;">
+          <div style="position:absolute;top:0;left:-100%;width:100%;height:100%;background:#45C0E8;animation:readerSwipe 1.4s ease-in-out infinite 0.7s;"></div>
+        </div>
+      </div>
     </div>`;
 
-  setTimeout(() => led.classList.add('blink'), 1400);
+  /* ── PASO 2: Simula el deslizamiento a los 2s ── */
+  setTimeout(() => {
+    /* animación del lector físico */
+    rg.classList.remove('active'); void rg.offsetWidth; rg.classList.add('active');
+    led.classList.add('blink');
 
+    sb.innerHTML = `
+      <div class="screen-processing-wrap">
+        <div class="spin-ring"></div>
+        <div class="proc-label">${window.TERM.processing}<span class="proc-dots"></span></div>
+        <div style="font-size:8px;color:#2a3560;margin-top:3px;">${window.activeMethod.label}</div>
+      </div>`;
+  }, 2200);
+
+  /* ── PASO 3: Aprobado + ticket ── */
   setTimeout(() => {
     led.classList.remove('blink');
     const auth = 'AUTH' + (Math.floor(Math.random()*900000)+100000);
@@ -925,11 +1211,20 @@ function doCharge() {
         <div class="ok-thanks">${window.TERM.thanks}</div>
       </div>`;
     renderTicket(auth);
+
+    /* parpadeo del LED de impresora simulando impresión */
+    let blinks = 0;
+    const blinkInterval = setInterval(() => {
+      led.classList.toggle('blink');
+      blinks++;
+      if (blinks >= 6) { clearInterval(blinkInterval); led.classList.remove('blink'); }
+    }, 300);
+
     setTimeout(() => {
       busy = false; rawCents = 0; updateDisplay();
       sb.innerHTML = getIdleScreen();
     }, 7000);
-  }, 2800);
+  }, 5200);
 }
 
 function getIdleScreen() {
@@ -952,9 +1247,9 @@ function getIdleScreen() {
       <div class="skey" onclick="padPress('7')">7</div>
       <div class="skey" onclick="padPress('8')">8</div>
       <div class="skey" onclick="padPress('9')">9</div>
-      <div class="skey skey-del" onclick="padPress('DEL')">⌫</div>
+      <div class="skey skey-del" onclick="padPress('DEL')">⌫ CLR</div>
       <div class="skey" onclick="padPress('0')">0</div>
-      <div class="skey skey-ok" onclick="padPress('OK')">OK</div>
+      <div class="skey skey-ok" onclick="padPress('OK')">✓ OK</div>
     </div>`;
 }
 
@@ -994,8 +1289,244 @@ function renderTicket(auth) {
   document.getElementById('ticketArea').classList.add('open');
 }
 
+function resetTerminal() {
+  if (busy) return;
+  rawCents = 0;
+  window._waitingForCard = false;
+  window.activeMethod = { method:'chip', icon:'ti-credit-card', label: window.TERM.chipLabel };
+
+  /* Resetear método activo en el panel */
+  document.querySelectorAll('.mcard').forEach(c => c.classList.remove('active'));
+  const chipCard = document.querySelector('.mcard[data-method="chip"]');
+  if (chipCard) chipCard.classList.add('active');
+
+  /* Resetear pantalla */
+  const sb = document.getElementById('screenBody');
+  if (sb) sb.innerHTML = getIdleScreen();
+
+  /* Cerrar ticket */
+  const ta = document.getElementById('ticketArea');
+  if (ta) ta.classList.remove('open');
+
+  /* Flash visual de reinicio en el device */
+  const device = document.querySelector('.pos-device');
+  if (device) {
+    device.style.transition = 'opacity 0.15s ease';
+    device.style.opacity = '0.3';
+    setTimeout(() => { device.style.opacity = '1'; }, 180);
+  }
+
+  /* LED parpadeo rápido */
+  const led = document.getElementById('printerLed');
+  if (led) {
+    led.classList.add('blink');
+    setTimeout(() => led.classList.remove('blink'), 600);
+  }
+
+  updateDisplay();
+}
+
 updateDisplay();
-</script>
+/* ── Drag & Drop cards → terminal ── */
+(function initDragCards() {
+  const cards   = document.querySelectorAll('.drag-card');
+  const device  = document.querySelector('.pos-device');
+  if (!cards.length || !device) return;
+
+  /* ── Ghost visual que sigue al cursor ── */
+  const ghost = document.createElement('div');
+  ghost.id = 'dragGhost';
+  ghost.style.cssText = `
+    position: fixed; pointer-events: none !important; z-index: 99998;
+    width: 118px; height: 72px; border-radius: 8px;
+    display: none; flex-direction: column; justify-content: space-between;
+    padding: 9px 11px 8px;
+    font-size: 11px; font-weight: 600; letter-spacing: 0.5px;
+    color: #fff; opacity: 0;
+    transition: opacity 0.15s ease, transform 0.15s ease;
+    box-shadow: 0 16px 40px rgba(0,0,0,0.6), 0 0 0 1.5px rgba(10,171,144,0.5);
+    user-select: none; -webkit-user-select: none;
+    touch-action: none;
+  `;
+  ghost.setAttribute('aria-hidden', 'true');
+  ghost.setAttribute('inert', '');
+  document.body.appendChild(ghost);
+
+  let activeCard = null;
+  let dragMethod = null;
+  let offsetX = 0, offsetY = 0;
+  let overDevice = false;
+
+  function moveGhost(e) {
+    const clientX = e.touches ? e.touches[0].clientX : e.clientX;
+    const clientY = e.touches ? e.touches[0].clientY : e.clientY;
+    ghost.style.left = (clientX - offsetX) + 'px';
+    ghost.style.top  = (clientY - offsetY) + 'px';
+
+    // Detectar si está sobre el device
+    const dr = device.getBoundingClientRect();
+    const inside = clientX >= dr.left && clientX <= dr.right &&
+                   clientY >= dr.top  && clientY <= dr.bottom;
+
+    if (inside !== overDevice) {
+      overDevice = inside;
+      device.classList.toggle('drop-active', inside);
+      ghost.style.transform = inside
+        ? 'scale(1.08) rotate(-4deg)'
+        : 'scale(1) rotate(-6deg)';
+      ghost.style.boxShadow = inside
+        ? '0 20px 50px rgba(0,0,0,0.7), 0 0 0 2px rgba(10,171,144,0.9)'
+        : '0 16px 40px rgba(0,0,0,0.6), 0 0 0 1.5px rgba(10,171,144,0.5)';
+    }
+  }
+
+  function startDrag(card, e) {
+    if (busy) return;
+    const rect = card.getBoundingClientRect();
+    const clientX = e.touches ? e.touches[0].clientX : e.clientX;
+    const clientY = e.touches ? e.touches[0].clientY : e.clientY;
+    offsetX = clientX - rect.left;
+    offsetY = clientY - rect.top;
+
+    activeCard = card;
+    dragMethod = {
+      method: card.dataset.method,
+      icon:   card.dataset.icon,
+      label:  card.dataset.label,
+    };
+
+    // Clonar apariencia en el ghost
+    ghost.style.background = card.style.background ||
+      getComputedStyle(card).background;
+    ghost.innerHTML = card.innerHTML;
+    ghost.style.left = (clientX - offsetX) + 'px';
+    ghost.style.top  = (clientY - offsetY) + 'px';
+    ghost.style.display = 'flex';
+    ghost.style.flexDirection = 'column';
+    ghost.style.justifyContent = 'space-between';
+    ghost.style.padding = '9px 11px 8px';
+
+    // Copiar background exacto
+    ghost.style.background = card.classList.contains('drag-card--dark')
+      ? 'linear-gradient(135deg, #1a1a2e 0%, #0f0f1e 100%)'
+      : 'linear-gradient(135deg, #1a3a6e 0%, #0d2247 100%)';
+
+    requestAnimationFrame(() => {
+      ghost.style.opacity = '1';
+      ghost.style.transform = 'scale(1) rotate(-6deg)';
+    });
+
+    card.style.opacity = '0.4';
+    card.style.transform = 'scale(0.95)';
+
+    document.addEventListener('mousemove', moveGhost);
+    document.addEventListener('touchmove', moveGhost, { passive: true });
+    document.addEventListener('mouseup', endDrag);
+    document.addEventListener('touchend', endDrag);
+  }
+
+  function endDrag(e) {
+    document.removeEventListener('mousemove', moveGhost);
+    document.removeEventListener('touchmove', moveGhost);
+    document.removeEventListener('mouseup', endDrag);
+    document.removeEventListener('touchend', endDrag);
+
+    if (!activeCard) return;
+
+    const clientX = e.changedTouches ? e.changedTouches[0].clientX : e.clientX;
+    const clientY = e.changedTouches ? e.changedTouches[0].clientY : e.clientY;
+    const dr = device.getBoundingClientRect();
+    const dropped = clientX >= dr.left && clientX <= dr.right &&
+                    clientY >= dr.top  && clientY <= dr.bottom;
+
+    if (dropped && dragMethod) {
+      /* ── Animar ghost hacia el lector ── */
+      const readerRect = document.querySelector('.pos-reader-strip').getBoundingClientRect();
+      ghost.style.transition = 'left 0.35s cubic-bezier(0.23,1,0.32,1), top 0.35s cubic-bezier(0.23,1,0.32,1), transform 0.35s ease, opacity 0.35s ease';
+      ghost.style.left    = (readerRect.left + readerRect.width/2  - 59) + 'px';
+      ghost.style.top     = (readerRect.top  + readerRect.height/2 - 36) + 'px';
+      ghost.style.transform = 'scale(0.7) rotate(0deg)';
+
+      /* ── Parpadeo en el lector ── */
+      const rg = document.getElementById('readerGlow');
+      const led = document.getElementById('printerLed');
+      setTimeout(() => {
+        if (rg) { rg.classList.remove('active'); void rg.offsetWidth; rg.classList.add('active'); }
+        if (led) led.classList.add('blink');
+      }, 320);
+
+      /* ── Ghost se queda 1.2s, luego desaparece ── */
+      setTimeout(() => {
+        ghost.style.transition = 'opacity 0.3s ease, transform 0.3s ease';
+        ghost.style.opacity   = '0';
+        ghost.style.transform = 'scale(0.5) rotate(0deg)';
+        if (led) led.classList.remove('blink');
+      }, 1050);
+
+      setTimeout(() => {
+        ghost.style.display = 'none';
+        ghost.style.transition = '';
+      }, 1380);
+
+      /* ── Seleccionar método y procesar ── */
+      const targetCard = document.querySelector(`.mcard[data-method="${dragMethod.method}"]`);
+      if (targetCard) {
+        document.querySelectorAll('.mcard').forEach(c => c.classList.remove('active'));
+        targetCard.classList.add('active');
+        window.activeMethod = { ...dragMethod };
+
+        const mt = document.getElementById('screenMethodTxt');
+        if (mt) mt.textContent = dragMethod.label;
+        const mi = document.querySelector('#screenMethod i');
+        if (mi) { mi.className = 'ti ' + dragMethod.icon; mi.style.fontSize = '9px'; }
+      }
+
+      if (rawCents >= 100 && !busy) {
+        setTimeout(() => doCharge(), 1100);
+      } else if (rawCents < 100 && !busy) {
+        /* Sin monto: la pantalla pide que ingresen el monto primero */
+        const sb = document.getElementById('screenBody');
+        if (sb) {
+          const orig = sb.innerHTML;
+          sb.innerHTML = `
+            <div class="screen-processing-wrap">
+              <div style="font-size:20px;color:#E8C97A;">
+                <i class="ti ti-alert-triangle"></i>
+              </div>
+              <div style="font-size:9px;color:#E8C97A;margin-top:6px;text-align:center;line-height:1.6;">
+                ${window.TERM.noAmountTitle}<br/>${window.TERM.noAmountSub.replace('\n','<br/>')}
+              </div>
+            </div>`;
+          setTimeout(() => { sb.innerHTML = getIdleScreen(); }, 2000);
+        }
+      }
+
+    } else {
+      /* ── Drop fuera: regresar ── */
+      ghost.style.transition = 'opacity 0.25s ease, transform 0.25s ease';
+      ghost.style.opacity   = '0';
+      ghost.style.transform = 'scale(0.8) rotate(0deg)';
+      setTimeout(() => {
+        ghost.style.display = 'none';
+        ghost.style.transition = '';
+      }, 260);
+    }
+
+    device.classList.remove('drop-active');
+    activeCard.style.opacity  = '';
+    activeCard.style.transform = '';
+    activeCard = null;
+    dragMethod = null;
+    overDevice = false;
+  }
+
+  cards.forEach(card => {
+    card.addEventListener('mousedown',  e => { e.preventDefault(); startDrag(card, e); });
+    card.addEventListener('touchstart', e => { startDrag(card, e); }, { passive: true });
+    card.setAttribute('draggable', 'false'); // usar nuestro propio drag
+  });
+})();
+  </script>
   </div>
 </section>
 

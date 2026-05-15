@@ -569,15 +569,46 @@ function initSavingsCalculator() {
   const video = document.querySelector('video[data-src]');
   if (!video) return;
 
+  let loaded = false;
+
+  function loadVideo() {
+    if (loaded) return;
+    loaded = true;
+
+    /* Añadir source en lugar de src directo — más compatible */
+    const source = document.createElement('source');
+    source.src  = video.dataset.src;
+    source.type = 'video/mp4';
+    video.appendChild(source);
+
+    video.load();
+
+    /* Solo reproducir cuando tiene suficientes datos */
+    video.addEventListener('canplaythrough', () => {
+      video.play().catch(() => {});
+    }, { once: true });
+
+    /* Fallback si canplaythrough tarda */
+    video.addEventListener('loadeddata', () => {
+      setTimeout(() => {
+        if (video.paused) video.play().catch(() => {});
+      }, 300);
+    }, { once: true });
+  }
+
+  /* Cargar 400px ANTES de que sea visible — da tiempo al browser */
   const observer = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
       if (entry.isIntersecting) {
-        video.src = video.dataset.src;
-        video.play().catch(() => {});
+        loadVideo();
         observer.unobserve(video);
       }
     });
-  }, { rootMargin: '200px' }); // Empieza a cargar 200px antes
+  }, { rootMargin: '400px 0px' });
 
   observer.observe(video);
+
+  /* Si el usuario ya está cerca al cargar la página */
+  const rect = video.getBoundingClientRect();
+  if (rect.top < window.innerHeight + 400) loadVideo();
 })();
