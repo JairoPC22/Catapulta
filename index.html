@@ -2059,6 +2059,122 @@ updateDisplay();
 
     </div>
   </section>
+
+<!-- ── CALCULADORA DE AHORRO ── -->
+<section id="calculator">
+  <div class="container">
+    <div class="calc-wrapper">
+
+      <div class="calc-header reveal">
+        <div class="section-label">
+          <span class="dot" aria-hidden="true"></span>
+          Calculadora de ahorro
+        </div>
+        <h2 class="section-title">
+          Descubre cuánto puedes<br />
+          <em class="grad-text">ahorrar con nosotros.</em>
+        </h2>
+        <p class="section-desc">Mueve los controles y ve el impacto real en tu negocio.</p>
+      </div>
+
+      <div class="calc-body">
+
+        <!-- ── Controles ── -->
+        <div class="calc-controls">
+
+          <div class="calc-field">
+            <div class="calc-field-header">
+              <label for="sliderSales">Ventas mensuales</label>
+              <span class="calc-field-value" id="valSales">$50,000</span>
+            </div>
+            <div class="calc-slider-wrap">
+              <input type="range" class="calc-slider" id="sliderSales"
+                min="5000" max="500000" step="1000" value="50000"
+                aria-label="Ventas mensuales" />
+              <div class="calc-slider-track">
+                <div class="calc-slider-fill" id="fillSales"></div>
+              </div>
+            </div>
+            <div class="calc-slider-labels">
+              <span>$5,000</span>
+              <span>$500,000</span>
+            </div>
+          </div>
+
+          <div class="calc-field">
+            <div class="calc-field-header">
+              <label for="sliderRate">Tu tasa actual de procesamiento</label>
+              <span class="calc-field-value" id="valRate">2.90%</span>
+            </div>
+            <div class="calc-slider-wrap">
+              <input type="range" class="calc-slider" id="sliderRate"
+                min="150" max="500" step="5" value="290"
+                aria-label="Tasa de procesamiento actual" />
+              <div class="calc-slider-track">
+                <div class="calc-slider-fill" id="fillRate"></div>
+              </div>
+            </div>
+            <div class="calc-slider-labels">
+              <span>1.50%</span>
+              <span>5.00%</span>
+            </div>
+          </div>
+
+          <div class="calc-note">
+            <i data-lucide="info" aria-hidden="true"></i>
+            <span>Tasa CatapultaPay desde <strong>1.89%</strong> · Sin cargos ocultos</span>
+          </div>
+
+        </div>
+
+        <!-- ── Resultados ── -->
+        <div class="calc-results">
+
+          <div class="calc-result-card calc-result-current">
+            <span class="calc-result-label">Pagas actualmente</span>
+            <span class="calc-result-amount" id="resCurrent" data-raw="0">$0</span>
+            <span class="calc-result-sub">al mes en comisiones</span>
+          </div>
+
+          <div class="calc-result-divider">
+            <div class="calc-result-divider-line"></div>
+            <i data-lucide="arrow-down" aria-hidden="true"></i>
+            <div class="calc-result-divider-line"></div>
+          </div>
+
+          <div class="calc-result-card calc-result-catapulta">
+            <span class="calc-result-label">Con CatapultaPay</span>
+            <span class="calc-result-amount" id="resCatapulta" data-raw="0">$0</span>
+            <span class="calc-result-sub">al mes en comisiones</span>
+          </div>
+
+          <div class="calc-savings-box">
+            <div class="calc-savings-top">
+              <i data-lucide="trending-up" aria-hidden="true"></i>
+              <span>Tu ahorro estimado</span>
+            </div>
+            <div class="calc-savings-numbers">
+              <div class="calc-savings-item">
+                <span class="calc-savings-value grad-text" id="resSavingMonth" data-raw="0">$0</span>
+                <span class="calc-savings-period">por mes</span>
+              </div>
+              <div class="calc-savings-sep">/</div>
+              <div class="calc-savings-item">
+                <span class="calc-savings-value grad-text" id="resSavingYear" data-raw="0">$0</span>
+                <span class="calc-savings-period">por año</span>
+              </div>
+            </div>
+            <a href="#contact" class="btn-primary calc-cta-btn">
+              Quiero ese ahorro <i data-lucide="arrow-right" aria-hidden="true"></i>
+            </a>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
   <!-- ── GALERÍA ── -->
   <section id="gallery">
     <div class="container">
