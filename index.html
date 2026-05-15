@@ -16,7 +16,8 @@
   <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=DM+Sans:opsz,wght@9..40,300;400;500;600&display=swap" rel="stylesheet" />
 
   <!-- Lucide Icons CDN -->
-<script src="https://unpkg.com/lucide@0.469.0" defer></script>
+<link rel="preconnect" href="https://unpkg.com" />
+<script src="https://unpkg.com/lucide@0.469.0/dist/umd/lucide.min.js"></script>
   <!-- Styles -->
   <link rel="stylesheet" href="styles.css" />
 </head>
@@ -42,6 +43,11 @@
         Empieza ya <i data-lucide="arrow-right" aria-hidden="true"></i>
       </a>
 
+      <div class="lang-toggle" id="langToggle" role="group" aria-label="Cambiar idioma">
+        <button class="lang-btn active" data-lang="es" aria-pressed="true">ES</button>
+        <button class="lang-btn" data-lang="en" aria-pressed="false">EN</button>
+      </div>
+
       <button class="theme-toggle" id="themeToggle" aria-label="Cambiar tema claro/oscuro">
         <i data-lucide="sun" class="icon-sun" aria-hidden="true"></i>
         <i data-lucide="moon" class="icon-moon" aria-hidden="true"></i>
@@ -63,6 +69,12 @@
         <li><a href="#testimonials" class="mobile-link">Clientes</a></li>
         <li><a href="#contact" class="mobile-link">Contacto</a></li>
         <li><a href="#contact" class="btn-primary mobile-cta">Empieza ya <i data-lucide="arrow-right" aria-hidden="true"></i></a></li>
+        <li class="mobile-lang-row">
+          <div class="lang-toggle" id="langToggleMobile" role="group" aria-label="Cambiar idioma">
+            <button class="lang-btn active" data-lang="es">ES</button>
+            <button class="lang-btn" data-lang="en">EN</button>
+          </div>
+        </li>
       </ul>
     </div>
   </nav>
@@ -1299,7 +1311,7 @@
   </div>
 
   <!-- Script -->
-  <script src="script.js"></script>
+  <script src="script.js" defer></script>
   <a href="https://wa.me/13109486153?text=Hola%2C+me+interesa+CatapultaPay"
    class="whatsapp-float" target="_blank" rel="noopener noreferrer" aria-label="WhatsApp">
   <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
@@ -1313,6 +1325,26 @@
   </svg>
 </button>
 
-<script src="improvements.js"></script>
+<script src="improvements.js" defer></script>
+<script src="i18n.js" defer></script>
+<script>
+  if ('serviceWorker' in navigator) {
+    window.addEventListener('load', () => {
+      navigator.serviceWorker.register('/sw.js')
+        .then(reg => {
+          // Verificar si hay actualización disponible
+          reg.addEventListener('updatefound', () => {
+            const newWorker = reg.installing;
+            newWorker.addEventListener('statechange', () => {
+              if (newWorker.state === 'activated' && navigator.serviceWorker.controller) {
+                console.log('CatapultaPay actualizado ✓');
+              }
+            });
+          });
+        })
+        .catch(err => console.warn('SW no registrado:', err));
+    });
+  }
+</script>
 </body>
 </html>

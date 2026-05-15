@@ -1564,6 +1564,10 @@ footer {
 /* ── 3D TILT CARDS ── */
 .tilt-card {
   transform-style: preserve-3d;
+  will-change: auto; /* Solo activar will-change on hover */
+}
+
+.tilt-card:hover {
   will-change: transform;
 }
 
@@ -2641,4 +2645,68 @@ footer {
 
 [data-theme="light"] .calc-savings-box {
   background: #dce6f5;
+}
+/* ── Respetar preferencia de movimiento reducido ── */
+@media (prefers-reduced-motion: reduce) {
+  .reveal, .reveal-left, .reveal-right {
+    transition: none;
+    opacity: 1;
+    transform: none;
+  }
+  .bar-fill {
+    transition: none;
+  }
+  .marquee-track {
+    animation: none;
+  }
+  .whatsapp-float {
+    animation: none;
+  }
+}
+/* ── LANG TOGGLE ── */
+.lang-toggle {
+  display: flex;
+  align-items: center;
+  gap: 2px;
+  background: var(--color-surface);
+  border: 1px solid var(--color-borderW);
+  border-radius: var(--radius-full);
+  padding: 3px;
+}
+
+.lang-btn {
+  padding: 0.28rem 0.75rem;
+  border-radius: var(--radius-full);
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.8px;
+  color: var(--color-muted);
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  font-family: var(--font-body);
+  transition: color var(--transition-fast), background var(--transition-fast);
+}
+
+.lang-btn:hover {
+  color: var(--color-text);
+}
+
+.lang-btn.active {
+  background: var(--grad-primary);
+  color: #070E1C;
+}
+
+/* Móvil: centrar el lang toggle en el menu */
+.mobile-lang-row {
+  display: flex;
+  justify-content: center;
+  padding-top: 0.5rem;
+}
+
+/* Ocultar en móvil el lang toggle de desktop */
+@media (max-width: 768px) {
+  .nav-inner .lang-toggle {
+    display: none;
+  }
 }

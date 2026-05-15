@@ -91,7 +91,7 @@ function initParticleCanvas() {
   if (!canvas) return;
 
   const ctx = canvas.getContext('2d');
-  const PARTICLE_COUNT = 65;
+  const PARTICLE_COUNT = window.innerWidth < 768 ? 30 : 65;
   const MAX_DIST       = 110;
   const TEAL           = 'rgba(14, 207, 173,';
   let   particles      = [];
@@ -174,6 +174,20 @@ function initParticleCanvas() {
   draw();
 
   window.addEventListener('resize', handleResize, { passive: true });
+
+  // Pausar animación cuando el hero no está visible
+  const heroSection = canvas.parentElement;
+  const visibilityObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        if (!animationId) draw();
+      } else {
+        cancelAnimationFrame(animationId);
+        animationId = null;
+      }
+    });
+  }, { threshold: 0.1 });
+  visibilityObserver.observe(heroSection);
 }
 
 /* ────────────────────────────────────────────
@@ -187,13 +201,16 @@ function initScrollReveal() {
   const observer = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
       if (entry.isIntersecting) {
-        entry.target.classList.add('visible');
-        observer.unobserve(entry.target); // Solo animar una vez
+        // Pequeño delay via rAF para no bloquear el hilo principal
+        requestAnimationFrame(() => {
+          entry.target.classList.add('visible');
+        });
+        observer.unobserve(entry.target);
       }
     });
   }, {
-    threshold: 0.12,
-    rootMargin: '0px 0px -40px 0px',
+    threshold: 0.08,
+    rootMargin: '0px 0px -20px 0px',
   });
 
   // Aplicar delay escalonado a grupos de tarjetas
@@ -336,14 +353,18 @@ function initTiltCards() {
   const INTENSITY = 20; // Dividir entre este número — menor = más sutil
 
   cards.forEach(card => {
+    let tiltFrame;
     card.addEventListener('mousemove', (e) => {
-      const rect   = card.getBoundingClientRect();
-      const cx     = rect.left + rect.width  / 2;
-      const cy     = rect.top  + rect.height / 2;
-      const dx     = (e.clientX - cx) / INTENSITY;
-      const dy     = (e.clientY - cy) / INTENSITY;
-
-      card.style.transform = `perspective(600px) rotateX(${-dy}deg) rotateY(${dx}deg) translateY(-4px)`;
+      if (tiltFrame) return;
+      tiltFrame = requestAnimationFrame(() => {
+        const rect = card.getBoundingClientRect();
+        const cx   = rect.left + rect.width  / 2;
+        const cy   = rect.top  + rect.height / 2;
+        const dx   = (e.clientX - cx) / INTENSITY;
+        const dy   = (e.clientY - cy) / INTENSITY;
+        card.style.transform = `perspective(600px) rotateX(${-dy}deg) rotateY(${dx}deg) translateY(-4px)`;
+        tiltFrame = null;
+      });
     });
 
     card.addEventListener('mouseleave', () => {
