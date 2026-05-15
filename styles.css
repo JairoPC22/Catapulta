@@ -325,41 +325,75 @@ textarea {
 /* Mobile menu */
 .mobile-menu {
   display: none;
-  background: #070E1C;
+  position: fixed;
+  top: var(--nav-h);
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(7, 14, 28, 0.98);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
   border-top: 1px solid var(--color-borderW);
-  padding: 1rem 5% 1.5rem;
+  padding: 1.5rem 6% 2rem;
+  overflow-y: auto;
+  z-index: 998;
+  transform: translateY(-8px);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.25s ease, transform 0.25s ease;
 }
 
 .mobile-menu.open {
   display: block;
+  transform: translateY(0);
+  opacity: 1;
+  pointer-events: auto;
 }
 
 .mobile-menu ul {
   display: flex;
   flex-direction: column;
-  gap: 0.4rem;
+  gap: 0.3rem;
+  padding-top: 0.5rem;
 }
 
 .mobile-link {
-  display: block;
-  padding: 0.65rem 1rem;
-  font-size: 1rem;
+  display: flex;
+  align-items: center;
+  padding: 0.9rem 1.1rem;
+  font-size: 1.05rem;
   font-weight: 500;
   color: var(--color-text);
-  border-radius: var(--radius-sm);
-  transition: color var(--transition-fast), background var(--transition-fast);
+  border-radius: var(--radius-md);
+  border: 1px solid transparent;
+  transition: color 0.15s ease, background 0.15s ease, border-color 0.15s ease, transform 0.15s ease;
 }
 
-.mobile-link:hover {
+.mobile-link:hover,
+.mobile-link:active {
   color: var(--color-teal);
   background: rgba(14, 207, 173, 0.07);
+  border-color: rgba(14, 207, 173, 0.15);
+  transform: translateX(4px);
 }
 
 .mobile-cta {
-  margin-top: 0.6rem;
+  margin-top: 1rem;
   width: 100%;
   justify-content: center;
   border-radius: var(--radius-full);
+  padding: 1rem 2rem;
+  font-size: 1rem;
+}
+
+.mobile-menu .mobile-lang-row {
+  padding-top: 1rem;
+  border-top: 1px solid var(--color-borderW);
+  margin-top: 0.5rem;
+}
+
+[data-theme="light"] .mobile-menu {
+  background: rgba(238, 243, 251, 0.97);
 }
 
 /* ── HERO ── */
@@ -2726,9 +2760,70 @@ footer {
   padding-top: 0.5rem;
 }
 
-/* Ocultar en móvil el lang toggle de desktop */
+/* Ocultar en móvil el lang toggle y theme toggle de desktop */
 @media (max-width: 768px) {
   .nav-inner .lang-toggle {
     display: none;
   }
+  .nav-inner .theme-toggle {
+    display: none;
+  }
+}
+/* ── Theme toggle en menú móvil ── */
+.mobile-lang-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+}
+
+.mobile-theme-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 0.4rem 1rem;
+  border-radius: var(--radius-full);
+  border: 1px solid var(--color-borderW);
+  color: var(--color-muted);
+  background: transparent;
+  cursor: pointer;
+  font-family: var(--font-body);
+  font-size: 0.8rem;
+  font-weight: 600;
+  transition: color var(--transition-fast), border-color var(--transition-fast), background var(--transition-fast);
+  width: auto;
+  height: auto;
+}
+
+.mobile-theme-btn:hover {
+  color: var(--color-teal);
+  border-color: var(--color-teal);
+  background: rgba(14, 207, 173, 0.07);
+}
+
+.mobile-theme-btn svg {
+  width: 15px;
+  height: 15px;
+  flex-shrink: 0;
+}
+
+.mobile-theme-label {
+  font-size: 0.8rem;
+}
+
+[data-theme="light"] .mobile-theme-label::after {
+  content: 'Modo oscuro';
+}
+
+[data-theme="dark"] .mobile-theme-label::after {
+  content: 'Modo claro';
+}
+
+.mobile-theme-label {
+  font-size: 0;
+}
+
+.mobile-theme-label::after {
+  font-size: 0.8rem;
 }

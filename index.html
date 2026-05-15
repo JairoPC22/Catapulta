@@ -88,6 +88,11 @@
             <button class="lang-btn active" data-lang="es">ES</button>
             <button class="lang-btn" data-lang="en">EN</button>
           </div>
+          <button class="theme-toggle mobile-theme-btn" id="themeToggleMobile" aria-label="Cambiar tema claro/oscuro">
+            <i data-lucide="sun" class="icon-sun" aria-hidden="true"></i>
+            <i data-lucide="moon" class="icon-moon" aria-hidden="true"></i>
+            <span class="mobile-theme-label">Modo claro</span>
+          </button>
         </li>
       </ul>
     </div>
@@ -95,7 +100,7 @@
 
   <!-- ── HERO ── -->
   <section id="hero">
-    <canvas id="particleCanvas" aria-hidden="true"></canvas>
+    <canvas id="particleCanvas" aria-hidden="true" data-reduced-mobile="true"></canvas>
     <div class="orb orb-1" aria-hidden="true"></div>
     <div class="orb orb-2" aria-hidden="true"></div>
 
@@ -447,13 +452,16 @@
 }
 .screen-entry-label { font-size: 8px; color: #4a5870; text-transform: uppercase; letter-spacing: 0.5px; align-self: flex-start; }
 .screen-entry-value {
-  font-size: 26px;
+  font-size: clamp(13px, 5.5vw, 26px);
   font-weight: 500;
   color: #ffffff;
   line-height: 1;
-  letter-spacing: 1px;
+  letter-spacing: 0.5px;
   transition: all 0.1s;
   font-family: 'Courier New', monospace;
+  word-break: break-all;
+  text-align: right;
+  width: 100%;
 }
 .screen-entry-value.has-value { color: #0aab90; }
 .screen-entry-cursor {
@@ -1866,6 +1874,10 @@ updateDisplay();
 
 <script src="improvements.js" defer></script>
 <script src="i18n.js" defer></script>
+
+<!-- Preload crítico para móvil -->
+<link rel="preload" href="script.js" as="script" />
+<link rel="preload" href="styles.css" as="style" />
 <script>
   if ('serviceWorker' in navigator) {
     window.addEventListener('load', () => {

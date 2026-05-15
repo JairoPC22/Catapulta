@@ -91,8 +91,10 @@ function initParticleCanvas() {
   if (!canvas) return;
 
   const ctx = canvas.getContext('2d');
-  const PARTICLE_COUNT = window.innerWidth < 768 ? 30 : 65;
-  const MAX_DIST       = 110;
+  const isMobile = window.innerWidth < 768;
+const PARTICLE_COUNT = isMobile ? 18 : 65;
+const MAX_DIST_CALC  = isMobile ? 80 : 110;
+const MAX_DIST       = MAX_DIST_CALC;
   const TEAL           = 'rgba(14, 207, 173,';
   let   particles      = [];
   let   animationId;

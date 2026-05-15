@@ -58,12 +58,25 @@ function initThemeToggle() {
   const saved = localStorage.getItem('cpay-theme') || 'dark';
   html.setAttribute('data-theme', saved);
 
-  btn.addEventListener('click', () => {
-    const current = html.getAttribute('data-theme');
-    const next    = current === 'dark' ? 'light' : 'dark';
+  function applyTheme(next) {
     html.setAttribute('data-theme', next);
     localStorage.setItem('cpay-theme', next);
+    if (typeof lucide !== 'undefined') lucide.createIcons();
+  }
+
+  btn.addEventListener('click', () => {
+    const current = html.getAttribute('data-theme');
+    applyTheme(current === 'dark' ? 'light' : 'dark');
   });
+
+  // Sincronizar botón de tema en menú móvil
+  const btnMobile = document.getElementById('themeToggleMobile');
+  if (btnMobile) {
+    btnMobile.addEventListener('click', () => {
+      const current = html.getAttribute('data-theme');
+      applyTheme(current === 'dark' ? 'light' : 'dark');
+    });
+  }
 }
 
 /* ────────────────────────────────────────────
