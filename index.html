@@ -68,35 +68,36 @@
       </button>
 
       <button class="nav-hamburger" id="navHamburger" aria-label="Abrir menú de navegación" aria-expanded="false" aria-controls="mobileMenu">
-        <i data-lucide="menu" aria-hidden="true" id="iconMenu"></i>
-        <i data-lucide="x" aria-hidden="true" id="iconClose" style="display:none;"></i>
+        <i data-lucide="menu" aria-hidden="true" id="iconMenu" class="icon-menu"></i>
+        <i data-lucide="x" aria-hidden="true" id="iconClose" class="icon-close"></i>
       </button>
     </div>
 
-    <!-- Mobile menu -->
-    <div class="mobile-menu" id="mobileMenu" aria-hidden="true">
-      <ul role="list">
-        <li><a href="#hero" class="mobile-link">Inicio</a></li>
-        <li><a href="#about" class="mobile-link">Nosotros</a></li>
-        <li><a href="#solutions" class="mobile-link">Soluciones</a></li>
-        <li><a href="#catalogo" class="mobile-link">Catálogo</a></li>
-        <li><a href="#testimonials" class="mobile-link">Clientes</a></li>
-        <li><a href="#contact" class="mobile-link">Contacto</a></li>
-        <li><a href="#contact" class="btn-primary mobile-cta">Empieza ya <i data-lucide="arrow-right" aria-hidden="true"></i></a></li>
-        <li class="mobile-lang-row">
-          <div class="lang-toggle" id="langToggleMobile" role="group" aria-label="Cambiar idioma">
-            <button class="lang-btn active" data-lang="es">ES</button>
-            <button class="lang-btn" data-lang="en">EN</button>
-          </div>
-          <button class="theme-toggle mobile-theme-btn" id="themeToggleMobile" aria-label="Cambiar tema claro/oscuro">
-            <i data-lucide="sun" class="icon-sun" aria-hidden="true"></i>
-            <i data-lucide="moon" class="icon-moon" aria-hidden="true"></i>
-            <span class="mobile-theme-label">Modo claro</span>
-          </button>
-        </li>
-      </ul>
-    </div>
-  </nav>
+    </nav>
+
+  <!-- Mobile menu — fuera del nav para evitar el bug de backdrop-filter -->
+  <div class="mobile-menu" id="mobileMenu" aria-hidden="true">
+    <ul role="list">
+      <li><a href="#hero" class="mobile-link">Inicio</a></li>
+      <li><a href="#about" class="mobile-link">Nosotros</a></li>
+      <li><a href="#solutions" class="mobile-link">Soluciones</a></li>
+      <li><a href="#catalogo" class="mobile-link">Catálogo</a></li>
+      <li><a href="#testimonials" class="mobile-link">Clientes</a></li>
+      <li><a href="#contact" class="mobile-link">Contacto</a></li>
+      <li><a href="#contact" class="btn-primary mobile-cta">Empieza ya <i data-lucide="arrow-right" aria-hidden="true"></i></a></li>
+      <li class="mobile-lang-row">
+        <div class="lang-toggle" id="langToggleMobile" role="group" aria-label="Cambiar idioma">
+          <button class="lang-btn active" data-lang="es">ES</button>
+          <button class="lang-btn" data-lang="en">EN</button>
+        </div>
+        <button class="theme-toggle mobile-theme-btn" id="themeToggleMobile" aria-label="Cambiar tema claro/oscuro">
+          <i data-lucide="sun" class="icon-sun" aria-hidden="true"></i>
+          <i data-lucide="moon" class="icon-moon" aria-hidden="true"></i>
+          <span class="mobile-theme-label">Modo claro</span>
+        </button>
+      </li>
+    </ul>
+  </div>
 
   <!-- ── HERO ── -->
   <section id="hero">

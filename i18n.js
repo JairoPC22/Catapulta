@@ -615,7 +615,7 @@ const I18N = {
 
   _applyNav(t) {
     const navLinks    = this._qa('#nav .nlinks .nav-link');
-    const mobileLinks = this._qa('#nav .mobile-menu .mobile-link');
+    const mobileLinks = this._qa('#mobileMenu .mobile-link');
     const keys = ['nav.home','nav.about','nav.solutions','nav.catalog','nav.clients','nav.contact'];
     navLinks.forEach((el, i)    => { if (keys[i]) el.textContent = t[keys[i]]; });
     mobileLinks.forEach((el, i) => { if (keys[i]) el.textContent = t[keys[i]]; });

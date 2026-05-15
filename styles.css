@@ -322,6 +322,11 @@ textarea {
   height: 20px;
 }
 
+/* Control de íconos hamburguesa via clase — no inline style */
+.nav-hamburger .icon-close { display: none; }
+.nav-hamburger.is-open .icon-menu  { display: none; }
+.nav-hamburger.is-open .icon-close { display: block; }
+
 /* Mobile menu */
 .mobile-menu {
   position: fixed;
@@ -329,6 +334,7 @@ textarea {
   left: 0;
   right: 0;
   bottom: 0;
+  height: calc(100dvh - var(--nav-h));
   background: rgba(7, 14, 28, 0.98);
   -webkit-backdrop-filter: blur(20px);
   backdrop-filter: blur(20px);

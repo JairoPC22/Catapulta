@@ -50,36 +50,38 @@ function initNavSticky() {
    Alterna la visibilidad del menú móvil
 ──────────────────────────────────────────── */
 function initMobileMenu() {
-  const btn       = document.getElementById('navHamburger');
-  const menu      = document.getElementById('mobileMenu');
-  const iconMenu  = document.getElementById('iconMenu');
-  const iconClose = document.getElementById('iconClose');
+  const btn  = document.getElementById('navHamburger');
+  const menu = document.getElementById('mobileMenu');
 
   if (!btn || !menu) return;
 
   let isOpen = false;
 
-  function toggleMenu() {
-    isOpen = !isOpen;
+  function toggleMenu(forceClose = false) {
+    if (forceClose && !isOpen) return;
+    isOpen = forceClose ? false : !isOpen;
+
     menu.classList.toggle('open', isOpen);
+    btn.classList.toggle('is-open', isOpen);
     btn.setAttribute('aria-expanded', String(isOpen));
     menu.setAttribute('aria-hidden', String(!isOpen));
-
-    if (iconMenu && iconClose) {
-      iconMenu.style.display  = isOpen ? 'none'  : '';
-      iconClose.style.display = isOpen ? ''      : 'none';
-    }
+    document.body.style.overflow = isOpen ? 'hidden' : '';
   }
 
-  btn.addEventListener('click', toggleMenu);
+  // Abrir/cerrar con el botón
+  btn.addEventListener('click', () => toggleMenu());
 
-  // Cerrar menú al hacer clic en un link del menú móvil
-  const mobileLinks = menu.querySelectorAll('.mobile-link, .mobile-cta');
-  mobileLinks.forEach(link => {
-    link.addEventListener('click', () => {
-      if (isOpen) toggleMenu();
-    });
+  // Cerrar al hacer clic en links internos
+  menu.querySelectorAll('.mobile-link, .mobile-cta').forEach(link => {
+    link.addEventListener('click', () => toggleMenu(true));
   });
+
+  // Cerrar al agrandar la ventana (fix bug resize)
+  window.addEventListener('resize', () => {
+    if (window.innerWidth > 768 && isOpen) toggleMenu(true);
+  }, { passive: true });
+
+  
 }
 
 /* ────────────────────────────────────────────
