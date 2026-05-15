@@ -1358,6 +1358,7 @@ updateDisplay();
   let overDevice = false;
 
   function moveGhost(e) {
+    if (e.cancelable) e.preventDefault();
     const clientX = e.touches ? e.touches[0].clientX : e.clientX;
     const clientY = e.touches ? e.touches[0].clientY : e.clientY;
     ghost.style.left = (clientX - offsetX) + 'px';
@@ -1420,7 +1421,7 @@ updateDisplay();
     card.style.transform = 'scale(0.95)';
 
     document.addEventListener('mousemove', moveGhost);
-    document.addEventListener('touchmove', moveGhost, { passive: true });
+    document.addEventListener('touchmove', moveGhost, { passive: false });
     document.addEventListener('mouseup', endDrag);
     document.addEventListener('touchend', endDrag);
   }
@@ -1522,7 +1523,7 @@ updateDisplay();
 
   cards.forEach(card => {
     card.addEventListener('mousedown',  e => { e.preventDefault(); startDrag(card, e); });
-    card.addEventListener('touchstart', e => { startDrag(card, e); }, { passive: true });
+    card.addEventListener('touchstart', e => { e.preventDefault(); startDrag(card, e); }, { passive: false });
     card.setAttribute('draggable', 'false'); // usar nuestro propio drag
   });
 })();

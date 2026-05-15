@@ -1,6 +1,6 @@
 'use strict';
 
-const CACHE_NAME = 'catapultapay-v3.0.0';
+const CACHE_NAME = 'catapultapay-v5.0.0';
 
 // Assets que se cachean en la instalación
 const PRECACHE_ASSETS = [
