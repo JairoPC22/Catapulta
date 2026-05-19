@@ -19,10 +19,14 @@ document.addEventListener('DOMContentLoaded', () => {
   initScrollReveal();
   initCounters();
   initTabs();
-  initTiltCards();
-  initBarAnimations();
-  initContactForm();
-  initSavingsCalculator();
+  // Diferir lo que no afecta el primer render
+  const idle = window.requestIdleCallback || (cb => setTimeout(cb, 200));
+  idle(() => {
+    initTiltCards();
+    initBarAnimations();
+    initContactForm();
+    initSavingsCalculator();
+  });
 });
 
 /* ────────────────────────────────────────────
@@ -94,8 +98,8 @@ function initParticleCanvas() {
 
   const ctx = canvas.getContext('2d');
   const isMobile = window.innerWidth < 768;
-const PARTICLE_COUNT = isMobile ? 18 : 65;
-const MAX_DIST_CALC  = isMobile ? 80 : 110;
+const PARTICLE_COUNT = isMobile ? 12 : 40;
+const MAX_DIST_CALC  = isMobile ? 70 : 100;
 const MAX_DIST       = MAX_DIST_CALC;
   const TEAL           = 'rgba(14, 207, 173,';
   let   particles      = [];
@@ -148,10 +152,10 @@ const MAX_DIST       = MAX_DIST_CALC;
       for (let j = i + 1; j < particles.length; j++) {
         const dx   = particles[i].x - particles[j].x;
         const dy   = particles[i].y - particles[j].y;
-        const dist = Math.sqrt(dx * dx + dy * dy);
+        const distSq = dx * dx + dy * dy;
 
-        if (dist < MAX_DIST) {
-          const alpha = 1 - dist / MAX_DIST;
+        if (distSq < MAX_DIST * MAX_DIST) {
+          const alpha = 1 - Math.sqrt(distSq) / MAX_DIST;
           ctx.beginPath();
           ctx.moveTo(particles[i].x, particles[i].y);
           ctx.lineTo(particles[j].x, particles[j].y);
@@ -484,7 +488,6 @@ function initSavingsCalculator() {
   const sliderRate  = document.getElementById('sliderRate');
   if (!sliderSales || !sliderRate) return;
 
-  const CATAPULTA_RATE = 1.89; // %
 
   function fmt(n) {
     return '$' + Math.round(n).toLocaleString('en-US');
@@ -525,13 +528,14 @@ function initSavingsCalculator() {
     requestAnimationFrame(tick);
   }
 
+  const CATAPULTA_RATE = 1.89 / 100; // tasa fija CatapultaPay
+
   function calculate() {
     const sales       = parseFloat(sliderSales.value);
-    const currentRate = parseFloat(sliderRate.value) / 100 / 100; // slider va en basis points *100
-    const catRate     = CATAPULTA_RATE / 100;
+    const currentRate = parseFloat(sliderRate.value) / 100 / 100;
 
     const costCurrent   = sales * currentRate;
-    const costCatapulta = sales * catRate;
+    const costCatapulta = sales * CATAPULTA_RATE;
     const savingMonth   = Math.max(0, costCurrent - costCatapulta);
     const savingYear    = savingMonth * 12;
 

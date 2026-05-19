@@ -188,7 +188,6 @@ const TRANSLATIONS = {
     'term.method.title': 'Método de cobro',
     'term.summary.title': 'Resumen',
     'term.summary.amount': 'Monto a cobrar',
-    'term.summary.rate': 'Tasa CatapultaPay',
     'term.summary.fee': 'Comisión estimada',
     'term.summary.net': 'Neto que recibes',
     'term.btn.process': 'Procesar pago',
@@ -207,7 +206,6 @@ const TRANSLATIONS = {
     'term.thanks': 'Gracias por su compra',
     'term.ticket.date': 'Fecha', 'term.ticket.time': 'Hora',
     'term.ticket.txn': 'TXN', 'term.ticket.method': 'Método',
-    'term.ticket.subtotal': 'Subtotal', 'term.ticket.rate': 'Tasa (1.89%)',
     'term.ticket.net': 'Neto recibido',
     'term.ticket.approved': 'PAGO APROBADO',
     'term.ticket.thanks': 'Gracias por usar CatapultaPay',
@@ -263,7 +261,6 @@ const TRANSLATIONS = {
     'calc.title': 'Discover how much you can<br /><em class="grad-text">save with us.</em>',
     'calc.desc': 'Move the sliders and see the real impact on your business.',
     'calc.sales.label': 'Monthly sales', 'calc.rate.label': 'Your current processing rate',
-    'calc.note': 'CatapultaPay rate from <strong>1.89%</strong> · No hidden fees',
     'calc.current.label': 'You currently pay', 'calc.current.sub': 'per month in fees',
     'calc.catapulta.label': 'With CatapultaPay', 'calc.catapulta.sub': 'per month in fees',
     'calc.savings.title': 'Your estimated savings',
@@ -404,7 +401,6 @@ const TRANSLATIONS = {
     'term.method.title': 'Payment method',
     'term.summary.title': 'Summary',
     'term.summary.amount': 'Amount to charge',
-    'term.summary.rate': 'CatapultaPay rate',
     'term.summary.fee': 'Estimated fee',
     'term.summary.net': 'Net you receive',
     'term.btn.process': 'Process payment',
@@ -692,7 +688,7 @@ const I18N = {
 
     // Etiquetas del resumen
     const sumKeys = this._qa('.summary-key');
-    ['term.summary.amount','term.summary.rate','term.summary.fee','term.summary.net'].forEach((k,i) => {
+    ['term.summary.amount','term.summary.fee','term.summary.net'].forEach((k,i) => {
       if (sumKeys[i] && t[k]) sumKeys[i].textContent = t[k];
     });
 
