@@ -96,10 +96,12 @@ function initParticleCanvas() {
   const canvas = document.getElementById('particleCanvas');
   if (!canvas) return;
 
-  const ctx = canvas.getContext('2d');
   const isMobile = window.innerWidth < 768;
-const PARTICLE_COUNT = isMobile ? 12 : 40;
-const MAX_DIST_CALC  = isMobile ? 70 : 100;
+  if (isMobile) { canvas.style.display = 'none'; return; }
+
+  const ctx = canvas.getContext('2d');
+  const PARTICLE_COUNT = 40;
+const MAX_DIST_CALC  = 100;
 const MAX_DIST       = MAX_DIST_CALC;
   const TEAL           = 'rgba(14, 207, 173,';
   let   particles      = [];
@@ -602,7 +604,6 @@ function initSavingsCalculator() {
     }, { once: true });
   }
 
-  /* Cargar 400px ANTES de que sea visible — da tiempo al browser */
   const observer = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
       if (entry.isIntersecting) {
@@ -610,11 +611,7 @@ function initSavingsCalculator() {
         observer.unobserve(video);
       }
     });
-  }, { rootMargin: '400px 0px' });
+  }, { rootMargin: '100px 0px' });
 
   observer.observe(video);
-
-  /* Si el usuario ya está cerca al cargar la página */
-  const rect = video.getBoundingClientRect();
-  if (rect.top < window.innerHeight + 400) loadVideo();
 })();
