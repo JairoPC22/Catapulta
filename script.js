@@ -583,20 +583,16 @@ function initSavingsCalculator() {
     if (loaded) return;
     loaded = true;
 
-    /* Añadir source en lugar de src directo — más compatible */
     const source = document.createElement('source');
     source.src  = video.dataset.src;
     source.type = 'video/mp4';
     video.appendChild(source);
-
     video.load();
 
-    /* Solo reproducir cuando tiene suficientes datos */
     video.addEventListener('canplaythrough', () => {
       video.play().catch(() => {});
     }, { once: true });
 
-    /* Fallback si canplaythrough tarda */
     video.addEventListener('loadeddata', () => {
       setTimeout(() => {
         if (video.paused) video.play().catch(() => {});
@@ -604,14 +600,29 @@ function initSavingsCalculator() {
     }, { once: true });
   }
 
-  const observer = new IntersectionObserver((entries) => {
+  // Carga UNA vez cuando entra en pantalla
+  const loadObserver = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
       if (entry.isIntersecting) {
         loadVideo();
-        observer.unobserve(video);
+        loadObserver.unobserve(video);
       }
     });
   }, { rootMargin: '100px 0px' });
 
-  observer.observe(video);
+  loadObserver.observe(video);
+
+  // Pausa/reanuda según visibilidad real — esto es lo que ahorra batería y CPU
+  const playObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (!loaded) return;
+      if (entry.isIntersecting) {
+        video.play().catch(() => {});
+      } else {
+        video.pause();
+      }
+    });
+  }, { threshold: 0.15 });
+
+  playObserver.observe(video);
 })();
