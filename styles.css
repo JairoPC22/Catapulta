@@ -2181,13 +2181,7 @@ footer {
 }
 
 .catalog-price {
-  display: flex;
-  align-items: baseline;
-  justify-content: space-between;
-  gap: 0.5rem;
-  padding: 0.9rem 0;
-  border-top: 1px solid var(--color-borderW);
-  border-bottom: 1px solid var(--color-borderW);
+  display: none;
 }
 
 .price-tag {
@@ -2214,13 +2208,7 @@ footer {
 }
 
 .catalog-features {
-  list-style: none;
-  display: flex;
-  flex-direction: column;
-  gap: 0.5rem;
-  flex: 1;
-  padding: 0;
-  margin: 0;
+  display: none;
 }
 
 .catalog-features li {

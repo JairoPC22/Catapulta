@@ -1,6 +1,6 @@
 'use strict';
 
-const CACHE_NAME = 'catapultapay-v7.5'; // bump fuerza reinstalación
+const CACHE_NAME = 'catapultapay-v8.5'; // bump fuerza reinstalación
 
 const PRECACHE_ASSETS = [
   '/',
