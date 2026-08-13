@@ -235,7 +235,17 @@ function initScrollReveal() {
     });
   });
 
-  elements.forEach(el => observer.observe(el));
+  elements.forEach(el => {
+    const rect = el.getBoundingClientRect();
+    const yaVisible = rect.top < window.innerHeight && rect.bottom > 0;
+    if (yaVisible) {
+      // Ya está a la vista al cargar: se muestra sin animar para no generar layout shift (CLS)
+      el.style.transition = 'none';
+      el.classList.add('visible');
+    } else {
+      observer.observe(el);
+    }
+  });
 }
 
 /* ────────────────────────────────────────────

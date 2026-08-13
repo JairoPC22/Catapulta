@@ -32,12 +32,12 @@
 <link rel="manifest" href="manifest.json" />
   <!-- Tipografía: fuentes del sistema (Arial para texto, Times New Roman para títulos) — cero descargas externas -->
   <!-- Lucide Icons CDN -->
-<script src="https://cdn.jsdelivr.net/npm/lucide@0.469.0/dist/umd/lucide.min.js" defer></script>
+<script src="lucide.min.js" defer></script>
 <link rel="preload" as="style"
-  href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@3.31.0/dist/tabler-icons.min.css"
+  href="assets/fonts/tabler-icons.min.css"
   onload="this.onload=null;this.rel='stylesheet'" />
 <noscript>
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@3.31.0/dist/tabler-icons.min.css" />
+  <link rel="stylesheet" href="assets/fonts/tabler-icons.min.css" />
 </noscript>
   <!-- Styles -->
   <link rel="preload" href="styles.css" as="style" onload="this.rel='stylesheet'" />
@@ -142,7 +142,7 @@
   <nav id="nav" aria-label="Navegación principal">
     <div class="nav-inner">
       <a href="#hero" class="nav-logo">
-        <img src="imagecata.png" alt="CatapultaPay" width="160" height="40" />
+        <img src="imagecata.png" alt="CatapultaPay" width="98" height="52" />
       </a>
 
       <ul class="nlinks" role="list">
@@ -1360,7 +1360,7 @@
 
       <div class="testimonials-grid">
         <article class="testi-card tilt-card reveal">
-          <div class="testi-stars" aria-label="5 de 5 estrellas">
+          <div class="testi-stars" role="img" aria-label="5 de 5 estrellas">
             <i data-lucide="star" aria-hidden="true"></i>
             <i data-lucide="star" aria-hidden="true"></i>
             <i data-lucide="star" aria-hidden="true"></i>
@@ -1388,7 +1388,7 @@
         </article>
 
         <article class="testi-card tilt-card reveal">
-          <div class="testi-stars" aria-label="5 de 5 estrellas">
+          <div class="testi-stars" role="img" aria-label="5 de 5 estrellas">
             <i data-lucide="star" aria-hidden="true"></i>
             <i data-lucide="star" aria-hidden="true"></i>
             <i data-lucide="star" aria-hidden="true"></i>
@@ -1416,7 +1416,7 @@
         </article>
 
         <article class="testi-card tilt-card reveal">
-          <div class="testi-stars" aria-label="5 de 5 estrellas">
+          <div class="testi-stars" role="img" aria-label="5 de 5 estrellas">
             <i data-lucide="star" aria-hidden="true"></i>
             <i data-lucide="star" aria-hidden="true"></i>
             <i data-lucide="star" aria-hidden="true"></i>
@@ -1707,7 +1707,7 @@
         <!-- Marca -->
         <div class="footer-brand">
           <a href="#hero">
-            <img src="imagecata.png" alt="CatapultaPay" width="160" height="40" />
+            <img src="imagecata.png" alt="CatapultaPay" width="64" height="34" />
           </a>
           <p class="footer-desc">
             Soluciones de procesamiento de pagos para negocios de todos los tamaños.

@@ -1,6 +1,6 @@
 'use strict';
 
-const CACHE_NAME = 'catapultapay-v11.0'; // bump fuerza reinstalación
+const CACHE_NAME = 'catapultapay-v12.0'; // bump fuerza reinstalación
 
 const PRECACHE_ASSETS = [
   '/',
@@ -8,6 +8,9 @@ const PRECACHE_ASSETS = [
   '/styles.css',
   '/script.js',
   '/i18n.js',
+  '/lucide.min.js',
+  '/assets/fonts/tabler-icons.min.css',
+  '/assets/fonts/fonts/tabler-icons.woff2',
   '/imagecata.png',
   '/favicon.svg',
   '/manifest.json',

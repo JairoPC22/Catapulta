@@ -3409,10 +3409,6 @@ footer {
   border: 1px solid var(--color-borderW);
 }
 
-.calc-result-current {
-  opacity: 0.75;
-}
-
 .calc-result-catapulta {
   border-color: var(--color-border);
   background: rgba(14, 207, 173, 0.04);
