@@ -39,6 +39,8 @@ const TRANSLATIONS = {
     'about.f2.desc': 'Programas POS, precios competitivos y financiación rápida: mismo día o al día siguiente.',
     'about.f3.title': 'Mitigación de contracargos',
     'about.f3.desc': 'Tecnología avanzada para reducir disputas y proteger cada transacción de tu negocio.',
+    'about.f4.title': 'Soporte bilingüe 24/7',
+    'about.f4.desc': 'Un equipo real en español e inglés, listo para resolver dudas técnicas o de facturación.',
     // STATS
     'stats.years': 'Años en el negocio', 'stats.businesses': 'Negocios cobrando ahora',
     'stats.partners': 'Proveedores aliados', 'stats.support': 'Atención bilingüe',
@@ -153,6 +155,36 @@ const TRANSLATIONS = {
     'testi.q2': '"El terminal virtual se sincronizó perfectamente con nuestro sistema. Ahora aceptamos pagos sin contacto y las transacciones son un 30% más rápidas."',
     'testi.q3': '"Grandes ahorros en comisiones y claridad total en los números. El sistema POS es confiable, fácil de usar y ha mejorado la eficiencia de cobros diarios."',
     'testi.verified': 'Cliente verificado',
+    // HOW IT WORKS
+    'steps.label': 'Cómo funciona',
+    'steps.title': 'Empieza a cobrar en<br />4 pasos simples.',
+    'steps.desc': 'Del primer contacto a tu primera venta, te acompañamos en todo el proceso.',
+    'steps.s1.title': 'Cuéntanos tu negocio',
+    'steps.s1.desc': 'Completa el formulario o llámanos. Conocemos tu volumen de ventas, industria y necesidades reales.',
+    'steps.s2.title': 'Cotización y aprobación',
+    'steps.s2.desc': 'Te conectamos con el banco patrocinador ideal y armamos una cotización clara, sin letras chiquitas.',
+    'steps.s3.title': 'Instalación y configuración',
+    'steps.s3.desc': 'Configuramos tus terminales o pasarela virtual y capacitamos a tu equipo para usarlos sin fricción.',
+    'steps.s4.title': 'Empieza a cobrar',
+    'steps.s4.desc': 'Acepta chip, contactless, banda y pagos virtuales desde el día uno, con soporte bilingüe siempre disponible.',
+    // FAQ
+    'faq.label': 'Preguntas frecuentes',
+    'faq.title': 'Todo lo que necesitas<br />saber antes de empezar.',
+    'faq.desc': '¿No encuentras tu respuesta? Escríbenos y te ayudamos personalmente.',
+    'faq.q1': '¿Cuánto tarda la aprobación de mi cuenta?',
+    'faq.a1': 'Depende del banco patrocinador y el tipo de negocio. Para la mayoría de los comercios el proceso toma entre 24 y 48 horas hábiles; los negocios de alto riesgo pueden requerir un poco más de tiempo por la revisión adicional.',
+    'faq.q2': '¿Qué software de punto de venta manejan?',
+    'faq.a2': 'Trabajamos con varias plataformas de software según el tipo de negocio: OnTheFly, Octopos, Clover, Dejapay y Kwick POS. Cada una está pensada para distintos giros (restaurantes, retail, servicios), así que te ayudamos a elegir la que mejor se adapte a tu operación.',
+    'faq.q3': '¿Cómo elijo el software adecuado para mi negocio?',
+    'faq.a3': 'Durante tu cotización revisamos cómo opera tu negocio — mesas, inventario, delivery, múltiples sucursales — y te recomendamos la plataforma (OnTheFly, Octopos, Clover, Dejapay o Kwick POS) que mejor se ajusta, sin que tengas que adivinar.',
+    'faq.q4': '¿Qué terminales y equipos manejan?',
+    'faq.a4': 'Trabajamos con las marcas líderes del mercado: Dejavoo, Clover, Sunmi, PAX y Landi. Puedes comprar el equipo o acceder a renta/lease según lo que más te convenga — revisa nuestro <a href="#catalogo">catálogo completo</a>.',
+    'faq.q5': '¿Puedo aceptar Apple Pay y Google Pay?',
+    'faq.a5': 'Sí. Todos nuestros terminales con lector sin contacto/NFC aceptan Apple Pay, Google Pay y tarjetas contactless de cualquier banco.',
+    'faq.q6': '¿Qué tan segura es la información de mis clientes?',
+    'faq.a6': 'Toda transacción cumple con el estándar PCI DSS v4 y viaja cifrada de extremo a extremo. Además usamos tecnología de mitigación de contracargos para proteger cada venta.',
+    'faq.q7': 'Después de hacer corte, ¿en cuánto tiempo me llega mi dinero?',
+    'faq.a7': 'Depende de la procesadora asignada a tu negocio. Lo normal es que el depósito llegue al siguiente día hábil después del corte, aunque en algunos casos puede tomar un día adicional.',
     // CONTACT
     'contact.label': 'Contacto',
     'contact.title': '¿Listo para aceptar<br />pagos sin complicaciones?',
@@ -168,16 +200,40 @@ const TRANSLATIONS = {
     'form.opt.virtual': 'Procesamiento virtual', 'form.opt.support': 'Soporte técnico',
     'form.opt.general': 'Consulta general',
     'form.message': 'Mensaje', 'form.message.ph': 'Cuéntanos sobre tu negocio...',
+    'form.company': 'Negocio o empresa', 'form.company.ph': 'Nombre de tu negocio',
     'form.submit': 'Enviar mensaje', 'form.sending': 'Enviando...',
+    'form.err.firstname': 'Ingresa tu nombre.',
+    'form.err.lastname': 'Ingresa tu apellido.',
+    'form.err.email': 'Ingresa un correo válido.',
+    'form.err.subject': 'Selecciona una opción.',
+    'form.err.message': 'Cuéntanos brevemente qué necesitas.',
+    'form.consent': 'Tus datos se usan solo para responder tu solicitud, nunca se comparten con terceros. Al enviar aceptas nuestros',
+    'form.terms': 'Términos y Condiciones',
+    // MODAL TÉRMINOS
+    'terms.label': 'Legal',
+    'terms.title': 'Términos y Condiciones',
+    'terms.intro': 'Bienvenido/a a CatapultaPay. Al enviar el formulario de contacto en nuestro sitio web, aceptas los presentes términos y condiciones. Por favor, léelos atentamente.',
+    'terms.h1': 'Uso de la información',
+    'terms.p1': 'La información que proporciones a través de nuestro formulario de contacto será utilizada exclusivamente para responder a tu solicitud o consulta. No compartiremos, venderemos ni alquilaremos tus datos personales a terceros, salvo obligación legal.',
+    'terms.h2': 'Exactitud de los datos',
+    'terms.p2': 'Te comprometes a proporcionar información veraz, completa y actualizada en el formulario. No nos hacemos responsables por retrasos o problemas derivados de datos incorrectos o incompletos.',
+    'terms.h3': 'Protección de datos',
+    'terms.p3': 'En CatapultaPay cumplimos con las normativas aplicables de protección de datos. Tus datos serán tratados con las medidas de seguridad necesarias para prevenir el acceso, alteración o divulgación no autorizada.',
+    'terms.h4': 'Limitación de responsabilidad',
+    'terms.p4': 'No nos responsabilizamos por problemas técnicos, interrupciones o errores que impidan el envío correcto del formulario. Asimismo, no garantizamos una respuesta inmediata, aunque haremos nuestro mejor esfuerzo por atender tu consulta a la brevedad.',
+    'terms.h5': 'Cambios en los términos',
+    'terms.p5': 'Nos reservamos el derecho de modificar estos términos en cualquier momento. Las modificaciones se publicarán en esta misma página y entrarán en vigor de manera inmediata.',
+    'terms.footer': '© 2026 CATAPULTA PAYMENT SYSTEMS. Todos los derechos reservados.',
     // FOOTER
     'footer.desc': 'Soluciones de procesamiento de pagos para negocios de todos los tamaños. Conectamos tu empresa con los mejores procesadores.',
     'footer.col1': 'Soluciones', 'footer.col2': 'Empresa',
     'footer.sol.physical': 'Equipo Físico POS', 'footer.sol.virtual': 'Procesamiento Virtual',
     'footer.sol.gateway': 'Pasarelas de Pago', 'footer.sol.catalog': 'Catálogo de Equipos',
     'footer.about': 'Nosotros', 'footer.success': 'Casos de Éxito',
+    'footer.faq': 'Preguntas frecuentes',
     'footer.contact': 'Contacto', 'footer.terms': 'Términos y Condiciones',
     'footer.download': 'Descargar Catálogo',
-    'footer.rights': '© 2025 CATAPULTA PAYMENT SYSTEMS. Todos los derechos reservados.',
+    'footer.rights': '© 2026 CATAPULTA PAYMENT SYSTEMS. Todos los derechos reservados.',
     'toast.msg': 'Mensaje enviado con éxito',
     'wa.href': 'https://wa.me/13109486153?text=Hola%2C+me+interesa+CatapultaPay',
     // TERMINAL SIMULADOR
@@ -193,14 +249,14 @@ const TRANSLATIONS = {
     'term.btn.process': 'Procesar pago',
     'term.reader.tag': 'Chip / Banda / NFC',
     'term.method.chip.name': 'Tarjeta con chip',
-    'term.method.chip.sub': '•••• •••• •••• 4521 · Visa',
-    'term.method.chip.label': 'Chip · Visa ••4521',
+    'term.method.chip.sub': '•••• •••• •••• 4521 · Chip',
+    'term.method.chip.label': 'Chip · CatapultaPay ••4521',
     'term.method.nfc.name': 'Sin contacto / NFC',
     'term.method.nfc.sub': 'Apple Pay · Google Pay',
     'term.method.nfc.label': 'NFC · Apple/Google Pay',
     'term.method.swipe.name': 'Banda magnética',
-    'term.method.swipe.sub': '•••• •••• •••• 8834 · Amex',
-    'term.method.swipe.label': 'Banda · Amex ••8834',
+    'term.method.swipe.sub': '•••• •••• •••• 8834 · Banda',
+    'term.method.swipe.label': 'Banda · CatapultaPay ••8834',
     'term.processing': 'Procesando',
     'term.approved': 'APROBADO',
     'term.thanks': 'Gracias por su compra',
@@ -253,6 +309,8 @@ const TRANSLATIONS = {
     'about.f2.desc': 'POS programs, competitive pricing, and fast funding: same day or next day.',
     'about.f3.title': 'Chargeback mitigation',
     'about.f3.desc': 'Advanced technology to reduce disputes and protect every transaction in your business.',
+    'about.f4.title': '24/7 bilingual support',
+    'about.f4.desc': 'A real team in Spanish and English, ready to solve technical or billing questions.',
     // STATS
     'stats.years': 'Years in business', 'stats.businesses': 'Businesses collecting now',
     'stats.partners': 'Allied providers', 'stats.support': 'Bilingual support',
@@ -366,6 +424,36 @@ const TRANSLATIONS = {
     'testi.q2': '"The virtual terminal synced perfectly with our system. We now accept contactless payments and transactions are 30% faster."',
     'testi.q3': '"Great savings on fees and total clarity in the numbers. The POS system is reliable, easy to use, and has improved daily collection efficiency."',
     'testi.verified': 'Verified customer',
+    // HOW IT WORKS
+    'steps.label': 'How it works',
+    'steps.title': 'Start accepting payments<br />in 4 simple steps.',
+    'steps.desc': 'From first contact to your first sale, we guide you through the whole process.',
+    'steps.s1.title': 'Tell us about your business',
+    'steps.s1.desc': 'Fill out the form or call us. We learn your sales volume, industry, and real needs.',
+    'steps.s2.title': 'Quote and approval',
+    'steps.s2.desc': 'We connect you with the ideal sponsor bank and put together a clear quote, no fine print.',
+    'steps.s3.title': 'Installation and setup',
+    'steps.s3.desc': 'We configure your terminals or virtual gateway and train your team to use them with no friction.',
+    'steps.s4.title': 'Start collecting',
+    'steps.s4.desc': 'Accept chip, contactless, swipe, and virtual payments from day one, with bilingual support always available.',
+    // FAQ
+    'faq.label': 'FAQ',
+    'faq.title': 'Everything you need<br />to know before you start.',
+    'faq.desc': "Can't find your answer? Write to us and we'll help you personally.",
+    'faq.q1': 'How long does account approval take?',
+    'faq.a1': 'It depends on the sponsor bank and business type. For most merchants the process takes 24 to 48 business hours; high-risk businesses may need a bit more time due to additional review.',
+    'faq.q2': 'What point-of-sale software do you offer?',
+    'faq.a2': 'We work with several software platforms depending on your business type: OnTheFly, Octopos, Clover, Dejapay, and Kwick POS. Each one is built for a different kind of operation (restaurants, retail, services), so we help you pick the one that fits yours best.',
+    'faq.q3': 'How do I pick the right software for my business?',
+    'faq.a3': 'During your quote we review how your business operates — tables, inventory, delivery, multiple locations — and recommend the platform (OnTheFly, Octopos, Clover, Dejapay, or Kwick POS) that fits best, so you don\'t have to guess.',
+    'faq.q4': 'What terminals and equipment do you carry?',
+    'faq.a4': 'We work with the market-leading brands: Dejavoo, Clover, Sunmi, PAX, and Landi. You can buy the equipment or access rent/lease, whichever works best for you — check our <a href="#catalogo">full catalog</a>.',
+    'faq.q5': 'Can I accept Apple Pay and Google Pay?',
+    'faq.a5': 'Yes. All our terminals with a contactless/NFC reader accept Apple Pay, Google Pay, and contactless cards from any bank.',
+    'faq.q6': 'How secure is my customers\' information?',
+    'faq.a6': 'Every transaction complies with the PCI DSS v4 standard and travels end-to-end encrypted. We also use chargeback mitigation technology to protect every sale.',
+    'faq.q7': 'After my batch closes, how long until the money arrives?',
+    'faq.a7': 'It depends on the processor assigned to your business. Typically the deposit arrives the next business day after the batch closes, though in some cases it can take one extra day.',
     // CONTACT
     'contact.label': 'Contact',
     'contact.title': 'Ready to accept<br />payments without complications?',
@@ -381,16 +469,40 @@ const TRANSLATIONS = {
     'form.opt.virtual': 'Virtual processing', 'form.opt.support': 'Technical support',
     'form.opt.general': 'General inquiry',
     'form.message': 'Message', 'form.message.ph': 'Tell us about your business...',
+    'form.company': 'Business name', 'form.company.ph': 'Your business name',
     'form.submit': 'Send message', 'form.sending': 'Sending...',
+    'form.err.firstname': 'Enter your first name.',
+    'form.err.lastname': 'Enter your last name.',
+    'form.err.email': 'Enter a valid email.',
+    'form.err.subject': 'Select an option.',
+    'form.err.message': 'Briefly tell us what you need.',
+    'form.consent': "We only use your info to reply to your request, never shared with third parties. By submitting you accept our",
+    'form.terms': 'Terms & Conditions',
+    // TERMS MODAL
+    'terms.label': 'Legal',
+    'terms.title': 'Terms & Conditions',
+    'terms.intro': 'Welcome to CatapultaPay. By submitting the contact form on our website, you accept these terms and conditions. Please read them carefully.',
+    'terms.h1': 'Use of information',
+    'terms.p1': 'The information you provide through our contact form will be used exclusively to respond to your request or inquiry. We will not share, sell, or rent your personal data to third parties, except as required by law.',
+    'terms.h2': 'Accuracy of data',
+    'terms.p2': 'You agree to provide truthful, complete, and up-to-date information in the form. We are not responsible for delays or issues arising from incorrect or incomplete data.',
+    'terms.h3': 'Data protection',
+    'terms.p3': 'At CatapultaPay we comply with applicable data protection regulations. Your data will be handled with the necessary security measures to prevent unauthorized access, alteration, or disclosure.',
+    'terms.h4': 'Limitation of liability',
+    'terms.p4': 'We are not responsible for technical issues, interruptions, or errors that prevent the form from being submitted correctly. Likewise, we do not guarantee an immediate response, although we will make our best effort to address your inquiry promptly.',
+    'terms.h5': 'Changes to these terms',
+    'terms.p5': 'We reserve the right to modify these terms at any time. Changes will be posted on this same page and take effect immediately.',
+    'terms.footer': '© 2026 CATAPULTA PAYMENT SYSTEMS. All rights reserved.',
     // FOOTER
     'footer.desc': 'Payment processing solutions for businesses of all sizes. We connect your company with the best processors.',
     'footer.col1': 'Solutions', 'footer.col2': 'Company',
     'footer.sol.physical': 'Physical POS Equipment', 'footer.sol.virtual': 'Virtual Processing',
     'footer.sol.gateway': 'Payment Gateways', 'footer.sol.catalog': 'Equipment Catalog',
     'footer.about': 'About Us', 'footer.success': 'Success Stories',
+    'footer.faq': 'FAQ',
     'footer.contact': 'Contact', 'footer.terms': 'Terms & Conditions',
     'footer.download': 'Download Catalog',
-    'footer.rights': '© 2025 CATAPULTA PAYMENT SYSTEMS. All rights reserved.',
+    'footer.rights': '© 2026 CATAPULTA PAYMENT SYSTEMS. All rights reserved.',
     'toast.msg': 'Message sent successfully',
     'wa.href': 'https://wa.me/13109486153?text=Hello%2C+I%27m+interested+in+CatapultaPay',
     // TERMINAL SIMULATOR
@@ -406,14 +518,14 @@ const TRANSLATIONS = {
     'term.btn.process': 'Process payment',
     'term.reader.tag': 'Chip / Swipe / NFC',
     'term.method.chip.name': 'Chip card',
-    'term.method.chip.sub': '•••• •••• •••• 4521 · Visa',
-    'term.method.chip.label': 'Chip · Visa ••4521',
+    'term.method.chip.sub': '•••• •••• •••• 4521 · Chip',
+    'term.method.chip.label': 'Chip · CatapultaPay ••4521',
     'term.method.nfc.name': 'Contactless / NFC',
     'term.method.nfc.sub': 'Apple Pay · Google Pay',
     'term.method.nfc.label': 'NFC · Apple/Google Pay',
     'term.method.swipe.name': 'Magnetic stripe',
-    'term.method.swipe.sub': '•••• •••• •••• 8834 · Amex',
-    'term.method.swipe.label': 'Swipe · Amex ••8834',
+    'term.method.swipe.sub': '•••• •••• •••• 8834 · Swipe',
+    'term.method.swipe.label': 'Swipe · CatapultaPay ••8834',
     'term.processing': 'Processing',
     'term.approved': 'APPROVED',
     'term.thanks': 'Thank you for your purchase',
@@ -590,9 +702,13 @@ const I18N = {
     this._applySolutions(t);
     this._applyCatalogHeader(t);
     this._applyCatalogItems(lang, t);
+    this._applyCatalogDownloadLinks(lang);
     this._applyGallery(t);
     this._applyTestimonials(t);
+    this._applySteps(t);
+    this._applyFAQ(t);
     this._applyContact(t);
+    this._applyTermsModal(t);
     this._applyFooter(t);
     this._applyMisc(t);
 
@@ -657,7 +773,7 @@ const I18N = {
     this._setText('.about-badge span', 'about.badge', t);
     const fTitles = this._qa('.feature-text h3');
     const fDescs  = this._qa('.feature-text p');
-    [['about.f1.title','about.f1.desc'],['about.f2.title','about.f2.desc'],['about.f3.title','about.f3.desc']].forEach(([tk,dk],i) => {
+    [['about.f1.title','about.f1.desc'],['about.f2.title','about.f2.desc'],['about.f3.title','about.f3.desc'],['about.f4.title','about.f4.desc']].forEach(([tk,dk],i) => {
       if (fTitles[i] && t[tk]) fTitles[i].textContent = t[tk];
       if (fDescs[i]  && t[dk]) fDescs[i].textContent  = t[dk];
     });
@@ -875,6 +991,15 @@ const I18N = {
     }
   },
 
+  // Cambia el PDF del catálogo según el idioma activo: CatalogoEnglish.pdf / CatalogoSpanish.pdf
+  _applyCatalogDownloadLinks(lang) {
+    const file = lang === 'en' ? 'assets/files/CatalogoEnglish.pdf' : 'assets/files/CatalogoSpanish.pdf';
+    ['downloadCatalogBtn', 'downloadCatalogFooter'].forEach(id => {
+      const el = document.getElementById(id);
+      if (el) el.setAttribute('href', file);
+    });
+  },
+
   _applyGallery(t) {
     this._setLabel('#gallery .section-label', 'gallery.label', t);
     this._setHTML('#gallery .section-title',   'gallery.title', t);
@@ -891,6 +1016,44 @@ const I18N = {
     this._qa('.testi-role').forEach(el => { if (t['testi.verified']) el.textContent = t['testi.verified']; });
   },
 
+  _applySteps(t) {
+    this._setLabel('#how-it-works .section-label', 'steps.label', t);
+    this._setHTML('#how-it-works .section-title', 'steps.title', t);
+    this._setText('#how-it-works .section-desc', 'steps.desc', t);
+    const cards = this._qa('.step-card');
+    ['steps.s1', 'steps.s2', 'steps.s3', 'steps.s4'].forEach((k, i) => {
+      const card = cards[i];
+      if (!card) return;
+      const h3 = card.querySelector('h3'); if (h3 && t[k + '.title']) h3.textContent = t[k + '.title'];
+      const p  = card.querySelector('p');  if (p  && t[k + '.desc'])  p.textContent  = t[k + '.desc'];
+    });
+  },
+
+  _applyFAQ(t) {
+    this._setLabel('#faq .section-label', 'faq.label', t);
+    this._setHTML('#faq .section-title', 'faq.title', t);
+    this._setText('#faq .section-desc', 'faq.desc', t);
+    const items = this._qa('.faq-item');
+    items.forEach((item, i) => {
+      const n = i + 1;
+      const qSpan = item.querySelector('.faq-question span');
+      const aP    = item.querySelector('.faq-answer p');
+      if (qSpan && t['faq.q' + n] != null) qSpan.textContent = t['faq.q' + n];
+      if (aP && t['faq.a' + n] != null) aP.innerHTML = t['faq.a' + n];
+    });
+  },
+
+  _applyTermsModal(t) {
+    this._setLabel('#termsModalLabel', 'terms.label', t);
+    this._setText('#termsModalTitle', 'terms.title', t);
+    this._setText('#termsIntro', 'terms.intro', t);
+    for (let i = 1; i <= 5; i++) {
+      this._setText('#termsH' + i, 'terms.h' + i, t);
+      this._setText('#termsP' + i, 'terms.p' + i, t);
+    }
+    this._setText('#termsFooterText', 'terms.footer', t);
+  },
+
   _applyContact(t) {
     this._setText('#contact .section-label', 'contact.label', t);
     this._setHTML('#contact .section-title',  'contact.title', t);
@@ -901,14 +1064,15 @@ const I18N = {
     });
     // Formulario
     this._setText('.form-title', 'form.title', t);
-    this._setText('label[for="firstName"]', 'form.firstname', t);
-    this._setText('label[for="lastName"]',  'form.lastname',  t);
-    this._setText('label[for="email"]',     'form.email',     t);
+    this._setFormLabel('label[for="firstName"]', 'form.firstname', t);
+    this._setFormLabel('label[for="lastName"]',  'form.lastname',  t);
+    this._setText('label[for="company"]',   'form.company',   t);
+    this._setFormLabel('label[for="email"]',     'form.email',     t);
     this._setText('label[for="phone"]',     'form.phone',     t);
-    this._setText('label[for="subject"]',   'form.subject',   t);
-    this._setText('label[for="message"]',   'form.message',   t);
+    this._setFormLabel('label[for="subject"]',   'form.subject',   t);
+    this._setFormLabel('label[for="message"]',   'form.message',   t);
     // Placeholders
-    [['firstName','form.firstname.ph'],['lastName','form.lastname.ph'],
+    [['firstName','form.firstname.ph'],['lastName','form.lastname.ph'],['company','form.company.ph'],
      ['email','form.email.ph'],['phone','form.phone.ph'],['message','form.message.ph']
     ].forEach(([id, key]) => {
       const el = document.getElementById(id);
@@ -921,6 +1085,31 @@ const I18N = {
       Array.from(sel.options).forEach((opt, i) => { if (optKeys[i] && t[optKeys[i]]) opt.textContent = t[optKeys[i]]; });
     }
     this._setBtn('#contactForm button[type="submit"]', 'form.submit', t);
+    // Mensajes de error inline
+    const errKeys = { firstName:'form.err.firstname', lastName:'form.err.lastname', email:'form.err.email', subject:'form.err.subject', message:'form.err.message' };
+    Object.entries(errKeys).forEach(([id, key]) => {
+      const el = document.getElementById('err-' + id);
+      if (el && t[key]) el.textContent = t[key];
+    });
+    // Aviso de consentimiento + link de términos (reconstruye conservando el botón, que tiene su propio listener)
+    const consent = this._q('.form-consent');
+    const termsBtn = document.getElementById('openTerms');
+    if (consent && t['form.consent'] != null) {
+      if (termsBtn && t['form.terms'] != null) termsBtn.textContent = t['form.terms'];
+      consent.textContent = '';
+      consent.appendChild(document.createTextNode(t['form.consent'] + ' '));
+      if (termsBtn) consent.appendChild(termsBtn);
+      consent.appendChild(document.createTextNode('.'));
+    }
+  },
+
+  // Actualiza el texto de un <label> conservando el <span class="form-required"> hijo, si existe
+  _setFormLabel(sel, key, t) {
+    const el = this._q(sel);
+    if (!el || t[key] == null) return;
+    const req = el.querySelector('.form-required');
+    el.textContent = t[key] + (req ? ' ' : '');
+    if (req) el.appendChild(req);
   },
 
   _applyFooter(t) {
@@ -929,10 +1118,11 @@ const I18N = {
     if (colTitles[0] && t['footer.col1']) colTitles[0].textContent = t['footer.col1'];
     if (colTitles[1] && t['footer.col2']) colTitles[1].textContent = t['footer.col2'];
     const cols = this._qa('.footer-col ul');
+    // Los arrays deben coincidir exactamente con el orden de los <a> en el DOM (index.html footer)
     const col1Keys = ['footer.sol.physical','footer.sol.virtual','footer.sol.gateway','footer.sol.catalog'];
-    const col2Keys = ['footer.about','footer.success','footer.contact','footer.terms','footer.download'];
-    if (cols[0]) cols[0].querySelectorAll('a').forEach((a,i) => { if (col1Keys[i] && t[col1Keys[i]]) a.textContent = t[col1Keys[i]]; });
-    if (cols[1]) cols[1].querySelectorAll('a').forEach((a,i) => { if (col2Keys[i] && t[col2Keys[i]]) a.textContent = t[col2Keys[i]]; });
+    const col2Keys = ['footer.about','footer.success','footer.faq','footer.contact','footer.terms','footer.download'];
+    if (cols[0]) cols[0].querySelectorAll('a, button').forEach((a,i) => { if (col1Keys[i] && t[col1Keys[i]]) a.textContent = t[col1Keys[i]]; });
+    if (cols[1]) cols[1].querySelectorAll('a, button').forEach((a,i) => { if (col2Keys[i] && t[col2Keys[i]]) a.textContent = t[col2Keys[i]]; });
     const rights = this._q('.footer-bottom p');
     if (rights && t['footer.rights']) rights.textContent = t['footer.rights'];
   },

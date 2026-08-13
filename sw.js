@@ -1,16 +1,18 @@
 'use strict';
 
-const CACHE_NAME = 'catapultapay-v8.5'; // bump fuerza reinstalación
+const CACHE_NAME = 'catapultapay-v11.0'; // bump fuerza reinstalación
 
 const PRECACHE_ASSETS = [
   '/',
   '/index.html',
   '/styles.css',
   '/script.js',
-  '/improvements.js',
   '/i18n.js',
   '/imagecata.png',
   '/favicon.svg',
+  '/manifest.json',
+  '/assets/icons/icon-192.png',
+  '/assets/icons/icon-512.png',
 ];
 
 // ── INSTALL: cachear individualmente — un fallo no rompe todo ──
@@ -32,7 +34,7 @@ self.addEventListener('activate', event => {
     caches.keys().then(keys =>
       Promise.all(
         keys
-          .filter(key => key !== CACHE_NAME && key !== 'catapultapay-external-v1')
+          .filter(key => key !== CACHE_NAME)
           .map(key => caches.delete(key))
       )
     ).then(() => self.clients.claim())
@@ -44,14 +46,8 @@ self.addEventListener('fetch', event => {
   const { request } = event;
   const url = new URL(request.url);
 
-  // Solo mismo origen — fuera: solo cachear fuentes gstatic
+  // Todas las fuentes ahora son propias — lo externo (CDN de íconos) lo maneja el navegador
   if (url.origin !== location.origin) {
-    if (url.hostname === 'fonts.gstatic.com') {
-      event.respondWith(
-        cacheFirst(new Request(request, { mode: 'no-cors' }), 'catapultapay-external-v1')
-      );
-    }
-    // Cualquier otro externo: el browser lo maneja solo
     return;
   }
 
@@ -87,25 +83,6 @@ async function networkFirst(request) {
     const cached = await caches.match(request);
     return cached || new Response('Sin conexión', {
       status: 503,
-      headers: { 'Content-Type': 'text/plain' }
-    });
-  }
-}
-
-// Cache first: caché → red → fallback 404
-async function cacheFirst(request, cacheName) {
-  const cached = await caches.match(request);
-  if (cached) return cached;
-  try {
-    const response = await fetch(request);
-    if (response) {
-      const cache = await caches.open(cacheName || CACHE_NAME);
-      cache.put(request, response.clone());
-    }
-    return response;
-  } catch {
-    return new Response('No encontrado', {
-      status: 404,
       headers: { 'Content-Type': 'text/plain' }
     });
   }

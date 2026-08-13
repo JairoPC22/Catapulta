@@ -1,20 +1,26 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="6 6 48 48" role="img" aria-labelledby="title desc">
+  <title id="title">CatapultaPay</title>
+  <desc id="desc">Símbolo diagonal de conexión y pagos de CatapultaPay.</desc>
+
   <defs>
-    <linearGradient id="g" x1="0%" y1="100%" x2="100%" y2="0%">
-      <stop offset="0%" stop-color="#0ECFAD"/>
-      <stop offset="100%" stop-color="#45C0E8"/>
+    <linearGradient id="brand" x1="11" y1="54" x2="54" y2="11" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#0ECFAD"/>
+      <stop offset="0.52" stop-color="#20C9C4"/>
+      <stop offset="1" stop-color="#45C0E8"/>
     </linearGradient>
   </defs>
 
-  <g transform="translate(48, 54) rotate(-45)">
-    <circle cx="0" cy="0" r="4" fill="url(#g)"/>
-    <path d="M -7 -7 A 10 10 0 0 1 7 -7"
-          fill="none" stroke="url(#g)" stroke-width="3.5" stroke-linecap="round"/>
-    <path d="M -13 -13 A 18 18 0 0 1 13 -13"
-          fill="none" stroke="url(#g)" stroke-width="3.2" stroke-linecap="round"/>
-    <path d="M -19 -19 A 27 27 0 0 1 19 -19"
-          fill="none" stroke="url(#g)" stroke-width="3" stroke-linecap="round"/>
-    <path d="M -25 -25 A 35 35 0 0 1 25 -25"
-          fill="none" stroke="url(#g)" stroke-width="2.8" stroke-linecap="round" opacity="0.45"/>
+  <!--
+    Evolución fiel del símbolo original:
+    un punto de origen y cuatro ondas que se proyectan en diagonal.
+    La geometría está ajustada ópticamente para favicons de 16 a 64 px.
+  -->
+  <g fill="none" stroke="url(#brand)" stroke-linecap="round">
+    <path d="M35.3 45.2A10 10 0 0 1 45.3 35.2" stroke-width="4.5"/>
+    <path d="M27.1 45.2A18.2 18.2 0 0 1 45.3 27" stroke-width="4.1"/>
+    <path d="M18.9 45.2A26.4 26.4 0 0 1 45.3 18.8" stroke-width="3.7"/>
+    <path d="M10.7 45.2A34.6 34.6 0 0 1 45.3 10.6" stroke-width="3.3"/>
   </g>
+
+  <circle cx="45.3" cy="45.2" r="4.9" fill="url(#brand)"/>
 </svg>

@@ -1,0 +1,26 @@
+{
+  "name": "CatapultaPay — Procesamiento de Pagos",
+  "short_name": "CatapultaPay",
+  "description": "Soluciones de procesamiento de pagos B2B: terminales POS, pasarelas virtuales y soporte bilingüe.",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "orientation": "portrait-primary",
+  "background_color": "#070E1C",
+  "theme_color": "#070E1C",
+  "lang": "es",
+  "icons": [
+    {
+      "src": "assets/icons/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "assets/icons/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    }
+  ]
+}
