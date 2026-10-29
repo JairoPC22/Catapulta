@@ -45,9 +45,7 @@ jobs:
         run: |
           lftp -u "$IONOS_FTP_USERNAME","$IONOS_FTP_PASSWORD" sftp://$IONOS_FTP_SERVER:22 <<'EOF'
           set sftp:auto-confirm yes
-          pwd
-          ls -l
-          cd catapultaPay
+          cd catapultaPay/catapultaPay
           pwd
           ls -l
           EOF
