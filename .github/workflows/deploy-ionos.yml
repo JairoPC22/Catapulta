@@ -37,6 +37,19 @@ jobs:
       - name: Install lftp
         run: sudo apt-get update && sudo apt-get install -y lftp
 
+      - name: Inspect remote directory structure (diagnostic)
+        env:
+          IONOS_FTP_SERVER: ${{ secrets.IONOS_FTP_SERVER }}
+          IONOS_FTP_USERNAME: ${{ secrets.IONOS_FTP_USERNAME }}
+          IONOS_FTP_PASSWORD: ${{ secrets.IONOS_FTP_PASSWORD }}
+        run: |
+          lftp -u "$IONOS_FTP_USERNAME","$IONOS_FTP_PASSWORD" sftp://$IONOS_FTP_SERVER:22 <<'EOF'
+          set sftp:auto-confirm yes
+          pwd
+          ls -la
+          ls -la catapultaPay 2>/dev/null || echo "no catapultaPay subfolder here"
+          EOF
+
       - name: Upload to IONOS via SFTP
         env:
           IONOS_FTP_SERVER: ${{ secrets.IONOS_FTP_SERVER }}
