@@ -46,8 +46,10 @@ jobs:
           lftp -u "$IONOS_FTP_USERNAME","$IONOS_FTP_PASSWORD" sftp://$IONOS_FTP_SERVER:22 <<'EOF'
           set sftp:auto-confirm yes
           pwd
-          ls -la
-          ls -la catapultaPay 2>/dev/null || echo "no catapultaPay subfolder here"
+          ls -l
+          cd catapultaPay
+          pwd
+          ls -l
           EOF
 
       - name: Upload to IONOS via SFTP
