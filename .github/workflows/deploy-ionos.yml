@@ -60,6 +60,22 @@ jobs:
           echo "Files staged for upload:"
           find _deploy -maxdepth 1
 
+      - name: Probe which folder is actually live (temporary diagnostic)
+        env:
+          IONOS_FTP_SERVER: ${{ secrets.IONOS_FTP_SERVER }}
+          IONOS_FTP_USERNAME: ${{ secrets.IONOS_FTP_USERNAME }}
+          IONOS_FTP_PASSWORD: ${{ secrets.IONOS_FTP_PASSWORD }}
+        run: |
+          echo "probe-root-$(date +%s)" > probe-root.txt
+          echo "probe-outer-$(date +%s)" > probe-outer.txt
+          echo "probe-inner-$(date +%s)" > probe-inner.txt
+          lftp -u "$IONOS_FTP_USERNAME","$IONOS_FTP_PASSWORD" sftp://$IONOS_FTP_SERVER:22 <<'EOF'
+          set sftp:auto-confirm yes
+          put probe-root.txt -o ionos-probe.txt
+          put probe-outer.txt -o catapultaPay/ionos-probe.txt
+          put probe-inner.txt -o catapultaPay/catapultaPay/ionos-probe.txt
+          EOF
+
       - name: Upload to IONOS via SFTP
         env:
           IONOS_FTP_SERVER: ${{ secrets.IONOS_FTP_SERVER }}
