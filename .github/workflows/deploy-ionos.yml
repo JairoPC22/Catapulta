@@ -1,0 +1,45 @@
+name: Deploy to IONOS (FTP)
+
+# Runs automatically on every push to main. To use it:
+# 1. In IONOS, create (or find) FTP/SFTP access credentials for this domain's webspace.
+# 2. In GitHub: repo > Settings > Secrets and variables > Actions > New repository secret.
+#    Add these three secrets (names must match exactly):
+#      IONOS_FTP_SERVER    e.g. access-xxxxxxx.webspace-host.com
+#      IONOS_FTP_USERNAME  the FTP/SFTP username IONOS gave you
+#      IONOS_FTP_PASSWORD  the FTP/SFTP password IONOS gave you
+# 3. Set server-dir below to the folder IONOS serves as the site root
+#    (often "/" or "/htdocs/" — check your IONOS hosting panel).
+# Never put these values directly in this file — only in GitHub Secrets.
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch: {}
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Upload to IONOS via FTP
+        uses: SamKirkland/FTP-Deploy-Action@v4.3.5
+        with:
+          server: ${{ secrets.IONOS_FTP_SERVER }}
+          username: ${{ secrets.IONOS_FTP_USERNAME }}
+          password: ${{ secrets.IONOS_FTP_PASSWORD }}
+          server-dir: /
+          exclude: |
+            **/.git*
+            **/.git*/**
+            **/.github/**
+            **/.claude/**
+            **/.impeccable/**
+            **/tests/**
+            **/tools/**
+            **/content/**
+            **/node_modules/**
+            **/*.md
+            preview-server.cjs
+            gallery-redesign.png
