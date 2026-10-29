@@ -16,10 +16,12 @@ name: Deploy to IONOS (SFTP)
 #      IONOS_FTP_PASSWORD  the password for that FTP/SFTP account
 #    Never put these values directly in this file — only in GitHub Secrets.
 #
-# 3. Remote path confirmed by a one-off diagnostic run: the IONOS account
-#    root has a "catapultaPay" folder, and the real site (matching
-#    catapultapay.com) lives one level deeper, at catapultaPay/catapultaPay.
-#    That is the folder this workflow targets below.
+# 3. Remote path: confirmed via diagnostic probes. This SFTP account is
+#    chrooted so its own "/" already corresponds to the "Catapulta" folder
+#    shown in the IONOS file-manager UI (cd /Catapulta fails with "No such
+#    file" from inside this account — it's already the root). The domain's
+#    configured target, "/Catapulta/catapultaPay/catapultaPay", is therefore
+#    just "catapultaPay/catapultaPay" relative to this account's root.
 
 on:
   push:
@@ -60,37 +62,6 @@ jobs:
           echo "Files staged for upload:"
           find _deploy -maxdepth 1
 
-      - name: Probe which folder is actually live (temporary diagnostic)
-        env:
-          IONOS_FTP_SERVER: ${{ secrets.IONOS_FTP_SERVER }}
-          IONOS_FTP_USERNAME: ${{ secrets.IONOS_FTP_USERNAME }}
-          IONOS_FTP_PASSWORD: ${{ secrets.IONOS_FTP_PASSWORD }}
-        run: |
-          echo "probe-root-$(date +%s)" > probe-root.txt
-          echo "probe-outer-$(date +%s)" > probe-outer.txt
-          echo "probe-inner-$(date +%s)" > probe-inner.txt
-          lftp -u "$IONOS_FTP_USERNAME","$IONOS_FTP_PASSWORD" sftp://$IONOS_FTP_SERVER:22 <<'EOF'
-          set sftp:auto-confirm yes
-          set cmd:fail-exit no
-          echo "--- sftp session root ---"
-          pwd
-          ls -l
-          echo "--- absolute / ---"
-          cd /
-          pwd
-          ls -l
-          echo "--- /Catapulta (if reachable) ---"
-          cd /Catapulta
-          pwd
-          ls -l
-          echo "--- /Catapulta/catapultaPay/catapultaPay (absolute, panel-reported path) ---"
-          cd /Catapulta/catapultaPay/catapultaPay
-          pwd
-          ls -l
-          put probe-root.txt -o ionos-probe.txt
-          EOF
-          true
-
       - name: Upload to IONOS via SFTP
         env:
           IONOS_FTP_SERVER: ${{ secrets.IONOS_FTP_SERVER }}
@@ -100,7 +71,7 @@ jobs:
           lftp -u "$IONOS_FTP_USERNAME","$IONOS_FTP_PASSWORD" sftp://$IONOS_FTP_SERVER:22 <<'EOF'
           set sftp:auto-confirm yes
           set mirror:parallel-transfer-count 3
-          mirror -R --verbose _deploy /catapultaPay/catapultaPay
+          mirror -R --verbose _deploy catapultaPay/catapultaPay
           EOF
           # Note: no --delete here on purpose, so this never removes files
           # that already exist on IONOS but aren't in this repo. Add
