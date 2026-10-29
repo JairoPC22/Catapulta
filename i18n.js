@@ -22,11 +22,6 @@ const TRANSLATIONS = {
     'hero.desc': 'Te ayudamos a elegir, configurar y optimizar las mejores plataformas de pago para tu empresa. Mejora tu conversión, reduce costos y cumple con estándares de seguridad global.',
     'hero.cta1': 'Empieza a cobrar', 'hero.cta2': 'Ver equipos',
     'hero.trust': '400+ negocios ya confían en nosotros',
-    // DASHBOARD
-    'dash.title': 'Rendimiento de cobros', 'dash.badge': 'Esta semana',
-    'dash.bar1': 'Tarjeta Crédito', 'dash.bar2': 'Tarjeta Débito',
-    'dash.bar3': 'Sin Contacto', 'dash.bar4': 'QR / Online',
-    'badge.approved': 'Pago aprobado', 'badge.pci': 'Cifrado de extremo a extremo',
     // ABOUT
     'about.label': 'Nosotros',
     'about.title': 'El socio que tu negocio<br />necesitaba para cobrar mejor.',
@@ -151,6 +146,8 @@ const TRANSLATIONS = {
     // TESTIMONIALS
     'testi.label': 'Casos de éxito',
     'testi.title': 'Confianza que<br />se siente.',
+    'testi.desc': 'Negocios reales, con su nombre y su reseña — no testimonios genéricos.',
+    'testi.count': '4 clientes verificados',
     'testi.q1': '"Implementar su sistema de pagos fue un acierto total. Nuestros comensales ahora pagan rápido y seguro. Hemos aumentado ventas especialmente en fines de semana. Una excelente inversión."',
     'testi.q2': '"El terminal virtual se sincronizó perfectamente con nuestro sistema. Ahora aceptamos pagos sin contacto y las transacciones son un 30% más rápidas."',
     'testi.q3': '"Grandes ahorros en comisiones y claridad total en los números. El sistema POS es confiable, fácil de usar y ha mejorado la eficiencia de cobros diarios."',
@@ -281,11 +278,6 @@ const TRANSLATIONS = {
     'hero.desc': 'We help you choose, configure, and optimize the best payment platforms for your business. Improve conversion, reduce costs, and meet global security standards.',
     'hero.cta1': 'Start collecting', 'hero.cta2': 'See equipment',
     'hero.trust': '400+ businesses already trust us',
-    // DASHBOARD
-    'dash.title': 'Collection Performance', 'dash.badge': 'This week',
-    'dash.bar1': 'Credit Card', 'dash.bar2': 'Debit Card',
-    'dash.bar3': 'Contactless', 'dash.bar4': 'QR / Online',
-    'badge.approved': 'Payment approved', 'badge.pci': 'End-to-end encrypted',
     // ABOUT
     'about.label': 'About Us',
     'about.title': 'The partner your business<br />needed to collect better.',
@@ -410,6 +402,8 @@ const TRANSLATIONS = {
     // TESTIMONIALS
     'testi.label': 'Success stories',
     'testi.title': 'Trust you<br />can feel.',
+    'testi.desc': 'Real businesses, with their name and their review — not generic testimonials.',
+    'testi.count': '4 verified customers',
     'testi.q1': '"Implementing their payment system was a total success. Our diners now pay quickly and securely. We increased sales especially on weekends. An excellent investment."',
     'testi.q2': '"The virtual terminal synced perfectly with our system. We now accept contactless payments and transactions are 30% faster."',
     'testi.q3': '"Great savings on fees and total clarity in the numbers. The POS system is reliable, easy to use, and has improved daily collection efficiency."',
@@ -681,7 +675,6 @@ const I18N = {
 
       this._applyNav(t);
     this._applyHero(t);
-    this._applyDashboard(t);
     this._applyAbout(t);
     this._applyStats(t);
     this._applyTerminal(t);
@@ -726,23 +719,6 @@ const I18N = {
     this._setBtn('#hero .hero-actions .btn-primary', 'hero.cta1', t);
     this._setText('#hero .btn-ghost', 'hero.cta2', t);
     this._setText('.trust-text', 'hero.trust', t);
-  },
-
-  _applyDashboard(t) {
-    this._setText('.dash-title', 'dash.title', t);
-    this._setText('.dash-badge', 'dash.badge', t);
-    const bars = this._qa('.bar-label');
-    ['dash.bar1','dash.bar2','dash.bar3','dash.bar4'].forEach((k,i) => {
-      if (bars[i] && t[k]) bars[i].textContent = t[k];
-    });
-    // Badge aprobado (tiene <strong> con el monto)
-    const approvedSpan = this._q('.badge-approved span');
-    if (approvedSpan && t['badge.approved']) {
-      const strong = approvedSpan.querySelector('strong');
-      approvedSpan.textContent = t['badge.approved'] + ' ';
-      if (strong) approvedSpan.appendChild(strong);
-    }
-    this._setText('.badge-pci span', 'badge.pci', t);
   },
 
   _applyAbout(t) {
@@ -990,6 +966,8 @@ const I18N = {
   _applyTestimonials(t) {
     this._setText('#testimonials .section-label', 'testi.label', t);
     this._setHTML('#testimonials .section-title', 'testi.title', t);
+    this._setText('#testimonials .section-desc', 'testi.desc', t);
+    this._setText('.testi-aggregate-count', 'testi.count', t);
     const quotes = this._qa('.testi-quote');
     ['testi.q1','testi.q2','testi.q3','testi.q4'].forEach((k,i) => {
       if (quotes[i] && t[k]) quotes[i].textContent = t[k];

@@ -38,6 +38,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   initPhotoCarousel(reduced);
   initTestimonialCarousel();
+  initTestimonialReveal(reduced);
   const animateCopy = () => initTitleMotion(reduced);
   if (document.documentElement.dataset.pageReady === 'true' || document.querySelector('#siteLoader')?.hidden) animateCopy();
   else document.addEventListener('catapulta:ready', animateCopy, { once: true });
@@ -312,6 +313,26 @@ function initPhotoCarousel(reduced) {
   new ResizeObserver(() => goTo(selected, true)).observe(track);
   translate();
   update();
+}
+
+// Testimonials: cards fade and settle into place in sequence as the section
+// scrolls into view, instead of appearing all at once.
+function initTestimonialReveal(reduced) {
+  if (reduced.matches) return;
+  const cards = [...document.querySelectorAll('.testi-card')];
+  if (!cards.length) return;
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach(entry => {
+      if (!entry.isIntersecting) return;
+      observer.unobserve(entry.target);
+      const index = cards.indexOf(entry.target);
+      entry.target.animate([
+        { opacity: 0, transform: 'translateY(26px) scale(.97)' },
+        { opacity: 1, transform: 'none' }
+      ], { duration: 600, delay: index * 90, easing: 'cubic-bezier(.16,1,.3,1)', fill: 'both' });
+    });
+  }, { threshold: .2 });
+  cards.forEach(card => observer.observe(card));
 }
 
 // Testimonials: the grid becomes a swipeable scroll-snap carousel on mobile

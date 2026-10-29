@@ -44,24 +44,24 @@
     audio.addEventListener('error', () => { audio.dataset.playback = 'unavailable'; });
   }
   const updateLabels = () => {
-    loader.querySelector('.loader-status').textContent = label('Preparando tu experiencia', 'Preparing your experience');
+    const el = loader.querySelector('.loader-status-text');
+    if (el) el.textContent = label('Preparando tu experiencia', 'Preparing your experience');
+    const tagline = loader.querySelector('.loader-tagline');
+    if (tagline) tagline.textContent = label('Pagos simples. Negocios que crecen.', 'Simple payments. Growing businesses.');
   };
   new MutationObserver(updateLabels).observe(document.documentElement, { attributes: true, attributeFilter: ['lang'] });
   updateLabels();
-  const pctEl = loader.querySelector('.loader-pct');
-  const PCT_DURATION_MS = 2700;
-  if (pctEl && typeof requestAnimationFrame === 'function') {
-    if (reduced.matches) {
-      pctEl.textContent = '100%';
-    } else {
-      const tick = now => {
-        if (finished) return;
-        const pct = Math.min(100, Math.round(((now - started) / PCT_DURATION_MS) * 100));
-        pctEl.textContent = pct + '%';
-        if (pct < 100) requestAnimationFrame(tick);
-      };
-      requestAnimationFrame(tick);
-    }
+  const arcs = typeof loader.querySelectorAll === 'function' ? [...loader.querySelectorAll('.lg-arc')] : [];
+  if (arcs.length && typeof requestAnimationFrame === 'function' && !reduced.matches) {
+    arcs.forEach(arc => {
+      const len = arc.getTotalLength();
+      arc.style.strokeDasharray = String(len);
+      arc.style.strokeDashoffset = String(len);
+    });
+    requestAnimationFrame(() => requestAnimationFrame(() => {
+      arcs.forEach(arc => { arc.style.strokeDashoffset = '0'; });
+      loader.classList.add('lg-dot-in');
+    }));
   }
   const guardKeyboard = event => {
     if (event.key === 'Escape') { dismissed = true; finish(false); }
@@ -82,9 +82,10 @@
       if (dismissed) document.querySelector('#hero .btn-primary')?.focus({ preventScroll: true });
     }, reduced.matches ? 0 : 600);
   };
-  // Shows the brand loader for a fixed ~4s on every load (skippable with
-  // Escape), as a deliberate brand moment rather than a progress indicator.
-  const MIN_DISPLAY_MS = 3000;
+  // Shows the brand loader for a fixed ~2s on every load (skippable with
+  // Escape): long enough for the icon-draw + brand-reveal sequence in
+  // page-state.css to finish (~1.9s) before the page is revealed.
+  const MIN_DISPLAY_MS = 2000;
   loader.hidden = false;
   document.documentElement.classList.add('is-loading');
   document.addEventListener('keydown', guardKeyboard, true);

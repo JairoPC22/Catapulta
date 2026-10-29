@@ -220,12 +220,28 @@
   <audio id="brandAudio" src="assets/audio/catapultapayment-signature.mp3" preload="none" aria-hidden="true"></audio>
   <div class="site-loader" id="siteLoader" hidden>
     <div class="loader-content">
-      <img class="loader-logo" src="imagecata.png" alt="CatapultaPayment" width="170" height="90" fetchpriority="high" />
-      <div class="loader-track-row">
-        <div class="loader-track" aria-hidden="true"></div>
-        <span class="loader-pct" aria-hidden="true">00%</span>
+      <div class="loader-status" role="status">
+        <svg class="loader-glyph" viewBox="6 6 48 48" aria-hidden="true">
+          <defs>
+            <linearGradient id="loaderBrand" x1="11" y1="54" x2="54" y2="11" gradientUnits="userSpaceOnUse">
+              <stop offset="0" stop-color="#0ECFAD"/>
+              <stop offset="0.52" stop-color="#20C9C4"/>
+              <stop offset="1" stop-color="#45C0E8"/>
+            </linearGradient>
+          </defs>
+          <path class="lg-arc" d="M35.3 45.2A10 10 0 0 1 45.3 35.2" stroke-width="4.5"/>
+          <path class="lg-arc" d="M27.1 45.2A18.2 18.2 0 0 1 45.3 27" stroke-width="4.1"/>
+          <path class="lg-arc" d="M18.9 45.2A26.4 26.4 0 0 1 45.3 18.8" stroke-width="3.7"/>
+          <path class="lg-arc" d="M10.7 45.2A34.6 34.6 0 0 1 45.3 10.6" stroke-width="3.3"/>
+          <circle class="lg-dot" cx="45.3" cy="45.2" r="4.9"/>
+        </svg>
+        <span class="sr-only loader-status-text">Preparando tu experiencia</span>
       </div>
-      <p class="loader-status" role="status">Preparando tu experiencia</p>
+      <p class="loader-brand">
+        <span class="loader-brand-main grad-text">pay</span>
+        <span class="loader-brand-sub">CATAPULTA</span>
+      </p>
+      <p class="loader-tagline">Pagos simples. Negocios que crecen.</p>
     </div>
   </div>
   <script src="loading.js?v=29"></script>
@@ -331,56 +347,26 @@
         </div>
       </div>
 
-      <!-- Dashboard Card 3D -->
-      <div class="hero-card-wrap" aria-hidden="true">
-        <div class="dashboard-card" id="dashCard">
-          <!-- Floating badge 1 -->
-          <div class="float-badge badge-approved">
-            <i data-lucide="check-circle" aria-hidden="true"></i>
-            <span>Pago aprobado <strong>$1,240.00</strong></span>
-          </div>
-
-          <div class="dash-header">
-            <span class="dash-title">Rendimiento de cobros</span>
-            <span class="dash-badge">Esta semana</span>
-          </div>
-
-          <div class="dash-total">
-            <span class="dash-amount">$48,320.00</span>
-            <span class="dash-delta">
-              <i data-lucide="trending-up" aria-hidden="true"></i>
-              +12.4%
-            </span>
-          </div>
-
-          <div class="dash-bars">
-            <div class="bar-row">
-              <span class="bar-label">Tarjeta Crédito</span>
-              <div class="bar-track"><div class="bar-fill" data-width="82"></div></div>
-              <span class="bar-pct">82%</span>
-            </div>
-            <div class="bar-row">
-              <span class="bar-label">Tarjeta Débito</span>
-              <div class="bar-track"><div class="bar-fill" data-width="64"></div></div>
-              <span class="bar-pct">64%</span>
-            </div>
-            <div class="bar-row">
-              <span class="bar-label">Sin Contacto</span>
-              <div class="bar-track"><div class="bar-fill" data-width="91"></div></div>
-              <span class="bar-pct">91%</span>
-            </div>
-            <div class="bar-row">
-              <span class="bar-label">QR / Online</span>
-              <div class="bar-track"><div class="bar-fill" data-width="48"></div></div>
-              <span class="bar-pct">48%</span>
-            </div>
-          </div>
-
-          <!-- Floating badge 2 -->
-          <div class="float-badge badge-pci">
-            <i data-lucide="shield-check" aria-hidden="true"></i>
-            <span>Cifrado de extremo a extremo</span>
-          </div>
+      <!-- Terminal POS en 3D (modelo real, no una gráfica inventada) -->
+      <div class="hero-card-wrap">
+        <div class="hero-3d-card" id="hero3d">
+          <model-viewer
+            class="hero-model"
+            src="assets/models/pos-machine.glb"
+            alt="Terminal POS de CatapultaPayment en 3D"
+            auto-rotate
+            auto-rotate-delay="0"
+            rotation-per-second="14deg"
+            environment-image="neutral"
+            shadow-intensity="1"
+            shadow-softness="1"
+            camera-orbit="-22deg 73deg 105%"
+            field-of-view="26deg"
+            exposure="1.1"
+            loading="eager"
+            tabindex="-1"
+          >
+          </model-viewer>
         </div>
       </div>
 
@@ -1442,6 +1428,18 @@
           Confianza que<br />
           se siente.
         </h2>
+        <p class="section-desc">Negocios reales, con su nombre y su reseña — no testimonios genéricos.</p>
+        <div class="testi-aggregate">
+          <span class="testi-aggregate-score">5.0</span>
+          <div class="testi-aggregate-stars" role="img" aria-label="5 de 5 estrellas">
+            <i data-lucide="star" aria-hidden="true"></i>
+            <i data-lucide="star" aria-hidden="true"></i>
+            <i data-lucide="star" aria-hidden="true"></i>
+            <i data-lucide="star" aria-hidden="true"></i>
+            <i data-lucide="star" aria-hidden="true"></i>
+          </div>
+          <span class="testi-aggregate-count">4 clientes verificados</span>
+        </div>
       </div>
 
       <div class="testimonials-grid" id="testiTrack">
@@ -1902,6 +1900,8 @@
   </div>
 
   <!-- Script -->
+  <!-- Visor 3D del terminal del hero (modelo real en assets/models) -->
+  <script type="module" src="assets/js/model-viewer.min.js?v=29"></script>
   <!-- EmailJS: envía el formulario de contacto sin backend propio -->
   <script src="runtime.js?v=29" defer></script>
   <script src="script.js?v=29" defer></script>

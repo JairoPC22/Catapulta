@@ -26,11 +26,6 @@ document.addEventListener('DOMContentLoaded', () => {
   initContactForm();
   initSavingsCalculator();
   initTerminalAccessibility();
-  const idle = window.requestIdleCallback || (cb => setTimeout(cb, 200));
-  idle(() => {
-
-    initBarAnimations();
-  });
 });
 
 /* ────────────────────────────────────────────
@@ -188,27 +183,6 @@ function initTabGroup(buttonSelector, panelFor) {
 }
 function initTabs() {
   initTabGroup('.tab-pill', tab => document.getElementById('panel' + tab.dataset.tab[0].toUpperCase() + tab.dataset.tab.slice(1)));
-}
-
-function initBarAnimations() {
-  const bars = document.querySelectorAll('.bar-fill');
-  if (!bars.length) return;
-
-  const observer = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting) {
-        bars.forEach((bar, index) => {
-          setTimeout(() => {
-            bar.style.width = bar.dataset.width + '%';
-          }, index * 150);
-        });
-        observer.disconnect();
-      }
-    });
-  }, { threshold: 0.5 });
-
-  const card = document.getElementById('dashCard');
-  if (card) observer.observe(card);
 }
 
 /* ────────────────────────────────────────────

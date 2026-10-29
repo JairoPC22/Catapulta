@@ -96,30 +96,15 @@ html { scroll-padding-top: 100px; scrollbar-color: var(--color-muted) var(--colo
 .hero-actions { gap: 12px; }
 .trust-text { font-size: .78rem; }
 .hero-card-wrap { display: block; perspective: 1200px; padding: 30px 0; }
-.dashboard-card {
-  padding: 2.1rem;
-  border-radius: 18px;
-  transform: rotateY(-12deg) rotateX(6deg);
-  transition: transform .5s var(--motion-ease), box-shadow .5s;
-  box-shadow: 0 35px 70px rgba(0,0,0,.3);
-}
-.dashboard-card:hover { transform: rotateY(-3deg) rotateX(2deg) translateY(-4px); }
-.dashboard-card::after {
-  content: '';
-  position: absolute;
-  inset: 0;
-  border-radius: inherit;
+.hero-3d-card { position: relative; }
+.hero-model {
+  display: block;
+  width: 100%;
+  height: 440px;
+  background-color: transparent;
+  --poster-color: transparent;
   pointer-events: none;
-  background: linear-gradient(125deg, rgba(255,255,255,.06), transparent 48%);
 }
-.dash-amount { font-family: var(--font-mono); font-size: clamp(1.4rem, 2.4vw, 2.1rem); font-weight: 500; letter-spacing: -.01em; font-variant-numeric: tabular-nums; }
-.dash-delta { font-size: .7rem; }
-.dash-header { gap: 10px; }
-.dash-title { font-size: .78rem; }
-.dash-badge { font-size: .6rem; white-space: nowrap; }
-.dash-bars { gap: 1.3rem; }
-.bar-label { font-size: .7rem; width: 102px; }
-.bar-pct { font-family: var(--font-mono); font-size: .78rem; font-variant-numeric: tabular-nums; }
 .float-badge { border-radius: 9px; font-size: .7rem; animation: none; }
 .float-badge strong { font-family: var(--font-mono); font-weight: 600; letter-spacing: -.01em; }
 .badge-approved { top: -22px; right: -12px; }
@@ -177,9 +162,18 @@ html { scroll-padding-top: 100px; scrollbar-color: var(--color-muted) var(--colo
   .scroll-top-btn { bottom: 18px; }
 }
 .catalog-name { font-weight: 650; letter-spacing: -.02em; }
-.testi-card { background: none; border: 0; border-right: 1px solid var(--color-borderW); border-radius: 0; box-shadow: none; padding: 12px 30px; }
+.testi-card {
+  background: none; border: 0; border-right: 1px solid var(--color-borderW); border-radius: 0; box-shadow: none; padding: 12px 30px;
+  position: relative;
+  transition: background .3s var(--motion-ease), box-shadow .3s var(--motion-ease), transform .3s var(--motion-ease);
+}
 .testi-card:last-child { border-right: 0; }
-.testi-card:hover { box-shadow: none; background: none; }
+.testi-card:hover { background: var(--color-surface); border-radius: var(--radius-lg); box-shadow: var(--shadow-teal); transform: translateY(-4px); }
+.testi-quote::before {
+  content: '\201C'; position: absolute; top: -.3em; left: -.05em; font-family: Georgia, serif;
+  font-size: 3.5rem; line-height: 1; color: var(--color-teal); opacity: .14; pointer-events: none;
+}
+.testi-quote { position: relative; }
 .testi-controls { display: none !important; }
 .testi-quote { font-size: 1.02rem; line-height: 1.85; }
 .step-card { background: none; border: 0; box-shadow: none; border-top: 1px solid var(--color-borderW); border-radius: 0; }
@@ -305,9 +299,9 @@ body.photo-viewer-open { overflow: hidden; }
 .reveal, .reveal-left, .reveal-right { opacity: 1; transform: none; }
 .tilt-card { transform: none !important; }
 .hero-copy h1 { animation: none; }
-.dashboard-card { animation: dashboard-arrive 1s var(--motion-ease) backwards; }
+.hero-3d-card { animation: hero-3d-arrive 1s var(--motion-ease) backwards; }
 @keyframes copy-arrive { from { opacity: .2; transform: translateY(16px); } to { opacity: 1; transform: none; } }
-@keyframes dashboard-arrive { from { opacity: 0; transform: translateX(35px) rotateY(-20deg) rotateX(9deg); } to { opacity: 1; transform: rotateY(-12deg) rotateX(6deg); } }
+@keyframes hero-3d-arrive { from { opacity: 0; transform: translateY(24px) scale(.96); } to { opacity: 1; transform: none; } }
 .reading-progress { position: fixed; z-index: 1100; top: 0; left: 0; width: 100%; height: 3px; background: var(--grad-primary); transform: scaleX(0); transform-origin: left; pointer-events: none; }
 @media (min-width: 769px) and (max-width: 1100px) {
   .nav-inner { padding-inline: 3%; gap: 10px; }
@@ -315,7 +309,7 @@ body.photo-viewer-open { overflow: hidden; }
   .ncta { display: none; }
   .hero-grid { gap: 2.5rem; }
   .hero-copy h1 { font-size: 3rem; }
-  .dashboard-card { padding: 1.5rem; }
+  .hero-model { height: 360px; }
   .testimonials-grid { grid-template-columns: repeat(2, 1fr); }
   .testi-card { border-right: 0 !important; border-bottom: 1px solid var(--color-borderW); padding: 1rem 0; }
   .testi-card:nth-child(2n) { border-right: 0; }
@@ -337,12 +331,7 @@ body.photo-viewer-open { overflow: hidden; }
   .hero-actions .btn-primary, .hero-actions .btn-ghost { width: auto; flex: 1; padding: .9rem .65rem; font-size: .77rem; }
   .trust-bar { justify-content: flex-start; }
   .hero-card-wrap { max-width: 500px; width: 100%; margin-inline: auto; padding: 20px 10px; }
-  .dashboard-card { padding: 1.4rem; }
-  .dash-amount { font-size: 1.8rem; }
-  .dash-total { gap: .5rem; }
-  .dash-title { font-size: .7rem; }
-  .dash-badge { font-size: .55rem; padding-inline: .5rem; }
-  .bar-label { font-size: .65rem; width: 90px; }
+  .hero-model { height: 300px; }
   .badge-approved { right: -8px; font-size: .62rem; }
   .badge-pci { left: 10px; font-size: .62rem; }
   #about, #solutions, #catalogo, #gallery, #testimonials, #how-it-works, #faq, #contact, #calculator { padding-top: 64px; padding-bottom: 64px; }

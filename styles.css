@@ -1795,6 +1795,31 @@ textarea {
   stroke: none;
 }
 
+.testi-aggregate {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: .6rem;
+  margin-top: 1.4rem;
+}
+
+.testi-aggregate-score {
+  font-family: var(--font-mono);
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: var(--color-text);
+}
+
+.testi-aggregate-stars { display: flex; gap: 2px; color: var(--color-gold); }
+.testi-aggregate-stars svg { width: 15px; height: 15px; fill: var(--color-gold); stroke: none; }
+
+.testi-aggregate-count {
+  font-size: .82rem;
+  color: var(--color-muted);
+  padding-left: .6rem;
+  border-left: 1px solid var(--color-borderW);
+}
+
 .testi-quote {
   font-size: 0.93rem;
   color: var(--color-text);

@@ -16,9 +16,11 @@ name: Deploy to IONOS (SFTP)
 #      IONOS_FTP_PASSWORD  the password for that FTP/SFTP account
 #    Never put these values directly in this file — only in GitHub Secrets.
 #
-# 3. Confirm the site's root folder on IONOS (shown in the hosting panel,
-#    usually "/"); change the remote path at the end of the mirror command
-#    below if yours is different (e.g. "/htdocs/").
+# 3. Remote path: catapultapay.com's domain settings in IONOS show
+#    "Objetivo: /catapultaPay", so that's the folder this workflow targets.
+#    If the first run lands files in the wrong place (e.g. the SFTP account
+#    is already scoped to that folder as its own root), change the path at
+#    the end of the mirror command below to "/" instead.
 
 on:
   push:
@@ -56,7 +58,7 @@ jobs:
             --exclude-glob '*.md' \
             --exclude preview-server.cjs \
             --exclude gallery-redesign.png \
-            . /
+            . /catapultaPay
           EOF
           # Note: no --delete here on purpose, so this never removes files
           # that already exist on IONOS but aren't in this repo. Add
