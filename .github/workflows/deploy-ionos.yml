@@ -71,10 +71,25 @@ jobs:
           echo "probe-inner-$(date +%s)" > probe-inner.txt
           lftp -u "$IONOS_FTP_USERNAME","$IONOS_FTP_PASSWORD" sftp://$IONOS_FTP_SERVER:22 <<'EOF'
           set sftp:auto-confirm yes
+          set cmd:fail-exit no
+          echo "--- sftp session root ---"
+          pwd
+          ls -l
+          echo "--- absolute / ---"
+          cd /
+          pwd
+          ls -l
+          echo "--- /Catapulta (if reachable) ---"
+          cd /Catapulta
+          pwd
+          ls -l
+          echo "--- /Catapulta/catapultaPay/catapultaPay (absolute, panel-reported path) ---"
+          cd /Catapulta/catapultaPay/catapultaPay
+          pwd
+          ls -l
           put probe-root.txt -o ionos-probe.txt
-          put probe-outer.txt -o catapultaPay/ionos-probe.txt
-          put probe-inner.txt -o catapultaPay/catapultaPay/ionos-probe.txt
           EOF
+          true
 
       - name: Upload to IONOS via SFTP
         env:
