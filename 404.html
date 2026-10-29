@@ -4,51 +4,37 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="robots" content="noindex, follow" />
-  <title>Página no encontrada — CatapultaPay</title>
-  <link rel="icon" type="image/svg+xml" href="favicon.svg?v=1.1" />
-  <link rel="stylesheet" href="styles.css" />
-  <style>
-    .error-page {
-      min-height: 100vh;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      text-align: center;
-      padding: 2rem;
-      gap: 1.4rem;
-    }
-    .error-page img { width: 150px; height: auto; margin-bottom: 1rem; }
-    .error-code {
-      font-family: var(--font-display);
-      font-size: clamp(4rem, 12vw, 7rem);
-      line-height: 1;
-      background: var(--grad-primary);
-      -webkit-background-clip: text;
-      background-clip: text;
-      color: transparent;
-    }
-    .error-page h1 {
-      font-family: var(--font-display);
-      font-size: clamp(1.5rem, 3vw, 2.1rem);
-      font-weight: 400;
-      color: var(--color-white);
-    }
-    .error-page p {
-      color: var(--color-muted);
-      max-width: 420px;
-    }
-  </style>
+  <meta name="theme-color" content="#070E1C" />
+  <title>Página no encontrada — CatapultaPayment</title>
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+  <link rel="preload" href="/assets/fonts/design/manrope.ttf" as="font" type="font/ttf" crossorigin />
+  <link rel="stylesheet" href="/styles.css" />
+  <link rel="stylesheet" href="/design.css?v=29" />
+  <link rel="stylesheet" href="/page-state.css?v=29" />
+  <script src="/recovery.js?v=29" defer></script>
 </head>
-<body>
-  <div class="error-page">
-    <a href="/"><img src="imagecata.png" alt="CatapultaPay" width="150" height="38" /></a>
-    <span class="error-code">404</span>
-    <h1>Esta página no existe.</h1>
-    <p>El enlace que seguiste puede estar roto o la página fue movida. Regresa al inicio para seguir navegando.</p>
-    <a href="/" class="btn-primary">
-      Volver al inicio
-    </a>
-  </div>
+<body class="recovery-page" data-error-kind="404">
+  <header class="recovery-header">
+    <a href="/" aria-label="CatapultaPayment, inicio"><img class="recovery-logo" src="/imagecata.png" alt="CatapultaPayment" width="112" height="60" /></a>
+    <span>CATAPULTA PAYMENT SYSTEMS</span>
+  </header>
+  <main class="recovery-main">
+    <div class="recovery-art" aria-hidden="true">
+      <div class="recovery-ticket">
+        <div class="recovery-ticket-top"><span>CATAPULTAPAYMENT</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><rect x="3" y="5" width="18" height="14" rx="3"/><path d="M3 10h18M7 15h3"/></svg></div>
+        <span class="recovery-code">404</span>
+        <div class="recovery-ticket-bottom"><span class="recovery-ticket-label">ENLACE NO DISPONIBLE</span><span><span class="recovery-dot"></span>CP</span></div>
+      </div>
+    </div>
+    <div class="recovery-copy">
+      <h1>Este camino no lleva a ninguna parte.</h1>
+      <p>La página que buscas cambió de dirección o ya no está disponible. Tu próximo paso puede empezar desde el inicio.</p>
+      <div class="recovery-actions">
+        <a class="btn-primary recovery-primary" href="/">Volver al inicio <span aria-hidden="true">↗</span></a>
+        <a class="recovery-help" href="mailto:info@catapultapay.com">Hablar con nosotros</a>
+      </div>
+    </div>
+  </main>
+  <footer class="recovery-footer"><span>© Catapulta Payment Systems</span><a href="/">catapultapay.com</a></footer>
 </body>
 </html>

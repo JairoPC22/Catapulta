@@ -1,7 +1,7 @@
 'use strict';
 
 // ══════════════════════════════════════════
-// CatapultaPay — script.js
+// CatapultaPayment — script.js
 // Vanilla JS — sin dependencias externas
 // ══════════════════════════════════════════
 
@@ -15,22 +15,21 @@ document.addEventListener('DOMContentLoaded', () => {
   // Ejecutar todas las funciones de inicialización
   initNavSticky();
   initMobileMenu();
-  initParticleCanvas();
-  initScrollReveal();
+
   initCounters();
   initTabs();
   initCatalogTabs();
   initThemeToggle();
   initScrollTopBtn();
   initFAQ();
-  initTermsModal();
   // Diferir lo que no afecta el primer render
+  initContactForm();
+  initSavingsCalculator();
+  initTerminalAccessibility();
   const idle = window.requestIdleCallback || (cb => setTimeout(cb, 200));
   idle(() => {
-    initTiltCards();
+
     initBarAnimations();
-    initContactForm();
-    initSavingsCalculator();
   });
 });
 
@@ -74,9 +73,20 @@ function initMobileMenu() {
     btn.classList.toggle('is-open', isOpen);
     btn.setAttribute('aria-expanded', String(isOpen));
     menu.setAttribute('aria-hidden', String(!isOpen));
-    document.body.style.overflow = isOpen ? 'hidden' : '';
+    if (isOpen) CP.lockScroll('menu'); else CP.unlockScroll('menu');
+    menu.inert = !isOpen;
   }
 
+  menu.inert = true;
+  document.addEventListener('keydown', event => {
+    if (!isOpen) return;
+    if (event.key === 'Escape') { toggleMenu(true); btn.focus(); }
+    if (event.key === 'Tab') {
+      const items = [btn, ...menu.querySelectorAll('a,button')].filter(el => el.offsetParent !== null);
+      const position = items.indexOf(document.activeElement);
+      if ((!event.shiftKey && position === items.length - 1) || (event.shiftKey && position <= 0)) { event.preventDefault(); items[event.shiftKey ? items.length - 1 : 0].focus(); }
+    }
+  });
   // Abrir/cerrar con el botón
   btn.addEventListener('click', () => toggleMenu());
 
@@ -91,167 +101,7 @@ function initMobileMenu() {
   }, { passive: true });
 }
 
-/* ────────────────────────────────────────────
-   3. PARTÍCULAS EN CANVAS (hero)
-   65 partículas con líneas de conexión
-──────────────────────────────────────────── */
-function initParticleCanvas() {
-  const canvas = document.getElementById('particleCanvas');
-  if (!canvas) return;
 
-  const isMobile = window.innerWidth < 768;
-  if (isMobile) { canvas.style.display = 'none'; return; }
-
-  const ctx = canvas.getContext('2d');
-  const PARTICLE_COUNT = 40;
-  const MAX_DIST        = 100;
-  const TEAL            = 'rgba(14, 207, 173,';
-  let   particles       = [];
-  let   animationId;
-
-  // Redimensionar el canvas al tamaño de la sección hero
-  function resizeCanvas() {
-    const parent = canvas.parentElement;
-    canvas.width  = parent.offsetWidth;
-    canvas.height = parent.offsetHeight;
-  }
-
-  // Crear una partícula con posición y velocidad aleatorias
-  function createParticle() {
-    return {
-      x:  Math.random() * canvas.width,
-      y:  Math.random() * canvas.height,
-      vx: (Math.random() - 0.5) * 0.45,
-      vy: (Math.random() - 0.5) * 0.45,
-      r:  Math.random() * 1.5 + 0.5,
-    };
-  }
-
-  // Inicializar partículas
-  function initParticles() {
-    particles = Array.from({ length: PARTICLE_COUNT }, createParticle);
-  }
-
-  // Dibujar cada frame
-  function draw() {
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
-
-    // Actualizar posición y rebotar en bordes
-    particles.forEach(p => {
-      p.x += p.vx;
-      p.y += p.vy;
-
-      if (p.x < 0 || p.x > canvas.width)  p.vx *= -1;
-      if (p.y < 0 || p.y > canvas.height) p.vy *= -1;
-
-      // Dibujar partícula
-      ctx.beginPath();
-      ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
-      ctx.fillStyle = TEAL + ' 0.4)';
-      ctx.fill();
-    });
-
-    // Dibujar líneas de conexión entre partículas cercanas
-    for (let i = 0; i < particles.length; i++) {
-      for (let j = i + 1; j < particles.length; j++) {
-        const dx   = particles[i].x - particles[j].x;
-        const dy   = particles[i].y - particles[j].y;
-        const distSq = dx * dx + dy * dy;
-
-        if (distSq < MAX_DIST * MAX_DIST) {
-          const alpha = 1 - Math.sqrt(distSq) / MAX_DIST;
-          ctx.beginPath();
-          ctx.moveTo(particles[i].x, particles[i].y);
-          ctx.lineTo(particles[j].x, particles[j].y);
-          ctx.strokeStyle = TEAL + (alpha * 0.25) + ')';
-          ctx.lineWidth = 0.8;
-          ctx.stroke();
-        }
-      }
-    }
-
-    animationId = requestAnimationFrame(draw);
-  }
-
-  // Manejar cambio de tamaño de ventana
-  function handleResize() {
-    cancelAnimationFrame(animationId);
-    resizeCanvas();
-    initParticles();
-    draw();
-  }
-
-  resizeCanvas();
-  initParticles();
-  draw();
-
-  window.addEventListener('resize', handleResize, { passive: true });
-
-  // Pausar animación cuando el hero no está visible
-  const heroSection = canvas.parentElement;
-  const visibilityObserver = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting) {
-        if (!animationId) draw();
-      } else {
-        cancelAnimationFrame(animationId);
-        animationId = null;
-      }
-    });
-  }, { threshold: 0.1 });
-  visibilityObserver.observe(heroSection);
-}
-
-/* ────────────────────────────────────────────
-   4. SCROLL REVEAL
-   Animación de aparición con IntersectionObserver
-──────────────────────────────────────────── */
-function initScrollReveal() {
-  const elements = document.querySelectorAll('.reveal, .reveal-left, .reveal-right');
-  if (!elements.length) return;
-
-  const observer = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting) {
-        // Pequeño delay via rAF para no bloquear el hilo principal
-        requestAnimationFrame(() => {
-          entry.target.classList.add('visible');
-        });
-        observer.unobserve(entry.target);
-      }
-    });
-  }, {
-    threshold: 0.08,
-    rootMargin: '0px 0px -20px 0px',
-  });
-
-  // Aplicar delay escalonado a grupos de tarjetas
-  const cardGroups = document.querySelectorAll('.solutions-grid, .testimonials-grid, .feature-cards, .contact-cards, .steps-grid');
-
-  cardGroups.forEach(group => {
-    const cards = group.querySelectorAll('.reveal, .testi-card, .sol-card, .feature-card, .contact-card, .step-card');
-    cards.forEach((card, index) => {
-      card.style.transitionDelay = `${index * 80}ms`;
-    });
-  });
-
-  elements.forEach(el => {
-    const rect = el.getBoundingClientRect();
-    const yaVisible = rect.top < window.innerHeight && rect.bottom > 0;
-    if (yaVisible) {
-      // Ya está a la vista al cargar: se muestra sin animar para no generar layout shift (CLS)
-      el.style.transition = 'none';
-      el.classList.add('visible');
-    } else {
-      observer.observe(el);
-    }
-  });
-}
-
-/* ────────────────────────────────────────────
-   5. CONTADORES ANIMADOS
-   Animación numérica con easing cúbico
-──────────────────────────────────────────── */
 function initCounters() {
   const counters = document.querySelectorAll('.counter');
   if (!counters.length) return;
@@ -260,6 +110,8 @@ function initCounters() {
 
   function animateCounter(el) {
     const target = parseInt(el.dataset.target, 10);
+    if (!Number.isFinite(target)) return;
+    if (CP.reducedMotion()) { el.textContent = (el.dataset.prefix || '') + target + (el.dataset.suffix || ''); return; }
     const prefix = el.dataset.prefix || '';
     const suffix = el.dataset.suffix || '';
     const start  = performance.now();
@@ -299,112 +151,45 @@ function initCounters() {
    6. TABS DE SOLUCIONES
    Alterna entre paneles con efecto fade
 ──────────────────────────────────────────── */
+function initTabGroup(buttonSelector, panelFor) {
+  const tabs = [...document.querySelectorAll(buttonSelector)];
+  if (!tabs.length) return;
+  const activate = selected => {
+    const target = panelFor(selected);
+    if (!target) return;
+    tabs.forEach(tab => {
+      const active = tab === selected;
+      tab.classList.toggle('active', active);
+      tab.setAttribute('aria-selected', String(active));
+      tab.tabIndex = active ? 0 : -1;
+      const panel = panelFor(tab);
+      if (!panel) return;
+      if (!tab.id) tab.id = 'tab-' + panel.id;
+      tab.setAttribute('aria-controls', panel.id);
+      panel.setAttribute('role', 'tabpanel');
+      panel.setAttribute('aria-labelledby', tab.id);
+      panel.classList.toggle('active', active);
+      panel.classList.toggle('hidden', !active);
+      panel.hidden = !active;
+      panel.style.display = active ? 'block' : 'none';
+      panel.style.opacity = '1';
+      panel.style.pointerEvents = '';
+    });
+  };
+  tabs.forEach((tab, index) => {
+    tab.addEventListener('click', () => activate(tab));
+    tab.addEventListener('keydown', event => {
+      const next = { ArrowRight: (index + 1) % tabs.length, ArrowLeft: (index + tabs.length - 1) % tabs.length, Home: 0, End: tabs.length - 1 }[event.key];
+      if (next === undefined) return;
+      event.preventDefault(); activate(tabs[next]); tabs[next].focus();
+    });
+  });
+  activate(tabs.find(tab => tab.classList.contains('active')) || tabs[0]);
+}
 function initTabs() {
-  const tabBtns = document.querySelectorAll('.tab-pill');
-  if (!tabBtns.length) return;
-
-  function switchTab(tabId) {
-    const panels = document.querySelectorAll('.solutions-panel');
-    const buttons = document.querySelectorAll('.tab-pill');
-
-    // Desactivar todos los paneles y botones
-    panels.forEach(panel => {
-      panel.style.opacity = '0';
-      panel.style.pointerEvents = 'none';
-    });
-
-    buttons.forEach(btn => {
-      btn.classList.remove('active');
-      btn.setAttribute('aria-selected', 'false');
-    });
-
-    // Activar panel y botón seleccionados
-    const activePanel = document.getElementById('panel' + capitalize(tabId));
-    const activeBtn   = document.querySelector(`[data-tab="${tabId}"]`);
-
-    if (activePanel) {
-      // Quitar clase hidden antes de hacer fade in
-      panels.forEach(p => p.classList.add('hidden'));
-      activePanel.classList.remove('hidden');
-
-      setTimeout(() => {
-        activePanel.style.opacity = '1';
-        activePanel.style.pointerEvents = '';
-      }, 50);
-    }
-
-    if (activeBtn) {
-      activeBtn.classList.add('active');
-      activeBtn.setAttribute('aria-selected', 'true');
-    }
-  }
-
-  tabBtns.forEach(btn => {
-    btn.addEventListener('click', () => {
-      const tabId = btn.dataset.tab;
-      switchTab(tabId);
-    });
-  });
-
-  // Estado inicial: todos los paneles con transición
-  const panels = document.querySelectorAll('.solutions-panel');
-  panels.forEach(panel => {
-    panel.style.transition = 'opacity 0.4s ease';
-  });
-
-  // Asegurarse de que el primer panel está visible
-  const firstPanel = document.getElementById('panelPhysical');
-  if (firstPanel) {
-    firstPanel.style.opacity = '1';
-  }
+  initTabGroup('.tab-pill', tab => document.getElementById('panel' + tab.dataset.tab[0].toUpperCase() + tab.dataset.tab.slice(1)));
 }
 
-// Utility: capitalizar primera letra
-function capitalize(str) {
-  return str.charAt(0).toUpperCase() + str.slice(1);
-}
-
-/* ────────────────────────────────────────────
-   7. EFECTO TILT 3D EN CARDS
-   mousemove calcula el offset para rotateX/Y
-──────────────────────────────────────────── */
-function initTiltCards() {
-  const cards = document.querySelectorAll('.tilt-card');
-  if (!cards.length) return;
-
-  const INTENSITY = 20; // Dividir entre este número — menor = más sutil
-
-  cards.forEach(card => {
-    let tiltFrame;
-    card.addEventListener('mousemove', (e) => {
-      if (tiltFrame) return;
-      tiltFrame = requestAnimationFrame(() => {
-        const rect = card.getBoundingClientRect();
-        const cx   = rect.left + rect.width  / 2;
-        const cy   = rect.top  + rect.height / 2;
-        const dx   = (e.clientX - cx) / INTENSITY;
-        const dy   = (e.clientY - cy) / INTENSITY;
-        card.style.transform = `perspective(600px) rotateX(${-dy}deg) rotateY(${dx}deg) translateY(-4px)`;
-        tiltFrame = null;
-      });
-    });
-
-    card.addEventListener('mouseleave', () => {
-      card.style.transition = 'transform 0.45s ease';
-      card.style.transform  = '';
-
-      // Limpiar la transición después para no interferir con otros efectos
-      setTimeout(() => {
-        card.style.transition = '';
-      }, 450);
-    });
-  });
-}
-
-/* ────────────────────────────────────────────
-   8. ANIMACIÓN DE BARRAS (dashboard hero)
-   Animación de ancho con stagger de 150ms
-──────────────────────────────────────────── */
 function initBarAnimations() {
   const bars = document.querySelectorAll('.bar-fill');
   if (!bars.length) return;
@@ -441,143 +226,106 @@ const EMAILJS_SERVICE_ID  = 'service_jqy7taq';
 const EMAILJS_TEMPLATE_ID = 'template_fb9mt5c';
 const EMAILJS_READY = Boolean(EMAILJS_PUBLIC_KEY && EMAILJS_SERVICE_ID && EMAILJS_TEMPLATE_ID);
 
-if (EMAILJS_READY && typeof emailjs !== 'undefined') {
-  emailjs.init({ publicKey: EMAILJS_PUBLIC_KEY });
-}
+
 
 function initContactForm() {
-  const form  = document.getElementById('contactForm');
+  const form = document.getElementById('contactForm');
   const toast = document.getElementById('toast');
   if (!form) return;
-
-  const submitBtn = form.querySelector('button[type="submit"]');
-  const submitDefaultHTML = submitBtn ? submitBtn.innerHTML : '';
-
-  // Limpiar el estado de error de un campo en cuanto el usuario lo corrige
-  form.querySelectorAll('[required]').forEach(field => {
-    field.addEventListener('input', () => {
-      if (field.value.trim()) field.closest('.form-group')?.classList.remove('invalid');
-    });
-    field.addEventListener('change', () => {
-      if (field.value.trim()) field.closest('.form-group')?.classList.remove('invalid');
-    });
-  });
-
-  form.addEventListener('submit', async (e) => {
-    e.preventDefault();
-
-    // Honeypot: si un bot llenó este campo invisible, fingimos éxito sin enviar nada
-    const honeypot = form.querySelector('#honeypot');
-    if (honeypot && honeypot.value.trim()) {
-      showToast('Mensaje enviado con éxito. Te contactaremos pronto.', 'success');
-      form.reset();
-      return;
-    }
-
-    // Validación básica con mensaje de error visible por campo
-    const required = form.querySelectorAll('[required]');
-    let valid = true;
-    let firstInvalid = null;
-
-    required.forEach(field => {
-      const group = field.closest('.form-group');
-      const isEmail = field.type === 'email';
-      const isInvalid = !field.value.trim() || (isEmail && !field.checkValidity());
-      group?.classList.toggle('invalid', isInvalid);
-      if (isInvalid) {
-        valid = false;
-        if (!firstInvalid) firstInvalid = field;
-      }
-    });
-
-    if (!valid) {
-      firstInvalid?.focus();
-      return;
-    }
-
-    if (!EMAILJS_READY) {
-      console.warn('CatapultaPay: falta configurar EMAILJS_PUBLIC_KEY / EMAILJS_SERVICE_ID / EMAILJS_TEMPLATE_ID en script.js — el formulario no puede enviar correos todavía.');
-      showToast('Formulario en configuración. Escríbenos directo a info@catapultapay.com mientras tanto.', 'error');
-      return;
-    }
-
-    setLoading(true);
-
-    try {
-      const ok = await sendContactForm(form);
-      if (ok) {
-        showToast('Mensaje enviado con éxito. Te contactaremos pronto.', 'success');
-        form.reset();
-      } else {
-        showToast('No se pudo enviar. Intenta de nuevo o escríbenos a info@catapultapay.com', 'error');
-      }
-    } catch (err) {
-      console.error('CatapultaPay contact form error:', err);
-      showToast('No se pudo enviar. Intenta de nuevo o escríbenos a info@catapultapay.com', 'error');
-    } finally {
-      setLoading(false);
-    }
-  });
-
-  function setLoading(isLoading) {
-    if (!submitBtn) return;
-    submitBtn.disabled = isLoading;
-    if (isLoading) {
-      submitBtn.textContent = 'Enviando...';
-    } else {
-      submitBtn.innerHTML = submitDefaultHTML;
-      if (typeof lucide !== 'undefined') lucide.createIcons();
-    }
-  }
-
-  function showToast(message, type) {
+  const submit = form.querySelector('[type="submit"]');
+  let sending = false;
+  let lastSuccess = 0;
+  let toastTimer;
+  const text = (es, en) => document.documentElement.lang === 'en' ? en : es;
+  function notify(message, error = false) {
+    const status = document.getElementById('contactStatus');
+    if (status) status.textContent = message;
     if (!toast) return;
-    const span = toast.querySelector('span');
-    const icon = toast.querySelector('i');
-    if (span && message) span.textContent = message;
-    if (icon) {
-      icon.setAttribute('data-lucide', type === 'error' ? 'alert-circle' : 'check-circle');
-      if (typeof lucide !== 'undefined') lucide.createIcons();
+    toast.querySelector('span').textContent = message;
+    toast.classList.toggle('toast-error', error);
+    const oldIcon = toast.querySelector('svg, i');
+    if (oldIcon) {
+      const icon = document.createElement('i');
+      icon.setAttribute('data-lucide', error ? 'alert-circle' : 'check-circle');
+      icon.setAttribute('aria-hidden', 'true');
+      oldIcon.replaceWith(icon);
+      window.lucide?.createIcons();
     }
-    toast.classList.toggle('toast-error', type === 'error');
     toast.classList.add('show');
-    setTimeout(() => {
-      toast.classList.remove('show');
-    }, 4000);
+    clearTimeout(toastTimer);
+    toastTimer = setTimeout(() => toast.classList.remove('show'), 6000);
   }
+  for (const field of form.querySelectorAll('input:not([type="hidden"]),textarea,select')) {
+    const clear = () => { field.closest('.form-group')?.classList.remove('invalid'); field.removeAttribute('aria-invalid'); };
+    field.addEventListener('input', clear); field.addEventListener('change', clear);
+  }
+  form.addEventListener('submit', async event => {
+    event.preventDefault();
+    if (sending) return;
+    if (Date.now() - lastSuccess < 10000) { notify(text('Tu mensaje ya fue enviado. Espera unos segundos antes de enviar otro.', 'Your message was already sent. Please wait a few seconds.')); return; }
+    if (form.elements.honeypot?.value.trim()) { notify(text('Solicitud recibida.', 'Request received.')); return; }
+    let invalid;
+    for (const field of form.querySelectorAll('input:not(.form-honeypot),textarea,select')) {
+      const tooLong = field.maxLength > 0 && field.value.length > field.maxLength;
+      const bad = (field.required && !field.value.trim()) || !field.checkValidity() || tooLong;
+      field.closest('.form-group')?.classList.toggle('invalid', bad);
+      field.setAttribute('aria-invalid', String(bad));
+      if (bad && !invalid) invalid = field;
+    }
+    if (invalid) {
+      notify(text('Revisa los campos marcados antes de enviar.', 'Check the highlighted fields before sending.'), true);
+      const focusTarget = invalid.classList.contains('custom-select-native')
+        ? invalid.closest('.custom-select')?.querySelector('.custom-select-trigger') || invalid
+        : invalid;
+      focusTarget.focus();
+      return;
+    }
+    if (!navigator.onLine) { notify(text('No hay conexión. Conservamos tu mensaje; vuelve a intentarlo al conectarte.', 'You are offline. Your message is still here; reconnect and try again.'), true); return; }
+    const snapshot = new FormData(form);
+    const controls = [...form.querySelectorAll('input,textarea,select,button')];
+    const disabledBefore = controls.map(control => control.disabled);
+    sending = true;
+    form.setAttribute('aria-busy', 'true');
+    controls.forEach(control => { control.disabled = true; });
+    submit.textContent = text('Enviando…', 'Sending…');
+    try {
+      await sendContactForm(snapshot);
+      lastSuccess = Date.now();
+      form.reset();
+      notify(text('Mensaje enviado. Te contactaremos pronto.', 'Message sent. We will be in touch soon.'));
+    } catch (error) {
+      const message = error.name === 'AbortError'
+        ? text('No pudimos confirmar el envío a tiempo. Evita reenviarlo de inmediato; puedes contactarnos por correo.', 'We could not confirm delivery in time. Avoid resending immediately; you can contact us by email.')
+        : text('No se pudo enviar. Tus datos siguen aquí; intenta más tarde o escribe a info@catapultapay.com.', 'Could not send. Your details are still here; try later or email info@catapultapay.com.');
+      notify(message, true);
+    } finally {
+      controls.forEach((control, index) => { control.disabled = disabledBefore[index]; });
+      sending = false;
+      form.removeAttribute('aria-busy');
+      submit.textContent = text('Enviar mensaje', 'Send message');
+    }
+  });
+  submit.disabled = false;
 }
 
-// Envía el formulario con EmailJS (https://emailjs.com) — sin backend propio.
-// Usa la plantilla con logo y marca definida en email-template.html.
-async function sendContactForm(form) {
-  const subjectLabels = {
-    pos: 'Terminal POS físico',
-    virtual: 'Procesamiento virtual',
-    support: 'Soporte técnico',
-    general: 'Consulta general',
-  };
-
-  const firstName = form.firstName.value.trim();
-  const lastName  = form.lastName.value.trim();
-  const company   = form.company.value.trim();
-  const email     = form.email.value.trim();
-  const phone     = form.phone.value.trim();
-  const subjectKey = form.subject.value;
-  const message   = form.message.value.trim();
-
-  // Estos nombres de variable deben coincidir con los {{...}} de la plantilla en EmailJS
-  const templateParams = {
-    Nombre: `${firstName} ${lastName}`,
-    Negocio: company || 'No proporcionado',
-    Correo: email,
-    Telefono: phone || 'No proporcionado',
-    Interes: subjectLabels[subjectKey] || subjectKey,
-    Mensaje: message,
-  };
-
-  const response = await emailjs.send(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID, templateParams);
-  return response.status === 200;
+async function sendContactForm(data) {
+  if (!EMAILJS_READY) throw new Error('Email service unavailable');
+  const read = name => String(data.get(name) || '').trim();
+  const labels = { pos: 'Terminal POS físico', virtual: 'Procesamiento virtual', support: 'Soporte técnico', general: 'Consulta general' };
+  const controller = new AbortController();
+  const timeout = setTimeout(() => controller.abort(), 20000);
+  try {
+    const response = await fetch('https://api.emailjs.com/api/v1.0/email/send', {
+      method: 'POST', headers: { 'Content-Type': 'application/json' }, signal: controller.signal,
+      body: JSON.stringify({ service_id: EMAILJS_SERVICE_ID, template_id: EMAILJS_TEMPLATE_ID, user_id: EMAILJS_PUBLIC_KEY,
+        template_params: { Nombre: read('firstName') + ' ' + read('lastName'), Negocio: read('company') || 'No proporcionado', Correo: read('email'), Telefono: read('phone') || 'No proporcionado', Interes: labels[read('subject')] || 'Consulta general', Mensaje: read('message') } })
+    });
+    if (!response.ok) throw new Error('Email service rejected request');
+    return true;
+  } finally { clearTimeout(timeout); }
 }
+
+
 
 /* ────────────────────────────────────────────
    10. SMOOTH SCROLL para links de ancla
@@ -586,7 +334,9 @@ async function sendContactForm(form) {
 ──────────────────────────────────────────── */
 document.querySelectorAll('a[href^="#"]').forEach(anchor => {
   anchor.addEventListener('click', (e) => {
-    const target = document.querySelector(anchor.getAttribute('href'));
+    let id;
+    try { id = decodeURIComponent(anchor.getAttribute('href').slice(1)); } catch { return; }
+    const target = id ? document.getElementById(id) : null;
     if (!target) return;
 
     e.preventDefault();
@@ -596,7 +346,7 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
 
     window.scrollTo({
       top: targetTop,
-      behavior: 'smooth',
+      behavior: CP.reducedMotion() ? 'instant' : 'smooth',
     });
   });
 });
@@ -623,33 +373,29 @@ function initSavingsCalculator() {
 
   function updateThumb(slider, fillEl, wrapId) {
     const pct = getSliderPct(slider);
-    fillEl.style.width = pct + '%';
+    if (fillEl) fillEl.style.width = pct + '%';
     const wrap = slider.closest('.calc-slider-wrap');
     if (wrap) wrap.style.setProperty('--thumb-pos', pct + '%');
   }
 
-  function animateValue(el, newVal, prefix) {
-    const current = parseFloat(el.dataset.raw || '0');
-    const diff    = newVal - current;
-    const steps   = 18;
-    let   step    = 0;
-
-    el.dataset.raw = newVal;
-
-    const tick = () => {
-      step++;
-      const progress = step / steps;
-      const eased    = 1 - Math.pow(1 - progress, 3);
-      const display  = current + diff * eased;
-
-      el.textContent = (prefix || '$') + Math.round(display).toLocaleString('en-US');
-      if (step < steps) requestAnimationFrame(tick);
+  const valueFrames = new WeakMap();
+  function animateValue(el, newVal, prefix = '$') {
+    if (!el) return;
+    cancelAnimationFrame(valueFrames.get(el));
+    const current = Number(el.dataset.raw || 0);
+    if (CP.reducedMotion()) { el.dataset.raw = newVal; el.textContent = prefix + Math.round(newVal).toLocaleString('en-US'); return; }
+    const start = performance.now();
+    const tick = now => {
+      const progress = Math.min(1, (now - start) / 250);
+      const display = current + (newVal - current) * (1 - Math.pow(1 - progress, 3));
+      el.dataset.raw = display;
+      el.textContent = prefix + Math.round(display).toLocaleString('en-US');
+      if (progress < 1) valueFrames.set(el, requestAnimationFrame(tick));
     };
-
-    requestAnimationFrame(tick);
+    valueFrames.set(el, requestAnimationFrame(tick));
   }
 
-  const CATAPULTA_RATE = 1.89 / 100; // tasa fija CatapultaPay
+  const CATAPULTA_RATE = 1.89 / 100; // tasa fija CatapultaPayment
 
   function calculate() {
     const sales       = parseFloat(sliderSales.value);
@@ -702,7 +448,7 @@ function initScrollTopBtn() {
   }, { passive: true });
 
   btn.addEventListener('click', () => {
-    window.scrollTo({ top: 0, behavior: 'smooth' });
+    window.scrollTo({ top: 0, behavior: CP.reducedMotion() ? 'instant' : 'smooth' });
   });
 }
 
@@ -715,12 +461,14 @@ function initThemeToggle() {
   if (!btn) return;
 
   // Recuperar preferencia guardada
-  const saved = localStorage.getItem('cpay-theme') || 'dark';
+  const saved = CP.storage.get('cpay-theme', 'dark') === 'light' ? 'light' : 'dark';
   html.setAttribute('data-theme', saved);
+  CP.syncThemeLabels();
 
   function applyTheme(next) {
     html.setAttribute('data-theme', next);
-    localStorage.setItem('cpay-theme', next);
+    CP.storage.set('cpay-theme', next);
+    CP.syncThemeLabels();
     if (typeof lucide !== 'undefined') lucide.createIcons();
   }
 
@@ -743,40 +491,9 @@ function initThemeToggle() {
    14. CATALOG TABS
 ──────────────────────────────────────────── */
 function initCatalogTabs() {
-  const tabs = document.querySelectorAll('.catalog-tab');
-  if (!tabs.length) return;
-
-  tabs.forEach(tab => {
-    tab.addEventListener('click', () => {
-      const brand = tab.dataset.brand;
-
-      // Actualizar tabs
-      tabs.forEach(t => t.classList.remove('active'));
-      tab.classList.add('active');
-
-      // Actualizar paneles
-      document.querySelectorAll('.catalog-panel').forEach(p => {
-        p.classList.remove('active');
-        p.style.display = 'none';
-      });
-
-      const panel = document.getElementById('brand-' + brand);
-      if (panel) {
-        panel.style.display = 'block';
-        // Pequeño delay para que el reveal animation funcione
-        setTimeout(() => panel.classList.add('active'), 10);
-      }
-    });
-  });
-
-  // Asegurar que el primer panel esté visible
-  const firstPanel = document.getElementById('brand-dejavoo');
-  if (firstPanel) firstPanel.style.display = 'block';
+  initTabGroup('.catalog-tab', tab => document.getElementById('brand-' + tab.dataset.brand));
 }
 
-/* ────────────────────────────────────────────
-   15. FAQ — acordeón (una respuesta a la vez)
-──────────────────────────────────────────── */
 function initFAQ() {
   const items = document.querySelectorAll('.faq-item');
   if (!items.length) return;
@@ -804,64 +521,15 @@ function initFAQ() {
   });
 }
 
-/* ────────────────────────────────────────────
-   16. MODAL — TÉRMINOS Y CONDICIONES
-   Se abre solo al hacer clic en el link/botón
-   correspondiente, nunca navega a otra página.
-──────────────────────────────────────────── */
-function initTermsModal() {
-  const modal   = document.getElementById('termsModal');
-  const openBtns = [document.getElementById('openTerms'), document.getElementById('openTermsFooter')].filter(Boolean);
-  const closeBtn = document.getElementById('closeTerms');
-  if (!modal || !openBtns.length) return;
 
-  let lastFocused = null;
-
-  function openModal(e) {
-    if (e) e.preventDefault();
-    lastFocused = document.activeElement;
-    modal.classList.add('open');
-    modal.setAttribute('aria-hidden', 'false');
-    document.body.style.overflow = 'hidden';
-    closeBtn?.focus();
-  }
-
-  function closeModal() {
-    modal.classList.remove('open');
-    modal.setAttribute('aria-hidden', 'true');
-    document.body.style.overflow = '';
-    if (lastFocused) lastFocused.focus();
-  }
-
-  openBtns.forEach(btn => btn.addEventListener('click', openModal));
-  closeBtn?.addEventListener('click', closeModal);
-
-  // Cerrar al hacer clic fuera de la tarjeta
-  modal.addEventListener('click', (e) => {
-    if (e.target === modal) closeModal();
-  });
-
-  // Cerrar con Escape
-  document.addEventListener('keydown', (e) => {
-    if (e.key === 'Escape' && modal.classList.contains('open')) closeModal();
-  });
-}
-
-/* ────────────────────────────────────────────
-   17. SIMULADOR DE TERMINAL POS
-   Teclado numérico, métodos de pago, ticket
-   y tarjetas arrastrables sobre el terminal.
-──────────────────────────────────────────── */
-
-/* Strings traducibles — actualizados por I18N.apply() */
 window.TERM = {
   screenLabel:     'Ingresa monto',
   processing:      'Procesando',
   approved:        'APROBADO',
   thanks:          'Gracias por su compra',
-  chipLabel:       'Chip · CatapultaPay ••4521',
+  chipLabel:       'Chip · CatapultaPayment ••4521',
   nfcLabel:        'NFC · Apple/Google Pay',
-  swipeLabel:      'Banda · CatapultaPay ••8834',
+  swipeLabel:      'Banda · CatapultaPayment ••8834',
   ticketDate:      'Fecha',
   ticketTime:      'Hora',
   ticketTxn:       'TXN',
@@ -869,7 +537,7 @@ window.TERM = {
   ticketSubtotal:  'Subtotal',
   ticketNet:       'Neto recibido',
   ticketApproved:  'PAGO APROBADO',
-  ticketThanks:    'Gracias por usar CatapultaPay',
+  ticketThanks:    'Gracias por usar CatapultaPayment',
   ticketLocale:    'es-MX',
   approachCard:    'Acerca tu tarjeta',
   approachSub:     'o toca el lector',
@@ -881,42 +549,15 @@ window.TERM = {
   dragHint:        'Arrastra la tarjeta sobre el terminal',
 };
 
-/* Sincronizar TERM con el idioma guardado al cargar */
-(function syncTermOnLoad() {
-  const saved = localStorage.getItem('cpay-lang') || 'es';
-  if (saved === 'en') {
-    const enMap = {
-      screenLabel:    'Enter amount',
-      processing:     'Processing',
-      approved:       'APPROVED',
-      thanks:         'Thank you for your purchase',
-      chipLabel:      'Chip · CatapultaPay ••4521',
-      nfcLabel:       'NFC · Apple/Google Pay',
-      swipeLabel:     'Swipe · CatapultaPay ••8834',
-      ticketDate:     'Date',
-      ticketTime:     'Time',
-      ticketTxn:      'TXN',
-      ticketMethod:   'Method',
-      ticketSubtotal: 'Subtotal',
-      ticketNet:      'Net received',
-      ticketApproved: 'PAYMENT APPROVED',
-      ticketThanks:   'Thank you for using CatapultaPay',
-      ticketLocale:   'en-US',
-      approachCard:   'Tap or swipe your card',
-      approachSub:    'near the reader',
-      approachHint:   'NFC · CHIP · SWIPE',
-      cancelBtn:      '✕ Cancel',
-      noAmountTitle:  'Enter amount first',
-      noAmountSub:    'before tapping\nyour card',
-      resetBtn:       'Reset terminal',
-      dragHint:       'Drag card onto the terminal',
-    };
-    Object.assign(window.TERM, enMap);
-  }
-})();
-
 let rawCents = 0;
 let busy = false;
+let terminalPending = false;
+const terminalTimers = new Set();
+function terminalLater(fn, delay) { const id = setTimeout(() => { terminalTimers.delete(id); fn(); }, delay); terminalTimers.add(id); return id; }
+function terminalEvery(fn, delay) { const id = setInterval(fn, delay); terminalTimers.add(id); return id; }
+function clearTerminalInterval(id) { clearInterval(id); terminalTimers.delete(id); }
+function clearTerminalTimers() { terminalTimers.forEach(id => { clearTimeout(id); clearInterval(id); }); terminalTimers.clear(); }
+
 window.activeMethod = { method:'chip', icon:'ti-credit-card', label: window.TERM.chipLabel };
 
 function clock() {
@@ -924,7 +565,8 @@ function clock() {
   const el = document.getElementById('posClk');
   if (el) el.textContent = String(n.getHours()).padStart(2,'0') + ':' + String(n.getMinutes()).padStart(2,'0');
 }
-clock(); setInterval(clock, 20000);
+clock();
+setInterval(() => { if (!document.hidden) clock(); }, 20000);
 
 function fmtMoney(cents) {
   const d = (cents / 100).toFixed(2);
@@ -938,6 +580,8 @@ function updateDisplay() {
   if (!el) return;
   el.innerHTML = (rawCents > 0 ? fmtMoney(rawCents) : '$0.00') + '<span class="screen-entry-cursor"></span>';
   el.className = 'screen-entry-value' + (rawCents > 0 ? ' has-value' : '');
+  const charge = document.getElementById('chargeBtn');
+  if (charge) charge.disabled = busy || terminalPending || rawCents < 100;
   const amt = rawCents / 100;
   const fee = amt * 0.0189;
   document.getElementById('sumAmt').textContent = fmtMoney(rawCents);
@@ -947,7 +591,7 @@ function updateDisplay() {
   /* Indicador visual: hint de "OK" cuando hay monto válido */
   const okKey = document.querySelector('.skey-ok');
   if (okKey) {
-    if (rawCents >= 100 && !busy) {
+    if (rawCents >= 100 && !busy && !CP.reducedMotion()) {
       okKey.style.animation = 'dotGlow 1.2s ease-in-out infinite';
       okKey.style.boxShadow = '0 0 8px rgba(10,171,144,0.6)';
     } else {
@@ -958,7 +602,7 @@ function updateDisplay() {
 }
 
 function padPress(key) {
-  if (busy) return;
+  if (busy || terminalPending) return;
   if (key === 'DEL') {
     rawCents = Math.floor(rawCents / 10);
     updateDisplay();
@@ -988,14 +632,14 @@ function padPress(key) {
         </div>
       </div>
       <div style="margin-top:8px;">
-        <div class="skey skey-del" onclick="cancelWait()" style="font-size:8px;padding:3px 10px;width:auto;display:inline-block;">${window.TERM.cancelBtn}</div>
+        <button type="button" class="skey skey-del" onclick="cancelWait()" style="font-size:8px;padding:3px 10px;width:auto;display:inline-block;">${window.TERM.cancelBtn}</button>
       </div>
         </div>`;
       window._waitingForCard = true;
     }
   } else {
-    if (rawCents > 9999999) return;
-    rawCents = rawCents * 10 + parseInt(key);
+    if (!/^[0-9]$/.test(String(key)) || rawCents > 9999999) return;
+    rawCents = Math.min(99999999, rawCents * 10 + Number(key));
     updateDisplay();
   }
 }
@@ -1004,11 +648,12 @@ function cancelWait() {
   window._waitingForCard = false;
   const sb = document.getElementById('screenBody');
   if (sb) sb.innerHTML = getIdleScreen();
+  updateDisplay();
 }
 
 function pickMethod(el) {
-  if (busy) return;
-  document.querySelectorAll('.mcard').forEach(c => c.classList.remove('active'));
+  if (busy || terminalPending || !el?.dataset.method) return;
+  document.querySelectorAll('.mcard').forEach(c => { c.classList.remove('active'); c.setAttribute('aria-pressed', String(c === el)); });
   el.classList.add('active');
   window.activeMethod = { method: el.dataset.method, icon: el.dataset.icon, label: el.dataset.label };
   const mt = document.getElementById('screenMethodTxt');
@@ -1051,7 +696,7 @@ function doCharge() {
     </div>`;
 
   /* ── PASO 2: Simula el deslizamiento a los 2s ── */
-  setTimeout(() => {
+  terminalLater(() => {
     /* animación del lector físico */
     rg.classList.remove('active'); void rg.offsetWidth; rg.classList.add('active');
     led.classList.add('blink');
@@ -1065,7 +710,7 @@ function doCharge() {
   }, 2200);
 
   /* ── PASO 3: Aprobado + ticket ── */
-  setTimeout(() => {
+  terminalLater(() => {
     led.classList.remove('blink');
     const auth = 'AUTH' + (Math.floor(Math.random()*900000)+100000);
     sb.innerHTML = `
@@ -1080,15 +725,15 @@ function doCharge() {
 
     /* parpadeo del LED de impresora simulando impresión */
     let blinks = 0;
-    const blinkInterval = setInterval(() => {
+    const blinkInterval = terminalEvery(() => {
       led.classList.toggle('blink');
       blinks++;
-      if (blinks >= 6) { clearInterval(blinkInterval); led.classList.remove('blink'); }
+      if (blinks >= 6) { clearTerminalInterval(blinkInterval); led.classList.remove('blink'); }
     }, 300);
 
-    setTimeout(() => {
-      busy = false; rawCents = 0; updateDisplay();
-      sb.innerHTML = getIdleScreen();
+    terminalLater(() => {
+      busy = false; rawCents = 0;
+      sb.innerHTML = getIdleScreen(); updateDisplay();
     }, 7000);
   }, 5200);
 }
@@ -1104,18 +749,18 @@ function getIdleScreen() {
       <span id="screenMethodTxt">${window.activeMethod.label}</span>
     </div>
     <div class="screen-numpad">
-      <div class="skey" onclick="padPress('1')">1</div>
-      <div class="skey" onclick="padPress('2')">2</div>
-      <div class="skey" onclick="padPress('3')">3</div>
-      <div class="skey" onclick="padPress('4')">4</div>
-      <div class="skey" onclick="padPress('5')">5</div>
-      <div class="skey" onclick="padPress('6')">6</div>
-      <div class="skey" onclick="padPress('7')">7</div>
-      <div class="skey" onclick="padPress('8')">8</div>
-      <div class="skey" onclick="padPress('9')">9</div>
-      <div class="skey skey-del" onclick="padPress('DEL')">⌫ CLR</div>
-      <div class="skey" onclick="padPress('0')">0</div>
-      <div class="skey skey-ok" onclick="padPress('OK')">✓ OK</div>
+      <button type="button" class="skey" onclick="padPress('1')">1</button>
+      <button type="button" class="skey" onclick="padPress('2')">2</button>
+      <button type="button" class="skey" onclick="padPress('3')">3</button>
+      <button type="button" class="skey" onclick="padPress('4')">4</button>
+      <button type="button" class="skey" onclick="padPress('5')">5</button>
+      <button type="button" class="skey" onclick="padPress('6')">6</button>
+      <button type="button" class="skey" onclick="padPress('7')">7</button>
+      <button type="button" class="skey" onclick="padPress('8')">8</button>
+      <button type="button" class="skey" onclick="padPress('9')">9</button>
+      <button type="button" class="skey skey-del" onclick="padPress('DEL')">⌫ CLR</button>
+      <button type="button" class="skey" onclick="padPress('0')">0</button>
+      <button type="button" class="skey skey-ok" onclick="padPress('OK')">✓ OK</button>
     </div>`;
 }
 
@@ -1132,7 +777,7 @@ function renderTicket(auth) {
   document.getElementById('ticketContent').innerHTML = `
     <div class="ticket-stripe"></div>
     <div class="t-center" style="padding-top:4px;">
-      <div class="t-brand">CATAPULTAPAY</div>
+      <div class="t-brand">CATAPULTAPAYMENT</div>
       <div class="t-sub">catapultapay.com · PCI DSS v4</div>
     </div>
     <hr class="t-hr">
@@ -1155,15 +800,20 @@ function renderTicket(auth) {
 }
 
 function resetTerminal() {
-  if (busy) return;
+  clearTerminalTimers();
+  window.cancelTerminalDrag?.();
+  busy = false;
+  terminalPending = false;
+  document.getElementById('printerLed')?.classList.remove('blink');
+  document.getElementById('readerGlow')?.classList.remove('active');
   rawCents = 0;
   window._waitingForCard = false;
   window.activeMethod = { method:'chip', icon:'ti-credit-card', label: window.TERM.chipLabel };
 
   /* Resetear método activo en el panel */
-  document.querySelectorAll('.mcard').forEach(c => c.classList.remove('active'));
+  document.querySelectorAll('.mcard').forEach(c => { c.classList.remove('active'); c.setAttribute('aria-pressed', 'false'); });
   const chipCard = document.querySelector('.mcard[data-method="chip"]');
-  if (chipCard) chipCard.classList.add('active');
+  if (chipCard) { chipCard.classList.add('active'); chipCard.setAttribute('aria-pressed', 'true'); }
 
   /* Resetear pantalla */
   const sb = document.getElementById('screenBody');
@@ -1178,20 +828,36 @@ function resetTerminal() {
   if (device) {
     device.style.transition = 'opacity 0.15s ease';
     device.style.opacity = '0.3';
-    setTimeout(() => { device.style.opacity = '1'; }, 180);
+    terminalLater(() => { device.style.opacity = '1'; }, 180);
   }
 
   /* LED parpadeo rápido */
   const led = document.getElementById('printerLed');
   if (led) {
     led.classList.add('blink');
-    setTimeout(() => led.classList.remove('blink'), 600);
+    terminalLater(() => led.classList.remove('blink'), 600);
   }
 
   updateDisplay();
 }
 
 updateDisplay();
+
+function initTerminalAccessibility() {
+  document.querySelectorAll('.mcard, .drag-card').forEach(control => {
+    control.tabIndex = 0;
+    control.setAttribute('role', 'button');
+    if (control.classList.contains('mcard')) control.setAttribute('aria-pressed', String(control.classList.contains('active')));
+    control.addEventListener('keydown', event => {
+      if (event.key !== 'Enter' && event.key !== ' ') return;
+      event.preventDefault();
+      if (busy || terminalPending) return;
+      const method = document.querySelector('.mcard[data-method="' + control.dataset.method + '"]');
+      if (method) pickMethod(method);
+      if (control.classList.contains('drag-card')) doCharge();
+    });
+  });
+}
 
 /* ── Drag & Drop cards → terminal ── */
 (function initDragCards() {
@@ -1224,6 +890,7 @@ updateDisplay();
   let overDevice = false;
 
   function moveGhost(e) {
+    if (!e.touches && e.type === 'mousemove' && e.buttons === 0) { cancelDrag(); return; }
     if (e.cancelable) e.preventDefault();
     const clientX = e.touches ? e.touches[0].clientX : e.clientX;
     const clientY = e.touches ? e.touches[0].clientY : e.clientY;
@@ -1248,7 +915,8 @@ updateDisplay();
   }
 
   function startDrag(card, e) {
-    if (busy) return;
+    if (e.type === 'mousedown' && e.button !== 0) return;
+    if (busy || terminalPending || activeCard) return;
     const rect = card.getBoundingClientRect();
     const clientX = e.touches ? e.touches[0].clientX : e.clientX;
     const clientY = e.touches ? e.touches[0].clientY : e.clientY;
@@ -1317,20 +985,20 @@ updateDisplay();
       /* ── Parpadeo en el lector ── */
       const rg = document.getElementById('readerGlow');
       const led = document.getElementById('printerLed');
-      setTimeout(() => {
+      terminalLater(() => {
         if (rg) { rg.classList.remove('active'); void rg.offsetWidth; rg.classList.add('active'); }
         if (led) led.classList.add('blink');
       }, 320);
 
       /* ── Ghost se queda 1.2s, luego desaparece ── */
-      setTimeout(() => {
+      terminalLater(() => {
         ghost.style.transition = 'opacity 0.3s ease, transform 0.3s ease';
         ghost.style.opacity   = '0';
         ghost.style.transform = 'scale(0.5) rotate(0deg)';
         if (led) led.classList.remove('blink');
       }, 1050);
 
-      setTimeout(() => {
+      terminalLater(() => {
         ghost.style.display = 'none';
         ghost.style.transition = '';
       }, 1380);
@@ -1339,7 +1007,7 @@ updateDisplay();
       const targetCard = document.querySelector(`.mcard[data-method="${dragMethod.method}"]`);
       if (targetCard) {
         document.querySelectorAll('.mcard').forEach(c => c.classList.remove('active'));
-        targetCard.classList.add('active');
+        targetCard.classList.add('active'); targetCard.setAttribute('aria-pressed', 'true');
         window.activeMethod = { ...dragMethod };
 
         const mt = document.getElementById('screenMethodTxt');
@@ -1349,7 +1017,8 @@ updateDisplay();
       }
 
       if (rawCents >= 100 && !busy) {
-        setTimeout(() => doCharge(), 1100);
+        terminalPending = true;
+        terminalLater(() => { terminalPending = false; doCharge(); }, 1100);
       } else if (rawCents < 100 && !busy) {
         /* Sin monto: la pantalla pide que ingresen el monto primero */
         const sb = document.getElementById('screenBody');
@@ -1364,7 +1033,7 @@ updateDisplay();
                 ${window.TERM.noAmountTitle}<br/>${window.TERM.noAmountSub.replace('\n','<br/>')}
               </div>
             </div>`;
-          setTimeout(() => { sb.innerHTML = getIdleScreen(); }, 2000);
+          terminalLater(() => { sb.innerHTML = getIdleScreen(); }, 2000);
         }
       }
 
@@ -1373,7 +1042,7 @@ updateDisplay();
       ghost.style.transition = 'opacity 0.25s ease, transform 0.25s ease';
       ghost.style.opacity   = '0';
       ghost.style.transform = 'scale(0.8) rotate(0deg)';
-      setTimeout(() => {
+      terminalLater(() => {
         ghost.style.display = 'none';
         ghost.style.transition = '';
       }, 260);
@@ -1386,6 +1055,21 @@ updateDisplay();
     dragMethod = null;
     overDevice = false;
   }
+
+
+  function cancelDrag() {
+    document.removeEventListener('mousemove', moveGhost);
+    document.removeEventListener('touchmove', moveGhost);
+    document.removeEventListener('mouseup', endDrag);
+    document.removeEventListener('touchend', endDrag);
+    if (activeCard) { activeCard.style.opacity = ''; activeCard.style.transform = ''; }
+    activeCard = null; dragMethod = null; overDevice = false;
+    device.classList.remove('drop-active'); ghost.style.display = 'none'; ghost.style.opacity = '0';
+  }
+  window.cancelTerminalDrag = cancelDrag;
+  document.addEventListener('touchcancel', cancelDrag);
+  window.addEventListener('blur', cancelDrag);
+  document.addEventListener('keydown', event => { if (event.key === 'Escape' && activeCard) { event.preventDefault(); cancelDrag(); } });
 
   cards.forEach(card => {
     card.addEventListener('mousedown',  e => { e.preventDefault(); startDrag(card, e); });
@@ -1401,7 +1085,11 @@ updateDisplay();
   const video = document.querySelector('video[data-src]');
   if (!video) return;
 
+  if (CP.reducedMotion() || navigator.connection?.saveData) return;
   let loaded = false;
+  let inView = false;
+  const syncPlayback = () => { if (loaded && inView && !document.hidden) video.play().catch(() => {}); else video.pause(); };
+  document.addEventListener('visibilitychange', syncPlayback);
 
   function loadVideo() {
     if (loaded) return;
@@ -1414,12 +1102,12 @@ updateDisplay();
     video.load();
 
     video.addEventListener('canplaythrough', () => {
-      video.play().catch(() => {});
+      syncPlayback();
     }, { once: true });
 
     video.addEventListener('loadeddata', () => {
       setTimeout(() => {
-        if (video.paused) video.play().catch(() => {});
+        if (video.paused) syncPlayback();
       }, 300);
     }, { once: true });
   }
@@ -1440,8 +1128,9 @@ updateDisplay();
   const playObserver = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
       if (!loaded) return;
+      inView = entry.isIntersecting;
       if (entry.isIntersecting) {
-        video.play().catch(() => {});
+        syncPlayback();
       } else {
         video.pause();
       }

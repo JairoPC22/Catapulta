@@ -1,4 +1,37 @@
+# Public content, styles, scripts, images and PDFs may be crawled.
+# Allowing crawl access does not guarantee indexing or inclusion in AI answers.
 User-agent: *
 Allow: /
+Disallow: /tests/
+Disallow: /tools/
+Disallow: /content/
+Disallow: /.claude/
+Disallow: /.impeccable/
+Disallow: /*.md$
+Disallow: /*.cjs$
 
+# Search and retrieval crawlers. Training permissions retain the existing policy.
+User-agent: OAI-SearchBot
+User-agent: PerplexityBot
+User-agent: Claude-SearchBot
+Allow: /
+
+# AI assistant/answer crawlers that fetch pages on a user's behalf.
+User-agent: ChatGPT-User
+User-agent: Google-CloudVertexBot
+User-agent: PerplexityUser
+Allow: /
+
+# AI model-training crawlers. Listed for clarity; this does not change the
+# training-data policy already in place for any other crawler.
+User-agent: GPTBot
+User-agent: ClaudeBot
+User-agent: Google-Extended
+User-agent: Applebot-Extended
+User-agent: CCBot
+User-agent: Amazonbot
+Allow: /
+
+# Keep error pages crawlable so their noindex directives can be read.
+# Do not list utility or error pages in sitemap.xml.
 Sitemap: https://catapultapay.com/sitemap.xml

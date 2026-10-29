@@ -1,126 +1,68 @@
 'use strict';
-
-const CACHE_NAME = 'catapultapay-v13.0'; // bump fuerza reinstalación
-
+const CACHE_NAME = 'catapultapay-v29.0';
+const CACHE_PREFIX = 'catapultapay-';
 const PRECACHE_ASSETS = [
-  '/',
-  '/index.html',
-  '/styles.css',
-  '/script.js',
-  '/i18n.js',
-  '/lucide.min.js',
-  '/assets/fonts/tabler-icons.min.css',
-  '/assets/fonts/fonts/tabler-icons.woff2',
-  '/imagecata.png',
-  '/favicon.svg',
-  '/favicon.ico',
-  '/assets/icons/favicon-16.png',
-  '/assets/icons/favicon-32.png',
-  '/manifest.json',
-  '/assets/icons/icon-192.png',
-  '/assets/icons/icon-512.png',
+  '/', '/index.html', '/styles.css?v=29', '/design.css?v=29', '/design.js?v=29',
+  '/runtime.js?v=29', '/script.js?v=29', '/i18n.js?v=29', '/assets/js/icons.js?v=29',
+  '/page-state.css?v=29', '/loading.js?v=29', '/recovery.js?v=29',
+  '/404.html', '/error.html', '/offline.html', '/assets/fonts/design/manrope.ttf',
+  '/assets/css/terminal-icons.css?v=29',
+  '/assets/audio/catapultapayment-signature.mp3', '/imagecata.png', '/favicon.svg', '/favicon.ico', '/manifest.json',
+  '/assets/icons/icon-192.png', '/assets/icons/icon-512.png'
 ];
-
-// ── INSTALL: cachear individualmente — un fallo no rompe todo ──
-self.addEventListener('install', event => {
-  event.waitUntil(
-    caches.open(CACHE_NAME).then(cache =>
-      Promise.allSettled(
-        PRECACHE_ASSETS.map(url =>
-          cache.add(url).catch(err => console.warn('[SW] No se pudo cachear:', url, err))
-        )
-      )
-    ).then(() => self.skipWaiting())
-  );
-});
-
-// ── ACTIVATE: limpiar cachés viejos ──
-self.addEventListener('activate', event => {
-  event.waitUntil(
-    caches.keys().then(keys =>
-      Promise.all(
-        keys
-          .filter(key => key !== CACHE_NAME)
-          .map(key => caches.delete(key))
-      )
-    ).then(() => self.clients.claim())
-  );
-});
-
-// ── FETCH ──
-self.addEventListener('fetch', event => {
-  const { request } = event;
-  const url = new URL(request.url);
-
-  // Todas las fuentes ahora son propias — lo externo (CDN de íconos) lo maneja el navegador
-  if (url.origin !== location.origin) {
-    return;
-  }
-
-  // Video: nunca interceptar (demasiado pesado y tiene range requests)
-  if (url.pathname.endsWith('.mp4') || url.pathname.endsWith('.webm')) {
-    return;
-  }
-
-  // HTML → Network first (siempre contenido fresco)
-  if (request.headers.get('accept')?.includes('text/html')) {
-    event.respondWith(networkFirst(request));
-    return;
-  }
-
-  // CSS, JS, imágenes → Stale While Revalidate
-  event.respondWith(staleWhileRevalidate(request));
-});
-
-/* ─────────────────────────────────────────
-   Estrategias de caché
-───────────────────────────────────────── */
-
-// Network first: intenta red → si falla usa caché → si no hay caché retorna 503
-async function networkFirst(request) {
+const ESSENTIAL = new Set(PRECACHE_ASSETS.map(path => new URL(path, self.location.origin).href));
+const MAX_EXTRA_ENTRIES = 60;
+async function safeMatch(request) { try { return await caches.match(request); } catch { return null; } }
+async function store(cache, request, response) {
+  if (!response.ok || response.status === 206) return;
   try {
-    const response = await fetch(request);
-    if (response.ok) {
-      const cache = await caches.open(CACHE_NAME);
-      cache.put(request, response.clone());
+    await cache.put(request, response.clone());
+    const keys = await cache.keys();
+    const extras = keys.filter(key => !ESSENTIAL.has(key.url));
+    await Promise.all(extras.slice(0, Math.max(0, extras.length - MAX_EXTRA_ENTRIES)).map(key => cache.delete(key)));
+  } catch { /* Cache quota/storage restrictions must not fail a network response. */ }
+}
+self.addEventListener('install', event => {
+  event.waitUntil(caches.open(CACHE_NAME).then(cache => Promise.allSettled(PRECACHE_ASSETS.map(url => cache.add(url)))).then(() => self.skipWaiting()));
+});
+self.addEventListener('activate', event => {
+  event.waitUntil(caches.keys().then(keys => Promise.all(keys.filter(key => key.startsWith(CACHE_PREFIX) && key !== CACHE_NAME).map(key => caches.delete(key)))).then(() => self.clients.claim()));
+});
+self.addEventListener('fetch', event => {
+  const request = event.request;
+  const url = new URL(request.url);
+  if (request.method !== 'GET' || url.origin !== self.location.origin || request.headers.has('range') || /\.(mp4|webm|pdf)$/i.test(url.pathname)) return;
+  if (request.mode === 'navigate') { event.respondWith(networkFirst(request)); return; }
+  // Source and discovery files should always be current; only runtime assets are cached.
+  if (!/\.(css|js|png|jpe?g|webp|svg|ico|woff2?|ttf|json|mp3)$/i.test(url.pathname)) return;
+  event.respondWith(staleWhileRevalidate(request, event));
+});
+async function networkFirst(request) {
+  const controller = new AbortController();
+  const timeout = setTimeout(() => controller.abort(), 5000);
+  try {
+    const response = await fetch(request, { signal: controller.signal });
+    if (response.status === 404 || response.status >= 500) {
+      const fallback = await safeMatch(response.status === 404 ? '/404.html' : '/error.html');
+      if (fallback) return new Response(await fallback.text(), { status: response.status, headers: { 'Content-Type': 'text/html; charset=utf-8' } });
     }
+    if (response.ok) { try { const cache = await caches.open(CACHE_NAME); await store(cache, request, response); } catch { /* Network remains usable without storage. */ } }
     return response;
   } catch {
-    const cached = await caches.match(request);
-    return cached || new Response('Sin conexión', {
-      status: 503,
-      headers: { 'Content-Type': 'text/plain' }
-    });
-  }
+    const cached = await safeMatch(request);
+    if (cached) return cached;
+    const offline = await safeMatch('/offline.html');
+    if (offline) return new Response(await offline.text(), { status: 503, headers: { 'Content-Type': 'text/html; charset=utf-8' } });
+    return new Response('Sin conexión. Revisa tu conexión e intenta de nuevo.', { status: 503, headers: { 'Content-Type': 'text/plain; charset=utf-8' } });
+  } finally { clearTimeout(timeout); }
 }
-
-// Stale while revalidate: sirve caché inmediato + actualiza en background
-// NUNCA retorna null — siempre un Response válido
-async function staleWhileRevalidate(request) {
-  const cache  = await caches.open(CACHE_NAME);
+async function staleWhileRevalidate(request, event) {
+  let cache;
+  try { cache = await caches.open(CACHE_NAME); }
+  catch { return fetch(request).catch(() => new Response('No disponible', { status: 503 })); }
   const cached = await cache.match(request);
-
-  // Lanzar fetch en background sin await (no bloqueamos)
-  const fetchPromise = fetch(request)
-    .then(response => {
-      if (response && response.ok) cache.put(request, response.clone());
-      return response;
-    })
-    .catch(() => null);
-
-  // Si tenemos caché: servir inmediato, actualizar en background
-  if (cached) {
-    fetchPromise.catch(() => {}); // evitar unhandled rejection
-    return cached;
-  }
-
-  // Sin caché: esperar la red
-  const fresh = await fetchPromise;
-  if (fresh) return fresh;
-
-  // Sin caché ni red: respuesta de error controlada (nunca null)
-  return new Response('No disponible', {
-    status: 503,
-    headers: { 'Content-Type': 'text/plain' }
-  });
+  const refresh = fetch(request).then(async response => { await store(cache, request, response); return response; }).catch(() => null);
+  event.waitUntil(refresh.then(() => {}));
+  if (cached) return cached;
+  return (await refresh) || new Response('No disponible', { status: 503, headers: { 'Content-Type': 'text/plain; charset=utf-8' } });
 }

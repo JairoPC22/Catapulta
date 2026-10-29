@@ -1,6 +1,6 @@
 {
-  "name": "CatapultaPay — Procesamiento de Pagos",
-  "short_name": "CatapultaPay",
+  "name": "CatapultaPayment — Procesamiento de Pagos",
+  "short_name": "CatapultaPayment",
   "description": "Soluciones de procesamiento de pagos B2B: terminales POS, pasarelas virtuales y soporte bilingüe.",
   "start_url": "/",
   "scope": "/",

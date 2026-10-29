@@ -1,0 +1,248 @@
+{
+  "privacy": {
+    "title": {
+      "es": "Aviso de privacidad",
+      "en": "Privacy notice"
+    },
+    "intro": {
+      "es": "Cómo se utiliza la información que compartes a través de este sitio.",
+      "en": "How information shared through this website is handled."
+    },
+    "sections": [
+      {
+        "es": [
+          "Identificación y contacto",
+          "Este sitio utiliza la marca CatapultaPayment y el dominio catapultapay.com. En el sitio público la organización se identifica como CATAPULTA PAYMENT SYSTEMS. El domicilio y la denominación legal completa del responsable deben confirmarse antes de aprobar este aviso. Para consultas sobre datos personales: info@catapultapay.com o +1 (310) 948-6153."
+        ],
+        "en": [
+          "Identity and contact",
+          "This website uses the CatapultaPayment brand and catapultapay.com domain. The public website identifies the organization as CATAPULTA PAYMENT SYSTEMS. The controller’s full legal identity and address must be confirmed before this notice is approved. For personal data inquiries: info@catapultapay.com or +1 (310) 948-6153."
+        ]
+      },
+      {
+        "es": [
+          "Información que recoge el sitio",
+          "El formulario solicita nombre, apellido, correo electrónico, asunto y mensaje; empresa y teléfono son opcionales. Los proveedores de alojamiento, correo y envío pueden procesar datos técnicos como dirección IP, fecha de acceso y metadatos de las solicitudes para prestar y proteger sus servicios. Este formulario no solicita tarjetas, cuentas bancarias, documentos de identidad ni contraseñas. No incluyas estos datos en el mensaje."
+        ],
+        "en": [
+          "Information collected through this site",
+          "The form requests first and last name, email address, subject and message. Company and phone are optional. Hosting, email and delivery providers may process technical information such as IP addresses, access times and request metadata to operate and protect their services. This form does not request card numbers, bank accounts, identity documents or passwords. Do not include these details in your message."
+        ]
+      },
+      {
+        "es": [
+          "Para qué se utiliza",
+          "La información enviada permite recibir y responder tu consulta, contactarte sobre lo que solicitas y dar seguimiento a la asesoría o soporte correspondiente. El formulario no incorpora una suscripción a publicidad. Las contrataciones y verificaciones de un servicio de procesamiento de pagos se realizan por separado y pueden requerir documentos y avisos adicionales."
+        ],
+        "en": [
+          "Purpose",
+          "Submitted information is used to receive and answer your inquiry, contact you about your request, and follow up on relevant advice or support. The form does not subscribe you to advertising. Payment-processing onboarding and verification take place separately and may require additional documents and notices."
+        ]
+      },
+      {
+        "es": [
+          "Proveedores que intervienen",
+          "Al pulsar Enviar, el formulario transmite los campos indicados a EmailJS y al servicio de correo configurado para entregar el mensaje al equipo de CatapultaPayment. Por ello no se afirma que los datos nunca se compartan con terceros. El alojamiento también interviene en la entrega del sitio. La política de EmailJS puede consultarse en https://www.emailjs.com/legal/privacy-policy/. Los proveedores pueden tratar datos en Estados Unidos u otros lugares conforme a su infraestructura y condiciones. No se promete una ubicación exclusiva ni una garantía contractual de transferencia que no haya sido verificada."
+        ],
+        "en": [
+          "Service providers",
+          "When you press Send, the form transmits the stated fields to EmailJS and the configured email service to deliver your message to the CatapultaPayment team. We therefore do not claim that information is never shared with third parties. Hosting providers also deliver this website. EmailJS’s policy is available at https://www.emailjs.com/legal/privacy-policy/. Providers may process information in the United States or other locations under their infrastructure and terms. No unverified exclusive storage location or contractual transfer guarantee is promised."
+        ]
+      },
+      {
+        "es": [
+          "Preferencias, cookies y copia sin conexión",
+          "El código de esta versión guarda únicamente preferencias de tema, idioma y sonido en localStorage y puede conservar recursos públicos en la caché del navegador para acelerar la carga y ofrecer contenido previamente visitado sin conexión. El formulario no se guarda en localStorage ni en esa caché. Esta versión no integra analítica publicitaria ni píxeles de seguimiento. Consulta Cookies y almacenamiento para conocer los controles disponibles."
+        ],
+        "en": [
+          "Preferences, cookies and offline copies",
+          "This version stores theme, language and sound preferences in localStorage and may cache public resources in your browser to improve loading and make previously visited content available offline. The form is not saved to localStorage or that cache. This version does not integrate advertising analytics or tracking pixels. See Cookies and storage for available controls."
+        ]
+      },
+      {
+        "es": [
+          "Conservación y seguridad",
+          "Las preferencias y copias locales pueden permanecer hasta que las borres, el navegador las elimine o el sitio las actualice. Los mensajes entregados se gestionan en los servicios de correo y envío: no existe un borrado automático de esos correos desde esta página. La política y los plazos internos de conservación deben ser confirmados por el responsable. Puedes solicitar información o eliminación mediante el contacto indicado. Ningún medio de transmisión o almacenamiento permite prometer seguridad absoluta."
+        ],
+        "en": [
+          "Retention and security",
+          "Preferences and local copies may remain until you clear them, your browser removes them or the site updates them. Delivered messages are managed by email and delivery services; this webpage does not automatically delete those emails. The controller must confirm its internal retention policy and periods. You can request information or deletion using the contact above. No transmission or storage method allows an absolute security guarantee."
+        ]
+      },
+      {
+        "es": [
+          "Solicitudes sobre tus datos",
+          "Puedes escribir a info@catapultapay.com para solicitar acceso, corrección, eliminación u otra actuación reconocida por la normativa aplicable. Explica tu solicitud y el correo que usaste para contactar; no adjuntes información sensible de forma innecesaria. El responsable deberá verificar de forma proporcional tu identidad y determinar los derechos, excepciones y plazos que correspondan a tu caso y jurisdicción. Este borrador no atribuye una jurisdicción ni promete plazos no confirmados."
+        ],
+        "en": [
+          "Requests about your information",
+          "Email info@catapultapay.com to request access, correction, deletion or another action available under applicable law. Explain your request and the email address you used to contact us; do not unnecessarily attach sensitive information. The controller must proportionately verify your identity and determine the rights, exceptions and deadlines applicable to your circumstances and jurisdiction. This draft does not assign a jurisdiction or promise unconfirmed deadlines."
+        ]
+      },
+      {
+        "es": [
+          "Enlaces externos y cambios",
+          "WhatsApp, redes sociales y otros sitios enlazados aplican sus propias políticas cuando los visitas. El sitio está orientado a consultas de negocios, no a recopilar datos de menores. Si se incorpora analítica, publicidad u otros usos, este aviso y los controles de privacidad deberán actualizarse antes de activar esos tratamientos. La fecha de revisión figura al inicio del documento."
+        ],
+        "en": [
+          "External links and changes",
+          "WhatsApp, social networks and other linked sites apply their own policies when you visit them. This website is intended for business inquiries, not collecting children’s data. If analytics, advertising or other uses are introduced, this notice and privacy controls must be updated before those activities are activated. The revision date appears at the top of this document."
+        ]
+      }
+    ]
+  },
+  "terms": {
+    "title": {
+      "es": "Términos de uso",
+      "en": "Terms of use"
+    },
+    "intro": {
+      "es": "Condiciones para utilizar el sitio informativo de CatapultaPayment.",
+      "en": "Conditions for using the CatapultaPayment informational website."
+    },
+    "sections": [
+      {
+        "es": [
+          "Alcance de este documento",
+          "Estos términos se refieren únicamente al uso del sitio catapultapay.com. No sustituyen contratos de procesamiento, acuerdos con bancos o procesadoras, contratos de equipo ni condiciones de financiación. La identidad legal completa, domicilio y normativa contractual aplicable deben confirmarse antes de aprobar la versión final."
+        ],
+        "en": [
+          "Scope",
+          "These terms cover only the use of catapultapay.com. They do not replace payment-processing contracts, bank or processor agreements, equipment contracts or financing terms. The full legal identity, address and applicable contractual rules must be confirmed before the final version is approved."
+        ]
+      },
+      {
+        "es": [
+          "Información comercial y cotizaciones",
+          "El catálogo describe soluciones y equipos que pueden estar sujetos a disponibilidad, revisión técnica y condiciones particulares. El envío de una consulta no abre una cuenta, no garantiza aprobación y no formaliza una compra o contrato. Tarifas, depósitos, arrendamiento y financiación deben confirmarse por escrito con el equipo y los proveedores correspondientes."
+        ],
+        "en": [
+          "Commercial information and quotes",
+          "The catalog describes solutions and equipment that may be subject to availability, technical review and specific terms. Sending an inquiry does not open an account, guarantee approval or complete a purchase or contract. Rates, deposits, leasing and financing must be confirmed in writing with the relevant team and providers."
+        ]
+      },
+      {
+        "es": [
+          "Simulador y calculadora",
+          "La terminal interactiva es una demostración: no procesa tarjetas ni realiza cargos reales. Sus montos, identificadores y tickets son ilustrativos. La calculadora ofrece estimaciones basadas en los valores seleccionados y no incorpora necesariamente todos los cargos o condiciones de un contrato. Sus resultados no constituyen una oferta vinculante ni una garantía de ahorro."
+        ],
+        "en": [
+          "Simulator and calculator",
+          "The interactive terminal is a demonstration: it does not process cards or make real charges. Its amounts, identifiers and receipts are illustrative. The calculator provides estimates based on the selected values and may not include every contractual fee or condition. Results are not a binding offer or a savings guarantee."
+        ]
+      },
+      {
+        "es": [
+          "Uso del formulario",
+          "Proporciona información de contacto que tengas autorización para utilizar. No envíes números de tarjeta, cuentas bancarias, contraseñas, documentos de identidad ni datos sensibles mediante el campo de mensaje. El formulario permite solicitar una respuesta sobre tu consulta, no realizar una transacción financiera. El tratamiento de datos se explica en el Aviso de privacidad."
+        ],
+        "en": [
+          "Contact form",
+          "Provide contact information you are authorized to use. Do not send card numbers, bank accounts, passwords, identity documents or sensitive data in the message field. The form requests a response to your inquiry; it does not make a financial transaction. Data handling is described in the Privacy notice."
+        ]
+      },
+      {
+        "es": [
+          "Exactitud de la información que proporcionas",
+          "Debes proporcionar datos de contacto veraces, completos y actualizados. CatapultaPayment no es responsable de retrasos, errores de contacto o la imposibilidad de darte seguimiento cuando se deban a información incorrecta, incompleta o desactualizada que hayas proporcionado."
+        ],
+        "en": [
+          "Accuracy of the information you provide",
+          "You must provide accurate, complete and up-to-date contact information. CatapultaPayment is not responsible for delays, miscommunication or an inability to follow up on your inquiry when these result from incorrect, incomplete or outdated information you provided."
+        ]
+      },
+      {
+        "es": [
+          "Uso adecuado y contenido",
+          "No utilices el sitio para spam, suplantación, intentos de acceso no autorizado ni acciones que afecten su funcionamiento. Los nombres y marcas de equipos pertenecen a sus respectivos titulares. Las imágenes y textos no conceden una licencia de uso comercial ajeno al propósito informativo del sitio."
+        ],
+        "en": [
+          "Appropriate use and content",
+          "Do not use the site for spam, impersonation, unauthorized access attempts or actions that disrupt its operation. Equipment names and brands belong to their respective owners. Images and text do not grant a commercial-use license beyond the site’s informational purpose."
+        ]
+      },
+      {
+        "es": [
+          "Disponibilidad y atención",
+          "Pueden producirse interrupciones de red o fallos de servicios externos. Si un envío falla, la página conserva los datos en el formulario abierto para que decidas cómo continuar; no promete entrega hasta que el servicio confirma el envío. También puedes usar los datos de contacto publicados. Cualquier condición de responsabilidad debe interpretarse respetando los derechos irrenunciables y la normativa aplicable."
+        ],
+        "en": [
+          "Availability and support",
+          "Network interruptions or external service failures may occur. If submission fails, details remain in the open form so you can decide how to continue; delivery is not promised until the service confirms it. You may also use the published contact information. Any liability terms must respect non-waivable rights and applicable law."
+        ]
+      },
+      {
+        "es": [
+          "Consultas y actualizaciones",
+          "Las preguntas sobre este sitio pueden dirigirse a info@catapultapay.com. Los cambios en estas condiciones se publicarán con su fecha de revisión. No se establece en este borrador un tribunal, arbitraje obligatorio o renuncia a derechos sin verificar la entidad responsable y la jurisdicción aplicable."
+        ],
+        "en": [
+          "Questions and updates",
+          "Questions about this site can be sent to info@catapultapay.com. Changes to these terms will be published with a revision date. This draft does not impose a court, mandatory arbitration or a waiver of rights without verifying the responsible entity and applicable jurisdiction."
+        ]
+      }
+    ]
+  },
+  "cookies": {
+    "title": {
+      "es": "Cookies y almacenamiento",
+      "en": "Cookies and storage"
+    },
+    "intro": {
+      "es": "Qué guarda esta versión en tu navegador y cómo puedes controlarlo.",
+      "en": "What this version stores in your browser and how you can control it."
+    },
+    "sections": [
+      {
+        "es": [
+          "Cookies y seguimiento",
+          "El código de esta versión no crea cookies de publicidad ni integra herramientas de analítica o píxeles de seguimiento. Utiliza almacenamiento local y una caché de recursos públicos. Esta descripción debe revisarse al publicar para comprobar también la configuración del proveedor de alojamiento y de cualquier servicio que se añada."
+        ],
+        "en": [
+          "Cookies and tracking",
+          "This version’s code does not create advertising cookies or integrate analytics tools or tracking pixels. It uses local storage and a public-resource cache. This description must also be checked against the hosting provider’s configuration and any services added at deployment."
+        ]
+      },
+      {
+        "es": [
+          "Preferencias locales",
+          "cpay-theme guarda el tema claro u oscuro y cpay-lang guarda el idioma español o inglés. cpay-sound recuerda si activaste o silenciaste el sonido de marca. El audio dura aproximadamente dos segundos, puedes elegir entrar sin sonido desde la pantalla de carga y no se repite en bucle. Si el navegador bloquea la reproducción automática, puedes usar Entrar con sonido durante la carga. Se almacenan en este dispositivo mediante localStorage y no se incluyen en el mensaje de contacto. No tienen una fecha de vencimiento fijada por esta web; pueden permanecer hasta que borres los datos del sitio o el navegador los elimine. Si bloqueas el almacenamiento, puedes seguir usando la página, aunque tus preferencias no se recordarán entre visitas."
+        ],
+        "en": [
+          "Local preferences",
+          "cpay-theme stores the light or dark theme and cpay-lang stores Spanish or English. cpay-sound remembers whether you enabled or muted the brand sound. The audio lasts approximately two seconds, can be skipped using Enter without sound on the loading screen and does not loop. If the browser blocks autoplay, you can select Enter with sound during loading. They are kept on this device in localStorage and are not included in your contact message. This website sets no expiration; they may remain until you clear site data or your browser removes them. If storage is blocked, the page still works but preferences may not persist between visits."
+        ]
+      },
+      {
+        "es": [
+          "Copia sin conexión",
+          "El service worker puede guardar HTML público, estilos, scripts, fuentes e imágenes en Cache Storage para agilizar las visitas y mostrar recursos previamente disponibles sin conexión. Esta caché no guarda las solicitudes POST del formulario ni su contenido. Las versiones anteriores de la caché de este sitio se sustituyen al actualizarse y existe un límite para los recursos adicionales."
+        ],
+        "en": [
+          "Offline copy",
+          "The service worker may save public HTML, styles, scripts, fonts and images in Cache Storage to speed up visits and show previously available resources offline. This cache does not store contact-form POST requests or their contents. Previous versions of this site’s cache are replaced when updated, and additional resources are limited."
+        ]
+      },
+      {
+        "es": [
+          "Servicios y enlaces externos",
+          "El formulario conecta con EmailJS cuando solicitas un envío. WhatsApp y las redes sociales se abren al seguir sus enlaces y aplican sus propias políticas. No se cargan sus widgets publicitarios en esta versión. Los datos técnicos que trate el alojamiento o un proveedor externo dependen también de sus condiciones y configuración. El sonido de marca se sirve desde este sitio; reproducirlo no conecta tu navegador con ElevenLabs."
+        ],
+        "en": [
+          "External services and links",
+          "The form connects to EmailJS when you request submission. WhatsApp and social networks open when you follow their links and apply their own policies. Their advertising widgets are not loaded in this version. Technical information processed by hosting or an external provider also depends on its terms and configuration. The brand sound is served from this site; playing it does not connect your browser to ElevenLabs."
+        ]
+      },
+      {
+        "es": [
+          "Cómo controlar el almacenamiento",
+          "Puedes borrar únicamente las preferencias de tema e idioma con el botón siguiente. Para eliminar también las copias sin conexión, usa la opción de tu navegador para borrar todos los datos del sitio catapultapay.com. Borrar datos del navegador no elimina los mensajes que ya enviaste al equipo o a sus proveedores; para estos casos utiliza el contacto del Aviso de privacidad."
+        ],
+        "en": [
+          "Storage controls",
+          "Use the button below to remove only theme and language preferences. To also remove offline copies, use your browser’s option to clear all site data for catapultapay.com. Clearing browser data does not delete messages already delivered to the team or its providers; use the contact in the Privacy notice for those requests."
+        ]
+      }
+    ]
+  }
+}

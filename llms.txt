@@ -1,0 +1,41 @@
+# CatapultaPayment
+
+> CatapultaPayment (Catapulta Payment Systems) ofrece soluciones de procesamiento de pagos para negocios en Estados Unidos, con atención en español e inglés.
+
+Sitio oficial: https://catapultapay.com/
+La información comercial vigente y las condiciones aplicables deben confirmarse con el equipo de CatapultaPayment.
+
+## Servicios y equipos
+
+- [Soluciones de pago](https://catapultapay.com/#solutions): terminales físicos, puntos de venta POS, lectores móviles, pasarelas ecommerce, terminal virtual y portales de pago.
+- [Catálogo de equipos](https://catapultapay.com/#catalogo): equipos Dejavoo, Clover, Sunmi, PAX y Landi. Opciones de compra, renta o lease según disponibilidad y condiciones.
+- Software de punto de venta: Kwick POS, OnTheFly, OrderPin y Octopos POS, según el tipo de negocio.
+- [Instalaciones reales](https://catapultapay.com/#gallery): fotografías de equipos instalados en negocios de clientes.
+- [Cómo empezar](https://catapultapay.com/#how-it-works): contacto, cotización y aprobación, instalación y configuración, e inicio de operaciones.
+- [Preguntas frecuentes](https://catapultapay.com/#faq): aprobación de cuentas, software POS, equipos, pagos sin contacto y depósitos.
+
+## Contacto oficial
+
+- [Solicitar asesoría](https://catapultapay.com/#contact): formulario de contacto del sitio.
+- Teléfono: +1 (310) 948-6153.
+- Consultas generales: info@catapultapay.com.
+- Zona Este: backoffice@catapultapay.com.
+- Soporte técnico: support@catapultapay.zohodesk.com.
+- Idiomas de atención: español e inglés.
+- Área de servicio: Estados Unidos.
+
+## Catálogos descargables
+
+- [Catálogo en español](https://catapultapay.com/assets/files/CatalogoSpanish.pdf)
+- [Catalog in English](https://catapultapay.com/assets/files/CatalogoEnglish.pdf)
+
+## Condiciones importantes
+
+La aprobación de cuentas, las tarifas, los tiempos de depósito, la financiación y la disponibilidad de equipos dependen del tipo de negocio, la procesadora, el banco patrocinador y las condiciones acordadas. La calculadora del sitio muestra estimaciones; no constituye una cotización contractual.
+
+## Información técnica
+
+- [Mapa del sitio](https://catapultapay.com/sitemap.xml)
+- [Política de rastreo](https://catapultapay.com/robots.txt)
+
+Este archivo es un resumen orientativo. No sustituye el contenido del sitio ni garantiza la inclusión en motores de búsqueda o asistentes de IA.
