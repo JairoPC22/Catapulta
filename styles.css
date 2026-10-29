@@ -1762,7 +1762,7 @@ textarea {
 
 .testimonials-grid {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(4, 1fr);
   gap: 1.4rem;
 }
 
@@ -1832,6 +1832,23 @@ textarea {
   height: 100%;
   object-fit: contain;
   display: block;
+}
+
+/* Used when a client hasn't provided a logo yet — a real initial, not a stock avatar */
+.testi-avatar {
+  width: 52px;
+  height: 52px;
+  border-radius: var(--radius-sm);
+  background: var(--grad-primary);
+  color: #070e1c;
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: 1.3rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  transform: translate(10px, -5px);
 }
 
 .testi-footer-info {

@@ -1,15 +1,24 @@
-name: Deploy to IONOS (FTP)
+name: Deploy to IONOS (SFTP)
 
 # Runs automatically on every push to main. To use it:
-# 1. In IONOS, create (or find) FTP/SFTP access credentials for this domain's webspace.
-# 2. In GitHub: repo > Settings > Secrets and variables > Actions > New repository secret.
-#    Add these three secrets (names must match exactly):
-#      IONOS_FTP_SERVER    e.g. access-xxxxxxx.webspace-host.com
-#      IONOS_FTP_USERNAME  the FTP/SFTP username IONOS gave you
-#      IONOS_FTP_PASSWORD  the FTP/SFTP password IONOS gave you
-# 3. Set server-dir below to the folder IONOS serves as the site root
-#    (often "/" or "/htdocs/" — check your IONOS hosting panel).
-# Never put these values directly in this file — only in GitHub Secrets.
+#
+# 1. In IONOS: log in, go to Hosting > (your contract) > "SFTP & SSH" tile >
+#    Manage, click your FTP username to see the connection details (server
+#    address, username; the password is the one you set for that account).
+#    IONOS webhosting now uses SFTP on port 22 by default. If your IONOS
+#    account is an older one still on plain FTP/FTPS, change "sftp://" to
+#    "ftps://" and the port to 21 in the lftp command below.
+#
+# 2. In GitHub: this repo > Settings > Secrets and variables > Actions >
+#    New repository secret. Add these three (names must match exactly):
+#      IONOS_FTP_SERVER    e.g. access123456789.webspace-data.io
+#      IONOS_FTP_USERNAME  e.g. u12345678
+#      IONOS_FTP_PASSWORD  the password for that FTP/SFTP account
+#    Never put these values directly in this file — only in GitHub Secrets.
+#
+# 3. Confirm the site's root folder on IONOS (shown in the hosting panel,
+#    usually "/"); change the remote path at the end of the mirror command
+#    below if yours is different (e.g. "/htdocs/").
 
 on:
   push:
@@ -23,23 +32,33 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Upload to IONOS via FTP
-        uses: SamKirkland/FTP-Deploy-Action@v4.3.5
-        with:
-          server: ${{ secrets.IONOS_FTP_SERVER }}
-          username: ${{ secrets.IONOS_FTP_USERNAME }}
-          password: ${{ secrets.IONOS_FTP_PASSWORD }}
-          server-dir: /
-          exclude: |
-            **/.git*
-            **/.git*/**
-            **/.github/**
-            **/.claude/**
-            **/.impeccable/**
-            **/tests/**
-            **/tools/**
-            **/content/**
-            **/node_modules/**
-            **/*.md
-            preview-server.cjs
-            gallery-redesign.png
+      - name: Install lftp
+        run: sudo apt-get update && sudo apt-get install -y lftp
+
+      - name: Upload to IONOS via SFTP
+        env:
+          IONOS_FTP_SERVER: ${{ secrets.IONOS_FTP_SERVER }}
+          IONOS_FTP_USERNAME: ${{ secrets.IONOS_FTP_USERNAME }}
+          IONOS_FTP_PASSWORD: ${{ secrets.IONOS_FTP_PASSWORD }}
+        run: |
+          lftp -u "$IONOS_FTP_USERNAME","$IONOS_FTP_PASSWORD" sftp://$IONOS_FTP_SERVER:22 <<'EOF'
+          set sftp:auto-confirm yes
+          set mirror:parallel-transfer-count 3
+          mirror -R --verbose \
+            --exclude-glob .git* \
+            --exclude-glob .github/ \
+            --exclude-glob .claude/ \
+            --exclude-glob .impeccable/ \
+            --exclude-glob tests/ \
+            --exclude-glob tools/ \
+            --exclude-glob content/ \
+            --exclude-glob node_modules/ \
+            --exclude-glob '*.md' \
+            --exclude preview-server.cjs \
+            --exclude gallery-redesign.png \
+            . /
+          EOF
+          # Note: no --delete here on purpose, so this never removes files
+          # that already exist on IONOS but aren't in this repo. Add
+          # --delete to the mirror command above once you've confirmed the
+          # upload works and IONOS only has files this repo manages.

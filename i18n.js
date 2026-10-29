@@ -154,6 +154,7 @@ const TRANSLATIONS = {
     'testi.q1': '"Implementar su sistema de pagos fue un acierto total. Nuestros comensales ahora pagan rápido y seguro. Hemos aumentado ventas especialmente en fines de semana. Una excelente inversión."',
     'testi.q2': '"El terminal virtual se sincronizó perfectamente con nuestro sistema. Ahora aceptamos pagos sin contacto y las transacciones son un 30% más rápidas."',
     'testi.q3': '"Grandes ahorros en comisiones y claridad total en los números. El sistema POS es confiable, fácil de usar y ha mejorado la eficiencia de cobros diarios."',
+    'testi.q4': '"Estamos muy contentos con el servicio de terminales POS que recibimos. Desde que trabajamos con esta empresa, el proceso de cobro con tarjeta es más ágil y confiable para nuestros clientes. El soporte es rápido y siempre están disponibles cuando los necesitamos."',
     'testi.verified': 'Cliente verificado',
     // HOW IT WORKS
     'steps.label': 'Cómo funciona',
@@ -412,6 +413,7 @@ const TRANSLATIONS = {
     'testi.q1': '"Implementing their payment system was a total success. Our diners now pay quickly and securely. We increased sales especially on weekends. An excellent investment."',
     'testi.q2': '"The virtual terminal synced perfectly with our system. We now accept contactless payments and transactions are 30% faster."',
     'testi.q3': '"Great savings on fees and total clarity in the numbers. The POS system is reliable, easy to use, and has improved daily collection efficiency."',
+    'testi.q4': '"We\'re very happy with the POS terminal service we received. Since working with this company, card payments have become faster and more reliable for our customers. Support is quick and always available when we need it."',
     'testi.verified': 'Verified customer',
     // HOW IT WORKS
     'steps.label': 'How it works',
@@ -989,7 +991,7 @@ const I18N = {
     this._setText('#testimonials .section-label', 'testi.label', t);
     this._setHTML('#testimonials .section-title', 'testi.title', t);
     const quotes = this._qa('.testi-quote');
-    ['testi.q1','testi.q2','testi.q3'].forEach((k,i) => {
+    ['testi.q1','testi.q2','testi.q3','testi.q4'].forEach((k,i) => {
       if (quotes[i] && t[k]) quotes[i].textContent = t[k];
     });
     this._qa('.testi-role').forEach(el => { if (t['testi.verified']) el.textContent = t['testi.verified']; });

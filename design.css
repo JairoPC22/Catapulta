@@ -316,6 +316,9 @@ body.photo-viewer-open { overflow: hidden; }
   .hero-grid { gap: 2.5rem; }
   .hero-copy h1 { font-size: 3rem; }
   .dashboard-card { padding: 1.5rem; }
+  .testimonials-grid { grid-template-columns: repeat(2, 1fr); }
+  .testi-card { border-right: 0 !important; border-bottom: 1px solid var(--color-borderW); padding: 1rem 0; }
+  .testi-card:nth-child(2n) { border-right: 0; }
 }
 @media (max-width: 1024px) {
   .hero-grid { grid-template-columns: minmax(0, 1fr); gap: 2.5rem; }
