@@ -16,11 +16,10 @@ name: Deploy to IONOS (SFTP)
 #      IONOS_FTP_PASSWORD  the password for that FTP/SFTP account
 #    Never put these values directly in this file — only in GitHub Secrets.
 #
-# 3. Remote path: catapultapay.com's domain settings in IONOS show
-#    "Objetivo: /catapultaPay", so that's the folder this workflow targets.
-#    If the first run lands files in the wrong place (e.g. the SFTP account
-#    is already scoped to that folder as its own root), change the path at
-#    the end of the mirror command below to "/" instead.
+# 3. Remote path confirmed by a one-off diagnostic run: the IONOS account
+#    root has a "catapultaPay" folder, and the real site (matching
+#    catapultapay.com) lives one level deeper, at catapultaPay/catapultaPay.
+#    That is the folder this workflow targets below.
 
 on:
   push:
@@ -37,18 +36,29 @@ jobs:
       - name: Install lftp
         run: sudo apt-get update && sudo apt-get install -y lftp
 
-      - name: Inspect remote directory structure (diagnostic)
-        env:
-          IONOS_FTP_SERVER: ${{ secrets.IONOS_FTP_SERVER }}
-          IONOS_FTP_USERNAME: ${{ secrets.IONOS_FTP_USERNAME }}
-          IONOS_FTP_PASSWORD: ${{ secrets.IONOS_FTP_PASSWORD }}
+      - name: Stage a clean copy (no .git, no dev-only files)
+        # Copying to a staging folder first — rather than relying on lftp's
+        # --exclude-glob against the live checkout — guarantees .git and
+        # other dev files never reach the server, and lets us list exactly
+        # what will be uploaded.
         run: |
-          lftp -u "$IONOS_FTP_USERNAME","$IONOS_FTP_PASSWORD" sftp://$IONOS_FTP_SERVER:22 <<'EOF'
-          set sftp:auto-confirm yes
-          cd catapultaPay/catapultaPay
-          pwd
-          ls -l
-          EOF
+          mkdir -p _deploy
+          rsync -a \
+            --exclude='.git' \
+            --exclude='.github' \
+            --exclude='.claude' \
+            --exclude='.impeccable' \
+            --exclude='tests' \
+            --exclude='tools' \
+            --exclude='content' \
+            --exclude='node_modules' \
+            --exclude='*.md' \
+            --exclude='preview-server.cjs' \
+            --exclude='gallery-redesign.png' \
+            --exclude='_deploy' \
+            ./ _deploy/
+          echo "Files staged for upload:"
+          find _deploy -maxdepth 1
 
       - name: Upload to IONOS via SFTP
         env:
@@ -59,19 +69,7 @@ jobs:
           lftp -u "$IONOS_FTP_USERNAME","$IONOS_FTP_PASSWORD" sftp://$IONOS_FTP_SERVER:22 <<'EOF'
           set sftp:auto-confirm yes
           set mirror:parallel-transfer-count 3
-          mirror -R --verbose \
-            --exclude-glob .git* \
-            --exclude-glob .github/ \
-            --exclude-glob .claude/ \
-            --exclude-glob .impeccable/ \
-            --exclude-glob tests/ \
-            --exclude-glob tools/ \
-            --exclude-glob content/ \
-            --exclude-glob node_modules/ \
-            --exclude-glob '*.md' \
-            --exclude preview-server.cjs \
-            --exclude gallery-redesign.png \
-            . /catapultaPay
+          mirror -R --verbose _deploy /catapultaPay/catapultaPay
           EOF
           # Note: no --delete here on purpose, so this never removes files
           # that already exist on IONOS but aren't in this repo. Add
