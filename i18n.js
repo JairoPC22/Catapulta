@@ -1092,7 +1092,7 @@ const I18N = {
 
   _applyMisc(t) {
     // Preserve active feedback when switching language; never turn an error into a success.
-    const toastSpan = this._q('.toast span');
+    const toastSpan = this._q('.toast-message');
     if (toastSpan && !toastSpan.closest('.toast').classList.contains('show') && t['toast.msg']) toastSpan.textContent = t['toast.msg'];
     // WhatsApp href
     const wa = this._q('.whatsapp-float');

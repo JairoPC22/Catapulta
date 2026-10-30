@@ -38,7 +38,7 @@ document.addEventListener('DOMContentLoaded', () => {
 ──────────────────────────────────────────── */
 function initHeroModel() {
   if (!document.querySelector('model-viewer')) return;
-  const mount = () => { import('./assets/js/model-viewer.min.js?v=52').catch(() => {}); };
+  const mount = () => { import('./assets/js/model-viewer.min.js?v=53').catch(() => {}); };
   const schedule = () => {
     if ('requestIdleCallback' in window) requestIdleCallback(mount, { timeout: 2000 });
     else setTimeout(mount, 300);
@@ -228,14 +228,36 @@ function initContactForm() {
   let sending = false;
   let lastSuccess = 0;
   let toastTimer;
+  let toastDuration = 7000;
   const text = (es, en) => document.documentElement.lang === 'en' ? en : es;
+  const closeToast = () => {
+    clearTimeout(toastTimer);
+    const hadFocus = toast?.contains(document.activeElement);
+    toast?.classList.remove('show');
+    if (hadFocus) submit.focus({ preventScroll: true });
+  };
+  const resumeToast = () => {
+    if (toast?.classList.contains('show') && !toast.contains(document.activeElement)) {
+      clearTimeout(toastTimer); toastTimer = setTimeout(closeToast, toastDuration);
+    }
+  };
+  toast?.querySelector('.toast-close')?.addEventListener('click', closeToast);
+  toast?.addEventListener('keydown', event => { if (event.key === 'Escape') closeToast(); });
+  toast?.addEventListener('pointerenter', () => clearTimeout(toastTimer));
+  toast?.addEventListener('pointerleave', resumeToast);
+  toast?.addEventListener('focusin', () => clearTimeout(toastTimer));
+  toast?.addEventListener('focusout', resumeToast);
   function notify(message, error = false) {
     const status = document.getElementById('contactStatus');
     if (status) status.textContent = message;
     if (!toast) return;
-    toast.querySelector('span').textContent = message;
+    const heading = toast.querySelector('.toast-title');
+    if (heading) heading.textContent = error ? text('Revisa tu solicitud', 'Check your request') : text('Solicitud recibida', 'Request received');
+    toast.querySelector('.toast-message, span').textContent = message;
+    const close = toast.querySelector('.toast-close');
+    if (close) close.setAttribute('aria-label', text('Cerrar notificación', 'Dismiss notification'));
     toast.classList.toggle('toast-error', error);
-    const oldIcon = toast.querySelector('svg, i');
+    const oldIcon = toast.querySelector('.toast-icon svg, .toast-icon i');
     if (oldIcon) {
       const icon = document.createElement('i');
       icon.setAttribute('data-lucide', error ? 'alert-circle' : 'check-circle');
@@ -245,7 +267,8 @@ function initContactForm() {
     }
     toast.classList.add('show');
     clearTimeout(toastTimer);
-    toastTimer = setTimeout(() => toast.classList.remove('show'), 6000);
+    toastDuration = error ? 10000 : 7000;
+    toastTimer = setTimeout(closeToast, toastDuration);
   }
   for (const field of form.querySelectorAll('input:not([type="hidden"]),textarea,select')) {
     const clear = () => { field.closest('.form-group')?.classList.remove('invalid'); field.removeAttribute('aria-invalid'); };
@@ -284,7 +307,7 @@ function initContactForm() {
       await sendContactForm(snapshot);
       lastSuccess = Date.now();
       form.reset();
-      notify(text('Hemos recibido tu solicitud. Te contactaremos pronto.', 'We have received your request. We will be in touch soon.'));
+      notify(text('Nuestro equipo te contactará pronto.', 'Our team will be in touch soon.'));
     } catch (error) {
       const message = error.status === 429
         ? text('Has enviado varias solicitudes. Espera unos minutos antes de intentar de nuevo.', 'You have sent several requests. Please wait before trying again.')
