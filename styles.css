@@ -1900,41 +1900,40 @@ textarea {
   border-top: 1px solid var(--color-borderW);
 }
 
-/* Contenedor del logo — fondo blanco uniforme para normalizar logos muy
-   distintos entre sí (banners rectangulares, sellos circulares, etc).
-   El borde plano y gris se reemplaza por un borde nítido de 1px + una
-   sombra suave: así se separa de la tarjeta por elevación, no por un
-   contorno apagado que se perdía contra el fondo blanco de la tarjeta. */
+/* Los logos de clientes vienen en formas muy distintas entre sí (banners
+   rectangulares, sellos circulares, placas con borde propio) — meterlos
+   a la fuerza en un cuadro blanco uniforme se veía como si el logo
+   estuviera "cortado" dentro de una forma que no era la suya. En vez de
+   eso, el logo se muestra tal cual es, a una altura fija y ancho libre,
+   sin marco ni fondo propio: cada uno conserva su forma y su propio
+   borde/fondo si lo trae. */
 .testi-logo-wrap {
-  width: 64px;
-  height: 64px;
-  border-radius: var(--radius-md);
-  background: #ffffff;
+  height: 42px;
+  max-width: 128px;
   display: flex;
   align-items: center;
-  justify-content: center;
+  justify-content: flex-start;
   flex-shrink: 0;
-  padding: 9px;
-  box-shadow: 0 0 0 1px rgba(10, 22, 40, 0.08), 0 4px 14px rgba(10, 22, 40, 0.12);
 }
 
 .testi-logo {
-  width: 100%;
   height: 100%;
+  width: auto;
+  max-width: 100%;
   object-fit: contain;
   display: block;
 }
 
 /* Used when a client hasn't provided a logo yet — a real initial, not a stock avatar */
 .testi-avatar {
-  width: 64px;
-  height: 64px;
+  width: 42px;
+  height: 42px;
   border-radius: var(--radius-md);
   background: var(--grad-primary);
   color: #070e1c;
   font-family: var(--font-display);
   font-weight: 800;
-  font-size: 1.4rem;
+  font-size: 1.1rem;
   display: flex;
   align-items: center;
   justify-content: center;
