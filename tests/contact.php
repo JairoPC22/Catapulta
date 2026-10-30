@@ -55,3 +55,15 @@ check(rejects(fn()=>$mailer->send(["admin@example.com\r\nBcc: bad@example.com"],
 $method=new ReflectionMethod(SmtpMailer::class,'dotStuff');
 check($method->invoke($mailer,"line\n.dot\r\nlast")==="line\r\n..dot\r\nlast",'SMTP line endings and dot escaping');
 echo "$tests PHP checks passed\n";
+$folder=sys_get_temp_dir().'/catapulta-store-'.bin2hex(random_bytes(8));
+mkdir($folder,0700);
+$cwd=getcwd(); $documentRoot=$_SERVER['DOCUMENT_ROOT'] ?? '';
+try {
+    chdir(sys_get_temp_dir()); $_SERVER['DOCUMENT_ROOT']='';
+    $disk=cp_store(['storage_dir'=>$folder]);
+    check($disk instanceof PDO,'CLI storage independent of current directory');
+} finally {
+    $disk=null; chdir($cwd); $_SERVER['DOCUMENT_ROOT']=$documentRoot;
+    if (is_file($folder.'/contact.sqlite')) unlink($folder.'/contact.sqlite');
+    rmdir($folder);
+}

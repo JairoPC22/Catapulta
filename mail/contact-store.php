@@ -4,7 +4,9 @@ function cp_store(array $config): PDO {
     $dir = realpath((string)($config['storage_dir'] ?? ''));
     $root = realpath(__DIR__.'/..');
     if (!$dir || !$root || $dir === $root || strpos($dir.DIRECTORY_SEPARATOR, $root.DIRECTORY_SEPARATOR) === 0) throw new RuntimeException('Configure private storage outside public website');
-    $public = realpath($_SERVER['DOCUMENT_ROOT'] ?? '');
+    // CLI has no document root. realpath('') would wrongly use its working directory.
+    $documentRoot = (string)($_SERVER['DOCUMENT_ROOT'] ?? '');
+    $public = $documentRoot !== '' ? realpath($documentRoot) : false;
     if ($public && ($dir === $public || strpos($dir.DIRECTORY_SEPARATOR, $public.DIRECTORY_SEPARATOR) === 0)) throw new RuntimeException('Storage must not be web accessible');
     $db = new PDO('sqlite:'.$dir.'/contact.sqlite', null, null, [PDO::ATTR_ERRMODE=>PDO::ERRMODE_EXCEPTION]);
     $db->exec('PRAGMA busy_timeout=5000');
