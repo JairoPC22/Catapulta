@@ -8,8 +8,12 @@ const source = fs.readFileSync(path.join(root, 'lucide.min.js'), 'utf8');
 const sandbox = {};
 vm.createContext(sandbox);
 vm.runInContext(source, sandbox);
-const html = fs.readFileSync(path.join(root, 'index.html'), 'utf8');
-const names = new Set([...html.matchAll(/data-lucide="([^"]+)"/g)].map(match => match[1]));
+const pages = ['index.html', 'privacy.html', 'terms.html', 'cookies.html', '404.html', 'error.html', 'offline.html'];
+const names = new Set();
+for (const page of pages) {
+  const html = fs.readFileSync(path.join(root, page), 'utf8');
+  for (const match of html.matchAll(/data-lucide="([^"]+)"/g)) names.add(match[1]);
+}
 names.add('alert-circle');
 const selected = {};
 for (const name of names) {
