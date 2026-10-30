@@ -24,7 +24,7 @@ document.addEventListener('DOMContentLoaded', () => {
       applyLanguage(lang);
       requestAnimationFrame(() => root.classList.remove('lang-fade'));
     };
-    (document.querySelector('.legal-main') || document.body).addEventListener('transitionend', swap, { once: true });
+    (document.getElementById('main') || document.querySelector('.legal-main') || document.body).addEventListener('transitionend', swap, { once: true });
     window.setTimeout(swap, 300);
     root.classList.add('lang-fade');
   }

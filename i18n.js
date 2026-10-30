@@ -89,7 +89,7 @@ const TRANSLATIONS = {
     'cat.price.approval': 'Compra · Renta/Lease sujeto a aprobación',
     'cat.price.consult': 'Consultar',
     'cat.cta.text': '¿No encuentras lo que buscas? Tenemos más equipos disponibles.',
-    'cat.cta.btn1': 'Pedir asesoría', 'cat.cta.btn2': 'Descargar catálogo PDF',
+    'cat.cta.btn1': 'Pedir asesoría', 'cat.cta.btn2': 'Ver catálogo en PDF',
     // Catalog specs (product descriptions)
     'cat.spec.dj.p1': 'Pantalla 5.5" Touch · WiFi 2.4/5GHz · 4G · Chip · Banda · Sin contacto · Impresora',
     'cat.spec.dj.qd2': 'LCD 5.5" Touch · Impresora 58mm · WiFi · Contactless · IPOSpays · SPIn',
@@ -216,7 +216,7 @@ const TRANSLATIONS = {
     'footer.about': 'Nosotros', 'footer.success': 'Casos de Éxito',
     'footer.faq': 'Preguntas frecuentes',
     'footer.contact': 'Contacto', 'footer.terms': 'Términos de uso',
-    'footer.download': 'Descargar Catálogo',
+    'footer.download': 'Ver catálogo',
     'footer.rights': '© 2026 CATAPULTA PAYMENT SYSTEMS. Todos los derechos reservados.',
     'toast.msg': 'Mensaje enviado con éxito',
     'wa.href': 'https://wa.me/13109486153?text=Hola%2C+me+interesa+CatapultaPayment',
@@ -345,7 +345,7 @@ const TRANSLATIONS = {
     'cat.price.approval': 'Purchase · Rent/Lease subject to approval',
     'cat.price.consult': 'Contact us',
     'cat.cta.text': "Can't find what you're looking for? We have more equipment available.",
-    'cat.cta.btn1': 'Request advice', 'cat.cta.btn2': 'Download PDF catalog',
+    'cat.cta.btn1': 'Request advice', 'cat.cta.btn2': 'View PDF catalog',
     // Catalog specs
     'cat.spec.dj.p1': '5.5" Touch screen · WiFi 2.4/5GHz · 4G · Chip · Swipe · Contactless · Printer',
     'cat.spec.dj.qd2': 'LCD 5.5" Touch · 58mm Printer · WiFi · Contactless · IPOSpays · SPIn',
@@ -472,7 +472,7 @@ const TRANSLATIONS = {
     'footer.about': 'About Us', 'footer.success': 'Success Stories',
     'footer.faq': 'FAQ',
     'footer.contact': 'Contact', 'footer.terms': 'Terms of use',
-    'footer.download': 'Download Catalog',
+    'footer.download': 'View catalog',
     'footer.rights': '© 2026 CATAPULTA PAYMENT SYSTEMS. All rights reserved.',
     'toast.msg': 'Message sent successfully',
     'wa.href': 'https://wa.me/13109486153?text=Hello%2C+I%27m+interested+in+CatapultaPayment',
@@ -682,7 +682,6 @@ const I18N = {
     this._applySolutions(t);
     this._applyCatalogHeader(t);
     this._applyCatalogItems(lang, t);
-    this._applyCatalogDownloadLinks(lang);
     this._applyGallery(t);
     this._applyTestimonials(t);
     this._applySteps(t);
@@ -950,15 +949,6 @@ const I18N = {
       if (icon) { dlBtn.appendChild(icon); dlBtn.appendChild(document.createTextNode(' ')); }
       dlBtn.appendChild(document.createTextNode(t['cat.cta.btn2']));
     }
-  },
-
-  // Cambia el PDF del catálogo según el idioma activo: CatalogoEnglish.pdf / CatalogoSpanish.pdf
-  _applyCatalogDownloadLinks(lang) {
-    const file = lang === 'en' ? 'assets/files/CatalogoEnglish.pdf' : 'assets/files/CatalogoSpanish.pdf';
-    ['downloadCatalogBtn', 'downloadCatalogFooter'].forEach(id => {
-      const el = document.getElementById(id);
-      if (el) el.setAttribute('href', file);
-    });
   },
 
   _applyGallery(t) {
