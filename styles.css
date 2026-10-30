@@ -1903,23 +1903,28 @@ textarea {
 /* Los logos de clientes vienen en formas muy distintas entre sí (banners
    rectangulares, sellos circulares, placas con borde propio) — meterlos
    a la fuerza en un cuadro blanco uniforme se veía como si el logo
-   estuviera "cortado" dentro de una forma que no era la suya. En vez de
-   eso, el logo se muestra tal cual es, a una altura fija y ancho libre,
-   sin marco ni fondo propio: cada uno conserva su forma y su propio
-   borde/fondo si lo trae. */
+   estuviera "cortado" dentro de una forma que no era la suya, y dejarlos
+   a ancho libre hacía que el nombre de cada negocio empezara en una
+   posición distinta en cada tarjeta. Ahora cada logo vive en un carril
+   del mismo ancho y alto (sin fondo, sin marco: el logo se ve tal cual
+   es) y una línea vertical separa ese carril del nombre, para que las
+   cuatro tarjetas queden alineadas igual. */
 .testi-logo-wrap {
-  height: 42px;
-  max-width: 128px;
+  width: 56px;
+  height: 48px;
+  padding-right: 14px;
+  border-right: 1px solid var(--color-borderW);
   display: flex;
   align-items: center;
-  justify-content: flex-start;
+  justify-content: center;
   flex-shrink: 0;
 }
 
 .testi-logo {
-  height: 100%;
-  width: auto;
   max-width: 100%;
+  max-height: 100%;
+  width: auto;
+  height: auto;
   object-fit: contain;
   display: block;
 }
