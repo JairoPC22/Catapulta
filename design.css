@@ -119,6 +119,10 @@ html.lang-fade .mobile-menu.open { opacity: .55; filter: blur(2px); }
   --poster-color: transparent;
   pointer-events: none;
 }
+/* <model-viewer> dibuja su propia barra de progreso de carga (una línea
+   gris) mientras baja el modelo; la ocultamos porque el bundle ya se
+   carga de forma diferida y esa barra no aporta, solo distrae. */
+.hero-model::part(default-progress-bar) { display: none; }
 .float-badge { border-radius: 9px; font-size: .7rem; animation: none; }
 .float-badge strong { font-family: var(--font-mono); font-weight: 600; letter-spacing: -.01em; }
 .badge-approved { top: -22px; right: -12px; }
