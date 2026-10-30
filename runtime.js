@@ -12,18 +12,15 @@ window.CP = (() => {
     storage,
     reducedMotion: () => matchMedia('(prefers-reduced-motion: reduce)').matches,
     syncThemeLabels() {
-      const light = document.documentElement.dataset.theme !== 'light';
+      // "light" here means the label describes the mode a click would switch TO
+      // (the sun/moon-toggle convention), not the mode currently showing.
+      const isCurrentlyLight = document.documentElement.dataset.theme === 'light';
+      const light = !isCurrentlyLight;
       const en = document.documentElement.lang === 'en';
       const label = en ? (light ? 'Light mode' : 'Dark mode') : (light ? 'Modo claro' : 'Modo oscuro');
       document.querySelectorAll('.mobile-theme-label').forEach(element => { element.textContent = label; });
       document.querySelectorAll('.theme-toggle').forEach(button => { button.setAttribute('aria-label', en ? 'Switch to ' + label.toLowerCase() : 'Cambiar a ' + label.toLowerCase()); });
-    },
-    syncThemeLabels() {
-      const light = document.documentElement.dataset.theme !== 'light';
-      const en = document.documentElement.lang === 'en';
-      const label = en ? (light ? 'Light mode' : 'Dark mode') : (light ? 'Modo claro' : 'Modo oscuro');
-      document.querySelectorAll('.mobile-theme-label').forEach(element => { element.textContent = label; });
-      document.querySelectorAll('.theme-toggle').forEach(button => { button.setAttribute('aria-label', en ? 'Switch to ' + label.toLowerCase() : 'Cambiar a ' + label.toLowerCase()); });
+      document.querySelector('meta[name="theme-color"]')?.setAttribute('content', isCurrentlyLight ? '#eef3fb' : '#070E1C');
     },
     lockScroll(owner) {
       if (!locks.size) previousOverflow = document.body.style.overflow;

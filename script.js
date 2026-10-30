@@ -53,8 +53,9 @@ function initNavSticky() {
    Alterna la visibilidad del menú móvil
 ──────────────────────────────────────────── */
 function initMobileMenu() {
-  const btn  = document.getElementById('navHamburger');
-  const menu = document.getElementById('mobileMenu');
+  const btn      = document.getElementById('navHamburger');
+  const menu     = document.getElementById('mobileMenu');
+  const backdrop = document.getElementById('mobileMenuBackdrop');
 
   if (!btn || !menu) return;
 
@@ -65,12 +66,16 @@ function initMobileMenu() {
     isOpen = forceClose ? false : !isOpen;
 
     menu.classList.toggle('open', isOpen);
+    backdrop?.classList.toggle('open', isOpen);
     btn.classList.toggle('is-open', isOpen);
     btn.setAttribute('aria-expanded', String(isOpen));
     menu.setAttribute('aria-hidden', String(!isOpen));
     if (isOpen) CP.lockScroll('menu'); else CP.unlockScroll('menu');
     menu.inert = !isOpen;
   }
+
+  // Cerrar al tocar el fondo oscuro
+  backdrop?.addEventListener('click', () => toggleMenu(true));
 
   menu.inert = true;
   document.addEventListener('keydown', event => {
@@ -187,18 +192,12 @@ function initTabs() {
 
 /* ────────────────────────────────────────────
    9. FORMULARIO DE CONTACTO
-   Valida, envía por EmailJS (sin backend propio, con
-   plantilla de correo personalizada — ver email-template.html)
-   y muestra estado de carga + toast de resultado.
+   Valida, envía al endpoint propio mail/send.php (PHP +
+   SMTP de IONOS, sin depender de EmailJS) y muestra estado
+   de carga + toast de resultado. Las plantillas de correo
+   (admin y confirmación al cliente) viven en email-template.html
+   y email-template-autoreply.html; el backend las rellena.
 ──────────────────────────────────────────── */
-
-// Credenciales de la cuenta de EmailJS conectada a jairo.pena@catapultapay.com.
-// La plantilla con el diseño de marca vive en email-template.html — si se edita ahí,
-// hay que volver a pegar el contenido en EmailJS → Email Templates para que aplique.
-const EMAILJS_PUBLIC_KEY  = 'BYaob6ikAz-qfrkG3';
-const EMAILJS_SERVICE_ID  = 'service_jqy7taq';
-const EMAILJS_TEMPLATE_ID = 'template_fb9mt5c';
-const EMAILJS_READY = Boolean(EMAILJS_PUBLIC_KEY && EMAILJS_SERVICE_ID && EMAILJS_TEMPLATE_ID);
 
 
 
@@ -283,18 +282,22 @@ function initContactForm() {
 }
 
 async function sendContactForm(data) {
-  if (!EMAILJS_READY) throw new Error('Email service unavailable');
   const read = name => String(data.get(name) || '').trim();
-  const labels = { pos: 'Terminal POS físico', virtual: 'Procesamiento virtual', support: 'Soporte técnico', general: 'Consulta general' };
+  const payload = {
+    firstName: read('firstName'), lastName: read('lastName'), email: read('email'),
+    company: read('company'), phone: read('phone'), subject: read('subject'),
+    message: read('message'), honeypot: read('honeypot')
+  };
+
   const controller = new AbortController();
   const timeout = setTimeout(() => controller.abort(), 20000);
   try {
-    const response = await fetch('https://api.emailjs.com/api/v1.0/email/send', {
-      method: 'POST', headers: { 'Content-Type': 'application/json' }, signal: controller.signal,
-      body: JSON.stringify({ service_id: EMAILJS_SERVICE_ID, template_id: EMAILJS_TEMPLATE_ID, user_id: EMAILJS_PUBLIC_KEY,
-        template_params: { Nombre: read('firstName') + ' ' + read('lastName'), Negocio: read('company') || 'No proporcionado', Correo: read('email'), Telefono: read('phone') || 'No proporcionado', Interes: labels[read('subject')] || 'Consulta general', Mensaje: read('message') } })
+    const response = await fetch('/mail/send.php', {
+      method: 'POST', headers: { 'Content-Type': 'application/json' },
+      signal: controller.signal, body: JSON.stringify(payload)
     });
-    if (!response.ok) throw new Error('Email service rejected request');
+    const result = await response.json().catch(() => null);
+    if (!response.ok || !result?.ok) throw new Error('Email service rejected request');
     return true;
   } finally { clearTimeout(timeout); }
 }
@@ -435,7 +438,7 @@ function initThemeToggle() {
   if (!btn) return;
 
   // Recuperar preferencia guardada
-  const saved = CP.storage.get('cpay-theme', 'dark') === 'light' ? 'light' : 'dark';
+  const saved = CP.storage.get('cpay-theme', 'light') === 'dark' ? 'dark' : 'light';
   html.setAttribute('data-theme', saved);
   CP.syncThemeLabels();
 

@@ -1,11 +1,11 @@
 <!DOCTYPE html>
-<html lang="es" data-theme="dark">
+<html lang="es" data-theme="light">
     <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="description" content="Terminales POS, pagos en línea y soporte en español e inglés para negocios en Estados Unidos. Conoce los equipos y solicita asesoría con CatapultaPayment." />
     <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />
-  <meta name="theme-color" content="#070E1C" />
+  <meta name="theme-color" content="#eef3fb" />
   <link rel="canonical" href="https://catapultapay.com/" />
   <link rel="sitemap" type="application/xml" href="/sitemap.xml" />
   <link rel="alternate" type="text/plain" href="/llms.txt" title="Resumen de CatapultaPayment para asistentes de IA" />
@@ -285,14 +285,15 @@
     </nav>
 
   <!-- Mobile menu — fuera del nav para evitar el bug de backdrop-filter -->
+  <div class="mobile-menu-backdrop" id="mobileMenuBackdrop" aria-hidden="true"></div>
   <div class="mobile-menu" id="mobileMenu" aria-hidden="true">
     <ul role="list">
-      <li><a href="#hero" class="mobile-link">Inicio</a></li>
-      <li><a href="#about" class="mobile-link">Nosotros</a></li>
-      <li><a href="#solutions" class="mobile-link">Soluciones</a></li>
-      <li><a href="#catalogo" class="mobile-link">Catálogo</a></li>
-      <li><a href="#testimonials" class="mobile-link">Clientes</a></li>
-      <li><a href="#contact" class="mobile-link">Contacto</a></li>
+      <li><a href="#hero" class="mobile-link"><i data-lucide="store" aria-hidden="true"></i><span>Inicio</span></a></li>
+      <li><a href="#about" class="mobile-link"><i data-lucide="briefcase" aria-hidden="true"></i><span>Nosotros</span></a></li>
+      <li><a href="#solutions" class="mobile-link"><i data-lucide="layers" aria-hidden="true"></i><span>Soluciones</span></a></li>
+      <li><a href="#catalogo" class="mobile-link"><i data-lucide="box" aria-hidden="true"></i><span>Catálogo</span></a></li>
+      <li><a href="#testimonials" class="mobile-link"><i data-lucide="users" aria-hidden="true"></i><span>Clientes</span></a></li>
+      <li><a href="#contact" class="mobile-link"><i data-lucide="message-circle" aria-hidden="true"></i><span>Contacto</span></a></li>
       <li><a href="#contact" class="btn-primary mobile-cta">Empieza ya <i data-lucide="arrow-right" aria-hidden="true"></i></a></li>
       <li class="mobile-lang-row">
         <div class="lang-toggle" id="langToggleMobile" role="group" aria-label="Cambiar idioma">
@@ -302,7 +303,7 @@
         <button class="theme-toggle mobile-theme-btn" id="themeToggleMobile" aria-label="Cambiar tema claro/oscuro">
           <i data-lucide="sun" class="icon-sun" aria-hidden="true"></i>
           <i data-lucide="moon" class="icon-moon" aria-hidden="true"></i>
-          <span class="mobile-theme-label">Modo claro</span>
+          <span class="mobile-theme-label">Modo oscuro</span>
         </button>
       </li>
     </ul>
@@ -1902,7 +1903,7 @@
   <!-- Script -->
   <!-- Visor 3D del terminal del hero (modelo real en assets/models) -->
   <script type="module" src="assets/js/model-viewer.min.js?v=29"></script>
-  <!-- EmailJS: envía el formulario de contacto sin backend propio -->
+  <!-- Formulario de contacto: envía a mail/send.php (SMTP propio vía IONOS) -->
   <script src="runtime.js?v=29" defer></script>
   <script src="script.js?v=29" defer></script>
   <script src="assets/js/custom-select.js?v=29" defer></script>

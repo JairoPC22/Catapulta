@@ -1,3 +1,7 @@
 # Claude Code / tooling-local state — not part of the published site
 .claude/
 .impeccable/
+
+# Credenciales SMTP reales — nunca van a git, se crean en el servidor a partir
+# de mail/config.sample.php
+mail/config.php

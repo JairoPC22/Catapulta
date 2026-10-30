@@ -706,7 +706,11 @@ const I18N = {
     const mobileLinks = this._qa('#mobileMenu .mobile-link');
     const keys = ['nav.home','nav.about','nav.solutions','nav.catalog','nav.clients','nav.contact'];
     navLinks.forEach((el, i)    => { if (keys[i]) el.textContent = t[keys[i]]; });
-    mobileLinks.forEach((el, i) => { if (keys[i]) el.textContent = t[keys[i]]; });
+    mobileLinks.forEach((el, i) => {
+      if (!keys[i]) return;
+      const span = el.querySelector('span');
+      if (span) span.textContent = t[keys[i]]; else el.textContent = t[keys[i]];
+    });
     this._qa('.ncta, .mobile-cta').forEach(el => this._setBtn(el, 'nav.cta', t));
     this._setAria('#nav', 'nav.aria', t);
     this._setAria('#navHamburger', 'nav.menu.aria', t);
