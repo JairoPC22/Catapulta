@@ -73,3 +73,6 @@ SPF publico observado: solo Google; pendiente ampliar autorizacion para IONOS de
 
 ## Notificacion del formulario
 Aviso compacto con titulo y descripcion separados, contraste por tema, icono contenido y cierre de 44px. Se ubica bajo la navegacion para no cubrir WhatsApp/volver arriba. Pausa el cierre automatico al enfocar o pasar el puntero; cierre manual/Escape devuelve foco al boton de envio. Respeta movimiento reducido. Verificado con formulario local y respuesta simulada (sin correos reales), exito, error de validacion y cierre por boton en movil. Cache de recursos actualizada a v53.
+
+## Refinamiento corporativo de correos
+Se retiraron flechas Unicode de los botones porque algunos clientes las muestran como emoji. Encabezados directos, sin frases promocionales, CTA de texto y pie simplificado. Separadores unicos en campos moviles y estilos explicitos para modo oscuro; logo con soporte claro para conservar legibilidad. Comprobado en vista movil de 375px sin desbordamiento. El render final depende del cliente de correo; se conservaron adjunto CID y flujo de envio.
