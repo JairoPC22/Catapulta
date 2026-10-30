@@ -2984,6 +2984,16 @@ footer {
   transition: opacity .2s ease;
 }
 .whatsapp-float:hover::before { opacity: 1; }
+/* El menu movil abierto tapa justo esta esquina; mientras esta abierto,
+   el flotante de WhatsApp (y el de volver arriba) se ocultan en vez de
+   quedar encima del panel estorbando los controles de abajo. */
+.mobile-menu-backdrop.open ~ .whatsapp-float,
+.mobile-menu-backdrop.open ~ .scroll-top-btn {
+  opacity: 0;
+  transform: scale(.8);
+  pointer-events: none;
+  transition: opacity .2s ease, transform .2s ease;
+}
 @keyframes waPulse {
   0%,100% { box-shadow: 0 4px 24px rgba(37,211,102,.45); }
   50%      { box-shadow: 0 4px 24px rgba(37,211,102,.45), 0 0 0 10px rgba(37,211,102,.1); }
