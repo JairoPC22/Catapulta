@@ -1829,18 +1829,22 @@ textarea {
 }
 
 .testi-aggregate {
-  display: flex;
+  display: inline-flex;
   align-items: center;
-  justify-content: center;
-  gap: .6rem;
-  margin-top: 1.4rem;
+  gap: .7rem;
+  margin-top: 1.6rem;
+  padding: .65rem 1.3rem;
+  background: var(--color-surface);
+  border: 1px solid var(--color-borderW);
+  border-radius: var(--radius-full);
+  box-shadow: var(--shadow-card);
 }
 
 .testi-aggregate-score {
   font-family: var(--font-mono);
-  font-size: 1.1rem;
-  font-weight: 600;
-  color: var(--color-text);
+  font-size: 1.3rem;
+  font-weight: 700;
+  color: var(--color-white);
 }
 
 .testi-aggregate-stars { display: flex; gap: 2px; color: var(--color-gold); }
@@ -1881,8 +1885,6 @@ textarea {
   flex-shrink: 0;
   padding: 6px;
   border: 1px solid rgba(0,0,0,0.06);
-  transform: translate(10px, -5px);
-
 }
 
 .testi-logo {
@@ -1906,7 +1908,6 @@ textarea {
   align-items: center;
   justify-content: center;
   flex-shrink: 0;
-  transform: translate(10px, -5px);
 }
 
 .testi-footer-info {
@@ -3021,7 +3022,12 @@ footer {
 --color-border:    rgba(10, 171, 144, 0.14);
   --color-borderW:   rgba(0, 0, 0, 0.09);
   --shadow-card:     0 4px 30px rgba(0, 0, 0, 0.10);
---shadow-teal: 0 8px 40px rgba(10, 171, 144, 0.18);}
+--shadow-teal: 0 8px 40px rgba(10, 171, 144, 0.18);
+  /* El dorado original (#E8C97A) se pierde contra fondos claros; aquí se
+     oscurece para que las estrellas y el badge "Más popular" sigan siendo
+     legibles en modo claro. */
+  --color-gold: #B8860E;
+}
 
 [data-theme="light"] body {
   background-color: var(--color-bg);

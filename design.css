@@ -176,18 +176,13 @@ html.lang-fade .mobile-menu.open { opacity: .55; filter: blur(2px); }
   .scroll-top-btn { bottom: 18px; }
 }
 .catalog-name { font-weight: 650; letter-spacing: -.02em; }
-.testi-card {
-  background: none; border: 0; border-right: 1px solid var(--color-borderW); border-radius: 0; box-shadow: none; padding: 12px 30px;
-  position: relative;
-  transition: background .3s var(--motion-ease), box-shadow .3s var(--motion-ease), transform .3s var(--motion-ease);
-}
-.testi-card:last-child { border-right: 0; }
-.testi-card:hover { background: var(--color-surface); border-radius: var(--radius-lg); box-shadow: var(--shadow-teal); transform: translateY(-4px); }
+.testi-card { position: relative; transition: transform .3s var(--motion-ease), border-color .3s var(--motion-ease), box-shadow .3s var(--motion-ease); }
+.testi-card:hover { transform: translateY(-4px); }
 .testi-quote::before {
-  content: '\201C'; position: absolute; top: -.3em; left: -.05em; font-family: Georgia, serif;
-  font-size: 3.5rem; line-height: 1; color: var(--color-teal); opacity: .14; pointer-events: none;
+  content: '\201C'; position: absolute; top: -22px; left: -6px; font-family: Georgia, serif;
+  font-size: 4rem; line-height: 1; color: var(--color-teal); opacity: .22; pointer-events: none;
 }
-.testi-quote { position: relative; }
+.testi-quote { position: relative; padding-top: .5rem; }
 .testi-controls { display: none !important; }
 .testi-quote { font-size: 1.02rem; line-height: 1.85; }
 .step-card { background: none; border: 0; box-shadow: none; border-top: 1px solid var(--color-borderW); border-radius: 0; }
@@ -325,8 +320,6 @@ body.photo-viewer-open { overflow: hidden; }
   .hero-copy h1 { font-size: 3rem; }
   .hero-model { height: 360px; }
   .testimonials-grid { grid-template-columns: repeat(2, 1fr); }
-  .testi-card { border-right: 0 !important; border-bottom: 1px solid var(--color-borderW); padding: 1rem 0; }
-  .testi-card:nth-child(2n) { border-right: 0; }
 }
 @media (max-width: 1024px) {
   .hero-grid { grid-template-columns: minmax(0, 1fr); gap: 2.5rem; }
@@ -351,8 +344,7 @@ body.photo-viewer-open { overflow: hidden; }
   #about, #solutions, #catalogo, #gallery, #testimonials, #how-it-works, #faq, #contact, #calculator { padding-top: 64px; padding-bottom: 64px; }
   .section-title { font-size: 2rem; }
   .about-grid { gap: 2.5rem; }
-  /* Swipeable carousel on mobile: each card stands alone, not a flattened divider row */
-  .testi-card { border: 1px solid var(--color-borderW); border-radius: var(--radius-lg); background: var(--color-surface); padding: 1.6rem; }
+  .testi-card { padding: 1.6rem; }
   .section-header { margin-bottom: 2.5rem; }
   .feature-card { padding: 20px 0; }
   .gallery-grid { gap: 14px; }
