@@ -41,3 +41,6 @@ Las pruebas PHP usan SQLite en memoria y un remitente simulado: validación, ded
 ## Sonido
 
 Se intenta en cada carga de inicio. Si autoplay se bloquea, hay un único intento con una interacción real dentro de diez segundos. Escape o esconder la pestaña cancela el sonido. No se garantiza audio sin interacción porque depende del navegador; no hay botón flotante ni reproducción tardía al volver a una sección.
+
+## Destinatarios administrados desde GitHub
+La lista activa esta en mail/recipients.php. send.php y worker.php la cargan despues del config.php privado; por tanto cualquier lista antigua de ese config no se utiliza. Cambiar destinatarios requiere actualizar recipients.php y desplegar. La contraseña, storage_dir y storage_secret siguen solo en config.php de IONOS. Administrador confirmado: jairo.pena@catapultapay.com.

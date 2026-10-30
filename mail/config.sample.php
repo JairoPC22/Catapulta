@@ -28,7 +28,6 @@ return [
 
     // A dónde llega el aviso interno de cada nuevo contacto del formulario.
     // Puedes poner una o varias direcciones.
-    'admin_recipients' => [
-        // Pendiente: direcciones reales de administradores.
-    ],
+    // La lista activa se administra en recipients.php mediante GitHub.
+    'admin_recipients' => require __DIR__ . '/recipients.php',
 ];

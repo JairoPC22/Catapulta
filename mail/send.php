@@ -21,6 +21,7 @@ try { $data=cp_validate($data); } catch (InvalidArgumentException $e) { cp_reply
 try {
     if (!is_file(__DIR__.'/config.php')) cp_reply(503,'not_configured');
     $config=require __DIR__.'/config.php';
+    $config['admin_recipients']=require __DIR__.'/recipients.php';
     $origin=$_SERVER['HTTP_ORIGIN'] ?? '';
     if ($origin!=='' && !in_array($origin,$config['allowed_origins'] ?? [],true)) cp_reply(403,'origin_denied');
     if (strlen($config['storage_secret'] ?? '')<32 || empty($config['admin_recipients'])) cp_reply(503,'not_configured');

@@ -12,6 +12,7 @@ test('PHP HTTP endpoint: validation, limits, durable acceptance and duplicates',
   const tempRoot = fs.mkdtempSync(path.join(os.tmpdir(), 'catapulta-mail-test-'));
   const web = path.join(tempRoot,'public'), mail = path.join(web,'mail'), privateDir = path.join(tempRoot,'private');
   fs.mkdirSync(mail,{recursive:true}); fs.mkdirSync(privateDir);
+  fs.writeFileSync(path.join(mail,'recipients.php'), "<?php return ['admin@example.invalid'];");
   for (const file of ['send.php','contact-store.php','worker.php']) fs.copyFileSync(path.join(__dirname,'../mail',file),path.join(mail,file));
   const quote = s => "'"+s.replaceAll('\\','\\\\').replaceAll("'","\\'")+"'";
   fs.writeFileSync(path.join(mail,'config.php'), `<?php return ['storage_dir'=>${quote(privateDir)},'storage_secret'=>'unit-test-secret-with-at-least-32-characters','admin_recipients'=>['admin@example.invalid'],'from_email'=>'sender@example.invalid','allowed_origins'=>['https://catapultapay.com']];`);
