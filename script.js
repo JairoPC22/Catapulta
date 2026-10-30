@@ -38,7 +38,7 @@ document.addEventListener('DOMContentLoaded', () => {
 ──────────────────────────────────────────── */
 function initHeroModel() {
   if (!document.querySelector('model-viewer')) return;
-  const mount = () => { import('./assets/js/model-viewer.min.js?v=45').catch(() => {}); };
+  const mount = () => { import('./assets/js/model-viewer.min.js?v=46').catch(() => {}); };
   const schedule = () => {
     if ('requestIdleCallback' in window) requestIdleCallback(mount, { timeout: 2000 });
     else setTimeout(mount, 300);
