@@ -44,3 +44,10 @@ Se intenta en cada carga de inicio. Si autoplay se bloquea, hay un único intent
 
 ## Destinatarios administrados desde GitHub
 La lista activa esta en mail/recipients.php. send.php y worker.php la cargan despues del config.php privado; por tanto cualquier lista antigua de ese config no se utiliza. Cambiar destinatarios requiere actualizar recipients.php y desplegar. La contraseña, storage_dir y storage_secret siguen solo en config.php de IONOS. Administrador confirmado: jairo.pena@catapultapay.com.
+
+## Plantillas y entregabilidad (30/10/2026)
+Administrador y cliente reciben plantillas distintas, con referencia compartida. El logo se adjunta como PNG inline con Content-ID, sin imagen data: base64 dentro del HTML. El mensaje tiene versiones texto/HTML, contenido quoted-printable con lineas acotadas, Message-ID y asuntos UTF-8 plegados. El aspecto final puede variar por cliente de correo y sus opciones de imagenes.
+
+Diagnostico desde SSH: ejecutar `/usr/bin/php8.4-cli mail/status.php` desde la raiz del sitio. Muestra solo estados y referencias. sent significa aceptado por SMTP, no confirma llegada a bandeja. Los nuevos registros de worker.log muestran accepted o review y fase/codigo SMTP sin texto de mensajes ni direcciones. No reencolar solicitudes completadas para probar el diseño: enviar una nueva prueba identificable.
+
+Revision DNS publica: el SPF observado solo autoriza include:_spf.google.com. Para incluir el envio por IONOS Mexico se debe ampliar ese registro, conservando Google: `v=spf1 include:_spf.google.com include:_spf-us.ionos.com ~all`. No crear dos registros SPF ni cambiar MX. Antes de guardar, revisar los valores actuales en IONOS y preservar cualquier emisor adicional autorizado. La ayuda oficial permite Añadir registro > IONOS SPF (TXT), que debe completar el registro existente. Verificar SPF/DKIM en las cabeceras del correo recibido. Esto no garantiza entrega universal ni reemplaza comprobar la bandeja y spam. Referencia: https://www.ionos.mx/ayuda/dominios/configurar-un-servidor-de-email-y-registros-relativos/ionos-spf-para-que-tus-e-mails-lleguen-a-su-destino/

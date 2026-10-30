@@ -110,7 +110,7 @@ test('all linked local HTML resources exist; error and draft legal pages are noi
     const html = fs.readFileSync(path.join(root, file), 'utf8');
     for (const match of html.matchAll(/(?:src|href)="([^"#]+)"/g)) {
       const url = match[1];
-      if (/^(?:https?:|mailto:|tel:|data:|#)/.test(url)) continue;
+      if (/^(?:https?:|mailto:|tel:|data:|cid:|#)/.test(url)) continue;
       const relative = url.split(/[?#]/)[0].replace(/^\//, '');
       if (relative) assert.ok(fs.existsSync(path.join(root, relative)), `${file}: ${relative}`);
     }

@@ -13,7 +13,7 @@ test('PHP HTTP endpoint: validation, limits, durable acceptance and duplicates',
   const web = path.join(tempRoot,'public'), mail = path.join(web,'mail'), privateDir = path.join(tempRoot,'private');
   fs.mkdirSync(mail,{recursive:true}); fs.mkdirSync(privateDir);
   fs.writeFileSync(path.join(mail,'recipients.php'), "<?php return ['admin@example.invalid'];");
-  for (const file of ['send.php','contact-store.php','worker.php']) fs.copyFileSync(path.join(__dirname,'../mail',file),path.join(mail,file));
+  for (const file of ['send.php','contact-store.php','worker.php','status.php']) fs.copyFileSync(path.join(__dirname,'../mail',file),path.join(mail,file));
   const quote = s => "'"+s.replaceAll('\\','\\\\').replaceAll("'","\\'")+"'";
   fs.writeFileSync(path.join(mail,'config.php'), `<?php return ['storage_dir'=>${quote(privateDir)},'storage_secret'=>'unit-test-secret-with-at-least-32-characters','admin_recipients'=>['admin@example.invalid'],'from_email'=>'sender@example.invalid','allowed_origins'=>['https://catapultapay.com']];`);
   const reserve = net.createServer(); await new Promise(resolve=>reserve.listen(0,'127.0.0.1',resolve));
@@ -46,4 +46,5 @@ test('PHP HTTP endpoint: validation, limits, durable acceptance and duplicates',
     const r=await send({...payload,message:'fourth'}); assert.equal(r.status,429);assert.equal(r.headers.get('retry-after'),'900');
   });
   await t.test('worker cannot run through HTTP',async()=>assert.equal((await fetch(`http://127.0.0.1:${port}/mail/worker.php`)).status,404));
+  await t.test('queue diagnostics cannot be read through HTTP',async()=>assert.equal((await fetch(`http://127.0.0.1:${port}/mail/status.php`)).status,404));
 });

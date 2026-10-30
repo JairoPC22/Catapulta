@@ -28,6 +28,10 @@ $fake=new class { public array $sent=[]; public function send(...$args): void { 
 cp_process($db,$config,$fake); cp_process($db,$config,$fake);
 check(count($fake->sent)===2,'one admin notice and one receipt despite repeated worker');
 check($fake->sent[0][0]===['admin@example.invalid'] && $fake->sent[1][0]===[$data['email']],'correct recipients');
+check(str_contains($fake->sent[0][2],'MENSAJE DEL CLIENTE') && !str_contains($fake->sent[1][2],'MENSAJE DEL CLIENTE'),'admin and customer receive different templates');
+check(!str_contains($fake->sent[1][2],$data['message']) && !str_contains($fake->sent[1][2],$data['email']),'customer receipt does not repeat submitted message or address');
+check(!preg_match('/\{\{\w+\}\}/',$fake->sent[1][2]),'receipt has no unresolved placeholders');
+check(str_contains($fake->sent[0][2],'cid:catapulta-logo') && str_contains($fake->sent[1][2],'cid:catapulta-logo'),'both messages use inline CID logo');
 $db=database(); cp_enqueue($db,$data,'127.0.0.1','secret',10000);
 $failing=new class { public int $calls=0; public function send(...$args): void { $this->calls++; throw new RuntimeException('Lost acknowledgement'); } };
 cp_process($db,$config,$failing); cp_process($db,$config,$failing);
@@ -54,7 +58,24 @@ $mailer=new SmtpMailer([]);
 check(rejects(fn()=>$mailer->send(["admin@example.com\r\nBcc: bad@example.com"],'subject','body','sender@example.invalid'),InvalidArgumentException::class),'SMTP header injection rejected before connection');
 $method=new ReflectionMethod(SmtpMailer::class,'dotStuff');
 check($method->invoke($mailer,"line\n.dot\r\nlast")==="line\r\n..dot\r\nlast",'SMTP line endings and dot escaping');
-echo "$tests PHP checks passed\n";
+$mime=(new ReflectionMethod(SmtpMailer::class,'mime'))->invoke($mailer,$fake->sent[1][2]);
+check(str_contains($mime['body'],'Content-ID: <catapulta-logo@catapultapay.com>') && str_contains($mime['body'],'Content-Type: image/png'),'logo attached to MIME message');
+check(str_contains($mime['body'],'multipart/alternative') && str_contains($mime['body'],'Content-Type: text/plain'),'plain text alternative included');
+check(str_contains($mime['body'],'Content-Transfer-Encoding: quoted-printable'),'HTML encoded with safe line wrapping');
+check(max(array_map('strlen',explode("\r\n",$mime['body'])))<=998,'MIME lines respect SMTP limit');
+$encoded=(new ReflectionMethod(SmtpMailer::class,'encodeHeader'))->invoke($mailer,str_repeat('Á',160));
+check(max(array_map('strlen',explode("\r\n",$encoded)))<76,'long Unicode headers are folded');
+preg_match('/Content-Transfer-Encoding: base64\r\nContent-ID:.*?\r\n\r\n(.*?)\r\n--/s',$mime['body'],$logoPart);
+check(isset($logoPart[1]) && base64_decode($logoPart[1],true)===file_get_contents(__DIR__.'/../imagecata.png'),'attached PNG matches original brand asset');
+preg_match('/Content-Type: text\/html; charset=UTF-8\r\nContent-Transfer-Encoding: quoted-printable\r\n\r\n(.*?)\r\n--/s',$mime['body'],$htmlPart);
+check(isset($htmlPart[1]) && quoted_printable_decode($htmlPart[1])===$fake->sent[1][2],'MIME preserves customer HTML exactly');
+$stream=fopen('php://temp','r+'); fwrite($stream,"550 recipient rejected private@example.invalid\r\n"); rewind($stream);
+try {
+    (new ReflectionMethod(SmtpMailer::class,'expect'))->invoke($mailer,$stream,[250]);
+    check(false,'SMTP rejection should throw');
+} catch (SmtpDeliveryException $e) {
+    check($e->smtpCode===550 && !str_contains($e->getMessage(),'private@example.invalid'),'diagnostic exposes SMTP code without recipient address');
+} finally { fclose($stream); }
 $folder=sys_get_temp_dir().'/catapulta-store-'.bin2hex(random_bytes(8));
 mkdir($folder,0700);
 $cwd=getcwd(); $documentRoot=$_SERVER['DOCUMENT_ROOT'] ?? '';
@@ -67,3 +88,4 @@ try {
     if (is_file($folder.'/contact.sqlite')) unlink($folder.'/contact.sqlite');
     rmdir($folder);
 }
+echo "$tests PHP checks passed\n";

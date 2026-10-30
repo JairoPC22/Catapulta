@@ -65,3 +65,8 @@ Correo: cola privada SQLite, avisos SMTP de IONOS por worker CLI y confirmacion 
 Sonido: intento en cada carga y una unica oportunidad temprana por interaccion real si autoplay fue bloqueado; no se conserva una preferencia de sonido antigua.
 
 Validacion de esta actualizacion: 30 pruebas Node/HTTP PHP y 22 comprobaciones PHP correctas. PHP oficial portatil usado solo para pruebas locales; no se instalaron servicios ni se enviaron correos. Retiradas las referencias a la integracion anterior y controles de sonido inexistentes. Confirmacion automatica sin repetir el texto libre del visitante para reducir uso abusivo como correo reflejado.
+
+## Correos transaccionales: diseño y logo
+Se rediseñaron por separado el aviso administrativo y la confirmacion al cliente. Cabecera compacta y logo original, referencia, campos apilados en movil, mensaje exclusivo del administrador y siguientes pasos para el cliente. El logo viaja como adjunto PNG inline CID, sin imagen data: en el HTML. MIME multipart/related y alternative, texto plano, quoted-printable, Message-ID y plegado UTF-8 de asuntos. Pruebas validan destinatarios, cuerpos distintos, ausencia de datos libres en confirmacion, PNG identico al original y limites SMTP.
+Registro de worker sin datos personales: fase y codigo SMTP en errores, aceptacion por entrega. status.php muestra referencias y estados solo por consola.
+SPF publico observado: solo Google; pendiente ampliar autorizacion para IONOS desde DNS preservando emisores actuales. No se modificaron DNS ni se reenviaron solicitudes ya entregadas. Comprobacion real pendiente con nueva solicitud y cabeceras del correo recibido.
