@@ -11,7 +11,12 @@
 .loader-content { position: relative; width: min(280px, 80vw); text-align: center; transition: transform .55s cubic-bezier(.65,0,.35,1), opacity .4s ease .05s; }
 .site-loader.is-leaving .loader-content { transform: scale(1.14); opacity: 0; }
 .loader-status { display: flex; justify-content: center; }
-.loader-glyph { width: 108px; height: 108px; overflow: visible; filter: drop-shadow(0 12px 24px rgba(10,22,40,.1)); }
+.loader-glyph { width: 108px; height: 108px; overflow: visible; }
+/* El drop-shadow se activa solo cuando el trazo ya terminó de dibujarse: un
+   filter sobre un SVG que anima stroke-dashoffset fuerza repintar todo el
+   grupo (sombra incluida) en cada frame, lo que se sentía como un "tirón"
+   durante el dibujo del ícono. */
+.site-loader.lg-dot-in .loader-glyph { filter: drop-shadow(0 12px 24px rgba(10,22,40,.1)); transition: filter .3s ease; }
 .lg-arc {
   fill: none; stroke: url(#loaderBrand); stroke-linecap: round;
   transition: stroke-dashoffset .55s cubic-bezier(.65,0,.35,1);

@@ -53,10 +53,12 @@
   updateLabels();
   const arcs = typeof loader.querySelectorAll === 'function' ? [...loader.querySelectorAll('.lg-arc')] : [];
   if (arcs.length && typeof requestAnimationFrame === 'function' && !reduced.matches) {
-    arcs.forEach(arc => {
-      const len = arc.getTotalLength();
-      arc.style.strokeDasharray = String(len);
-      arc.style.strokeDashoffset = String(len);
+    // Medir todos los arcos antes de escribir estilos evita intercalar
+    // lectura/escritura (layout thrashing) en el primer frame.
+    const lengths = arcs.map(arc => arc.getTotalLength());
+    arcs.forEach((arc, index) => {
+      arc.style.strokeDasharray = String(lengths[index]);
+      arc.style.strokeDashoffset = String(lengths[index]);
     });
     requestAnimationFrame(() => requestAnimationFrame(() => {
       arcs.forEach(arc => { arc.style.strokeDashoffset = '0'; });
