@@ -74,8 +74,8 @@ const TRANSLATIONS = {
     'sol.v3.desc': 'Panel cloud para ingresar pagos sin necesidad de hardware.',
     'sol.v4.title': 'Apps POS móviles',
     'sol.v4.desc': 'Procesa desde tablet o smartphone con funciones POS completas.',
-    'sol.v5.title': 'Seguridad PCI DSS',
-    'sol.v5.desc': 'Cifrado end-to-end y prevención de fraude en cada transacción.',
+    'sol.v5.title': 'Terminales certificados PCI DSS',
+    'sol.v5.desc': 'Trabajamos con procesadoras y terminales certificados bajo PCI DSS; los datos de cada transacción viajan cifrados.',
     'sol.v6.title': 'Reportes en tiempo real',
     'sol.v6.desc': 'Dashboard de ventas, contracargos y rendimiento desde cualquier dispositivo.',
     // CATALOG
@@ -180,7 +180,7 @@ const TRANSLATIONS = {
     'faq.q5': '¿Puedo aceptar Apple Pay y Google Pay?',
     'faq.a5': 'Sí. Todos nuestros terminales con lector sin contacto/NFC aceptan Apple Pay, Google Pay y tarjetas contactless de cualquier banco.',
     'faq.q6': '¿Qué tan segura es la información de mis clientes?',
-    'faq.a6': 'Toda transacción cumple con el estándar PCI DSS v4 y viaja cifrada de extremo a extremo. Además usamos tecnología de mitigación de contracargos para proteger cada venta.',
+    'faq.a6': 'Trabajamos con procesadoras y terminales certificados bajo el estándar PCI DSS, y los datos de la tarjeta viajan cifrados en cada transacción. Además usamos tecnología de mitigación de contracargos para proteger cada venta.',
     'faq.q7': 'Después de hacer corte, ¿en cuánto tiempo me llega mi dinero?',
     'faq.a7': 'Depende de la procesadora asignada a tu negocio. Lo normal es que el depósito llegue al siguiente día hábil después del corte, aunque en algunos casos puede tomar un día adicional.',
     // CONTACT
@@ -330,8 +330,8 @@ const TRANSLATIONS = {
     'sol.v3.desc': 'Cloud panel to enter payments without hardware.',
     'sol.v4.title': 'Mobile POS apps',
     'sol.v4.desc': 'Process from tablet or smartphone with full POS features.',
-    'sol.v5.title': 'PCI DSS security',
-    'sol.v5.desc': 'End-to-end encryption and fraud prevention on every transaction.',
+    'sol.v5.title': 'PCI DSS–certified terminals',
+    'sol.v5.desc': 'We work with processors and terminals certified under PCI DSS; transaction data travels encrypted.',
     'sol.v6.title': 'Real-time reports',
     'sol.v6.desc': 'Sales, chargebacks, and performance dashboard from any device.',
     // CATALOG
@@ -436,7 +436,7 @@ const TRANSLATIONS = {
     'faq.q5': 'Can I accept Apple Pay and Google Pay?',
     'faq.a5': 'Yes. All our terminals with a contactless/NFC reader accept Apple Pay, Google Pay, and contactless cards from any bank.',
     'faq.q6': 'How secure is my customers\' information?',
-    'faq.a6': 'Every transaction complies with the PCI DSS v4 standard and travels end-to-end encrypted. We also use chargeback mitigation technology to protect every sale.',
+    'faq.a6': 'We work with processors and terminals certified under the PCI DSS standard, and card data travels encrypted on every transaction. We also use chargeback mitigation technology to protect every sale.',
     'faq.q7': 'After my batch closes, how long until the money arrives?',
     'faq.a7': 'It depends on the processor assigned to your business. Typically the deposit arrives the next business day after the batch closes, though in some cases it can take one extra day.',
     // CONTACT
