@@ -1,28 +1,32 @@
 /* Refinement layer. Brand colors are inherited unchanged from styles.css. */
 @font-face {
   font-family: Manrope;
-  src: url('assets/fonts/design/manrope.ttf') format('truetype');
+  src: url('assets/fonts/design/manrope.woff2') format('woff2'),
+       url('assets/fonts/design/manrope.ttf') format('truetype');
   font-weight: 200 800;
   font-style: normal;
   font-display: swap;
 }
 @font-face {
   font-family: 'IBM Plex Mono';
-  src: url('assets/fonts/design/ibm-plex-mono-400.ttf') format('truetype');
+  src: url('assets/fonts/design/ibm-plex-mono-400.woff2') format('woff2'),
+       url('assets/fonts/design/ibm-plex-mono-400.ttf') format('truetype');
   font-weight: 400;
   font-style: normal;
   font-display: swap;
 }
 @font-face {
   font-family: 'IBM Plex Mono';
-  src: url('assets/fonts/design/ibm-plex-mono-500.ttf') format('truetype');
+  src: url('assets/fonts/design/ibm-plex-mono-500.woff2') format('woff2'),
+       url('assets/fonts/design/ibm-plex-mono-500.ttf') format('truetype');
   font-weight: 500;
   font-style: normal;
   font-display: swap;
 }
 @font-face {
   font-family: 'IBM Plex Mono';
-  src: url('assets/fonts/design/ibm-plex-mono-600.ttf') format('truetype');
+  src: url('assets/fonts/design/ibm-plex-mono-600.woff2') format('woff2'),
+       url('assets/fonts/design/ibm-plex-mono-600.ttf') format('truetype');
   font-weight: 600;
   font-style: normal;
   font-display: swap;

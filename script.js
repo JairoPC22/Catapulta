@@ -26,7 +26,26 @@ document.addEventListener('DOMContentLoaded', () => {
   initContactForm();
   initSavingsCalculator();
   initTerminalAccessibility();
+  initHeroModel();
 });
+
+/* ────────────────────────────────────────────
+   0. VISOR 3D DEL HERO (carga diferida)
+   El bundle de <model-viewer> pesa ~935 KB; se importa
+   dinámicamente tras el evento load (y en tiempo ocioso si
+   el navegador lo soporta) para no competir con fuentes,
+   CSS e imágenes durante la carga inicial.
+──────────────────────────────────────────── */
+function initHeroModel() {
+  if (!document.querySelector('model-viewer')) return;
+  const mount = () => { import('./assets/js/model-viewer.min.js?v=30').catch(() => {}); };
+  const schedule = () => {
+    if ('requestIdleCallback' in window) requestIdleCallback(mount, { timeout: 2000 });
+    else setTimeout(mount, 300);
+  };
+  if (document.readyState === 'complete') schedule();
+  else window.addEventListener('load', schedule, { once: true });
+}
 
 /* ────────────────────────────────────────────
    1. NAVBAR STICKY

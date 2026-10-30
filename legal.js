@@ -1,6 +1,7 @@
 'use strict';
 document.addEventListener('DOMContentLoaded', () => {
-  document.documentElement.dataset.theme = CP.storage.get('cpay-theme') === 'light' ? 'light' : 'dark';
+  document.documentElement.dataset.theme = CP.storage.get('cpay-theme') === 'dark' ? 'dark' : 'light';
+  window.lucide?.createIcons();
   function language(next) {
     const lang = next === 'en' ? 'en' : 'es';
     document.documentElement.lang = lang;
