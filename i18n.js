@@ -178,7 +178,7 @@ const TRANSLATIONS = {
     'faq.q4': '¿Qué terminales y equipos manejan?',
     'faq.a4': 'Trabajamos con las marcas líderes del mercado: Dejavoo, Clover, Sunmi, PAX y Landi. Puedes comprar el equipo o acceder a renta/lease según lo que más te convenga — revisa nuestro <a href="#catalogo">catálogo completo</a>.',
     'faq.q5': '¿Puedo aceptar Apple Pay y Google Pay?',
-    'faq.a5': 'Sí. Todos nuestros terminales con lector sin contacto/NFC aceptan Apple Pay, Google Pay y tarjetas contactless de cualquier banco.',
+    'faq.a5': 'Sí. Todas las terminales que manejamos con lector sin contacto/NFC aceptan Apple Pay, Google Pay y tarjetas contactless de cualquier banco.',
     'faq.q6': '¿Qué tan segura es la información de mis clientes?',
     'faq.a6': 'Trabajamos con procesadoras y terminales certificados bajo el estándar PCI DSS, y los datos de la tarjeta viajan cifrados en cada transacción. Además usamos tecnología de mitigación de contracargos para proteger cada venta.',
     'faq.q7': 'Después de hacer corte, ¿en cuánto tiempo me llega mi dinero?',
