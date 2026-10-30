@@ -1873,18 +1873,22 @@ textarea {
   border-top: 1px solid var(--color-borderW);
 }
 
-/* Contenedor del logo — fondo blanco uniforme */
+/* Contenedor del logo — fondo blanco uniforme para normalizar logos muy
+   distintos entre sí (banners rectangulares, sellos circulares, etc).
+   El borde plano y gris se reemplaza por un borde nítido de 1px + una
+   sombra suave: así se separa de la tarjeta por elevación, no por un
+   contorno apagado que se perdía contra el fondo blanco de la tarjeta. */
 .testi-logo-wrap {
-  width: 52px;
-  height: 52px;
-  border-radius: var(--radius-sm);
+  width: 64px;
+  height: 64px;
+  border-radius: var(--radius-md);
   background: #ffffff;
   display: flex;
   align-items: center;
   justify-content: center;
   flex-shrink: 0;
-  padding: 6px;
-  border: 1px solid rgba(0,0,0,0.06);
+  padding: 9px;
+  box-shadow: 0 0 0 1px rgba(10, 22, 40, 0.08), 0 4px 14px rgba(10, 22, 40, 0.12);
 }
 
 .testi-logo {
@@ -1896,18 +1900,19 @@ textarea {
 
 /* Used when a client hasn't provided a logo yet — a real initial, not a stock avatar */
 .testi-avatar {
-  width: 52px;
-  height: 52px;
-  border-radius: var(--radius-sm);
+  width: 64px;
+  height: 64px;
+  border-radius: var(--radius-md);
   background: var(--grad-primary);
   color: #070e1c;
   font-family: var(--font-display);
   font-weight: 800;
-  font-size: 1.3rem;
+  font-size: 1.4rem;
   display: flex;
   align-items: center;
   justify-content: center;
   flex-shrink: 0;
+  box-shadow: 0 4px 14px rgba(10, 22, 40, 0.12);
 }
 
 .testi-footer-info {
