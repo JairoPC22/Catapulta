@@ -16,12 +16,9 @@ name: Deploy to IONOS (SFTP)
 #      IONOS_FTP_PASSWORD  the password for that FTP/SFTP account
 #    Never put these values directly in this file — only in GitHub Secrets.
 #
-# 3. Remote path: confirmed via diagnostic probes. This SFTP account is
-#    chrooted so its own "/" already corresponds to the "Catapulta" folder
-#    shown in the IONOS file-manager UI (cd /Catapulta fails with "No such
-#    file" from inside this account — it's already the root). The domain's
-#    configured target, "/Catapulta/catapultaPay/catapultaPay", is therefore
-#    just "catapultaPay/catapultaPay" relative to this account's root.
+# 3. Remote path: this SFTP account is scoped directly to the real site
+#    folder (/catapultaPay at the IONOS account root, previously backed up
+#    and emptied), so its own "/" is the upload target.
 
 on:
   push:
@@ -71,7 +68,9 @@ jobs:
           lftp -u "$IONOS_FTP_USERNAME","$IONOS_FTP_PASSWORD" sftp://$IONOS_FTP_SERVER:22 <<'EOF'
           set sftp:auto-confirm yes
           set mirror:parallel-transfer-count 3
-          mirror -R --verbose _deploy catapultaPay/catapultaPay
+          pwd
+          ls -l
+          mirror -R --verbose _deploy .
           EOF
           # Note: no --delete here on purpose, so this never removes files
           # that already exist on IONOS but aren't in this repo. Add
