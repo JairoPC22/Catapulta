@@ -1897,6 +1897,13 @@ textarea {
   align-items: center;
   gap: 1rem;
   margin-top: 1.2rem;
+  /* Este <footer> es el pie de la tarjeta de reseña, no el pie de página
+     del sitio — sin esto hereda el fondo y el borde del selector global
+     `footer` (el pie de página real), que es exactamente ese gris-azulado
+     que se veía detrás del logo y el nombre. */
+  background: none;
+  border-top: 0;
+  padding: 0;
 }
 
 /* Los logos de clientes vienen en formas muy distintas entre sí (banners
