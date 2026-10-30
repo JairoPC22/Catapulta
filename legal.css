@@ -49,8 +49,8 @@
 .legal-main section p { font-size: .92rem; line-height: 1.85; overflow-wrap: anywhere; color: var(--color-text); }
 
 .legal-home {
-  display: inline-flex; align-items: center; gap: 9px; width: fit-content;
-  margin-top: 40px; padding: 12px 22px 12px 18px;
+  display: flex; align-items: center; gap: 9px; width: fit-content;
+  margin: 40px auto 0; padding: 12px 22px 12px 18px;
   border: 1px solid var(--color-borderW); border-radius: var(--radius-full);
   background: var(--color-surface); color: var(--color-text);
   font-weight: 600; font-size: .88rem;

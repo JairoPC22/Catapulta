@@ -3,14 +3,15 @@
 
 .catalog-hero {
   width: min(1100px, 88%); margin: 64px auto 0;
-  display: flex; flex-direction: column; align-items: flex-start; gap: 22px;
+  display: flex; flex-direction: column; align-items: center; gap: 22px;
+  text-align: center;
 }
 .catalog-hero h1 {
   font-size: clamp(2.2rem, 4.6vw, 3.1rem); letter-spacing: -.035em; line-height: 1.12;
   font-weight: 550; color: var(--color-white); max-width: 18ch;
 }
-.catalog-hero p { color: var(--color-muted); font-size: 1.05rem; max-width: 56ch; line-height: 1.7; }
-.catalog-hero-actions { display: flex; flex-wrap: wrap; gap: 14px; margin-top: 6px; }
+.catalog-hero p { color: var(--color-muted); font-size: 1.05rem; max-width: 56ch; line-height: 1.7; margin-inline: auto; }
+.catalog-hero-actions { display: flex; flex-wrap: wrap; justify-content: center; gap: 14px; margin-top: 6px; }
 
 .catalog-viewer {
   width: min(1100px, 88%); margin: 48px auto 0;
