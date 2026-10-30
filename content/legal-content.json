@@ -92,11 +92,11 @@
       {
         "es": [
           "Cola de envío y prevención de abuso",
-          "Las solicitudes aceptadas se guardan en una carpeta privada del servidor. Se utilizan identificadores derivados mediante HMAC de la IP y del correo para limitar frecuencia y detectar duplicados. Las solicitudes con ambos correos confirmados por SMTP se eliminan de la cola pasados siete días durante una nueva recepción. Las entregas fallidas o inciertas requieren revisión y eliminación por el responsable; no se reenvían automáticamente. Esta limpieza no elimina correos ya entregados, respaldos ni registros del alojamiento."
+          "Las solicitudes aceptadas se guardan en una carpeta privada del servidor. Se utilizan identificadores derivados mediante HMAC de la IP y del correo para limitar frecuencia y detectar duplicados. Las solicitudes con ambos correos confirmados por SMTP se eliminan de la cola pasados siete días durante una nueva recepción. Los fallos temporales confirmados pueden reintentarse hasta tres intentos totales. Los rechazos permanentes o de resultado incierto requieren revisión y eliminación por el responsable; no se reenvían automáticamente. Esta limpieza no elimina correos ya entregados, respaldos ni registros del alojamiento."
         ],
         "en": [
           "Delivery queue and abuse prevention",
-          "Accepted requests are stored in a private server folder. HMAC-derived IP and email identifiers limit frequency and detect duplicates. Requests with both messages accepted by SMTP are removed from the queue after seven days during a subsequent submission. Failed or uncertain deliveries require operator review and deletion and are not automatically retried. Queue cleanup does not delete delivered emails, backups or hosting logs."
+          "Accepted requests are stored in a private server folder. HMAC-derived IP and email identifiers limit frequency and detect duplicates. Requests with both messages accepted by SMTP are removed from the queue after seven days during a subsequent submission. Confirmed temporary failures may be retried up to three total attempts. Permanent or uncertain failures require operator review and deletion and are not automatically retried. Queue cleanup does not delete delivered emails, backups or hosting logs."
         ]
       }
     ]

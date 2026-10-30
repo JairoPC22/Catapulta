@@ -10,10 +10,25 @@ function cp_store(array $config): PDO {
     if ($public && ($dir === $public || strpos($dir.DIRECTORY_SEPARATOR, $public.DIRECTORY_SEPARATOR) === 0)) throw new RuntimeException('Storage must not be web accessible');
     $db = new PDO('sqlite:'.$dir.'/contact.sqlite', null, null, [PDO::ATTR_ERRMODE=>PDO::ERRMODE_EXCEPTION]);
     $db->exec('PRAGMA busy_timeout=5000');
-    $db->exec('CREATE TABLE IF NOT EXISTS jobs (id TEXT PRIMARY KEY, created INTEGER NOT NULL, payload TEXT NOT NULL, ip TEXT NOT NULL, email TEXT NOT NULL, admin TEXT NOT NULL DEFAULT "pending", receipt TEXT NOT NULL DEFAULT "pending")');
-    $db->exec('CREATE INDEX IF NOT EXISTS jobs_created ON jobs(created)');
+    cp_schema($db);
     @chmod($dir.'/contact.sqlite', 0600);
     return $db;
+}
+function cp_schema(PDO $db): void {
+    // Serialize upgrades: web requests and cron can open the same existing queue.
+    $db->exec('BEGIN IMMEDIATE');
+    try {
+        $db->exec('CREATE TABLE IF NOT EXISTS jobs (id TEXT PRIMARY KEY, created INTEGER NOT NULL, payload TEXT NOT NULL, ip TEXT NOT NULL, email TEXT NOT NULL, admin TEXT NOT NULL DEFAULT "pending", receipt TEXT NOT NULL DEFAULT "pending")');
+        $columns=array_column($db->query('PRAGMA table_info(jobs)')->fetchAll(PDO::FETCH_ASSOC),'name');
+        foreach (['admin','receipt'] as $kind) {
+            foreach (['attempts'=>'INTEGER NOT NULL DEFAULT 0','next'=>'INTEGER NOT NULL DEFAULT 0','error'=>"TEXT NOT NULL DEFAULT ''"] as $suffix=>$type) {
+                $name=$kind.'_'.$suffix;
+                if (!in_array($name,$columns,true)) $db->exec("ALTER TABLE jobs ADD COLUMN $name $type");
+            }
+        }
+        $db->exec('CREATE INDEX IF NOT EXISTS jobs_created ON jobs(created)');
+        $db->exec('COMMIT');
+    } catch (Throwable $e) { $db->exec('ROLLBACK'); throw $e; }
 }
 function cp_validate(array $data): array {
     $limits=['firstName'=>80,'lastName'=>80,'email'=>254,'company'=>160,'phone'=>40,'subject'=>20,'message'=>5000,'honeypot'=>200];

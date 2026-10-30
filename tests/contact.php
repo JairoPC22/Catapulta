@@ -6,7 +6,7 @@ function check(bool $condition,string $message): void { global $tests; if (!$con
 function rejects(callable $fn,string $type): bool { try { $fn(); return false; } catch (Throwable $e) { return $e instanceof $type; } }
 function database(): PDO {
     $db=new PDO('sqlite::memory:',null,null,[PDO::ATTR_ERRMODE=>PDO::ERRMODE_EXCEPTION]);
-    $db->exec('CREATE TABLE jobs(id TEXT PRIMARY KEY,created INTEGER,payload TEXT,ip TEXT,email TEXT,admin TEXT DEFAULT "pending",receipt TEXT DEFAULT "pending")'); return $db;
+    cp_schema($db); return $db;
 }
 $data=['firstName'=>'Ana','lastName'=>'Prueba','email'=>'ana@example.invalid','subject'=>'general','message'=>'Consulta realista','company'=>'','phone'=>'','honeypot'=>''];
 check(cp_validate($data)==$data,'valid input');
@@ -88,4 +88,37 @@ try {
     if (is_file($folder.'/contact.sqlite')) unlink($folder.'/contact.sqlite');
     rmdir($folder);
 }
-echo "$tests PHP checks passed\n";
+check((new SmtpDeliveryException('connect'))->canRetry(),'connection failure before DATA is retryable');
+check((new SmtpDeliveryException('data',451))->canRetry(),'explicit temporary SMTP rejection is retryable');
+check(!(new SmtpDeliveryException('data'))->canRetry(),'lost DATA acknowledgement is not retried');
+check(!(new SmtpDeliveryException('recipient',550))->canRetry(),'permanent recipient rejection is not retried');
+$db=database(); cp_enqueue($db,$data,'ip','secret',10000);
+$transient=new class {
+    public array $calls=[]; private bool $failed=false;
+    public function send(...$args): void {
+        $this->calls[]=$args[0];
+        if ($args[0]===['ana@example.invalid'] && !$this->failed) { $this->failed=true; throw new SmtpDeliveryException('connect'); }
+    }
+};
+cp_process($db,$config,$transient,10000);
+check($db->query('SELECT admin FROM jobs')->fetchColumn()==='sent' && $db->query('SELECT receipt FROM jobs')->fetchColumn()==='pending','temporary receipt failure preserves admin success');
+cp_process($db,$config,$transient,10030);
+check(count($transient->calls)===2,'backoff prevents retry before due time');
+cp_process($db,$config,$transient,10060); cp_process($db,$config,$transient,10100);
+check(count($transient->calls)===3 && $db->query('SELECT receipt FROM jobs')->fetchColumn()==='sent','receipt recovers on scheduled retry without duplicate admin');
+$db=database(); cp_enqueue($db,$data,'ip','secret',10000); $db->exec('UPDATE jobs SET admin="sent"');
+$alwaysTemporary=new class { public int $calls=0; public function send(...$args): void { $this->calls++; throw new SmtpDeliveryException('recipient',450); } };
+foreach ([10000,10060,10360,20000] as $time) cp_process($db,$config,$alwaysTemporary,$time);
+check($alwaysTemporary->calls===3 && $db->query('SELECT receipt FROM jobs')->fetchColumn()==='review','temporary failure stops after three attempts');
+check($db->query('SELECT receipt_error FROM jobs')->fetchColumn()==='phase=recipient code=450','failure detail stored without personal data');
+$db=database(); cp_enqueue($db,$data,'ip','secret',10000); $db->exec('UPDATE jobs SET admin="sent"');
+$uncertain=new class { public int $calls=0; public function send(...$args): void { $this->calls++; throw new SmtpDeliveryException('data'); } };
+cp_process($db,$config,$uncertain,10000); cp_process($db,$config,$uncertain,20000);
+check($uncertain->calls===1 && $db->query('SELECT receipt FROM jobs')->fetchColumn()==='review','uncertain receipt never automatically resends');
+$legacy=new PDO('sqlite::memory:',null,null,[PDO::ATTR_ERRMODE=>PDO::ERRMODE_EXCEPTION]);
+$legacy->exec('CREATE TABLE jobs(id TEXT PRIMARY KEY,created INTEGER,payload TEXT,ip TEXT,email TEXT,admin TEXT DEFAULT "pending",receipt TEXT DEFAULT "pending")');
+cp_enqueue($legacy,$data,'ip','secret',10000); $legacy->exec('UPDATE jobs SET admin="sent",receipt="review"');
+cp_schema($legacy); cp_schema($legacy);
+check($legacy->query('SELECT admin FROM jobs')->fetchColumn()==='sent' && $legacy->query('SELECT receipt FROM jobs')->fetchColumn()==='review','schema upgrade preserves historical delivery states');
+check((int)$legacy->query('SELECT receipt_attempts FROM jobs')->fetchColumn()===0,'schema upgrade adds retry metadata safely');
+echo "$tests total PHP checks passed\n";

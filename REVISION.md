@@ -76,3 +76,7 @@ Aviso compacto con titulo y descripcion separados, contraste por tema, icono con
 
 ## Refinamiento corporativo de correos
 Se retiraron flechas Unicode de los botones porque algunos clientes las muestran como emoji. Encabezados directos, sin frases promocionales, CTA de texto y pie simplificado. Separadores unicos en campos moviles y estilos explicitos para modo oscuro; logo con soporte claro para conservar legibilidad. Comprobado en vista movil de 375px sin desbordamiento. El render final depende del cliente de correo; se conservaron adjunto CID y flujo de envio.
+
+## Recuperacion de fallos temporales de correo
+Cola con metadatos independientes de intentos, proxima ejecucion y error por cada entrega. Migracion automatica y serializada de SQLite, conservando estados historicos. Hasta tres intentos totales solo en fallos seguros previos a DATA o rechazo temporal explicito 4xx. Esperas de 60 y 300 segundos. Sin reenvio del aviso administrativo ya aceptado; sin repeticion automatica en perdida de confirmacion DATA, errores permanentes o fallos historicos no clasificados. Diagnosticos CLI muestran contadores y fase/codigo sin datos del contacto.
+El SPF publico sigue autorizando unicamente a Google; el ajuste de autenticacion IONOS requiere acceso DNS y no puede publicarse mediante GitHub. No se afirmo entrega de la ultima solicitud ni se accedio a la cola remota durante este cambio.

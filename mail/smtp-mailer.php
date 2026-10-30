@@ -10,6 +10,12 @@ final class SmtpDeliveryException extends RuntimeException
     {
         parent::__construct('SMTP delivery failed during ' . $phase, $smtpCode);
     }
+    public function canRetry(): bool
+    {
+        // An explicit 4xx rejects this attempt. A dropped connection after DATA is ambiguous.
+        if ($this->smtpCode >= 400 && $this->smtpCode < 500) return true;
+        return $this->smtpCode === 0 && in_array($this->phase, ['connect','greeting','tls','auth','envelope','recipient'], true);
+    }
 }
 
 final class SmtpMailer
