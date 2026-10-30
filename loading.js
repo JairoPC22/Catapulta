@@ -6,9 +6,12 @@
   const reduced = matchMedia('(prefers-reduced-motion: reduce)');
   const started = performance.now();
   const audio = document.getElementById('brandAudio');
-  const storageKey = 'cpay-sound';
-  let enabled = true;
-  try { enabled = localStorage.getItem(storageKey) !== 'off'; } catch { /* Storage is optional. */ }
+  const enabled = true;
+  // Every new page load tries once; an obsolete mute preference is not a gate.
+  const gestureDeadline = started + 10000;
+  let gestureArmed = false;
+  let fallbackUsed = false;
+  let cancelled = false;
   let attempted = false;
   let finished = false;
   let dismissed = false;
@@ -23,13 +26,30 @@
     try { audio.currentTime = 0; } catch { /* Metadata may not have loaded yet. */ }
 
   };
+  const disarmGesture = () => {
+    gestureArmed = false;
+    document.removeEventListener('pointerdown', onGesture, true);
+    document.removeEventListener('keydown', onGesture, true);
+  };
+  const onGesture = event => {
+    if (!gestureArmed || !event.isTrusted || event.key === 'Escape' || event.ctrlKey || event.metaKey || event.altKey) return;
+    disarmGesture();
+    fallbackUsed = true;
+    if (performance.now() <= gestureDeadline && !cancelled) { attempted = false; playSound(); }
+  };
   const playSound = () => {
-    if (!audio || !enabled || document.hidden || attempted) return;
+    if (!audio || !enabled || cancelled || document.hidden || attempted) return;
     attempted = true;
 
     const fail = error => {
       if (!enabled || document.hidden || error?.name === 'AbortError') return;
       audio.dataset.playback = error?.name === 'NotAllowedError' ? 'blocked' : 'unavailable';
+      if (error?.name === 'NotAllowedError' && !fallbackUsed && performance.now() < gestureDeadline && !cancelled) {
+        gestureArmed = true;
+        document.addEventListener('pointerdown', onGesture, true);
+        document.addEventListener('keydown', onGesture, true);
+        setTimeout(disarmGesture, Math.max(0, gestureDeadline - performance.now()));
+      }
     };
     try {
       audio.volume = 0.28;
@@ -66,7 +86,7 @@
     }));
   }
   const guardKeyboard = event => {
-    if (event.key === 'Escape') { dismissed = true; finish(false); }
+    if (event.key === 'Escape') { cancelled = true; disarmGesture(); dismissed = true; finish(false); }
   };
   const finish = (withSound = true) => {
     if (finished) return;
@@ -91,7 +111,7 @@
   loader.hidden = false;
   document.documentElement.classList.add('is-loading');
   document.addEventListener('keydown', guardKeyboard, true);
-  document.addEventListener('visibilitychange', () => { if (document.hidden) stopSound(); });
+  document.addEventListener('visibilitychange', () => { if (document.hidden) { cancelled = true; disarmGesture(); stopSound(); } });
   maximum = setTimeout(finish, MIN_DISPLAY_MS + 1500);
   document.addEventListener('DOMContentLoaded', async () => {
     await Promise.race([document.fonts.ready, new Promise(resolve => setTimeout(resolve, 1000))]);

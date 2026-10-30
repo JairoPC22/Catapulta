@@ -38,7 +38,7 @@ document.addEventListener('DOMContentLoaded', () => {
 ──────────────────────────────────────────── */
 function initHeroModel() {
   if (!document.querySelector('model-viewer')) return;
-  const mount = () => { import('./assets/js/model-viewer.min.js?v=51').catch(() => {}); };
+  const mount = () => { import('./assets/js/model-viewer.min.js?v=52').catch(() => {}); };
   const schedule = () => {
     if ('requestIdleCallback' in window) requestIdleCallback(mount, { timeout: 2000 });
     else setTimeout(mount, 300);
@@ -212,7 +212,7 @@ function initTabs() {
 /* ────────────────────────────────────────────
    9. FORMULARIO DE CONTACTO
    Valida, envía al endpoint propio mail/send.php (PHP +
-   SMTP de IONOS, sin depender de EmailJS) y muestra estado
+   SMTP de IONOS, sin servicios de envio adicionales) y muestra estado
    de carga + toast de resultado. Las plantillas de correo
    (admin y confirmación al cliente) viven en email-template.html
    y email-template-autoreply.html; el backend las rellena.
@@ -284,9 +284,11 @@ function initContactForm() {
       await sendContactForm(snapshot);
       lastSuccess = Date.now();
       form.reset();
-      notify(text('Mensaje enviado. Te contactaremos pronto.', 'Message sent. We will be in touch soon.'));
+      notify(text('Hemos recibido tu solicitud. Te contactaremos pronto.', 'We have received your request. We will be in touch soon.'));
     } catch (error) {
-      const message = error.name === 'AbortError'
+      const message = error.status === 429
+        ? text('Has enviado varias solicitudes. Espera unos minutos antes de intentar de nuevo.', 'You have sent several requests. Please wait before trying again.')
+        : error.name === 'AbortError'
         ? text('No pudimos confirmar el envío a tiempo. Evita reenviarlo de inmediato; puedes contactarnos por correo.', 'We could not confirm delivery in time. Avoid resending immediately; you can contact us by email.')
         : text('No se pudo enviar. Tus datos siguen aquí; intenta más tarde o escribe a info@catapultapay.com.', 'Could not send. Your details are still here; try later or email info@catapultapay.com.');
       notify(message, true);
@@ -316,7 +318,11 @@ async function sendContactForm(data) {
       signal: controller.signal, body: JSON.stringify(payload)
     });
     const result = await response.json().catch(() => null);
-    if (!response.ok || !result?.ok) throw new Error('Email service rejected request');
+    if (!response.ok || result?.ok !== true) {
+      const error = new Error('Contact request rejected');
+      error.status = response.status;
+      throw error;
+    }
     return true;
   } finally { clearTimeout(timeout); }
 }

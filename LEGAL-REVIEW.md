@@ -11,14 +11,11 @@ Pendiente de decisión del responsable: el sitio en vivo usa la ruta /terminos.h
 Falta confirmar con el responsable:
 
 - Razón social registrada completa, domicilio y país/estado de establecimiento.
-- Proveedor real de alojamiento, servicio de correo conectado a EmailJS y destinatarios autorizados.
-- Plazos operativos de retención y eliminación de mensajes en correo, EmailJS y respaldos.
 - Si se emplean los contactos fuera de responder a la consulta, por ejemplo para campañas, CRM o transferencias a bancos.
 - Jurisdicciones aplicables, requisitos específicos y procedimiento real para atender solicitudes de privacidad.
 - Configuración de analítica/cookies añadida por el hosting, el CDN o herramientas fuera de este repositorio.
 - Si otros procesos de alta de comercios necesitan avisos separados. Estos documentos describen el sitio y su formulario, no toda la operación de procesamiento de pagos.
 
-El formulario transmite los datos a EmailJS mediante su API solo al pulsar Enviar. Esta versión no carga SDK externos al inicio, ni integra publicidad o analítica. El navegador conserva idioma/tema/sonido en localStorage y recursos públicos en Cache Storage; las solicitudes POST no se cachean.
 
 Cuando los datos y prácticas estén confirmados, actualizar el contenido, retirar el bloque de revisión y el noindex de la plantilla de tools/build-legal.cjs, regenerar los HTML e incluir las URLs legales en sitemap.xml con su fecha real. No retirar el bloque ni declarar cumplimiento legal basándose únicamente en que el sitio funciona.
 
@@ -27,5 +24,6 @@ Referencias de revisión:
 - Sitio público: https://catapultapay.com/
 - Privacidad y exactitud de avisos: https://oag.ca.gov/node/36676
 - Prácticas de privacidad: https://consumer.ftc.gov/consumer-alerts/2024/04/when-companies-share-your-personal-information-without-your-permission
-- API de EmailJS: https://www.emailjs.com/docs/rest-api/send/
-- Política de EmailJS: https://www.emailjs.com/legal/privacy-policy/
+
+## Arquitectura de correo actual (30 de octubre de 2026)
+El formulario guarda solicitudes en una cola SQLite privada y un worker CLI entrega avisos internos y confirmaciones por SMTP de IONOS. Falta confirmar el buzon remitente, administradores, disponibilidad de PHP/PDO SQLite y cron incluidos en el contrato. No hay credenciales locales reales ni envio de produccion probado. Confirmar la retencion de la cola, logs, backups y correo antes de aprobar los avisos. Instrucciones: mail/SETUP.md.

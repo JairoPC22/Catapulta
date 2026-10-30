@@ -17,6 +17,8 @@ http.createServer((req, res) => {
   try { pathname = decodeURIComponent(new URL(req.url, 'http://localhost').pathname); }
   catch { res.writeHead(400); return res.end('Solicitud inválida'); }
   if (pathname.includes('\0')) { res.writeHead(400); return res.end('Solicitud inválida'); }
+  // Static preview must never serve PHP source or SMTP credentials.
+  if (/^\/mail(?:\/|$)/i.test(pathname) || /\.php$/i.test(pathname)) return errorPage(res, 404);
   const file = path.resolve(root, '.' + (pathname === '/' ? '/index.html' : pathname));
   if (!file.startsWith(root + path.sep) || path.relative(root, file).split(path.sep).some(part => part.startsWith('.'))) {
     return errorPage(res, 404);

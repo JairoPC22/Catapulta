@@ -42,21 +42,21 @@
       {
         "es": [
           "Proveedores que intervienen",
-          "Al pulsar Enviar, el formulario transmite los campos indicados a EmailJS y al servicio de correo configurado para entregar el mensaje al equipo de CatapultaPayment. Por ello no se afirma que los datos nunca se compartan con terceros. El alojamiento también interviene en la entrega del sitio. La política de EmailJS puede consultarse en https://www.emailjs.com/legal/privacy-policy/. Los proveedores pueden tratar datos en Estados Unidos u otros lugares conforme a su infraestructura y condiciones. No se promete una ubicación exclusiva ni una garantía contractual de transferencia que no haya sido verificada."
+          "Al pulsar Enviar, la solicitud se transmite al servidor del sitio y se guarda en una cola privada para enviar por SMTP de IONOS un aviso a los administradores y una confirmación a la dirección indicada. El alojamiento y el proveedor de correo intervienen en este proceso. La recepción del formulario no garantiza entrega inmediata en la bandeja del destinatario."
         ],
         "en": [
           "Service providers",
-          "When you press Send, the form transmits the stated fields to EmailJS and the configured email service to deliver your message to the CatapultaPayment team. We therefore do not claim that information is never shared with third parties. Hosting providers also deliver this website. EmailJS’s policy is available at https://www.emailjs.com/legal/privacy-policy/. Providers may process information in the United States or other locations under their infrastructure and terms. No unverified exclusive storage location or contractual transfer guarantee is promised."
+          "When you press Send, the request is stored in a private server queue. IONOS SMTP sends an administrator notice and a receipt to the submitted address. Hosting and email providers process this information. Accepting the request does not guarantee immediate inbox delivery."
         ]
       },
       {
         "es": [
           "Preferencias, cookies y copia sin conexión",
-          "El código de esta versión guarda únicamente preferencias de tema, idioma y sonido en localStorage y puede conservar recursos públicos en la caché del navegador para acelerar la carga y ofrecer contenido previamente visitado sin conexión. El formulario no se guarda en localStorage ni en esa caché. Esta versión no integra analítica publicitaria ni píxeles de seguimiento. Consulta Cookies y almacenamiento para conocer los controles disponibles."
+          "El código de esta versión guarda únicamente preferencias de tema e idioma en localStorage y puede conservar recursos públicos en la caché del navegador para acelerar la carga y ofrecer contenido previamente visitado sin conexión. El formulario no se guarda en localStorage ni en esa caché. Esta versión no integra analítica publicitaria ni píxeles de seguimiento. Consulta Cookies y almacenamiento para conocer los controles disponibles."
         ],
         "en": [
           "Preferences, cookies and offline copies",
-          "This version stores theme, language and sound preferences in localStorage and may cache public resources in your browser to improve loading and make previously visited content available offline. The form is not saved to localStorage or that cache. This version does not integrate advertising analytics or tracking pixels. See Cookies and storage for available controls."
+          "This version stores theme and language preferences in localStorage and may cache public resources in your browser to improve loading and make previously visited content available offline. The form is not saved to localStorage or that cache. This version does not integrate advertising analytics or tracking pixels. See Cookies and storage for available controls."
         ]
       },
       {
@@ -87,6 +87,16 @@
         "en": [
           "External links and changes",
           "WhatsApp, social networks and other linked sites apply their own policies when you visit them. This website is intended for business inquiries, not collecting children’s data. If analytics, advertising or other uses are introduced, this notice and privacy controls must be updated before those activities are activated. The revision date appears at the top of this document."
+        ]
+      },
+      {
+        "es": [
+          "Cola de envío y prevención de abuso",
+          "Las solicitudes aceptadas se guardan en una carpeta privada del servidor. Se utilizan identificadores derivados mediante HMAC de la IP y del correo para limitar frecuencia y detectar duplicados. Las solicitudes con ambos correos confirmados por SMTP se eliminan de la cola pasados siete días durante una nueva recepción. Las entregas fallidas o inciertas requieren revisión y eliminación por el responsable; no se reenvían automáticamente. Esta limpieza no elimina correos ya entregados, respaldos ni registros del alojamiento."
+        ],
+        "en": [
+          "Delivery queue and abuse prevention",
+          "Accepted requests are stored in a private server folder. HMAC-derived IP and email identifiers limit frequency and detect duplicates. Requests with both messages accepted by SMTP are removed from the queue after seven days during a subsequent submission. Failed or uncertain deliveries require operator review and deletion and are not automatically retried. Queue cleanup does not delete delivered emails, backups or hosting logs."
         ]
       }
     ]
@@ -206,11 +216,11 @@
       {
         "es": [
           "Preferencias locales",
-          "cpay-theme guarda el tema claro u oscuro y cpay-lang guarda el idioma español o inglés. cpay-sound recuerda si activaste o silenciaste el sonido de marca. El audio dura aproximadamente dos segundos, puedes elegir entrar sin sonido desde la pantalla de carga y no se repite en bucle. Si el navegador bloquea la reproducción automática, puedes usar Entrar con sonido durante la carga. Se almacenan en este dispositivo mediante localStorage y no se incluyen en el mensaje de contacto. No tienen una fecha de vencimiento fijada por esta web; pueden permanecer hasta que borres los datos del sitio o el navegador los elimine. Si bloqueas el almacenamiento, puedes seguir usando la página, aunque tus preferencias no se recordarán entre visitas."
+          "cpay-theme guarda el tema y cpay-lang el idioma. Se intenta reproducir un sonido de dos segundos al abrir la página, sin bucle ni control flotante. Si el navegador bloquea autoplay, se intenta una vez más con una interacción durante los primeros diez segundos. No se guarda una preferencia de sonido nueva. Puedes controlar el audio con las opciones de tu navegador. Las preferencias de tema e idioma se conservan hasta que borres los datos del sitio o el navegador los elimine."
         ],
         "en": [
           "Local preferences",
-          "cpay-theme stores the light or dark theme and cpay-lang stores Spanish or English. cpay-sound remembers whether you enabled or muted the brand sound. The audio lasts approximately two seconds, can be skipped using Enter without sound on the loading screen and does not loop. If the browser blocks autoplay, you can select Enter with sound during loading. They are kept on this device in localStorage and are not included in your contact message. This website sets no expiration; they may remain until you clear site data or your browser removes them. If storage is blocked, the page still works but preferences may not persist between visits."
+          "cpay-theme stores the theme and cpay-lang the language. A two-second sound is attempted on each page load, without looping or a floating control. If autoplay is blocked, one further attempt is made on an interaction within the first ten seconds. No new sound preference is stored. Browser audio controls remain available. Theme and language preferences remain until site data is cleared."
         ]
       },
       {
@@ -226,11 +236,11 @@
       {
         "es": [
           "Servicios y enlaces externos",
-          "El formulario conecta con EmailJS cuando solicitas un envío. WhatsApp y las redes sociales se abren al seguir sus enlaces y aplican sus propias políticas. No se cargan sus widgets publicitarios en esta versión. Los datos técnicos que trate el alojamiento o un proveedor externo dependen también de sus condiciones y configuración. El sonido de marca se sirve desde este sitio; reproducirlo no conecta tu navegador con ElevenLabs."
+          "El formulario utiliza el servidor del sitio y el correo SMTP de IONOS cuando solicitas un envío. WhatsApp y las redes sociales se abren al seguir sus enlaces y aplican sus propias políticas. No se cargan sus widgets publicitarios en esta versión. Los datos técnicos que trate el alojamiento o un proveedor externo dependen también de sus condiciones y configuración. El sonido de marca se sirve desde este sitio; reproducirlo no conecta tu navegador con ElevenLabs."
         ],
         "en": [
           "External services and links",
-          "The form connects to EmailJS when you request submission. WhatsApp and social networks open when you follow their links and apply their own policies. Their advertising widgets are not loaded in this version. Technical information processed by hosting or an external provider also depends on its terms and configuration. The brand sound is served from this site; playing it does not connect your browser to ElevenLabs."
+          "The form uses this website server and IONOS SMTP when you submit a request. WhatsApp and social networks open when you follow their links and apply their own policies. Their advertising widgets are not loaded in this version. Technical information processed by hosting or an external provider also depends on its terms and configuration. The brand sound is served from this site; playing it does not connect your browser to ElevenLabs."
         ]
       },
       {

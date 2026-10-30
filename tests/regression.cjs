@@ -46,18 +46,18 @@ test('invalid terminal input cannot poison amounts and reset cancels a pending c
   assert.equal(vm.runInContext('rawCents', context), 0);
   assert.equal(vm.runInContext('terminalPending || busy', context), false);
 });
-test('EmailJS submission uses an explicit POST and rejects HTTP errors', async () => {
+test('IONOS contact submission uses an explicit POST and rejects HTTP errors', async () => {
   const { context } = environment();
   const data = new FormData();
   data.set('firstName', 'Prueba'); data.set('lastName', 'Código');
   data.set('email', 'test@example.invalid'); data.set('subject', 'general'); data.set('message', 'Prueba local sin envío real');
   let request;
-  context.fetch = async (url, options) => { request = { url, options }; return { ok: true }; };
+  context.fetch = async (url, options) => { request = { url, options }; return { ok: true, status: 202, json: async () => ({ok:true}) }; };
   await context.sendContactForm(data);
-  assert.equal(request.url, 'https://api.emailjs.com/api/v1.0/email/send');
+  assert.equal(request.url, '/mail/send.php');
   assert.equal(request.options.method, 'POST');
-  assert.equal(JSON.parse(request.options.body).template_params.Correo, 'test@example.invalid');
-  context.fetch = async () => ({ ok: false });
+  assert.equal(JSON.parse(request.options.body).email, 'test@example.invalid');
+  context.fetch = async () => ({ ok: false, status: 503, json: async () => ({ok:false}) });
   await assert.rejects(context.sendContactForm(data));
 });
 test('contact timeout aborts the request instead of leaving the UI waiting forever', async () => {
@@ -68,6 +68,16 @@ test('contact timeout aborts the request instead of leaving the UI waiting forev
   const timer = [...timers.values()].findLast(timer => timer.delay === 20000);
   timer.fn();
   await assertion;
+});
+
+test('contact rejects HTML errors, false success and rate limiting', async () => {
+  const { context } = environment();
+  context.fetch = async () => ({ok: true, status: 200, json: async () => { throw new SyntaxError('HTML response'); }});
+  await assert.rejects(context.sendContactForm(new FormData()));
+  context.fetch = async () => ({ok: true, status: 200, json: async () => ({ok: 'true'})});
+  await assert.rejects(context.sendContactForm(new FormData()));
+  context.fetch = async () => ({ok: false, status: 429, json: async () => ({ok: false})});
+  await assert.rejects(context.sendContactForm(new FormData()), {status:429});
 });
 test('double submit sends once and restores controls after success', async () => {
   const { context } = environment();
@@ -92,7 +102,7 @@ test('double submit sends once and restores controls after success', async () =>
   const first = listeners.submit(event);
   await listeners.submit(event);
   assert.equal(requests, 1); assert.equal(submit.disabled, true);
-  resolve({ ok: true }); await first;
+  resolve({ ok: true, status: 202, json: async () => ({ok:true}) }); await first;
   assert.equal(resets, 1); assert.equal(submit.disabled, false);
 });
 test('all linked local HTML resources exist; error and draft legal pages are noindex', () => {

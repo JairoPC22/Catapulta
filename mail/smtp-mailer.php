@@ -18,9 +18,14 @@ final class SmtpMailer
      */
     public function send(array $to, string $subject, string $htmlBody, string $fromEmail, ?string $replyTo = null): void
     {
+        foreach (array_merge($to, [$fromEmail], $replyTo ? [$replyTo] : []) as $address) {
+            if (!filter_var($address, FILTER_VALIDATE_EMAIL) || preg_match('/[\r\n]/', $address)) throw new InvalidArgumentException('Invalid mail address');
+        }
+        if (!$to) throw new InvalidArgumentException('Missing recipients');
         $host = (string) $this->config['smtp_host'];
         $port = (int) $this->config['smtp_port'];
         $secure = $this->config['smtp_secure'] ?? 'ssl';
+        if (!in_array($secure, ['ssl', 'tls'], true)) throw new InvalidArgumentException('TLS required');
         $user = (string) $this->config['smtp_user'];
         $pass = (string) $this->config['smtp_pass'];
         $fromName = (string) ($this->config['from_name'] ?? 'CatapultaPay');
@@ -71,7 +76,8 @@ final class SmtpMailer
             $this->raw($socket, $data);
             $this->expect($socket, [250]);
 
-            $this->command($socket, 'QUIT', [221]);
+            // DATA was accepted: a failed QUIT must not turn delivery into a retry.
+            try { $this->command($socket, 'QUIT', [221]); } catch (Throwable $e) { /* Already accepted. */ }
         } finally {
             fclose($socket);
         }
@@ -85,13 +91,18 @@ final class SmtpMailer
     private function dotStuff(string $body): string
     {
         $normalized = str_replace(["\r\n", "\r"], "\n", $body);
-        return preg_replace('/^\./m', '..', $normalized) ?? $normalized;
+        return str_replace("\n", "\r\n", preg_replace('/^\./m', '..', $normalized) ?? $normalized);
     }
 
     /** @param resource $socket */
     private function raw($socket, string $line): void
     {
-        fwrite($socket, $line . "\r\n");
+        $data = $line . "\r\n";
+        while ($data !== '') {
+            $written = fwrite($socket, $data);
+            if ($written === false || $written === 0) throw new RuntimeException('SMTP write failed');
+            $data = substr($data, $written);
+        }
     }
 
     /** @param resource $socket */
