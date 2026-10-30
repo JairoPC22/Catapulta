@@ -43,11 +43,17 @@ body { line-height: 1.8; }
    the viewport as their containing block, so they'd scroll away mid-transition. */
 #main { transition: opacity .26s var(--motion-ease), filter .26s var(--motion-ease); }
 html.lang-fade #main { opacity: .55; filter: blur(2px); will-change: opacity, filter; }
+/* Mismo efecto en las páginas legales (privacidad, términos, cookies), que no
+   tienen #main/#nav sino .legal-main/.legal-header. */
+.legal-header, .legal-main { transition: opacity .26s var(--motion-ease), filter .26s var(--motion-ease); }
+html.lang-fade .legal-header, html.lang-fade .legal-main { opacity: .55; filter: blur(2px); will-change: opacity, filter; }
 @media (prefers-reduced-motion: reduce) {
   #main { transition: none; }
   html.lang-fade #main { opacity: 1; filter: none; }
   #nav, .mobile-menu { transition: none; }
   html.lang-fade #nav, html.lang-fade .mobile-menu.open { opacity: 1; filter: none; }
+  .legal-header, .legal-main { transition: none; }
+  html.lang-fade .legal-header, html.lang-fade .legal-main { opacity: 1; filter: none; }
 }
 ::selection { background: var(--color-teal); color: var(--color-bg); }
 :focus-visible { outline: 2px solid var(--color-sky); outline-offset: 5px; }
