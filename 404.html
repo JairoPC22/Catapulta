@@ -9,9 +9,9 @@
   <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
   <link rel="preload" href="/assets/fonts/design/manrope.ttf" as="font" type="font/ttf" crossorigin />
   <link rel="stylesheet" href="/styles.css" />
-  <link rel="stylesheet" href="/design.css?v=53" />
-  <link rel="stylesheet" href="/page-state.css?v=53" />
-  <script src="/recovery.js?v=53" defer></script>
+  <link rel="stylesheet" href="/design.css?v=54" />
+  <link rel="stylesheet" href="/page-state.css?v=54" />
+  <script src="/recovery.js?v=54" defer></script>
 </head>
 <body class="recovery-page" data-error-kind="404">
   <header class="recovery-header">
@@ -20,10 +20,21 @@
   </header>
   <main class="recovery-main">
     <div class="recovery-art" aria-hidden="true">
-      <div class="recovery-ticket">
-        <div class="recovery-ticket-top"><span>CATAPULTAPAYMENT</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><rect x="3" y="5" width="18" height="14" rx="3"/><path d="M3 10h18M7 15h3"/></svg></div>
-        <span class="recovery-code">404</span>
-        <div class="recovery-ticket-bottom"><span class="recovery-ticket-label">ENLACE NO DISPONIBLE</span><span><span class="recovery-dot"></span>CP</span></div>
+      <div class="receipt-frame">
+        <div class="receipt-slot"></div>
+        <div class="receipt-paper">
+          <div class="receipt-brand-row"><span>CATAPULTAPAYMENT</span><span>TERMINAL&nbsp;#0001</span></div>
+          <div class="receipt-rule"></div>
+          <div class="receipt-row"><span>REF</span><span>0X-ERR-404</span></div>
+          <div class="receipt-row"><span class="receipt-label-path">RUTA</span><span class="receipt-path-value">/DESCONOCIDA</span></div>
+          <div class="receipt-row"><span class="receipt-label-status">ESTADO</span><span class="receipt-status-value">NO ENCONTRADA</span></div>
+          <div class="receipt-rule"></div>
+          <div class="receipt-total"><span class="receipt-label-code">CÓDIGO</span><span class="receipt-code">404</span></div>
+          <div class="receipt-stamp-row"><span class="receipt-stamp">ENLACE NO DISPONIBLE</span></div>
+          <div class="receipt-barcode"></div>
+          <span class="receipt-foot">GRACIAS POR SU VISITA</span>
+          <div class="receipt-tear"></div>
+        </div>
       </div>
     </div>
     <div class="recovery-copy">

@@ -47,14 +47,77 @@
 .recovery-logo { width: 112px; height: auto; }
 .recovery-header > span { font-size: .72rem; color: var(--color-muted); }
 .recovery-main { flex: 1; display: grid; grid-template-columns: 1fr 1fr; align-items: center; gap: 6rem; width: min(1060px, 88%); margin: 60px auto; }
-.recovery-art { position: relative; aspect-ratio: 1; display: grid; place-items: center; perspective: 1000px; }
-.recovery-art::before { content: ''; position: absolute; inset: 12%; border: 1px solid var(--color-border); border-radius: 50%; }
-.recovery-ticket { position: relative; width: 78%; padding: 34px 28px; border: 1px solid var(--color-border); border-radius: 16px; background: var(--color-surface); box-shadow: 0 30px 60px rgba(0,0,0,.2); transform: rotateY(-12deg) rotateZ(-6deg); animation: ticket-enter .85s cubic-bezier(.16,1,.3,1) backwards; }
-.recovery-ticket-top { display: flex; align-items: center; justify-content: space-between; padding-bottom: 18px; border-bottom: 1px dashed var(--color-borderW); color: var(--color-muted); font-size: .65rem; letter-spacing: .08em; }
-.recovery-ticket-top svg { width: 23px; height: 23px; color: var(--color-teal); }
-.recovery-code { display: block; font-size: clamp(5rem, 10vw, 8rem); font-weight: 650; letter-spacing: -.04em; line-height: 1.4; color: var(--color-white); text-align: center; }
-.recovery-ticket-bottom { border-top: 1px dashed var(--color-borderW); padding-top: 18px; display: flex; justify-content: space-between; color: var(--color-muted); font-size: .67rem; }
-.recovery-dot { display: inline-block; width: 6px; height: 6px; margin-right: 6px; border-radius: 50%; background: var(--color-sky); }
+.recovery-art { position: relative; display: grid; place-items: center; padding: 10px 0; }
+
+/* A printed POS receipt, not a generic tilted SaaS card: it ties the error
+   state to what this product actually prints. Paper stays cream/ink in both
+   themes (real thermal paper doesn't go dark-mode); the torn edge is a
+   gradient trick, not an image. */
+.receipt-frame { position: relative; width: min(290px, 84%); filter: drop-shadow(0 26px 46px rgba(0, 0, 0, .35)); }
+.receipt-slot { position: relative; z-index: 2; height: 9px; margin: 0 16px; border-radius: 3px 3px 0 0; background: linear-gradient(180deg, #050607, #1c1f24); box-shadow: inset 0 2px 3px rgba(0, 0, 0, .7); }
+.receipt-slot::after { content: ''; position: absolute; inset: 3px 18%; background: #000; border-radius: 2px; }
+.receipt-paper {
+  position: relative;
+  z-index: 1;
+  margin-top: -4px;
+  background: #F6F2E7;
+  color: #23262E;
+  padding: 34px 22px 0;
+  font-family: var(--font-mono);
+  transform: rotate(-2.2deg);
+  transform-origin: top center;
+  animation: receipt-print .9s cubic-bezier(.16, 1, .3, 1) backwards;
+}
+.receipt-paper::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: repeating-linear-gradient(180deg, rgba(20, 20, 10, .025) 0 1px, transparent 1px 3px);
+  pointer-events: none;
+}
+.receipt-stamp-row { display: flex; justify-content: flex-end; margin: -10px 2px 2px; position: relative; z-index: 2; }
+.receipt-stamp {
+  border: 2.5px solid #B4790F;
+  border-radius: 9px;
+  padding: 4px 10px;
+  color: #B4790F;
+  background: rgba(180, 121, 15, .08);
+  font-size: .58rem;
+  font-weight: 700;
+  letter-spacing: .09em;
+  transform: rotate(-6deg);
+  white-space: nowrap;
+}
+.receipt-brand-row { display: flex; justify-content: space-between; align-items: baseline; font-size: .6rem; font-weight: 700; letter-spacing: .1em; }
+.receipt-rule { margin: 13px 0; border-top: 1px dashed rgba(35, 38, 46, .32); }
+.receipt-row { display: flex; justify-content: space-between; gap: 10px; padding: 2px 0; font-size: .66rem; letter-spacing: .03em; color: #5B5F6A; }
+.receipt-row span:last-child { color: #23262E; font-weight: 600; text-align: right; overflow-wrap: anywhere; }
+.receipt-total { display: flex; justify-content: space-between; align-items: baseline; margin-top: 4px; }
+.receipt-total span:first-child { font-size: .66rem; font-weight: 700; letter-spacing: .09em; color: #5B5F6A; }
+.receipt-code { font-size: clamp(2.5rem, 6vw, 3.1rem); font-weight: 700; letter-spacing: -.02em; }
+.receipt-barcode {
+  height: 30px;
+  margin: 16px 0 8px;
+  opacity: .82;
+  background-image: repeating-linear-gradient(90deg,
+    #23262E 0 2px, transparent 2px 4px,
+    #23262E 4px 5px, transparent 5px 9px,
+    #23262E 9px 12px, transparent 12px 13px,
+    #23262E 13px 16px, transparent 16px 19px,
+    #23262E 19px 20px, transparent 20px 24px);
+}
+.receipt-foot { display: block; padding-bottom: 14px; text-align: center; font-size: .54rem; letter-spacing: .18em; color: #8E8F84; }
+.receipt-tear {
+  height: 9px;
+  margin: 0 16px;
+  background-image:
+    linear-gradient(-45deg, var(--color-bg) 9px, transparent 0),
+    linear-gradient(45deg, var(--color-bg) 9px, transparent 0);
+  background-size: 18px 18px;
+  background-position: left bottom;
+  background-repeat: repeat-x;
+  transform: translateY(1px);
+}
 .recovery-copy h1 { font-size: clamp(2rem, 3.6vw, 3.2rem); line-height: 1.17; letter-spacing: -.035em; font-weight: 550; color: var(--color-white); margin-bottom: 22px; text-wrap: balance; }
 .recovery-copy p { color: var(--color-muted); font-size: .95rem; max-width: 440px; margin-bottom: 30px; }
 .recovery-actions { display: flex; flex-wrap: wrap; align-items: center; gap: 14px; }
@@ -62,23 +125,25 @@
 .recovery-help:hover { text-decoration: underline; }
 .recovery-footer { border-top: 1px solid var(--color-borderW); width: min(1200px, 88%); margin: 0 auto; padding: 22px 0; display: flex; justify-content: space-between; gap: 20px; color: var(--color-muted); font-size: .7rem; }
 @keyframes brand-enter { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: none; } }
-@keyframes ticket-enter { from { opacity: 0; transform: translateY(30px) rotateY(-20deg) rotateZ(-10deg); } to { opacity: 1; transform: rotateY(-12deg) rotateZ(-6deg); } }
+@keyframes receipt-print { from { opacity: 0; transform: translateY(-58px) rotate(-2.2deg); } to { opacity: 1; transform: translateY(0) rotate(-2.2deg); } }
 @media(max-width: 768px) {
   .recovery-header { padding-block: 20px; }
-  .recovery-main { grid-template-columns: 1fr; gap: 22px; margin-block: 25px 45px; }
-  .recovery-art { width: min(300px, 86%); margin: auto; }
-  .recovery-ticket { padding: 20px; }
-  .recovery-code { font-size: 5rem; }
+  .recovery-main { grid-template-columns: 1fr; gap: 10px; margin-block: 15px 45px; }
+  .receipt-frame { width: min(260px, 78%); }
+  .receipt-code { font-size: 2.5rem; }
+  .receipt-stamp-row { margin-top: -8px; }
+  .receipt-stamp { font-size: .52rem; padding: 4px 8px; }
+  .receipt-brand-row { flex-direction: column; align-items: flex-start; gap: 2px; }
   .recovery-copy { text-align: center; }
   .recovery-copy p { margin-inline: auto; font-size: .87rem; }
   .recovery-actions { justify-content: center; }
   .recovery-actions .btn-primary { width: auto; }
-  .recovery-footer { font-size: .62rem; }
+  .recovery-footer { font-size: .72rem; }
 }
 @media(prefers-reduced-motion: reduce) {
   .site-loader { transition: none; }
   .site-loader.is-leaving { filter: none; }
-  .recovery-ticket { animation: none; }
+  .receipt-paper { animation: none; }
   .loader-content { transition: none; }
   .site-loader.is-leaving .loader-content { transform: none; opacity: 1; }
   .lg-arc { transition: none; stroke-dashoffset: 0 !important; }
