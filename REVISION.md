@@ -80,3 +80,34 @@ Se retiraron flechas Unicode de los botones porque algunos clientes las muestran
 ## Recuperacion de fallos temporales de correo
 Cola con metadatos independientes de intentos, proxima ejecucion y error por cada entrega. Migracion automatica y serializada de SQLite, conservando estados historicos. Hasta tres intentos totales solo en fallos seguros previos a DATA o rechazo temporal explicito 4xx. Esperas de 60 y 300 segundos. Sin reenvio del aviso administrativo ya aceptado; sin repeticion automatica en perdida de confirmacion DATA, errores permanentes o fallos historicos no clasificados. Diagnosticos CLI muestran contadores y fase/codigo sin datos del contacto.
 El SPF publico sigue autorizando unicamente a Google; el ajuste de autenticacion IONOS requiere acceso DNS y no puede publicarse mediante GitHub. No se afirmo entrega de la ultima solicitud ni se accedio a la cola remota durante este cambio.
+
+## Auditoria de velocidad (30 de octubre de 2026)
+
+Revisado antes de este cambio: el frontend ya cargaba de forma diferida el visor 3D (~935 KB tras `load`/idle), el video del hero (IntersectionObserver), usaba iconos propios de 15 KB en vez del paquete Lucide de 358 KB, fuente variable con `font-display: swap` y solo el `woff2` critico precargado. Eso no se toco porque ya estaba bien resuelto.
+
+- Agregado `.htaccess` (no existia): compresion de texto (`mod_deflate`/`mod_brotli`), cabeceras de cache para CSS/JS versionados (`?v=53`, un año) e imagenes/fuentes/video sin version (un mes), tipos de contenido con charset explicito, y `ErrorDocument 404 /404.html` para que el hosting conserve el estado 404 real (pendiente de SEO.md). Es aditivo: no fuerza HTTPS ni redirecciones de dominio, eso sigue en el panel de IONOS.
+- No se modificaron imagenes ni scripts: no hay en este entorno una herramienta de conversion de imagenes confiable (cwebp/ImageMagick/sharp) para tocar binarios sin riesgo de danar la transparencia o la calidad.
+
+### Pendiente de mayor impacto (requiere herramienta de imagen, no disponible aqui)
+
+- `assets/images/catalog/*.png`: 16 archivos PNG sin perdida a 700x700 o 300x300, 2.9 MB en total (hasta 280 KB cada uno). Convertir a WebP con transparencia conservando dimension y manteniendo el PNG como respaldo suele reducir 60-80% el peso sin perdida visible. Sugerido: `cwebp -q 90 archivo.png -o archivo.webp` y luego actualizar las referencias en `index.html`.
+- `imagecata.png`: 800x423 px y 145 KB, pero se muestra en pantalla a 98x52 (header, con `preload` de alta prioridad) y 64x34 (footer). Un recorte a ~200x106 (2x retina) bajaria ese archivo muy por debajo de 20 KB para el sitio. Mantener el original de 800x423 solo para el logo inline del correo (`mail/smtp-mailer.php` lo reutiliza), con un archivo aparte y mas liviano para `index.html`.
+- Confirmar al publicar que IONOS realmente aplica `.htaccess` (algunos paneles compartidos ya activan compresion/cache a nivel de servidor y la duplican o la ignoran sin avisar).
+
+## Diagnostico de entrega de correo (30 de octubre de 2026)
+
+Reporte real: el aviso interno llego a jairo.pena@catapultapay.com, pero la confirmacion al cliente (Gmail) no llego, y el mensaje recibido muestra avatar "?" con aviso de posible phishing. Confirmado por consulta DNS publica en vivo el mismo dia:
+
+- SPF: `v=spf1 include:_spf.google.com ~all` — no autoriza a IONOS, que es quien realmente envia (`smtp.ionos.mx`). Coincide con lo ya anotado en la seccion "Recuperacion de fallos temporales de correo".
+- DMARC: no existe registro `_dmarc.catapultapay.com`.
+- DKIM: no se encontro firma en los selectores `default`, `google`, `mail`, `ionos`.
+
+Diagnostico: sin SPF/DKIM validos para IONOS, Gmail no puede verificar al remitente — de ahi el avatar generico y la advertencia. El aviso interno probablemente llego por ser trafico dentro del mismo dominio/Workspace, mientras que el externo (cliente) cae a spam o se descarta. Esto es un cambio de DNS, no de codigo; no se modifico ningun registro desde aqui ni se tiene acceso a el. Pendiente que quien administra el DNS agregue `include:_spf-us.ionos.com` al SPF, active DKIM para notificaciones@catapultapay.com desde el panel de IONOS y, opcionalmente, publique un DMARC en modo monitoreo (`p=none`) antes de exigir cumplimiento.
+
+## Auditoria de responsividad / overflow horizontal (31 de octubre de 2026)
+
+Pedido: confirmar que el sitio no se mueve horizontalmente en celular ni en ningun otro tamano, y que todo quede bien posicionado. Metodo: en vez de confiar solo en capturas de pantalla, se midio `document.documentElement.scrollWidth` contra el ancho real del viewport en cada punto de scroll (cada 400-500px) de principio a fin de la pagina, en index.html y en catalogo.html, privacy.html, terms.html, cookies.html y 404.html.
+
+Anchos probados: 320, 330, 360, 375, 390, 414, 768, 1024, 1280 y 1920px, mas 667x375 en horizontal (landscape). Tambien se probo con el menu movil abierto, el idioma en ingles (textos mas largos), la galeria ampliada, el FAQ abierto, el selector personalizado abierto, y forzando a la vez las 4 animaciones de aparicion lateral (`.reveal-left`/`.reveal-right`, que desplazan el elemento 40px antes de aparecer) a su estado previo a la animacion, el peor caso posible.
+
+Resultado: cero overflow horizontal real en cualquiera de esos anchos o estados. El unico numero raro encontrado fue a exactamente 320px, donde la propia herramienta de navegador usada para probar reporta un piso minimo de ~330px (`window.innerWidth` no coincide con el ancho pedido); no es una condicion alcanzable por una persona real porque no existe control de usuario para fijar el viewport en un numero exacto de pixeles, y el telefono mas angosto vigente hoy (iPhone SE) ya mide 375px. No se modifico codigo porque no se encontro nada que corregir; se deja documentado el metodo de prueba por si se agregan secciones nuevas.

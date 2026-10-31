@@ -1,0 +1,56 @@
+# CatapultaPayment — configuración de hosting (Apache / IONOS)
+# Archivo aditivo: no fuerza HTTPS ni redirecciones www/dominio, eso se
+# gestiona en el panel de IONOS (ver SEO.md, sección "Al publicar").
+# Si un módulo no está disponible en el hosting, el bloque correspondiente
+# se ignora sin romper el resto (IfModule).
+
+# Página 404 real conservando el código de estado HTTP, en vez de redirigir
+# todo al inicio con 200 (pendiente documentado en SEO.md).
+ErrorDocument 404 /404.html
+
+# Tipos de contenido correctos con charset explícito para rastreadores.
+<IfModule mod_mime.c>
+  AddType "text/plain; charset=utf-8" .txt
+  AddType "application/xml; charset=utf-8" .xml
+  AddType "application/manifest+json; charset=utf-8" .webmanifest .json
+  AddType "font/woff2" .woff2
+  AddType "model/gltf-binary" .glb
+</IfModule>
+
+# Compresión de texto: reduce HTML/CSS/JS/SVG en tránsito sin tocar los
+# archivos en el repositorio.
+<IfModule mod_deflate.c>
+  AddOutputFilterByType DEFLATE text/html text/css text/plain text/xml
+  AddOutputFilterByType DEFLATE application/javascript text/javascript
+  AddOutputFilterByType DEFLATE application/json application/xml application/manifest+json application/ld+json
+  AddOutputFilterByType DEFLATE image/svg+xml
+</IfModule>
+<IfModule mod_brotli.c>
+  AddOutputFilterByType BROTLI_COMPRESS text/html text/css text/plain text/xml
+  AddOutputFilterByType BROTLI_COMPRESS application/javascript text/javascript
+  AddOutputFilterByType BROTLI_COMPRESS application/json application/xml application/manifest+json application/ld+json
+  AddOutputFilterByType BROTLI_COMPRESS image/svg+xml
+</IfModule>
+
+# Caché en el navegador. CSS/JS usan "?v=53" para forzar descarga al subir
+# una versión nueva, por lo que aceptan una caché larga. Imágenes, fuentes,
+# vídeo y el modelo 3D no están versionados, así que usan una caché moderada.
+<IfModule mod_expires.c>
+  ExpiresActive On
+  ExpiresDefault "access plus 1 week"
+  ExpiresByType text/html "access plus 0 seconds"
+  ExpiresByType application/xml "access plus 0 seconds"
+  ExpiresByType application/manifest+json "access plus 0 seconds"
+  ExpiresByType text/css "access plus 1 year"
+  ExpiresByType application/javascript "access plus 1 year"
+  ExpiresByType text/javascript "access plus 1 year"
+  ExpiresByType font/woff2 "access plus 1 year"
+  ExpiresByType image/png "access plus 1 month"
+  ExpiresByType image/webp "access plus 1 month"
+  ExpiresByType image/jpeg "access plus 1 month"
+  ExpiresByType image/svg+xml "access plus 1 month"
+  ExpiresByType image/x-icon "access plus 1 month"
+  ExpiresByType video/mp4 "access plus 1 month"
+  ExpiresByType application/pdf "access plus 1 month"
+  ExpiresByType model/gltf-binary "access plus 1 month"
+</IfModule>

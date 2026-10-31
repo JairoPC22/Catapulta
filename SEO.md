@@ -34,8 +34,8 @@ Auditoría técnica para maximizar la puntuación de SEO (Lighthouse) y la acces
 
 1. Subir los archivos al dominio real, incluyendo robots.txt, sitemap.xml y llms.txt en la raíz. La vista previa en localhost no es indexable desde internet.
 2. Confirmar HTTPS y que www/HTTP redirijan al dominio canónico con un único salto permanente (301 o 308). Esto se configura en el proveedor de hosting/DNS, no en el HTML.
-3. Configurar la página 404 del hosting para que sirva `404.html` conservando el estado HTTP 404. No redirigir todas las rutas desconocidas al inicio con estado 200. El servidor local `preview-server.cjs` ya sirve el estado correcto.
-4. Comprobar que el hosting sirva robots.txt y llms.txt como `text/plain; charset=utf-8` y sitemap.xml como `application/xml; charset=utf-8`. El servidor local incluye estos tipos.
+3. Subir también `.htaccess` (raíz del sitio). Configura `ErrorDocument 404 /404.html` para que el hosting sirva esa página conservando el estado HTTP 404 en vez de redirigir todas las rutas desconocidas al inicio con estado 200; el servidor local `preview-server.cjs` ya sirve el estado correcto. Confirmar tras publicar que IONOS respeta `.htaccess` (Apache) y no lo sobrescribe el panel.
+4. Comprobar que el hosting sirva robots.txt y llms.txt como `text/plain; charset=utf-8` y sitemap.xml como `application/xml; charset=utf-8`. El servidor local incluye estos tipos; `.htaccess` los declara también para producción.
 5. Confirmar que el firewall/CDN permita a los rastreadores verificados acceder al sitio; robots.txt por sí solo no elimina bloqueos del servidor. Verificar IPs oficiales antes de cambiar reglas.
 6. En Google Search Console, verificar la propiedad del dominio con el registro DNS que proporcione Google. No se incluye un token inventado. Enviar `https://catapultapay.com/sitemap.xml`, inspeccionar la URL principal y solicitar indexación.
 7. Registrar el sitio en Bing Webmaster Tools y enviar el mismo sitemap.
