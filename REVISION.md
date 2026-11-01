@@ -136,3 +136,17 @@ Pedido: mejorar el SEO "mucho mucho" y que la pagina sea rapida. El SEO tecnico 
 No se tocaron datos estructurados, meta tags ni el sitemap: ya estaban correctos y cambiar solo el peso de las imagenes no es una revision sustancial de contenido segun el criterio ya documentado en SEO.md para actualizar `lastmod`.
 
 Verificado en el navegador: las 17 imagenes del catalogo cargan sin error en las 5 pestanas de marca, el logo se ve nitido en escritorio y movil, sin errores de consola, `node --test tests/*.cjs` sigue en 19/19.
+
+## Animacion de titulos en movil (31 de octubre de 2026)
+
+Reporte real: al bajar en el celular, el texto aparece y luego "se vuelve a acomodar". Causa: `design.js` dividia el titulo de cada seccion en palabras y las animaba una por una (opacidad, blur, desenfoque) cada vez que esa seccion entraba en pantalla — el mismo efecto repetido en cada titulo de la pagina conforme se hace scroll, en vez de un solo momento de entrada. Se quito ese tratamiento de `.section-title`, `#termTitle` y `.form-card h3`; ahora solo el `<h1>` del hero (una vez, al cargar la pagina) tiene esa animacion. Los demas titulos se muestran de forma estatica.
+
+Durante la prueba se encontro ademas un riesgo real: las animaciones de entrada (titulo del hero, descripcion/botones del hero, tarjetas de testimonios, imagenes/calculadora/pasos al entrar en pantalla) usan `fill:'backwards'`/`'both'`, que deja el elemento invisible en su primer fotograma hasta que la animacion termina. Si la animacion se traba o nunca llega a completarse — se reproduzco en vivo durante esta prueba — ese contenido se queda invisible para siempre, sin ningun respaldo. Ninguno de esos elementos tiene una regla CSS que los oculte; la animacion es lo unico que los esconde. Se agrego un respaldo (`animateIn` en `design.js`): si la animacion no termina en un margen razonable, se cancela y el elemento vuelve a su estado visible por defecto. No cambia nada en el caso normal (la animacion ya termino antes de que el respaldo se dispare); solo evita que texto real quede escondido si algo falla.
+
+Verificado: `node --test tests/*.cjs` en 19/19, sin overflow horizontal, detector mecanico de la skill sin hallazgos en `design.js`.
+
+## Ideas pendientes de mayor impacto (no implementadas, para decidir)
+
+1. **URLs separadas ES/EN**: hoy comparten una sola URL con traduccion en JavaScript; Google no puede indexar ambos idiomas por separado. Requiere publicar rutas estables por idioma (cambio de arquitectura, no es un ajuste rapido).
+2. **SPF/DKIM de IONOS**: sigue pendiente desde el diagnostico de correo del 30 de octubre; necesita acceso al DNS, que no se administra desde aqui.
+3. **Casos de clientes reales con contexto** (equipo instalado, resultado autorizado por el cliente) en vez de cifras genericas — ya listado como pendiente de negocio en este mismo documento.

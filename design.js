@@ -1,5 +1,20 @@
 'use strict';
 
+// A Web Animation using fill:'backwards'/'both' locks its target at the
+// invisible first frame until the animation finishes. None of the elements
+// animated below have a CSS rule hiding them — the animation is the only
+// thing making them invisible — so if it ever stalls (a slow device, the
+// tab losing focus mid-animation, a browser quirk) cancelling it after a
+// safe margin reveals the element at its normal, already-visible default
+// instead of leaving real content hidden forever.
+function animateIn(el, keyframes, options) {
+  const animation = el.animate(keyframes, options);
+  const timer = setTimeout(() => animation.cancel(), (options.delay || 0) + options.duration + 1200);
+  const clear = () => clearTimeout(timer);
+  animation.finished.then(clear).catch(clear);
+  return animation;
+}
+
 // Bounded entrance sequences; no continuously running decorative canvas.
 document.addEventListener('DOMContentLoaded', () => {
   const reduced = window.matchMedia('(prefers-reduced-motion: reduce)');
@@ -25,7 +40,7 @@ document.addEventListener('DOMContentLoaded', () => {
       if (!entry.isIntersecting) return;
       observer.unobserve(entry.target);
       if (reduced.matches) return;
-      const animation = entry.target.animate([
+      const animation = animateIn(entry.target, [
         { clipPath: 'inset(0 0 10% 0)', opacity: .35, transform: 'translateY(18px)' },
         { clipPath: 'inset(0 0 0 0)', opacity: 1, transform: 'none' }
       ], { duration: 650, easing: 'cubic-bezier(.16,1,.3,1)' });
@@ -69,7 +84,7 @@ function initTitleMotion(reduced) {
     title.querySelectorAll('.title-word').forEach((word, i) => {
       // Gradient lettering must paint on each word after wrapping the text.
       if (word.closest('.grad-text')) word.classList.add('grad-text');
-      const animation = word.animate([
+      const animation = animateIn(word, [
         { opacity: 0, transform: 'translateY(22px)', filter: 'blur(5px)', clipPath: 'inset(0 0 100% 0)' },
         { opacity: 1, transform: 'none', filter: 'blur(0)', clipPath: 'inset(0 0 0 0)' }
       ], { duration: 750, delay: Math.min(i * 45, 450), easing: 'cubic-bezier(.16,1,.3,1)', fill: 'backwards' });
@@ -84,9 +99,13 @@ function initTitleMotion(reduced) {
       if (!reduced.matches) revealTitle(entry.target);
     });
   }, { threshold: .3 });
-  document.querySelectorAll('.hero-copy h1, .section-title, #termTitle, .form-card h3').forEach(title => observer.observe(title));
+  // Only the hero h1 gets the word-by-word entrance: it is the one
+  // first-impression moment on page load. Repeating it on every section
+  // title as the visitor scrolls read as text re-settling itself instead
+  // of a deliberate effect, so section headings render statically.
+  document.querySelectorAll('.hero-copy h1').forEach(title => observer.observe(title));
   document.querySelectorAll('.hero-desc, .hero-actions, .trust-bar').forEach((el, i) => {
-    const animation = el.animate([{ opacity: 0, transform: 'translateY(12px)' }, { opacity: 1, transform: 'none' }],
+    const animation = animateIn(el, [{ opacity: 0, transform: 'translateY(12px)' }, { opacity: 1, transform: 'none' }],
       { duration: 600, delay: 200 + i * 110, easing: 'cubic-bezier(.16,1,.3,1)', fill: 'backwards' });
     running.add(animation);
     animation.finished.then(() => running.delete(animation)).catch(() => running.delete(animation));
@@ -326,7 +345,7 @@ function initTestimonialReveal(reduced) {
       if (!entry.isIntersecting) return;
       observer.unobserve(entry.target);
       const index = cards.indexOf(entry.target);
-      entry.target.animate([
+      animateIn(entry.target, [
         { opacity: 0, transform: 'translateY(26px) scale(.97)' },
         { opacity: 1, transform: 'none' }
       ], { duration: 600, delay: index * 90, easing: 'cubic-bezier(.16,1,.3,1)', fill: 'both' });
