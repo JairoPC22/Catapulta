@@ -1,22 +1,28 @@
 'use strict';
 
-// A Web Animation using fill:'backwards'/'both' locks its target at the
-// invisible first frame until the animation finishes. If it ever stalls (a
-// slow device, the tab losing focus mid-animation, a browser quirk),
-// cancelling it after a safe margin and writing the last keyframe's values
-// as inline styles guarantees the element ends up visible — covers both
-// elements with no CSS hiding them (cancel alone is enough) and the hero
-// title words below, which start with an inline opacity:0 of their own.
+// fill:'backwards' only holds the first keyframe's styles during the delay
+// before an animation starts; it does NOT hold the last keyframe's styles
+// after the animation ends. The moment a finished animation's effect is
+// removed, the element falls back to its underlying style — which for the
+// hero title words is an inline opacity:0 set before the animation ever
+// ran (see structureHeroTitle below). Without writing the final values
+// ourselves, every word would animate in and then, once its own animation
+// actually finished (not stalled — the normal case), vanish again a
+// second or two after load. Settling on both the normal finish and the
+// stall-timeout safety net, not just the timeout, fixes that.
 function animateIn(el, keyframes, options) {
   const animation = el.animate(keyframes, options);
+  let settled = false;
   const settle = () => {
+    if (settled) return;
+    settled = true;
+    clearTimeout(timer);
     animation.cancel();
     const last = keyframes[keyframes.length - 1];
     for (const prop in last) el.style[prop] = last[prop] === 'none' ? '' : last[prop];
   };
   const timer = setTimeout(settle, (options.delay || 0) + options.duration + 1200);
-  const clear = () => clearTimeout(timer);
-  animation.finished.then(clear).catch(clear);
+  animation.finished.then(settle).catch(settle);
   return animation;
 }
 
