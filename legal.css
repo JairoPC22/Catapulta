@@ -23,7 +23,6 @@
   border-radius: var(--radius-md); padding: 18px 22px; font-size: .84rem;
   line-height: 1.65; margin-bottom: 40px; color: var(--color-text);
 }
-.legal-review-icon { width: 20px; height: 20px; flex-shrink: 0; margin-top: 1px; color: var(--color-gold); }
 
 .legal-main h1 { font-size: clamp(2.2rem, 5vw, 3.25rem); letter-spacing: -.035em; line-height: 1.12; font-weight: 550; color: var(--color-white); }
 .legal-intro { color: var(--color-muted); margin: 18px 0 48px; font-size: 1.05rem; max-width: 46ch; }

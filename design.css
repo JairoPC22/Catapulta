@@ -96,7 +96,6 @@ html.lang-fade .mobile-menu.open { opacity: .55; filter: blur(2px); }
   border: 1px solid var(--color-border); border-radius: 50%; transform: rotate(-28deg);
   pointer-events: none; opacity: .6;
 }
-#particleCanvas, .orb { display: none; }
 .hero-grid { max-width: 1160px; grid-template-columns: 1.1fr 1fr; gap: 5rem; }
 .hero-copy h1 {
   font-size: clamp(2.6rem, 4.5vw, 4.2rem);
@@ -123,10 +122,6 @@ html.lang-fade .mobile-menu.open { opacity: .55; filter: blur(2px); }
    gris) mientras baja el modelo; la ocultamos porque el bundle ya se
    carga de forma diferida y esa barra no aporta, solo distrae. */
 .hero-model::part(default-progress-bar) { display: none; }
-.float-badge { border-radius: 9px; font-size: .7rem; animation: none; }
-.float-badge strong { font-family: var(--font-mono); font-weight: 600; letter-spacing: -.01em; }
-.badge-approved { top: -22px; right: -12px; }
-.badge-pci { bottom: -22px; left: 18px; }
 #about, #solutions, #catalogo, #gallery, #testimonials, #how-it-works, #faq, #contact, #calculator { padding-top: 96px; padding-bottom: 96px; }
 .about-grid { gap: 5rem; }
 .about-video-scanline { display: none; }
@@ -137,20 +132,18 @@ html.lang-fade .mobile-menu.open { opacity: .55; filter: blur(2px); }
 .feature-icon { background: none; border: 0; padding: 0; width: 28px; height: 28px; }
 .feature-card h3 { font-size: .87rem; }
 .feature-card p { font-size: .8rem; }
-.stat-number, .stat-num { font-family: var(--font-mono); font-weight: 500; letter-spacing: -.02em; }
+.stat-num { font-family: var(--font-mono); font-weight: 500; letter-spacing: -.02em; }
 .stat-label { font-size: .75rem; }
 .sol-card { border-radius: 0; border: 0; border-top: 1px solid var(--color-borderW); background: none; box-shadow: none; padding: 30px 12px 30px 0; }
 .sol-card:hover { box-shadow: none; background: none; }
 .sol-icon { background: none; border: 0; }
 .sol-card--cta { background: var(--color-surface); padding-left: 24px; border-radius: 12px; }
-.tab-btn, .catalog-tab { border-radius: 8px; }
 .catalog-card { border-radius: 14px; box-shadow: none; }
 .catalog-card:hover { box-shadow: 0 15px 24px rgba(0,0,0,.15); }
 .catalog-img-wrap { height: 280px; padding: 28px; border-bottom: 1px solid var(--color-borderW); }
 .catalog-img-wrap::after, .catalog-card--highlight::before { display: none; }
 .catalog-img-wrap img { max-height: 224px; max-width: 90%; transition: transform .55s var(--motion-ease); }
 .catalog-card-body { padding: 26px; gap: 14px; }
-.catalog-card-body .catalog-icon { display: none; }
 .catalog-card h3 { font-size: 1.3rem; font-weight: 600; letter-spacing: -.035em; }
 .catalog-specs { font-size: .83rem; line-height: 1.8; }
 .catalog-badge { position: absolute; top: 16px; left: 16px; z-index: 2; background: var(--color-bg); padding: 7px 11px; font-size: .6rem; letter-spacing: .08em; }
@@ -179,7 +172,6 @@ html.lang-fade .mobile-menu.open { opacity: .55; filter: blur(2px); }
   .whatsapp-float { bottom: 82px; }
   .scroll-top-btn { bottom: 18px; }
 }
-.catalog-name { font-weight: 650; letter-spacing: -.02em; }
 .testi-card { position: relative; transition: transform .3s var(--motion-ease), border-color .3s var(--motion-ease), box-shadow .3s var(--motion-ease); }
 .testi-card:hover { transform: translateY(-4px); }
 .testi-quote::before {
@@ -343,8 +335,6 @@ body.photo-viewer-open { overflow: hidden; }
   .trust-bar { justify-content: flex-start; }
   .hero-card-wrap { max-width: 500px; width: 100%; margin-inline: auto; padding: 20px 10px; }
   .hero-model { height: 300px; }
-  .badge-approved { right: -8px; font-size: .62rem; }
-  .badge-pci { left: 10px; font-size: .62rem; }
   #about, #solutions, #catalogo, #gallery, #testimonials, #how-it-works, #faq, #contact, #calculator { padding-top: 64px; padding-bottom: 64px; }
   .section-title { font-size: 2rem; }
   .about-grid { gap: 2.5rem; }

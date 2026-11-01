@@ -13,7 +13,7 @@ const TRANSLATIONS = {
     // NAV
     'nav.home': 'Inicio', 'nav.about': 'Nosotros', 'nav.solutions': 'Soluciones',
     'nav.catalog': 'Catálogo', 'nav.clients': 'Clientes', 'nav.contact': 'Contacto',
-    'nav.cta': 'Empieza ya',
+    'nav.cta': 'Empieza ya', 'nav.prefs.label': 'Preferencias',
     'nav.aria': 'Navegación principal', 'nav.menu.aria': 'Abrir menú de navegación',
     'footer.legal.aria': 'Información legal',
     // HERO
@@ -269,7 +269,7 @@ const TRANSLATIONS = {
     // NAV
     'nav.home': 'Home', 'nav.about': 'About', 'nav.solutions': 'Solutions',
     'nav.catalog': 'Catalog', 'nav.clients': 'Clients', 'nav.contact': 'Contact',
-    'nav.cta': 'Get Started',
+    'nav.cta': 'Get Started', 'nav.prefs.label': 'Preferences',
     'nav.aria': 'Main navigation', 'nav.menu.aria': 'Open navigation menu',
     'footer.legal.aria': 'Legal information',
     // HERO
@@ -717,10 +717,12 @@ const I18N = {
     navLinks.forEach((el, i)    => { if (keys[i]) el.textContent = t[keys[i]]; });
     mobileLinks.forEach((el, i) => {
       if (!keys[i]) return;
-      const span = el.querySelector('span');
+      const span = el.querySelector('.mobile-link-label');
       if (span) span.textContent = t[keys[i]]; else el.textContent = t[keys[i]];
     });
     this._qa('.ncta, .mobile-cta').forEach(el => this._setBtn(el, 'nav.cta', t));
+    const prefsLabel = this._q('.mobile-menu-section-label');
+    if (prefsLabel && t['nav.prefs.label']) prefsLabel.textContent = t['nav.prefs.label'];
     this._setAria('#nav', 'nav.aria', t);
     this._setAria('#navHamburger', 'nav.menu.aria', t);
   },
