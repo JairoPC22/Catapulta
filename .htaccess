@@ -54,3 +54,18 @@ ErrorDocument 404 /404.html
   ExpiresByType application/pdf "access plus 1 month"
   ExpiresByType model/gltf-binary "access plus 1 month"
 </IfModule>
+
+# sw.js matches "application/javascript" above and would otherwise be cached
+# for a year like any other script. A Service Worker file must never be
+# cached long: browsers rely on fetching it fresh (or at least revalidating)
+# to detect updates at all. A stale cached sw.js means visitors who already
+# installed an old version may never see a newer one, no matter how often
+# the site itself is redeployed or how often they clear their own cache —
+# the browser's own HTTP cache for this one file was the thing standing in
+# the way. No-cache forces a revalidation (cheap: a 304 when unchanged) on
+# every request instead of trusting a year-old copy.
+<IfModule mod_headers.c>
+  <Files "sw.js">
+    Header set Cache-Control "no-cache"
+  </Files>
+</IfModule>
