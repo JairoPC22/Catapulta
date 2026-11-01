@@ -165,3 +165,19 @@ Tambien reportado: la pagina se siente lenta al entrar. Causa encontrada: `loadi
 Se subio la version de cache a v56 para que este cambio tambien llegue a quien ya tenga el sitio instalado — la leccion del punto 1 de arriba, aplicada esta vez desde el principio.
 
 Verificado: `node --test tests/*.cjs` en 19/19 (incluyendo las 8 de `loading.cjs` ya actualizadas), confirmado en vivo que `sw.js` responde con `Cache-Control: no-cache`.
+
+## Pagina /en real para Google, sin cambiar el boton de idioma (1 de noviembre de 2026)
+
+Pedido: que Google pueda indexar el ingles por separado, pero sin que el boton ES/EN deje de ser instantaneo como ya estaba. Se confirmo el alcance con el responsable del negocio antes de construirlo: version hibrida.
+
+Se genero `/en/index.html` traduciendo el `index.html` original con un script que reutiliza las 271 traducciones ya aprobadas en `i18n.js` (mismas frases que ya se usan al cambiar de idioma en vivo, no una traduccion nueva). El proceso fue mecanico pero verificado a mano: substitucion por diccionario con limite de longitud para evitar colisiones (una palabra corta de un contexto reemplazando esa misma palabra en otro), revision linea por linea de cualquier texto con acentos que quedara sin traducir, y correccion manual de los ~10 textos que el diccionario no cubre (el parrafo de consentimiento del formulario, el pie de pagina, dos respuestas del FAQ en el dato estructurado, una etiqueta suelta del simulador). Los nombres reales de negocios clientes (Dulceria Don Chamoy, Bandeño Mexican Food) se dejaron intactos a proposito: no se traducen nombres propios.
+
+Rutas de activos convertidas de relativas a absolutas (necesario porque `/en/` esta un nivel mas profundo que `/`). Datos estructurados (`WebPage`, `FAQPage`) con su propio `@id`/`url`/`inLanguage` en ingles. Agregado `hreflang` reciproco en ambas paginas (`es`, `en`, `x-default`), `og:locale`/`og:locale:alternate`, y las dos URLs en `sitemap.xml` con sus `xhtml:link` de idioma.
+
+El boton ES/EN sigue siendo el mismo cambio instantaneo de siempre (sin recargar la pagina): `i18n.js` ahora ademas sincroniza la URL con `history.replaceState` cuando el cambio ocurre en `/` o `/en` (nunca en otras paginas), y al cargar la pagina el idioma inicial lo decide la URL (`/en` entra en ingles aunque el navegador tuviera guardado espanol) en vez de solo la preferencia guardada. Verificado en el navegador: clic en ES estando en `/en` cambia el texto y la URL a `/` sin ninguna recarga, y viceversa.
+
+`preview-server.cjs` (solo para pruebas locales, no se sube al sitio) se actualizo para servir `index.html` de un directorio cuando la ruta no tiene extension, igual que hace Apache por defecto con `/en/index.html` en IONOS.
+
+Version de cache subida a v57 (de nuevo, para que el cambio de `i18n.js` llegue a quien ya visito el sitio). Verificado: `node --test tests/*.cjs` en 19/19, sin overflow horizontal en `/en` a 375px, sin imagenes rotas, modo oscuro funcionando, sin texto en espanol restante salvo nombres propios de negocios.
+
+Pendiente, no hecho en este cambio: las demas paginas (catalogo, privacidad, terminos, cookies) siguen sin version en ingles; privacidad/terminos/cookies ya estan en `noindex` por la revision legal pendiente, asi que no es prioridad para SEO todavia.

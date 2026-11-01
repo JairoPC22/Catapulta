@@ -662,6 +662,16 @@ const I18N = {
     CP.syncThemeLabels();
     CP.storage.set('cpay-lang', lang);
 
+    // Mantiene la URL en sync con el idioma (/ para ES, /en para EN) sin
+    // recargar la página: Google puede indexar /en con su propio contenido,
+    // y el botón de idioma sigue siendo instantáneo para quien ya está aquí.
+    if (location.pathname === '/' || location.pathname === '/en' || location.pathname === '/en/') {
+      const target = lang === 'en' ? '/en' : '/';
+      if (location.pathname !== target) {
+        history.replaceState(history.state, '', target + location.search + location.hash);
+      }
+    }
+
     // Título de página
     if (t['page.title']) document.title = t['page.title'];
     ['meta[property="og:title"]', 'meta[name="twitter:title"]'].forEach(selector => {
@@ -1130,7 +1140,12 @@ const I18N = {
   },
 
   init() {
-    const saved = CP.storage.get('cpay-lang', 'es');
+    // A direct visit to /en (a shared link, a search result) shows English
+    // even if this browser's saved preference says otherwise — the URL the
+    // visitor actually landed on wins. Toggling afterward still updates
+    // both the saved preference and the URL, same as before.
+    const fromPath = /^\/en\/?$/.test(location.pathname) ? 'en' : null;
+    const saved = fromPath || CP.storage.get('cpay-lang', 'es');
     this.apply(saved === 'en' ? 'en' : 'es');
     this._bindLangButtons();
   }

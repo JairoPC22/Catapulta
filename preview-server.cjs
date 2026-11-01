@@ -19,11 +19,21 @@ http.createServer((req, res) => {
   if (pathname.includes('\0')) { res.writeHead(400); return res.end('Solicitud inválida'); }
   // Static preview must never serve PHP source or SMTP credentials.
   if (/^\/mail(?:\/|$)/i.test(pathname) || /\.php$/i.test(pathname)) return errorPage(res, 404);
-  const file = path.resolve(root, '.' + (pathname === '/' ? '/index.html' : pathname));
+  let file = path.resolve(root, '.' + (pathname === '/' ? '/index.html' : pathname));
   if (!file.startsWith(root + path.sep) || path.relative(root, file).split(path.sep).some(part => part.startsWith('.'))) {
     return errorPage(res, 404);
   }
   fs.stat(file, (error, stat) => {
+    // Mirrors Apache's DirectoryIndex: a directory request (e.g. /en, no
+    // file extension) serves that directory's index.html, same as IONOS
+    // will for the real /en/index.html once deployed.
+    if (!error && stat.isDirectory()) {
+      file = path.join(file, 'index.html');
+      return fs.stat(file, (error2, stat2) => respond(error2, stat2));
+    }
+    respond(error, stat);
+  });
+  function respond(error, stat) {
     if (error || !stat.isFile()) return errorPage(res, error && !['ENOENT', 'ENOTDIR'].includes(error.code) ? 500 : 404);
     const headers = { 'Content-Type': types[path.extname(file)] || 'application/octet-stream', 'Accept-Ranges': 'bytes', 'Cache-Control': 'no-cache' };
     let start = 0;
@@ -44,5 +54,5 @@ http.createServer((req, res) => {
     const stream = fs.createReadStream(file, { start, end });
     stream.on('error', () => res.destroy());
     stream.pipe(res);
-  });
+  }
 }).listen(4173, '127.0.0.1', () => console.log('CatapultaPayment: http://127.0.0.1:4173'));
