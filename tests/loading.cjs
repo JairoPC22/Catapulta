@@ -44,24 +44,24 @@ function setup({ preference = null, rejection, storageBlocked = false } = {}) {
 const settle = async () => { await Promise.resolve(); await Promise.resolve(); await Promise.resolve(); };
 test('logo dismisses even if autoplay is blocked', async () => {
   const state = setup({ rejection: 'NotAllowedError' });
-  state.runTimer(3500); await settle(); state.runTimer(600);
+  state.runTimer(2600); await settle(); state.runTimer(600);
   assert.equal(state.loader.hidden, true); assert.equal(state.html.dataset.pageReady, 'true');
   assert.equal(state.counts().plays, 1); assert.equal(state.audio.dataset.playback, 'blocked');
 });
 test('autoplay attempt plays once on the normal timeline', async () => {
   const state = setup();
-  state.runTimer(3500); await settle(); state.runTimer(600);
+  state.runTimer(2600); await settle(); state.runTimer(600);
   assert.equal(state.counts().plays, 1);
   assert.equal(state.loader.hidden, true); assert.equal(state.audio.volume, .28); assert.equal(state.audio.loop, false);
 });
 test('old mute preference does not prevent requested startup sound', () => {
-  const state = setup({ preference: 'off' }); state.runTimer(3500); state.runTimer(600);
+  const state = setup({ preference: 'off' }); state.runTimer(2600); state.runTimer(600);
   assert.equal(state.counts().loads, 1); assert.equal(state.counts().plays, 1);
   assert.equal(state.loader.hidden, true);
 });
 test('missing audio and unavailable storage cannot block page entry', async () => {
   const state = setup({ rejection: 'NotSupportedError', storageBlocked: true });
-  state.runTimer(3500); await settle(); state.runTimer(600);
+  state.runTimer(2600); await settle(); state.runTimer(600);
   assert.equal(state.loader.hidden, true); assert.equal(state.html.dataset.pageReady, 'true');
   assert.equal(state.audio.dataset.playback, 'unavailable');
 });
@@ -70,7 +70,7 @@ test('Escape dismisses the loader immediately without sound', () => {
   assert.equal(state.counts().plays, 0); assert.equal(state.loader.hidden, true);
 });
 test('hiding the tab stops the ident and does not resume it automatically', async () => {
-  const state = setup(); state.runTimer(3500); await settle();
+  const state = setup(); state.runTimer(2600); await settle();
   state.document.hidden = true; state.documentEvents.visibilitychange();
   const plays = state.counts().plays; assert.ok(state.counts().pauses > 0);
   state.document.hidden = false; state.documentEvents.visibilitychange(); assert.equal(state.counts().plays, plays);
@@ -78,7 +78,7 @@ test('hiding the tab stops the ident and does not resume it automatically', asyn
 
 test('blocked startup retries once on an early trusted interaction', async () => {
   const state = setup({ rejection: 'NotAllowedError' });
-  state.runTimer(3500); await settle();
+  state.runTimer(2600); await settle();
   state.documentEvents.pointerdown({ isTrusted: false });
   assert.equal(state.counts().plays, 1);
   state.documentEvents.pointerdown({ isTrusted: true }); await settle();
@@ -88,7 +88,7 @@ test('blocked startup retries once on an early trusted interaction', async () =>
 
 test('late interactions cannot trigger delayed startup audio', async () => {
   const state = setup({ rejection: 'NotAllowedError' });
-  state.runTimer(3500); await settle(); state.setTime(11000);
+  state.runTimer(2600); await settle(); state.setTime(11000);
   state.documentEvents.pointerdown({ isTrusted: true });
   assert.equal(state.counts().plays, 1);
 });

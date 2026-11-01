@@ -104,10 +104,12 @@
       if (dismissed) document.querySelector('#hero .btn-primary')?.focus({ preventScroll: true });
     }, reduced.matches ? 0 : 600);
   };
-  // Shows the brand loader for a fixed ~2s on every load (skippable with
+  // Shows the brand loader for a fixed ~1.1s on every load (skippable with
   // Escape): long enough for the icon-draw + brand-reveal sequence in
-  // page-state.css to finish (~1.9s) before the page is revealed.
-  const MIN_DISPLAY_MS = 2000;
+  // page-state.css to finish (~1.05s) before the page is revealed. This used
+  // to force a 2s wait regardless of how fast the page actually loaded,
+  // which read as the site being slow to enter even when it was not.
+  const MIN_DISPLAY_MS = 1100;
   loader.hidden = false;
   document.documentElement.classList.add('is-loading');
   document.addEventListener('keydown', guardKeyboard, true);

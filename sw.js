@@ -1,12 +1,12 @@
 'use strict';
-const CACHE_NAME = 'catapultapay-v55.0';
+const CACHE_NAME = 'catapultapay-v56.0';
 const CACHE_PREFIX = 'catapultapay-';
 const PRECACHE_ASSETS = [
-  '/', '/index.html', '/styles.css?v=55', '/design.css?v=55', '/design.js?v=55',
-  '/runtime.js?v=55', '/script.js?v=55', '/i18n.js?v=55', '/assets/js/icons.js?v=55',
-  '/page-state.css?v=55', '/loading.js?v=55', '/recovery.js?v=55',
+  '/', '/index.html', '/styles.css?v=56', '/design.css?v=56', '/design.js?v=56',
+  '/runtime.js?v=56', '/script.js?v=56', '/i18n.js?v=56', '/assets/js/icons.js?v=56',
+  '/page-state.css?v=56', '/loading.js?v=56', '/recovery.js?v=56',
   '/404.html', '/error.html', '/offline.html', '/assets/fonts/design/manrope.woff2',
-  '/assets/css/terminal-icons.css?v=55',
+  '/assets/css/terminal-icons.css?v=56',
   '/assets/audio/catapultapayment-signature.mp3', '/assets/icons/logo-site.webp', '/favicon.svg', '/favicon.ico', '/manifest.json',
   '/assets/icons/icon-192.png', '/assets/icons/icon-512.png'
 ];

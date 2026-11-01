@@ -150,3 +150,18 @@ Verificado: `node --test tests/*.cjs` en 19/19, sin overflow horizontal, detecto
 1. **URLs separadas ES/EN**: hoy comparten una sola URL con traduccion en JavaScript; Google no puede indexar ambos idiomas por separado. Requiere publicar rutas estables por idioma (cambio de arquitectura, no es un ajuste rapido).
 2. **SPF/DKIM de IONOS**: sigue pendiente desde el diagnostico de correo del 30 de octubre; necesita acceso al DNS, que no se administra desde aqui.
 3. **Casos de clientes reales con contexto** (equipo instalado, resultado autorizado por el cliente) en vez de cifras genericas — ya listado como pendiente de negocio en este mismo documento.
+
+## Cifra de negocios y dos bugs reales de cache (1 de noviembre de 2026)
+
+Cambio de contenido: "400+" paso a "100+" en el contador animado, el texto de confianza del hero y el badge de la seccion Nosotros (espanol e ingles) — los clientes son reales, solo se corrigio la cifra.
+
+Reporte real: despues de subir el arreglo de la animacion de titulos, el usuario seguia viendo el problema en su telefono **incluso despues de recargar y borrar cache**. Se encontraron dos bugs reales de cache, no uno:
+
+1. **La version de cache no se subio con el primer arreglo.** El contenido de `design.js` cambio pero su URL siguio siendo `?v=54` (sin version nueva), y `sw.js` usa `stale-while-revalidate` para los `.js`: sirve lo que ya tiene guardado antes de revisar la red. Quien ya habia visitado el sitio se quedo con el `design.js` viejo indefinidamente. Se subio a v55 para forzar la descarga.
+2. **El propio `.htaccess` cacheaba `sw.js` por un año.** La regla `ExpiresByType application/javascript "access plus 1 año"` (pensada para `script.js`/`design.js`, que cambian de URL con `?v=NN`) tambien aplicaba a `sw.js`, que es quien decide cuando hay una version nueva. Un Service Worker cacheado asi no vuelve a revisarse: ningun numero de recargas o "borrar cache" desde el telefono lo soluciona, porque el bloqueo estaba en como el navegador cacheaba ese archivo especifico. Se agrego `Header set Cache-Control "no-cache"` solo para `sw.js`.
+
+Tambien reportado: la pagina se siente lenta al entrar. Causa encontrada: `loading.js` mostraba la pantalla de marca (logo dibujandose + nombre + frase) un **minimo fijo de 2 segundos en cada carga**, sin importar que tan rapido estuviera lista la pagina de verdad — con las optimizaciones de imagenes ya hechas, ese tiempo fijo era la parte mas lenta de la experiencia, no la carga real. Se redujo la animacion completa (trazo del icono, punto, nombre, frase) y el minimo fijo a la mitad, de ~1.9s a ~1.05s, sin cortar ninguna etapa de la secuencia a medio camino. `tests/loading.cjs` tenia el valor viejo (2000+1500=3500ms) escrito a mano en 7 pruebas; se actualizo a 1100+1500=2600ms.
+
+Se subio la version de cache a v56 para que este cambio tambien llegue a quien ya tenga el sitio instalado — la leccion del punto 1 de arriba, aplicada esta vez desde el principio.
+
+Verificado: `node --test tests/*.cjs` en 19/19 (incluyendo las 8 de `loading.cjs` ya actualizadas), confirmado en vivo que `sw.js` responde con `Cache-Control: no-cache`.
