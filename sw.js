@@ -7,7 +7,7 @@ const PRECACHE_ASSETS = [
   '/page-state.css?v=54', '/loading.js?v=54', '/recovery.js?v=54',
   '/404.html', '/error.html', '/offline.html', '/assets/fonts/design/manrope.woff2',
   '/assets/css/terminal-icons.css?v=54',
-  '/assets/audio/catapultapayment-signature.mp3', '/imagecata.png', '/favicon.svg', '/favicon.ico', '/manifest.json',
+  '/assets/audio/catapultapayment-signature.mp3', '/assets/icons/logo-site.webp', '/favicon.svg', '/favicon.ico', '/manifest.json',
   '/assets/icons/icon-192.png', '/assets/icons/icon-512.png'
 ];
 const ESSENTIAL = new Set(PRECACHE_ASSETS.map(path => new URL(path, self.location.origin).href));

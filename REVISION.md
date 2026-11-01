@@ -123,3 +123,16 @@ Este componente es compartido por 404.html, error.html (500) y offline.html (mis
 Verificado en el navegador: escritorio y movil (375/390px), modo oscuro y claro, español e ingles, sin overflow horizontal (`scrollWidth` igual al viewport en los tres anchos probados). El detector mecanico de la skill (`impeccable detect`) no encontro ningun patron generico en el componente nuevo; si senalo un texto de pie de pagina a 9.92px en movil (`.recovery-footer`, ya existia antes de este cambio) que se corrigio a 11.52px de paso.
 
 Version de cache subida de v53 a v54 en todos los archivos (`sw.js` y cada `?v=53` del sitio): sin este paso, quien ya tuviera el Service Worker instalado seguiria viendo la pagina 404 vieja indefinidamente, porque `sw.js` precachea `404.html`/`error.html`/`offline.html` por su URL exacta y el archivo del Service Worker no habia cambiado de bytes.
+
+## Optimizacion de imagenes y SEO (31 de octubre de 2026)
+
+Pedido: mejorar el SEO "mucho mucho" y que la pagina sea rapida. El SEO tecnico (meta tags, datos estructurados, sitemap, robots.txt) ya estaba cubierto a fondo en la revision del 28 de octubre; lo que realmente movia la aguja de velocidad —y por tanto de Core Web Vitals, que Google usa como senal de ranking— eran las imagenes, asi que se atacaron directamente con `ffmpeg` (disponible en este equipo, con soporte libwebp):
+
+- Las 17 fotos de equipos del catalogo (`assets/images/catalog/*.png`) eran PNG sin perdida de 700x700/300x300, 2.64 MB en total. Convertidas a WebP con transparencia intacta (`pix_fmt=yuva420p` verificado) y la misma resolucion: **2.64 MB -> 359 KB (-86%)**. Los PNG originales se conservan en el repositorio como maestros (no se referencian en el HTML; podrian hacer falta para regenerar el PDF del catalogo), asi que no viajan al visitante pero siguen disponibles.
+- El logo (`imagecata.png`, 800x423, 145 KB) se mostraba a 98x52 en el header y 64x34 en el footer de las 8 paginas que lo usan. Se genero `assets/icons/logo-site.webp` a 240x127 (cubre pantallas retina en ambos usos) y reemplazo esa referencia en las 8 paginas, en el `<link rel="preload">` y en el precache del Service Worker: **145 KB -> 5.9 KB (-96%) por carga de pagina**. El PNG original se deja intacto porque `mail/smtp-mailer.php` lo sigue usando a resolucion completa para el logo inline del correo, y el dato estructurado `Organization.logo` del JSON-LD tambien lo mantiene (mayor resolucion ayuda a Google a reconocer la marca).
+- Se probo recomprimir `video1.mp4` (H.264, 531 kbps, 624 KB) con un preset mas lento; el resultado salio mas pesado que el original, asi que no se toco — ya estaba bien codificado y ademas tiene `preload="none"` y carga diferida por IntersectionObserver, fuera de la ruta critica.
+- Se agrego `fetchpriority="high"` al logo precargado y al `<img>` del header, ya que es de los primeros elementos visibles en pantalla.
+
+No se tocaron datos estructurados, meta tags ni el sitemap: ya estaban correctos y cambiar solo el peso de las imagenes no es una revision sustancial de contenido segun el criterio ya documentado en SEO.md para actualizar `lastmod`.
+
+Verificado en el navegador: las 17 imagenes del catalogo cargan sin error en las 5 pestanas de marca, el logo se ve nitido en escritorio y movil, sin errores de consola, `node --test tests/*.cjs` sigue en 19/19.
