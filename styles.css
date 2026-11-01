@@ -263,7 +263,7 @@ textarea {
   transition: background var(--transition-base), backdrop-filter var(--transition-base), box-shadow var(--transition-base);
 }
 
-#nav.stuck {
+#nav.stuck, #nav.menu-open {
   background: rgba(7, 14, 28, 0.95);
   box-shadow: 0 1px 0 var(--color-borderW);
 }
@@ -3046,7 +3046,7 @@ footer {
 .btn-primary:hover::before { left: 150%; }
 
 /* ── Navbar línea gradiente al hacer scroll ── */
-#nav.stuck::after {
+#nav.stuck::after, #nav.menu-open::after {
   content: '';
   position: absolute;
   bottom: 0; left: 0; right: 0;
@@ -3085,11 +3085,11 @@ footer {
   background-color: var(--color-bg);
 }
 
-[data-theme="light"] #nav.stuck {
+[data-theme="light"] #nav.stuck, [data-theme="light"] #nav.menu-open {
   background: rgba(238, 243, 251, 0.93);
 }
 
-[data-theme="light"] #nav.stuck::after {
+[data-theme="light"] #nav.stuck::after, [data-theme="light"] #nav.menu-open::after {
   background: linear-gradient(90deg, transparent, rgba(10, 171, 144, 0.35), transparent);
 }
 

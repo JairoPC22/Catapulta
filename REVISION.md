@@ -189,3 +189,17 @@ Reporte real, de nuevo: el usuario seguia viendo el problema de "las letras se a
 Se elimino por completo el mecanismo de dividir el texto en palabras (`title-word`, `createTreeWalker`, animacion por palabra con `blur`/`clipPath`). El `<h1>` del hero ahora recibe el mismo fundido simple (opacidad + ligero desplazamiento, sin dividir texto) que ya usan el parrafo y los botones debajo — consistente con el resto del hero, sin ningun texto dividido en palabras o letras en todo el sitio. Se quito tambien la regla CSS `.title-word` que quedaba sin uso.
 
 Version de cache subida a v58. Verificado en el navegador local (con cache y Service Worker limpios para evitar repetir el error de versiones anteriores): sin `.title-word` en el DOM, el texto aparece completo tras el margen de seguridad aunque el entorno de prueba trabe la animacion, `node --test tests/*.cjs` en 19/19.
+
+## Reintroducir la animacion del hero en dos fases + barra lateral cortada (1 de noviembre de 2026)
+
+El usuario compartio como resolvio el mismo tipo de bug en otro proyecto (`src/js/reveal.js`): dividir el titular en palabras tarde (despues del intro, dentro de un `requestIdleCallback`) hace que el navegador pinte el texto corrido, ya acomodado, y luego lo reacomode de golpe cuando ese JS por fin envuelve cada palabra en su propio `<span>` — el interletrado entre elementos separados no es identico al de un bloque de texto corrido, asi que el salto de linea puede cambiar. La solucion alla: separar "armar la estructura" (debe correr primero, antes de pintar) de "decidir que animar" (puede esperar).
+
+Se aplico la misma idea aqui para reintroducir el efecto de desenfoque-a-foco en el `<h1>` del hero sin el bug original:
+
+- `structureHeroTitle()` — envuelve cada palabra en `<span class="title-word">` y las oculta (`opacity:0` inline). Corre de inmediato, como lo primero que hace `design.js` a nivel de modulo — antes del listener de `DOMContentLoaded`, mucho antes de que el loader de marca (~1.1s) termine. Verificado: a los 80ms de navegar, con el loader todavia visible, las palabras ya estan envueltas.
+- `initTitleMotion()` ya no divide texto: solo toma las palabras que `structureHeroTitle` ya dejo listas y les aplica la animacion (opacidad/blur/recorte), igual que antes pero sin tocar el layout en ese momento — sigue esperando a que el loader termine, porque ahora eso ya no causa ningun reacomodo visible.
+- El respaldo de seguridad (`animateIn`) se reforzo: si la animacion de una palabra se cancela por trabarse, antes solo cancelaba la animacion (lo que revela el `opacity:0` inline que `structureHeroTitle` le puso, dejandola invisible para siempre). Ahora tambien escribe los valores finales como estilo inline al cancelar, garantizando que quede visible pase lo que pase.
+
+Reportado aparte: el menu movil se veia "cortado arriba" porque `#nav` solo tiene fondo solido cuando `.stuck` (scroll > 60px) — si el menu se abre desde arriba del todo de la pagina, la franja del nav (logo + boton cerrar) se quedaba transparente mientras el panel del menu debajo si tenia fondo solido, dejando ver el contenido de fondo oscurecido de forma distinta ahi arriba. `script.js` ahora agrega una clase `menu-open` a `#nav` mientras el menu esta abierto (independiente del scroll), y esa clase comparte el mismo fondo solido que `.stuck` en claro y oscuro.
+
+Version de cache subida a v59. Verificado: `node --test tests/*.cjs` en 19/19, detector mecanico sin hallazgos, menu movil con franja superior solida en ambos temas, sin overflow horizontal.

@@ -1,19 +1,62 @@
 'use strict';
 
 // A Web Animation using fill:'backwards'/'both' locks its target at the
-// invisible first frame until the animation finishes. None of the elements
-// animated below have a CSS rule hiding them — the animation is the only
-// thing making them invisible — so if it ever stalls (a slow device, the
-// tab losing focus mid-animation, a browser quirk) cancelling it after a
-// safe margin reveals the element at its normal, already-visible default
-// instead of leaving real content hidden forever.
+// invisible first frame until the animation finishes. If it ever stalls (a
+// slow device, the tab losing focus mid-animation, a browser quirk),
+// cancelling it after a safe margin and writing the last keyframe's values
+// as inline styles guarantees the element ends up visible — covers both
+// elements with no CSS hiding them (cancel alone is enough) and the hero
+// title words below, which start with an inline opacity:0 of their own.
 function animateIn(el, keyframes, options) {
   const animation = el.animate(keyframes, options);
-  const timer = setTimeout(() => animation.cancel(), (options.delay || 0) + options.duration + 1200);
+  const settle = () => {
+    animation.cancel();
+    const last = keyframes[keyframes.length - 1];
+    for (const prop in last) el.style[prop] = last[prop] === 'none' ? '' : last[prop];
+  };
+  const timer = setTimeout(settle, (options.delay || 0) + options.duration + 1200);
   const clear = () => clearTimeout(timer);
   animation.finished.then(clear).catch(clear);
   return animation;
 }
+
+// Phase 1 of the hero title animation: wrap each word in its own <span>
+// immediately, as the first thing this script does (before DOMContentLoaded,
+// let alone the ~1.1s brand loader). Wrapping words changes how the browser
+// computes line breaks (inter-element spacing isn't quite identical to one
+// run of text), so doing it only once the loader finishes — after the
+// heading had already painted and settled on a line break — made the text
+// visibly reflow to a new line break the instant that script ran. Structure
+// first, before anything is visible, so the layout is final from the start;
+// phase 2 (actually animating these words in) can still wait, since by then
+// it only ever touches opacity/blur, never the text layout itself.
+function structureHeroTitle() {
+  const title = document.querySelector('.hero-copy h1');
+  if (!title || title.dataset.titleStructured) return;
+  title.dataset.titleStructured = 'true';
+  const hideWords = !window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const walker = document.createTreeWalker(title, NodeFilter.SHOW_TEXT);
+  const nodes = [];
+  while (walker.nextNode()) nodes.push(walker.currentNode);
+  nodes.forEach(node => {
+    const fragment = document.createDocumentFragment();
+    node.textContent.split(/(\s+)/).forEach(part => {
+      if (!part.trim()) fragment.append(document.createTextNode(part));
+      else {
+        const word = document.createElement('span');
+        word.className = 'title-word';
+        word.textContent = part;
+        if (hideWords) word.style.opacity = '0';
+        fragment.append(word);
+      }
+    });
+    node.replaceWith(fragment);
+  });
+  title.querySelectorAll('.title-word').forEach(word => {
+    if (word.closest('.grad-text')) word.classList.add('grad-text');
+  });
+}
+structureHeroTitle();
 
 // Bounded entrance sequences; no continuously running decorative canvas.
 document.addEventListener('DOMContentLoaded', () => {
@@ -62,16 +105,21 @@ document.addEventListener('DOMContentLoaded', () => {
 function initTitleMotion(reduced) {
   if (reduced.matches) return;
   const running = new Set();
-  // The hero heading used to split into words and animate each one in with
-  // a blur/rise (and section titles got the same treatment on every scroll
-  // into view). Read on a phone as the text "appearing and then resettling
-  // itself" rather than a deliberate effect — removed. Every heading now
-  // just renders normally; only the hero block gets a single plain fade,
-  // once, the same treatment already used for the paragraph and buttons
-  // below it.
-  document.querySelectorAll('.hero-copy h1, .hero-desc, .hero-actions, .trust-bar').forEach((el, i) => {
+  // Phase 2: the words are already wrapped (structureHeroTitle ran long
+  // before this, see top of file) — this only ever animates opacity/blur
+  // on them now, never their text layout, so it's safe for this part to
+  // wait for the loader like everything else below.
+  document.querySelectorAll('.hero-copy h1 .title-word').forEach((word, i) => {
+    const animation = animateIn(word, [
+      { opacity: 0, transform: 'translateY(22px)', filter: 'blur(5px)', clipPath: 'inset(0 0 100% 0)' },
+      { opacity: 1, transform: 'none', filter: 'blur(0)', clipPath: 'inset(0 0 0 0)' }
+    ], { duration: 750, delay: Math.min(i * 45, 450), easing: 'cubic-bezier(.16,1,.3,1)', fill: 'backwards' });
+    running.add(animation);
+    animation.finished.then(() => running.delete(animation)).catch(() => running.delete(animation));
+  });
+  document.querySelectorAll('.hero-desc, .hero-actions, .trust-bar').forEach((el, i) => {
     const animation = animateIn(el, [{ opacity: 0, transform: 'translateY(12px)' }, { opacity: 1, transform: 'none' }],
-      { duration: 600, delay: 100 + i * 110, easing: 'cubic-bezier(.16,1,.3,1)', fill: 'backwards' });
+      { duration: 600, delay: 200 + i * 110, easing: 'cubic-bezier(.16,1,.3,1)', fill: 'backwards' });
     running.add(animation);
     animation.finished.then(() => running.delete(animation)).catch(() => running.delete(animation));
   });

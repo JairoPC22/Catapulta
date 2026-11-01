@@ -38,7 +38,7 @@ document.addEventListener('DOMContentLoaded', () => {
 ──────────────────────────────────────────── */
 function initHeroModel() {
   if (!document.querySelector('model-viewer')) return;
-  const mount = () => { import('./assets/js/model-viewer.min.js?v=58').catch(() => {}); };
+  const mount = () => { import('./assets/js/model-viewer.min.js?v=59').catch(() => {}); };
   const schedule = () => {
     if ('requestIdleCallback' in window) requestIdleCallback(mount, { timeout: 2000 });
     else setTimeout(mount, 300);
@@ -75,6 +75,7 @@ function initMobileMenu() {
   const btn      = document.getElementById('navHamburger');
   const menu     = document.getElementById('mobileMenu');
   const backdrop = document.getElementById('mobileMenuBackdrop');
+  const nav      = document.getElementById('nav');
 
   if (!btn || !menu) return;
 
@@ -86,6 +87,12 @@ function initMobileMenu() {
 
     menu.classList.toggle('open', isOpen);
     backdrop?.classList.toggle('open', isOpen);
+    // The nav bar is only opaque once scrolled (.stuck); opening the menu
+    // from the very top of the page left it transparent behind the menu's
+    // own header area, so the hero text showed through and the panel
+    // looked cut off at the top. Force the same opaque background while
+    // the menu is open, regardless of scroll position.
+    nav?.classList.toggle('menu-open', isOpen);
     btn.classList.toggle('is-open', isOpen);
     btn.setAttribute('aria-expanded', String(isOpen));
     menu.setAttribute('aria-hidden', String(!isOpen));
