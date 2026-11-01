@@ -181,3 +181,11 @@ El boton ES/EN sigue siendo el mismo cambio instantaneo de siempre (sin recargar
 Version de cache subida a v57 (de nuevo, para que el cambio de `i18n.js` llegue a quien ya visito el sitio). Verificado: `node --test tests/*.cjs` en 19/19, sin overflow horizontal en `/en` a 375px, sin imagenes rotas, modo oscuro funcionando, sin texto en espanol restante salvo nombres propios de negocios.
 
 Pendiente, no hecho en este cambio: las demas paginas (catalogo, privacidad, terminos, cookies) siguen sin version en ingles; privacidad/terminos/cookies ya estan en `noindex` por la revision legal pendiente, asi que no es prioridad para SEO todavia.
+
+## Quitar la animacion de palabras del encabezado del hero (1 de noviembre de 2026)
+
+Reporte real, de nuevo: el usuario seguia viendo el problema de "las letras se acomodan" despues de quitar la version repetida por seccion. La correccion anterior solo habia quitado el efecto de las secciones; el `<h1>` del hero lo seguia teniendo (division en palabras, cada una con blur + desenfoque + recorte al entrar). Como seguia siendo el mismo tipo de efecto, visible en cada carga de pagina, lo mas seguro era asumir que ahi seguia el problema real y quitarlo tambien, en vez de seguir adivinando.
+
+Se elimino por completo el mecanismo de dividir el texto en palabras (`title-word`, `createTreeWalker`, animacion por palabra con `blur`/`clipPath`). El `<h1>` del hero ahora recibe el mismo fundido simple (opacidad + ligero desplazamiento, sin dividir texto) que ya usan el parrafo y los botones debajo — consistente con el resto del hero, sin ningun texto dividido en palabras o letras en todo el sitio. Se quito tambien la regla CSS `.title-word` que quedaba sin uso.
+
+Version de cache subida a v58. Verificado en el navegador local (con cache y Service Worker limpios para evitar repetir el error de versiones anteriores): sin `.title-word` en el DOM, el texto aparece completo tras el margen de seguridad aunque el entorno de prueba trabe la animacion, `node --test tests/*.cjs` en 19/19.

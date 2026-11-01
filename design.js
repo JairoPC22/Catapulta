@@ -62,56 +62,21 @@ document.addEventListener('DOMContentLoaded', () => {
 function initTitleMotion(reduced) {
   if (reduced.matches) return;
   const running = new Set();
-  const revealTitle = title => {
-    if (title.dataset.titleAnimated) return;
-    title.dataset.titleAnimated = 'true';
-    const walker = document.createTreeWalker(title, NodeFilter.SHOW_TEXT);
-    const nodes = [];
-    while (walker.nextNode()) nodes.push(walker.currentNode);
-    nodes.forEach(node => {
-      const fragment = document.createDocumentFragment();
-      node.textContent.split(/(\s+)/).forEach(part => {
-        if (!part.trim()) fragment.append(document.createTextNode(part));
-        else {
-          const word = document.createElement('span');
-          word.className = 'title-word';
-          word.textContent = part;
-          fragment.append(word);
-        }
-      });
-      node.replaceWith(fragment);
-    });
-    title.querySelectorAll('.title-word').forEach((word, i) => {
-      // Gradient lettering must paint on each word after wrapping the text.
-      if (word.closest('.grad-text')) word.classList.add('grad-text');
-      const animation = animateIn(word, [
-        { opacity: 0, transform: 'translateY(22px)', filter: 'blur(5px)', clipPath: 'inset(0 0 100% 0)' },
-        { opacity: 1, transform: 'none', filter: 'blur(0)', clipPath: 'inset(0 0 0 0)' }
-      ], { duration: 750, delay: Math.min(i * 45, 450), easing: 'cubic-bezier(.16,1,.3,1)', fill: 'backwards' });
-      running.add(animation);
-      animation.finished.then(() => running.delete(animation)).catch(() => running.delete(animation));
-    });
-  };
-  const observer = new IntersectionObserver(entries => {
-    entries.forEach(entry => {
-      if (!entry.isIntersecting) return;
-      observer.unobserve(entry.target);
-      if (!reduced.matches) revealTitle(entry.target);
-    });
-  }, { threshold: .3 });
-  // Only the hero h1 gets the word-by-word entrance: it is the one
-  // first-impression moment on page load. Repeating it on every section
-  // title as the visitor scrolls read as text re-settling itself instead
-  // of a deliberate effect, so section headings render statically.
-  document.querySelectorAll('.hero-copy h1').forEach(title => observer.observe(title));
-  document.querySelectorAll('.hero-desc, .hero-actions, .trust-bar').forEach((el, i) => {
+  // The hero heading used to split into words and animate each one in with
+  // a blur/rise (and section titles got the same treatment on every scroll
+  // into view). Read on a phone as the text "appearing and then resettling
+  // itself" rather than a deliberate effect — removed. Every heading now
+  // just renders normally; only the hero block gets a single plain fade,
+  // once, the same treatment already used for the paragraph and buttons
+  // below it.
+  document.querySelectorAll('.hero-copy h1, .hero-desc, .hero-actions, .trust-bar').forEach((el, i) => {
     const animation = animateIn(el, [{ opacity: 0, transform: 'translateY(12px)' }, { opacity: 1, transform: 'none' }],
-      { duration: 600, delay: 200 + i * 110, easing: 'cubic-bezier(.16,1,.3,1)', fill: 'backwards' });
+      { duration: 600, delay: 100 + i * 110, easing: 'cubic-bezier(.16,1,.3,1)', fill: 'backwards' });
     running.add(animation);
     animation.finished.then(() => running.delete(animation)).catch(() => running.delete(animation));
   });
   reduced.addEventListener('change', () => {
-    if (reduced.matches) { running.forEach(animation => animation.cancel()); observer.disconnect(); }
+    if (reduced.matches) running.forEach(animation => animation.cancel());
   });
 }
 
