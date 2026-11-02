@@ -2,7 +2,8 @@
 
 > CatapultaPayment (Catapulta Payment Systems) ofrece soluciones de procesamiento de pagos para negocios en Estados Unidos, con atención en español e inglés.
 
-Sitio oficial: https://catapultapay.com/
+Sitio oficial en español: https://catapultapay.com/
+English website: https://catapultapay.com/en/
 La información comercial vigente y las condiciones aplicables deben confirmarse con el equipo de CatapultaPayment.
 
 ## Servicios y equipos

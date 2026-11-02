@@ -4,6 +4,27 @@
 // Sistema de traducción ES / EN
 // ══════════════════════════════════════════
 
+// Full attribute values only: proper names and product identifiers stay intact.
+const ATTRIBUTE_TRANSLATIONS = [
+  ['Resumen de CatapultaPayment para asistentes de IA','CatapultaPayment summary for AI assistants'],
+  ['Empieza ya, ir a contacto','Get started, go to contact'],
+  ['Cambiar idioma','Change language'],
+  ['Cambiar tema claro/oscuro','Switch light or dark theme'],
+  ['Arrastrar al terminal','Drag onto the terminal'],
+  ['Tasa de procesamiento actual','Current processing rate'],
+  ['5 de 5 estrellas','5 out of 5 stars'],
+  ['Caso anterior','Previous story'],['Siguiente caso','Next story'],
+  ...[1,2,3,4].map(n=>['Caso '+n,'Story '+n]),
+  ['Seguir a CatapultaPayment en Facebook','Follow CatapultaPayment on Facebook'],
+  ['Seguir a CatapultaPayment en Instagram','Follow CatapultaPayment on Instagram'],
+  ['Sitio web de CatapultaPayment','CatapultaPayment website'],
+  ['Volver al inicio','Back to top'],
+  ['Terminal Sunmi D3PRO en Mi Pueblito Market','Sunmi D3PRO terminal at Mi Pueblito Market'],
+  ['Segundo terminal Sunmi D3PRO en Mi Pueblito Market','Second Sunmi D3PRO terminal at Mi Pueblito Market'],
+  ['Tercer equipo Sunmi D3PRO en Mi Pueblito Market','Third Sunmi D3PRO unit at Mi Pueblito Market'],
+  ['PAX Elyse POS Sistema','PAX Elyse POS System']
+];
+
 const TRANSLATIONS = {
 
   /* ─────────── ESPAÑOL ─────────── */
@@ -79,7 +100,7 @@ const TRANSLATIONS = {
     'sol.v6.title': 'Reportes en tiempo real',
     'sol.v6.desc': 'Dashboard de ventas, contracargos y rendimiento desde cualquier dispositivo.',
     // CATALOG
-    'cat.label': 'Catálogo 2025',
+    'cat.label': 'Catálogo de equipos',
     'cat.title': 'Equipos para cada<br />tipo de negocio.',
     'cat.desc': 'Renta, lease o compra. Todos incluyen configuración y soporte bilingüe.',
     'cat.badge.popular': 'Más popular', 'cat.badge.advanced': 'Más avanzado',
@@ -274,13 +295,13 @@ const TRANSLATIONS = {
     'footer.legal.aria': 'Legal information',
     // HERO
     'hero.label': 'Your next payment processor',
-    'hero.h1': 'We simplify your collections,<br />to accelerate your<br /><em class="grad-text">revenue.</em>',
+    'hero.h1': 'We simplify your payments,<br />to accelerate your<br /><em class="grad-text">revenue.</em>',
     'hero.desc': 'We help you choose, configure, and optimize the best payment platforms for your business. Improve conversion, reduce costs, and meet global security standards.',
-    'hero.cta1': 'Start collecting', 'hero.cta2': 'See equipment',
+    'hero.cta1': 'Get started', 'hero.cta2': 'See equipment',
     'hero.trust': '100+ businesses already trust us',
     // ABOUT
     'about.label': 'About Us',
-    'about.title': 'The partner your business<br />needed to collect better.',
+    'about.title': 'The payment partner<br />your business needs.',
     'about.desc': "Over 6 years connecting businesses — including high-risk ones other processors turn away — with sponsor banks, physical terminals, and virtual gateways, with support in Spanish and English from start to finish.",
     'about.badge': '100+ Active Businesses',
     'about.f1.title': 'Multi-bank connectivity',
@@ -292,8 +313,8 @@ const TRANSLATIONS = {
     'about.f4.title': '24/7 bilingual support',
     'about.f4.desc': 'A real team in Spanish and English, ready to solve technical or billing questions.',
     // STATS
-    'stats.years': 'Years in business', 'stats.businesses': 'Businesses collecting now',
-    'stats.partners': 'Allied providers', 'stats.support': 'Bilingual support',
+    'stats.years': 'Years in business', 'stats.businesses': 'Businesses accepting payments',
+    'stats.partners': 'Technology partners', 'stats.support': 'Bilingual support',
     // CALCULATOR
     'calc.label': 'Savings calculator',
     'calc.title': 'Discover how much you can<br /><em class="grad-text">save with us.</em>',
@@ -307,7 +328,7 @@ const TRANSLATIONS = {
     'calc.cta': 'I want those savings',
     // SOLUTIONS
     'sol.label': 'Solutions',
-    'sol.title': 'Everything you need<br />to collect without limits.',
+    'sol.title': 'Everything you need<br />to accept payments.',
     'sol.tab.physical': 'Physical Equipment', 'sol.tab.virtual': 'Virtual Processing',
     'sol.p1.title': 'Basic registers & terminals',
     'sol.p1.desc': 'Countertop terminals for counter sales and basic retail.',
@@ -317,7 +338,7 @@ const TRANSLATIONS = {
     'sol.p3.desc': 'Apps and readers for fairs, markets, and field services.',
     'sol.p4.title': 'Smart terminals',
     'sol.p4.desc': 'All-in-one devices with WiFi and mobile connectivity.',
-    'sol.p5.title': 'POS points of sale',
+    'sol.p5.title': 'Point-of-sale systems',
     'sol.p5.desc': 'Inventory, customer, and sales management with integrated terminal.',
     'sol.p6.title': 'View full catalog',
     'sol.p6.desc': 'Explore all equipment available for your business.',
@@ -335,7 +356,7 @@ const TRANSLATIONS = {
     'sol.v6.title': 'Real-time reports',
     'sol.v6.desc': 'Sales, chargebacks, and performance dashboard from any device.',
     // CATALOG
-    'cat.label': '2025 Catalog',
+    'cat.label': 'Equipment catalog',
     'cat.title': 'Equipment for every<br />type of business.',
     'cat.desc': 'Rent, lease, or buy. All include setup and bilingual support.',
     'cat.badge.popular': 'Most popular', 'cat.badge.advanced': 'Most advanced',
@@ -419,7 +440,7 @@ const TRANSLATIONS = {
     'steps.s2.desc': 'We connect you with the ideal sponsor bank and put together a clear quote, no fine print.',
     'steps.s3.title': 'Installation and setup',
     'steps.s3.desc': 'We configure your terminals or virtual gateway and train your team to use them with no friction.',
-    'steps.s4.title': 'Start collecting',
+    'steps.s4.title': 'Start accepting payments',
     'steps.s4.desc': 'Accept chip, contactless, swipe, and virtual payments from day one, with bilingual support always available.',
     // FAQ
     'faq.label': 'FAQ',
@@ -479,7 +500,7 @@ const TRANSLATIONS = {
     // TERMINAL SIMULATOR
     'term.label': 'Live terminal',
     'term.srtitle': 'CatapultaPayment POS terminal simulator — enter an amount with the numeric keypad, choose a payment method, and process the transaction',
-    'term.title': "It's this easy to collect payments with CatapultaPayment",
+    'term.title': "It's this easy to accept payments with CatapultaPayment",
     'term.desc': 'Try it: enter an amount and choose a method. This is a simulation, with no real charges.',
     'term.screen.label': 'Enter amount',
     'term.method.title': 'Payment method',
@@ -524,6 +545,7 @@ const TRANSLATIONS = {
 // ══════════════════════════════════════════
 const I18N = {
   currentLang: 'es',
+  _sourceLang: document.documentElement.lang === 'en' ? 'en' : 'es',
 
   // Caches para poder restaurar el español original
   _specsCache: null,
@@ -574,7 +596,7 @@ const I18N = {
     }
     if (!this._featuresCache) {
       this._featuresCache = [];
-      this._qa('.catalog-features li').forEach(el => this._featuresCache.push(el.innerHTML));
+      this._qa('.catalog-features li').forEach(el => this._featuresCache.push(this._sourceLang === 'en' ? this._replaceFeatureLabels(el.innerHTML, 'en', 'es') : el.innerHTML));
     }
   },
 
@@ -597,57 +619,63 @@ const I18N = {
       else if (lang === 'es' && this._specsCache[i]) el.textContent = this._specsCache[i];
     });
 
-    // Feature list: reemplazar a partir del original ES cacheado
-    const featMap = [
-      ['cat.feat.sw.basic', 'Software básico:'],
-      ['cat.feat.sw.full',  'Software completo:'],
-      ['cat.feat.sw',       'Software:'],
-      ['cat.feat.inv.with', 'Con inventario:'],
-      ['cat.feat.inv.without', 'Sin inventario:'],
-      ['cat.feat.internet.opt', 'Internet opcional:'],
-      ['cat.feat.host',     'Internet/Hosting:'],
-      ['cat.feat.internet', 'Internet:'],
-      ['cat.feat.app.client','App cliente:'],
-      ['cat.feat.per.month', '/mes'],
-      // Sunmi
-      ['cat.feat.su.bat',     'Batería 2580mAh de larga duración'],
-      ['cat.feat.su.usb',     'USB Tipo C · GPS y A-GPS'],
-      ['cat.feat.su.temp',    'Operación -10°C a 50°C · 430g'],
-      ['cat.feat.su.chip',    'Chip, banda, NFC y QR'],
-      ['cat.feat.su.drop',    'Resistente a caídas de 1.2m'],
-      ['cat.feat.su.weight',  '200g · 15mm de grosor'],
-      ['cat.feat.su.perf',    '60% mejor rendimiento'],
-      ['cat.feat.su.modules', 'Módulos opcionales: pantalla cliente, NFC'],
-      ['cat.feat.su.pnp',     'Plug &amp; Play · Personalizable con tu marca'],
-      // PAX
-      ['cat.feat.px.cam',     'Cámara 5MP Auto Focus · BT 5.0'],
-      ['cat.feat.px.fp',      'Lector de huella en encendido'],
-      ['cat.feat.px.usb',     'USB Tipo C · POGO PIN'],
-      ['cat.feat.px.enc',     'Cifrado, tokenización y PCI DSS'],
-      ['cat.feat.px.printer', 'Impresora 260mm/s ultrarrápida'],
-      ['cat.feat.px.scanner', 'Scanner con función walkie-talkie'],
-      ['cat.feat.px.nfc',     'NFC sin contacto'],
-      ['cat.feat.px.pci',     'PCI 5.x SRED certificado'],
-      ['cat.feat.px.hiprinter','Impresora de alta velocidad'],
-      // Landi
-      ['cat.feat.la.cert',    'Certificado CE/CB/FCC/IC/RoHS'],
-      ['cat.feat.la.sd',      'Soporta tarjeta SD 3.0'],
-      ['cat.feat.la.visual',  'Experiencia visual inmersiva'],
-      ['cat.feat.la.screen',  'Pantalla independiente para cliente y operador'],
-    ];
-
     this._qa('.catalog-features li').forEach((el, i) => {
-      // Restaurar siempre desde el caché ES
-      let html = this._featuresCache[i] || el.innerHTML;
-      if (lang !== 'es') {
-        // Aplicar todos los reemplazos de texto
-        featMap.forEach(([key, esText]) => {
-          if (t[key] && html.includes(esText)) {
-            html = html.split(esText).join(t[key]);
-          }
-        });
+      const original = this._featuresCache[i] ?? el.innerHTML;
+      el.innerHTML = lang === 'es' ? original : this._replaceFeatureLabels(original, 'es', lang);
+    });
+  },
+
+  _replaceFeatureLabels(html, from, to) {
+    if (from === 'en') html = html.replace(/\/month\b/g, '/mo');
+    const normalize = value => value.replace(/&amp;/g, '&').replace(/&/g, '&amp;');
+    const pairs = Object.keys(TRANSLATIONS.es).filter(key => key.startsWith('cat.feat.'))
+      .map(key => [normalize(TRANSLATIONS[from][key] || ''), normalize(TRANSLATIONS[to][key] || '')])
+      .filter(([source, target]) => source && target).sort((a, b) => b[0].length - a[0].length);
+    for (const [source, target] of pairs) html = html.split(source).join(target);
+    return html;
+  },
+
+  _localizedGraph(graph, lang, t) {
+    const data = JSON.parse(JSON.stringify(graph));
+    const page = 'https://catapultapay.com/' + (lang === 'en' ? 'en/' : '');
+    const english = lang === 'en';
+    const plain = value => value.replace(/<[^>]*>/g, '').replace(/&amp;/g, '&');
+    for (const node of data['@graph'] || []) {
+      if (node['@type'] === 'Organization' && node.description) node.description = t['page.description'];
+      if (node['@type'] === 'WebPage') {
+        Object.assign(node, {'@id': page + '#webpage', url: page, name: t['page.title'], description: t['page.description'], inLanguage: english ? 'en-US' : 'es-MX'});
+        if (node.hasPart) node.hasPart = {'@id': page + '#faq'};
       }
-      el.innerHTML = html;
+      if (node['@type'] === 'Service') {
+        node.name = english ? 'Business payment processing' : 'Procesamiento de pagos para negocios';
+        node.serviceType = english ? 'B2B payment processing, POS terminals and online payments' : 'Procesamiento de pagos B2B, terminales POS y pagos virtuales';
+        node.url = page + '#solutions';
+        if (node.hasOfferCatalog) {
+          node.hasOfferCatalog.name = english ? 'Payment solutions' : 'Soluciones de pago';
+          const offers = node.hasOfferCatalog.itemListElement || [];
+          const names = english ? ['POS terminals and point-of-sale systems', 'Online payment processing and gateways'] : ['Terminales y puntos de venta POS', 'Procesamiento virtual y pasarelas de pago'];
+          offers.forEach((offer, i) => { if (offer.itemOffered && names[i]) Object.assign(offer.itemOffered, {name: names[i], url: page + (i === 0 ? '#catalogo' : '#solutions')}); });
+        }
+      }
+      if (node['@type'] === 'FAQPage') {
+        node['@id'] = page + '#faq';
+        node.mainEntity = (node.mainEntity || []).map((question, i) => ({'@type':'Question', name: t['faq.q' + (i + 1)] || question.name, acceptedAnswer: {'@type':'Answer', text: t['faq.a' + (i + 1)] ? plain(t['faq.a' + (i + 1)]) : question.acceptedAnswer.text}}));
+      }
+    }
+    return data;
+  },
+
+  _syncMetadata(lang, t) {
+    const page = 'https://catapultapay.com/' + (lang === 'en' ? 'en/' : '');
+    document.title = t['page.title'];
+    this._qa('link[rel="canonical"]').forEach(el => el.setAttribute('href', page));
+    this._qa('meta[property="og:url"]').forEach(el => el.setAttribute('content', page));
+    for (const selector of ['meta[property="og:title"]', 'meta[name="twitter:title"]', 'meta[property="og:image:alt"]', 'meta[name="twitter:image:alt"]']) this._qa(selector).forEach(el => el.setAttribute('content', t['page.title']));
+    for (const selector of ['meta[name="description"]', 'meta[property="og:description"]', 'meta[name="twitter:description"]']) this._qa(selector).forEach(el => el.setAttribute('content', t['page.description']));
+    this._qa('meta[property="og:locale"]').forEach(el => el.setAttribute('content', lang === 'en' ? 'en_US' : 'es_MX'));
+    this._qa('meta[property="og:locale:alternate"]').forEach(el => el.setAttribute('content', lang === 'en' ? 'es_MX' : 'en_US'));
+    this._qa('script[type="application/ld+json"]').forEach(el => {
+      try { el.textContent = JSON.stringify(this._localizedGraph(JSON.parse(el.textContent), lang, t), null, 2); } catch { /* Optional metadata cannot break language switching. */ }
     });
   },
 
@@ -662,28 +690,19 @@ const I18N = {
     CP.syncThemeLabels();
     CP.storage.set('cpay-lang', lang);
 
-    // Mantiene la URL en sync con el idioma (/ para ES, /en para EN) sin
-    // recargar la página: Google puede indexar /en con su propio contenido,
+    // Mantiene la URL en sync con el idioma (/ para ES, /en/ para EN) sin
+    // recargar la página: Google puede indexar /en/ con su propio contenido,
     // y el botón de idioma sigue siendo instantáneo para quien ya está aquí.
-    if (location.pathname === '/' || location.pathname === '/en' || location.pathname === '/en/') {
-      const target = lang === 'en' ? '/en' : '/';
+    if (['/', '/index.html', '/en', '/en/', '/en/index.html'].includes(location.pathname)) {
+      const target = lang === 'en' ? '/en/' : '/';
       if (location.pathname !== target) {
         history.replaceState(history.state, '', target + location.search + location.hash);
       }
     }
 
-    // Título de página
-    if (t['page.title']) document.title = t['page.title'];
-    ['meta[property="og:title"]', 'meta[name="twitter:title"]'].forEach(selector => {
-      document.querySelector(selector)?.setAttribute('content', t['page.title']);
-    });
-    ['meta[name="description"]', 'meta[property="og:description"]', 'meta[name="twitter:description"]'].forEach(selector => {
-      document.querySelector(selector)?.setAttribute('content', t['page.description']);
-    });
-    document.querySelector('meta[property="og:locale"]')?.setAttribute('content', lang === 'en' ? 'en_US' : 'es_MX');
+    this._syncMetadata(lang, t);
 
-
-      this._applyNav(t);
+    this._applyNav(t);
     this._applyHero(t);
     this._applyAbout(t);
     this._applyStats(t);
@@ -700,6 +719,7 @@ const I18N = {
 
     this._applyFooter(t);
     this._applyMisc(t);
+    this._applyAccessibility(lang);
 
     // Estado activo del botón de idioma
     this._qa('.lang-btn').forEach(btn => {
@@ -1102,6 +1122,18 @@ const I18N = {
     if (rights && t['footer.rights']) rights.textContent = t['footer.rights'];
   },
 
+  _applyAccessibility(lang) {
+    this._qa('[aria-label], [title], img[alt]').forEach(el => {
+      for (const attr of ['aria-label', 'title', 'alt']) {
+        const value = el.getAttribute(attr);
+        const pair = ATTRIBUTE_TRANSLATIONS.find(row => row.includes(value));
+        if (pair) el.setAttribute(attr, pair[lang === 'en' ? 1 : 0]);
+      }
+    });
+    const skip = this._q('.skip-link');
+    if (skip) skip.textContent = lang === 'en' ? 'Skip to main content' : 'Saltar al contenido principal';
+  },
+
   _applyMisc(t) {
     // Preserve active feedback when switching language; never turn an error into a success.
     const toastSpan = this._q('.toast-message');
@@ -1146,7 +1178,7 @@ const I18N = {
     // even if this browser's saved preference says otherwise — the URL the
     // visitor actually landed on wins. Toggling afterward still updates
     // both the saved preference and the URL, same as before.
-    const fromPath = /^\/en\/?$/.test(location.pathname) ? 'en' : null;
+    const fromPath = /^\/en(?:\/|\/index\.html)?$/.test(location.pathname) ? 'en' : (location.pathname === '/' || location.pathname === '/index.html' ? 'es' : null);
     const saved = fromPath || CP.storage.get('cpay-lang', 'es');
     this.apply(saved === 'en' ? 'en' : 'es');
     this._bindLangButtons();

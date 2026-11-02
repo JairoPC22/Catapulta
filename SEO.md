@@ -4,12 +4,14 @@
 
 - Dominio canónico: `https://catapultapay.com/`, tomado de la configuración existente.
 - `robots.txt`: acceso al contenido público para buscadores y rastreadores de búsqueda de IA. Conserva la política general de acceso que ya existía.
-- `sitemap.xml`: contiene únicamente la página principal canónica. Las secciones con anclas no son páginas independientes; los errores y plantillas no deben aparecer aquí.
+- `sitemap.xml`: contiene las dos versiones de la página principal (`/` y `/en/`) y el catálogo público. Las secciones con anclas no son páginas independientes; los errores y plantillas no deben aparecer aquí.
 - `llms.txt`: resumen opcional de servicios, enlaces y contactos. Es una propuesta complementaria, no un requisito de Google ni una garantía de citas por IA.
 - Datos estructurados en el HTML inicial: Organization, WebSite, WebPage, Service y FAQPage. Sin reseñas, puntuaciones o precios inventados.
 - Páginas de recuperación y plantilla de correo con `noindex`. Deben seguir accesibles para que los rastreadores lean esa directiva.
 - El contenido principal, catálogo y preguntas frecuentes están presentes en el HTML; no dependen de una llamada de API para ser leídos.
-- ES/EN comparte una sola URL con traducción en JavaScript. No se declara `hreflang` a rutas inexistentes. Para indexar ambas versiones de forma independiente, publicar primero URLs estables por idioma con su contenido correspondiente.
+- Versiones indexables independientes: español en `https://catapultapay.com/` e inglés en `https://catapultapay.com/en/`, con HTML estático, canonical propio y hreflang recíproco `es`, `en` y `x-default`. El cambio de idioma conserva la transición visual, sin recargar la página, y sincroniza URL, canonical, Open Graph y datos estructurados.
+- `/en` redirige a `/en/` en Apache; todos los enlaces canónicos, alternates y el sitemap usan `/en/`.
+- `node tools/build-i18n.cjs` sincroniza las listas del catálogo, las etiquetas accesibles y el JSON-LD estático. El español es la fuente del catálogo; las traducciones se aplican desde el diccionario de `i18n.js` y se restauran correctamente al volver de inglés a español.
 
 ## Revisión del 28 de octubre de 2026
 
@@ -25,10 +27,10 @@ Auditoría técnica para maximizar la puntuación de SEO (Lighthouse) y la acces
 **Lo que el código no puede resolver por sí solo** (afecta directamente si el sitio aparece "entre los primeros" en Google, que depende de más que el HTML):
 
 - Verificación real en Google Search Console y Bing Webmaster Tools (requiere acceso a la cuenta/DNS del dominio).
-- Enlaces entrantes (backlinks) de otros sitios, directorios de negocios y redes sociales — es la señal de ranking más pesada fuera del contenido.
+- Enlaces entrantes (backlinks) de otros sitios, directorios de negocios y redes sociales — contribuyen al descubrimiento y a la reputación del sitio.
 - Antigüedad del dominio y volumen de tráfico/autoridad, que se gana con el tiempo.
 - Reseñas reales en Google Business Profile si aplica a la operación.
-- Publicar el sitio real en producción: todo lo de esta sección es inútil mientras el sitio no esté en `https://catapultapay.com/` con los pasos de "Al publicar" completados.
+- Publicar el sitio real en producción: las comprobaciones deben hacerse en `https://catapultapay.com/` con los pasos de "Al publicar" completados.
 
 ## Al publicar
 
@@ -57,3 +59,11 @@ Auditoría técnica para maximizar la puntuación de SEO (Lighthouse) y la acces
 - OpenAI: https://developers.openai.com/api/docs/bots
 - Perplexity: https://docs.perplexity.ai/docs/resources/perplexity-crawlers
 - Propuesta llms.txt: https://llmstxt.org/
+
+## Idiomas y validación — 1 de noviembre de 2026
+
+- Entrar directamente en `/` muestra español; `/en/` muestra inglés. La preferencia guardada no contradice la URL de entrada.
+- La transición de atenuación al pulsar ES/EN se mantiene. El contenido cambia cuando termina la primera fase; después se restaura la opacidad.
+- Se actualizan título, descripción, canonical, og:url, locale, alternativas de locale y JSON-LD de WebPage, Service y FAQPage. La consulta y el fragmento de la navegación se conservan; el canonical queda limpio.
+- `node --test tests/i18n.cjs` comprueba traducciones reversibles, metadatos, HTML estático y la transición. Ejecutar también las pruebas de regresión.
+- El sitemap solo incluye páginas públicas reales. Los documentos legales siguen como borradores noindex hasta su aprobación; no se promete indexación ni posiciones en Google.

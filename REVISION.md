@@ -223,3 +223,12 @@ Reporte real: el primer texto en celular desaparecia despues de unos 2 segundos.
 Arreglo en `animateIn` (`design.js`): ahora el mismo paso de "fijar los valores finales como estilo en linea" corre tanto si la animacion termina normal como si se cancela por tardanza — antes solo corria en el segundo caso. Verificado: opacidad de las 8 palabras del titulo en 1 durante 5.5 segundos continuos tras cargar la pagina (antes se habria visto 0 alrededor de los 2s).
 
 Version de cache subida a v61. Verificado: `node --test tests/*.cjs` en 19/19, detector mecanico sin hallazgos.
+
+
+## Idiomas, SEO y videos — 2 de noviembre de 2026
+
+Corregida la restauración del español al entrar desde la página inglesa: las características del catálogo se guardan en su idioma fuente y las traducciones se resuelven desde el mismo diccionario. Canonical, Open Graph y JSON-LD cambian junto con el idioma; /en/ se usa de forma consistente en ambas versiones estáticas y en el sitemap. La URL de entrada prevalece sobre la preferencia guardada. Se conserva sin cambios la función de transición visual switchTo. Etiquetas accesibles, ayudas de la terminal, textos alternativos y enlaces legales del HTML inglés también se traducen.
+
+La caché se actualiza a v62. tools/build-i18n.cjs sincroniza características, atributos y datos estructurados sin regenerar el diseño. tests/i18n.cjs cubre cambio reversible de catálogo, metadatos, URLs de entrada, etiquetas accesibles y la espera de la animación.
+
+Los dos videos se rediseñan con personajes vectoriales articulados y escenas sincronizadas con la locución original. Se mantienen formato, duración y audio AAC idéntico. Solo se guardan los dos MP4 finales en videos/. Guion de tiempos, requisitos gratuitos y validación en content/VIDEOS.md.

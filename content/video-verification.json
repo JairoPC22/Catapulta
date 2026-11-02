@@ -1,0 +1,25 @@
+{
+  "checked": "2026-11-02",
+  "results": [
+    {
+      "file": "catapultapay-sitio-16x9.mp4",
+      "frames": 998,
+      "fps": 30,
+      "width": 1920,
+      "height": 1080,
+      "original_audio_sha256": "SHA256=280e9c63f21526948770651b770658f670dbe20f9be36c13eb96956ea924be87",
+      "export_audio_sha256": "SHA256=280e9c63f21526948770651b770658f670dbe20f9be36c13eb96956ea924be87",
+      "full_decode": "passed"
+    },
+    {
+      "file": "catapultapay-redes-9x16.mp4",
+      "frames": 781,
+      "fps": 30,
+      "width": 1080,
+      "height": 1920,
+      "original_audio_sha256": "SHA256=9c33b7dbb0fbd2626b6038c3a5ee754d1006e01c39e43dd8a60dbcc01c04cc39",
+      "export_audio_sha256": "SHA256=9c33b7dbb0fbd2626b6038c3a5ee754d1006e01c39e43dd8a60dbcc01c04cc39",
+      "full_decode": "passed"
+    }
+  ]
+}

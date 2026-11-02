@@ -32,7 +32,7 @@ ErrorDocument 404 /404.html
   AddOutputFilterByType BROTLI_COMPRESS image/svg+xml
 </IfModule>
 
-# Caché en el navegador. CSS/JS usan "?v=53" para forzar descarga al subir
+# Caché en el navegador. CSS/JS usan "?v=62" para forzar descarga al subir
 # una versión nueva, por lo que aceptan una caché larga. Imágenes, fuentes,
 # vídeo y el modelo 3D no están versionados, así que usan una caché moderada.
 <IfModule mod_expires.c>
