@@ -617,6 +617,11 @@ textarea {
   color: var(--color-text);
 }
 
+img.brand-mark {
+  width: auto;
+  object-fit: contain;
+}
+
 .brand-sep {
   width: 1px;
   height: 26px;
