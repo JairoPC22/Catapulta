@@ -123,6 +123,10 @@ const TRANSLATIONS = {
     'cat.spec.su.p2mini': 'Pantalla HD 5" · 4G LTE · WiFi Dual · BT 5.0 · NFC · QR · PCI/EMV · Android 9.0',
     'cat.spec.su.d3pro': '15.6" FHD · Qualcomm · SUNMI OS 4.0 · 4GB RAM · 64GB ROM · Aluminio',
     'cat.spec.px.a920': 'Android 8.1 · Pantalla IPS 5.5" · 4G · WiFi · Bluetooth · Cámara 5MP · Impresora',
+    'cat.spec.px.a920duo': 'Handheld de doble pantalla · Impresora integrada · 4G · WiFi',
+    'cat.spec.px.a77': 'Handheld compacto · Sin impresora · 4G · WiFi',
+    'cat.spec.px.a80': 'Terminal de mostrador con cable · Pantalla táctil · Teclado numérico',
+    'cat.spec.px.a35': 'PIN pad con pantalla táctil a color · Se empareja con una estación Elys POS',
     'cat.spec.px.elyse': 'Android 11 · FHD 14" Touch · Qualcomm Octa-Core 2.0GHz · 4GB RAM · 64GB ROM',
     'cat.spec.px.sistema': 'Modular · PCI DSS · Red Dot Award · Workstation + Tablet + Scanner + Impresora',
     'cat.spec.px.e700': 'Pantalla HD 12.5" · 4G · WiFi · Bluetooth · Impresora 3" · PCI 5.x SRED · NFC',
@@ -155,6 +159,14 @@ const TRANSLATIONS = {
     'cat.feat.px.nfc': 'NFC sin contacto',
     'cat.feat.px.pci': 'PCI 5.x SRED certificado',
     'cat.feat.px.hiprinter': 'Impresora de alta velocidad',
+    'cat.feat.px.duoscreen': 'Pantalla principal + pantalla secundaria para el cliente',
+    'cat.feat.px.duouse': 'Ideal para cobro frente al cliente con confirmación visible',
+    'cat.feat.px.a77light': 'Ligero y fácil de transportar',
+    'cat.feat.px.a77use': 'Ideal para cobro móvil sin necesidad de imprimir recibo',
+    'cat.feat.px.a80fixed': 'Ideal para punto fijo de cobro (mostrador, caja)',
+    'cat.feat.px.a80wired': 'Conexión por cable, siempre en línea',
+    'cat.feat.px.a35pay': 'Dispositivo de pago para el cliente, frente a la estación principal',
+    'cat.feat.px.a35printer': 'Impresora de recibo por separado',
     // Landi-specific features
     'cat.feat.la.cert': 'Certificado CE/CB/FCC/IC/RoHS',
     'cat.feat.la.sd': 'Soporta tarjeta SD 3.0',
@@ -379,6 +391,10 @@ const TRANSLATIONS = {
     'cat.spec.su.p2mini': '5" HD screen · 4G LTE · Dual WiFi · BT 5.0 · NFC · QR · PCI/EMV · Android 9.0',
     'cat.spec.su.d3pro': '15.6" FHD · Qualcomm · SUNMI OS 4.0 · 4GB RAM · 64GB ROM · Aluminum',
     'cat.spec.px.a920': 'Android 8.1 · 5.5" IPS screen · 4G · WiFi · Bluetooth · 5MP Camera · Printer',
+    'cat.spec.px.a920duo': 'Dual-screen handheld · Built-in printer · 4G · WiFi',
+    'cat.spec.px.a77': 'Compact handheld · No printer · 4G · WiFi',
+    'cat.spec.px.a80': 'Wired countertop terminal · Touchscreen · Numeric keypad',
+    'cat.spec.px.a35': 'PIN pad with color touchscreen · Pairs with an Elys POS station',
     'cat.spec.px.elyse': 'Android 11 · 14" FHD Touch · Qualcomm Octa-Core 2.0GHz · 4GB RAM · 64GB ROM',
     'cat.spec.px.sistema': 'Modular · PCI DSS · Red Dot Award · Workstation + Tablet + Scanner + Printer',
     'cat.spec.px.e700': '12.5" HD screen · 4G · WiFi · Bluetooth · 3" Printer · PCI 5.x SRED · NFC',
@@ -411,6 +427,14 @@ const TRANSLATIONS = {
     'cat.feat.px.nfc': 'NFC contactless',
     'cat.feat.px.pci': 'PCI 5.x SRED certified',
     'cat.feat.px.hiprinter': 'High-speed printer',
+    'cat.feat.px.duoscreen': 'Main screen + secondary customer-facing display',
+    'cat.feat.px.duouse': 'Great for face-to-face checkout with visible confirmation',
+    'cat.feat.px.a77light': 'Light and easy to carry around',
+    'cat.feat.px.a77use': 'Great for mobile checkout without printing a receipt',
+    'cat.feat.px.a80fixed': 'Great for a fixed checkout point (counter, register)',
+    'cat.feat.px.a80wired': 'Wired connection, always online',
+    'cat.feat.px.a35pay': 'Customer-facing payment device next to the main station',
+    'cat.feat.px.a35printer': 'Receipt printer sold separately',
     // Landi features
     'cat.feat.la.cert': 'CE/CB/FCC/IC/RoHS certified',
     'cat.feat.la.sd': 'Supports SD 3.0 card',
@@ -610,7 +634,8 @@ const I18N = {
       'cat.spec.cl.flex', 'cat.spec.cl.mini', 'cat.spec.cl.duo',     // Clover (3)
       'cat.spec.su.p2pro', 'cat.spec.su.t2s', 'cat.spec.su.p2mini',  // Sunmi (3)
       'cat.spec.su.d3pro',                                             // Sunmi D3 (1)
-      'cat.spec.px.a920', 'cat.spec.px.elyse', 'cat.spec.px.sistema', // PAX (3)
+      'cat.spec.px.a920', 'cat.spec.px.a920duo', 'cat.spec.px.a77', 'cat.spec.px.a80', 'cat.spec.px.a35', // PAX OnTheFly (5)
+      'cat.spec.px.elyse', 'cat.spec.px.sistema', // PAX (2)
       'cat.spec.px.e700', 'cat.spec.px.kiosk',                        // PAX (2)
       'cat.spec.la.m20', 'cat.spec.la.c20pro',                        // Landi (2)
     ];
@@ -955,8 +980,8 @@ const I18N = {
     // Badges
     const gold = this._q('.badge-gold');
     if (gold && t['cat.badge.popular']) gold.textContent = t['cat.badge.popular'];
-    // badge-teal en orden del DOM: Clover Duo, Sunmi T2S, PAX Kiosk, Landi C20
-    const tealKeys = ['cat.badge.large','cat.badge.advanced','cat.badge.self','cat.badge.dual'];
+    // badge-teal en orden del DOM: Clover Duo, Sunmi T2S, PAX A920Pro Duo, PAX Kiosk, Landi C20
+    const tealKeys = ['cat.badge.large','cat.badge.advanced','cat.badge.dual','cat.badge.self','cat.badge.dual'];
     this._qa('.badge-teal').forEach((el, i) => {
       if (tealKeys[i] && t[tealKeys[i]]) el.textContent = t[tealKeys[i]];
     });
