@@ -67,3 +67,13 @@ Auditoría técnica para maximizar la puntuación de SEO (Lighthouse) y la acces
 - Se actualizan título, descripción, canonical, og:url, locale, alternativas de locale y JSON-LD de WebPage, Service y FAQPage. La consulta y el fragmento de la navegación se conservan; el canonical queda limpio.
 - `node --test tests/i18n.cjs` comprueba traducciones reversibles, metadatos, HTML estático y la transición. Ejecutar también las pruebas de regresión.
 - El sitemap solo incluye páginas públicas reales. Los documentos legales siguen como borradores noindex hasta su aprobación; no se promete indexación ni posiciones en Google.
+
+## Traducción del navegador — 11 de noviembre de 2026
+
+Las dos portadas (`/` y `/en/`) declaran `translate="no"`, la clase de compatibilidad `notranslate` y `<meta name="google" content="notranslate">`. El objetivo es que los traductores automáticos respeten el contenido ya localizado por el selector ES/EN, especialmente el encabezado animado, cuyas palabras se envuelven en elementos separados. No se cambian las animaciones de entrada ni la transición al cambiar de idioma.
+
+Se conservan `lang`, los enlaces `hreflang`, los canonical y las reglas de indexación. No se añade `noindex` ni una prohibición de rastreo. El atributo de traducción es una indicación a herramientas compatibles, no un bloqueo absoluto de extensiones o de traducciones forzadas por el visitante. Una pestaña ya traducida puede necesitar «Mostrar original» y una recarga después de publicar la corrección.
+
+El encabezado estático y el diccionario usan las mismas frases revisadas en cada idioma. Las portadas y el service worker cargan la versión 66 de los recursos; las pruebas comprueban el texto, las indicaciones de traducción, la correspondencia de recursos ES/EN y la transición del selector.
+
+Referencias: [documentación de Chromium sobre traducción](https://www.chromium.org/developers/design-documents/translate/) y [atributo translate de HTML](https://html.spec.whatwg.org/multipage/dom.html#the-translate-attribute).

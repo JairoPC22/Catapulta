@@ -39,7 +39,7 @@ const TRANSLATIONS = {
     'footer.legal.aria': 'Información legal',
     // HERO
     'hero.label': 'Tu próximo procesador de pagos',
-    'hero.h1': 'Simplificamos tus cobros,<br />para acelerar tus<br /><em class="grad-text">ingresos.</em>',
+    'hero.h1': 'Simplificamos tus cobros<br />para impulsar tus<br /><em class="grad-text">ingresos.</em>',
     'hero.desc': 'Te ayudamos a elegir, configurar y optimizar las mejores plataformas de pago para tu empresa. Mejora tu conversión, reduce costos y cumple con estándares de seguridad global.',
     'hero.cta1': 'Empieza a cobrar', 'hero.cta2': 'Ver equipos',
     'hero.trust': '100+ negocios ya confían en nosotros',
@@ -307,7 +307,7 @@ const TRANSLATIONS = {
     'footer.legal.aria': 'Legal information',
     // HERO
     'hero.label': 'Your next payment processor',
-    'hero.h1': 'We simplify your payments,<br />to accelerate your<br /><em class="grad-text">revenue.</em>',
+    'hero.h1': 'We simplify your payments<br />to help grow your<br /><em class="grad-text">revenue.</em>',
     'hero.desc': 'We help you choose, configure, and optimize the best payment platforms for your business. Improve conversion, reduce costs, and meet global security standards.',
     'hero.cta1': 'Get started', 'hero.cta2': 'See equipment',
     'hero.trust': '100+ businesses already trust us',

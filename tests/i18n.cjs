@@ -59,6 +59,28 @@ test('static language pages expose matching canonical and alternates',()=>{
   }
 });
 
+test('owned language pages opt out of browser translation before scripts run',()=>{
+  for(const [file,lang] of [['index.html','es'],['en/index.html','en']]) {
+    const html=fs.readFileSync(path.join(root,file),'utf8');
+    assert.match(html,new RegExp(`<html\\b[^>]*lang="${lang}"[^>]*translate="no"[^>]*class="notranslate"`));
+    assert.match(html,/<meta name="google" content="notranslate"\s*\/>/);
+    const {TRANSLATIONS}=setup(lang);
+    const heading=html.match(/<h1\b[^>]*>([\s\S]*?)<\/h1>/)[1];
+    assert.equal(heading.trim().replace(/\s+/g,' '),TRANSLATIONS[lang]['hero.h1']);
+    assert.doesNotMatch(html,/<meta name="robots"[^>]*noindex/);
+  }
+});
+
+test('both language pages load the same application assets available offline',()=>{
+  const worker=fs.readFileSync(path.join(root,'sw.js'),'utf8');
+  const assets=file=>[...fs.readFileSync(path.join(root,file),'utf8').matchAll(/(?:src|href)="([^"]+\.(?:css|js)\?v=\d+)"/g)]
+    .map(match=>new URL(match[1],'https://catapultapay.com/'+(file.startsWith('en/')?'en/':'')))
+    .filter(url=>url.origin==='https://catapultapay.com').map(url=>url.pathname+url.search).sort();
+  const spanish=assets('index.html');
+  assert.deepEqual(assets('en/index.html'),spanish);
+  for(const asset of spanish)assert.ok(worker.includes("'"+asset+"'"),asset);
+});
+
 test('direct language URLs win over a stored preference',()=>{
   for(const [pathname,expected] of [['/','es'],['/index.html','es'],['/en','en'],['/en/','en'],['/en/index.html','en']]) {
     const {I18N,context}=setup();
