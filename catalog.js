@@ -16,6 +16,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
   function applyCatalogFile(lang) {
     const file = FILES[lang] || FILES.es;
+    if (frame) frame.title = lang === 'en' ? 'CatapultaPayment equipment catalog' : 'Catálogo de equipos CatapultaPayment';
+    document.querySelector('.catalog-viewer')?.setAttribute('aria-label', lang === 'en' ? 'PDF catalog viewer' : 'Visor del catálogo en PDF');
     document.querySelectorAll('.catalog-pdf-link').forEach(a => a.setAttribute('href', file));
     const nameEl = document.getElementById('catalogFileName');
     if (nameEl) nameEl.textContent = file.split('/').pop();
@@ -38,8 +40,6 @@ document.addEventListener('DOMContentLoaded', () => {
     revealTimer = setTimeout(reveal, 1200);
   }
 
-  document.querySelectorAll('.lang-btn').forEach(button => {
-    button.addEventListener('click', () => applyCatalogFile(button.dataset.lang));
-  });
-  applyCatalogFile(CP.storage.get('cpay-lang', 'es'));
+  document.addEventListener('cpay:languagechange', event => applyCatalogFile(event.detail.lang));
+  applyCatalogFile(document.documentElement.lang);
 });

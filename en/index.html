@@ -43,12 +43,12 @@
 <link rel="manifest" href="/manifest.json" />
   <link rel="preload" href="/assets/fonts/design/manrope.woff2" as="font" type="font/woff2" crossorigin />
   <!-- Lucide Icons CDN -->
-<script src="/assets/js/icons.js?v=66" defer></script>
-<link rel="stylesheet" href="/assets/css/terminal-icons.css?v=66" />
+<script src="/assets/js/icons.js?v=67" defer></script>
+<link rel="stylesheet" href="/assets/css/terminal-icons.css?v=67" />
   <!-- Styles -->
-  <link rel="stylesheet" href="/styles.css?v=66" />
-  <link rel="stylesheet" href="/design.css?v=66" />
-  <link rel="stylesheet" href="/page-state.css?v=66" />
+  <link rel="stylesheet" href="/styles.css?v=67" />
+  <link rel="stylesheet" href="/design.css?v=67" />
+  <link rel="stylesheet" href="/page-state.css?v=67" />
 <link rel="preload" href="/assets/icons/logo-site.webp" as="image" fetchpriority="high">
 
 <!-- Structured data -->
@@ -221,7 +221,7 @@
 
 </head>
 <body>
-  <a class="skip-link" href="#main">Skip to main content</a>
+  <a class="skip-link" href="#main" translate="no">Skip to main content</a>
   <audio id="brandAudio" src="/assets/audio/catapultapayment-signature.mp3" preload="none" aria-hidden="true"></audio>
   <div class="site-loader" id="siteLoader" hidden>
     <div class="loader-content">
@@ -240,48 +240,48 @@
           <path class="lg-arc" d="M10.7 45.2A34.6 34.6 0 0 1 45.3 10.6" stroke-width="3.3"/>
           <circle class="lg-dot" cx="45.3" cy="45.2" r="4.9"/>
         </svg>
-        <span class="sr-only loader-status-text">Preparando tu experiencia</span>
+        <span class="sr-only loader-status-text" translate="no">Preparando tu experiencia</span>
       </div>
-      <p class="loader-brand">
-        <span class="loader-brand-main grad-text">pay</span>
-        <span class="loader-brand-sub">CATAPULTA</span>
+      <p class="loader-brand" translate="no">
+        <span class="loader-brand-main grad-text" translate="no">pay</span>
+        <span class="loader-brand-sub" translate="no">CATAPULTA</span>
       </p>
-      <p class="loader-tagline">Pagos simples. Negocios que crecen.</p>
+      <p class="loader-tagline" translate="no">Pagos simples. Negocios que crecen.</p>
     </div>
   </div>
-  <script src="/loading.js?v=66"></script>
+  <script src="/loading.js?v=67"></script>
 
   <!-- ── NAVBAR ── -->
   <nav id="nav" aria-label="Main navigation">
     <div class="nav-inner">
-      <a href="#hero" class="nav-logo">
+      <a href="#hero" class="nav-logo" translate="no">
         <img src="/assets/icons/logo-site.webp" alt="CatapultaPayment" width="98" height="52" fetchpriority="high" />
       </a>
 
       <ul class="nlinks" role="list">
-        <li><a href="#hero" class="nav-link">Home</a></li>
-        <li><a href="#about" class="nav-link">About</a></li>
-        <li><a href="#solutions" class="nav-link">Solutions</a></li>
-        <li><a href="#catalogo" class="nav-link">Catalog</a></li>
-        <li><a href="#testimonials" class="nav-link">Clients</a></li>
-        <li><a href="#contact" class="nav-link">Contact</a></li>
+        <li translate="no"><a href="#hero" class="nav-link" translate="no">Home</a></li>
+        <li translate="no"><a href="#about" class="nav-link" translate="no">About</a></li>
+        <li translate="no"><a href="#solutions" class="nav-link" translate="no">Solutions</a></li>
+        <li translate="no"><a href="#catalogo" class="nav-link" translate="no">Catalog</a></li>
+        <li translate="no"><a href="#testimonials" class="nav-link" translate="no">Clients</a></li>
+        <li translate="no"><a href="#contact" class="nav-link" translate="no">Contact</a></li>
       </ul>
 
-      <a href="#contact" class="ncta btn-outline" aria-label="Get started, go to contact">
+      <a href="#contact" class="ncta btn-outline" aria-label="Get started, go to contact" translate="no">
         Get Started <i data-lucide="arrow-right" aria-hidden="true"></i>
       </a>
 
       <div class="lang-toggle" id="langToggle" role="group" aria-label="Change language">
-        <button class="lang-btn" data-lang="es" aria-pressed="false">ES</button>
-        <button class="lang-btn active" data-lang="en" aria-pressed="true">EN</button>
+        <button class="lang-btn" data-lang="es" aria-pressed="false" translate="no">ES</button>
+        <button class="lang-btn active" data-lang="en" aria-pressed="true" translate="no">EN</button>
       </div>
 
-      <button class="theme-toggle" id="themeToggle" aria-label="Switch light or dark theme">
+      <button class="theme-toggle" id="themeToggle" aria-label="Switch light or dark theme" translate="no">
         <i data-lucide="sun" class="icon-sun" aria-hidden="true"></i>
         <i data-lucide="moon" class="icon-moon" aria-hidden="true"></i>
       </button>
 
-      <button class="nav-hamburger" id="navHamburger" aria-label="Open navigation menu" aria-expanded="false" aria-controls="mobileMenu">
+      <button class="nav-hamburger" id="navHamburger" aria-label="Open navigation menu" aria-expanded="false" aria-controls="mobileMenu" translate="no">
         <i data-lucide="menu" aria-hidden="true" id="iconMenu" class="icon-menu"></i>
         <i data-lucide="x" aria-hidden="true" id="iconClose" class="icon-close"></i>
       </button>
@@ -293,24 +293,24 @@
   <div class="mobile-menu-backdrop" id="mobileMenuBackdrop" aria-hidden="true"></div>
   <div class="mobile-menu" id="mobileMenu" aria-hidden="true">
     <ul role="list">
-      <li><a href="#hero" class="mobile-link"><span class="mobile-link-icon"><i data-lucide="store" aria-hidden="true"></i></span><span class="mobile-link-label">Home</span></a></li>
-      <li><a href="#about" class="mobile-link"><span class="mobile-link-icon"><i data-lucide="briefcase" aria-hidden="true"></i></span><span class="mobile-link-label">About</span></a></li>
-      <li><a href="#solutions" class="mobile-link"><span class="mobile-link-icon"><i data-lucide="layers" aria-hidden="true"></i></span><span class="mobile-link-label">Solutions</span></a></li>
-      <li><a href="#catalogo" class="mobile-link"><span class="mobile-link-icon"><i data-lucide="box" aria-hidden="true"></i></span><span class="mobile-link-label">Catalog</span></a></li>
-      <li><a href="#testimonials" class="mobile-link"><span class="mobile-link-icon"><i data-lucide="users" aria-hidden="true"></i></span><span class="mobile-link-label">Clients</span></a></li>
-      <li><a href="#contact" class="mobile-link"><span class="mobile-link-icon"><i data-lucide="message-circle" aria-hidden="true"></i></span><span class="mobile-link-label">Contact</span></a></li>
-      <li><a href="#contact" class="btn-primary mobile-cta">Get Started <i data-lucide="arrow-right" aria-hidden="true"></i></a></li>
-      <li class="mobile-menu-divider">
-        <span class="mobile-menu-section-label">Preferences</span>
+      <li translate="no"><a href="#hero" class="mobile-link" translate="no"><span class="mobile-link-icon" translate="no"><i data-lucide="store" aria-hidden="true"></i></span><span class="mobile-link-label" translate="no">Home</span></a></li>
+      <li translate="no"><a href="#about" class="mobile-link" translate="no"><span class="mobile-link-icon" translate="no"><i data-lucide="briefcase" aria-hidden="true"></i></span><span class="mobile-link-label" translate="no">About</span></a></li>
+      <li translate="no"><a href="#solutions" class="mobile-link" translate="no"><span class="mobile-link-icon" translate="no"><i data-lucide="layers" aria-hidden="true"></i></span><span class="mobile-link-label" translate="no">Solutions</span></a></li>
+      <li translate="no"><a href="#catalogo" class="mobile-link" translate="no"><span class="mobile-link-icon" translate="no"><i data-lucide="box" aria-hidden="true"></i></span><span class="mobile-link-label" translate="no">Catalog</span></a></li>
+      <li translate="no"><a href="#testimonials" class="mobile-link" translate="no"><span class="mobile-link-icon" translate="no"><i data-lucide="users" aria-hidden="true"></i></span><span class="mobile-link-label" translate="no">Clients</span></a></li>
+      <li translate="no"><a href="#contact" class="mobile-link" translate="no"><span class="mobile-link-icon" translate="no"><i data-lucide="message-circle" aria-hidden="true"></i></span><span class="mobile-link-label" translate="no">Contact</span></a></li>
+      <li translate="no"><a href="#contact" class="btn-primary mobile-cta" translate="no">Get Started <i data-lucide="arrow-right" aria-hidden="true"></i></a></li>
+      <li class="mobile-menu-divider" translate="no">
+        <span class="mobile-menu-section-label" translate="no">Preferences</span>
         <div class="mobile-prefs-row">
           <div class="lang-toggle mobile-lang-toggle" id="langToggleMobile" role="group" aria-label="Change language">
-            <button class="lang-btn" data-lang="es">ES</button>
-            <button class="lang-btn active" data-lang="en">EN</button>
+            <button class="lang-btn" data-lang="es" translate="no">ES</button>
+            <button class="lang-btn active" data-lang="en" translate="no">EN</button>
           </div>
-          <button class="theme-toggle mobile-theme-btn" id="themeToggleMobile" aria-label="Switch light or dark theme">
+          <button class="theme-toggle mobile-theme-btn" id="themeToggleMobile" aria-label="Switch light or dark theme" translate="no">
             <i data-lucide="sun" class="icon-sun" aria-hidden="true"></i>
             <i data-lucide="moon" class="icon-moon" aria-hidden="true"></i>
-            <span class="mobile-theme-label">Modo oscuro</span>
+            <span class="mobile-theme-label" translate="no">Modo oscuro</span>
           </button>
         </div>
       </li>
@@ -325,29 +325,29 @@
     <div class="hero-grid">
       <!-- Copy -->
       <div class="hero-copy">
-        <h1 class="reveal">
+        <h1 class="reveal" translate="no">
           We simplify your payments<br />to help grow your<br /><em class="grad-text">revenue.</em></h1>
 
-        <p class="hero-desc reveal">
+        <p class="hero-desc reveal" translate="no">
           We help you choose, configure, and optimize the best payment platforms for your business. Improve conversion, reduce costs, and meet global security standards.
         </p>
 
         <div class="hero-actions reveal">
-          <a href="#contact" class="btn-primary">
+          <a href="#contact" class="btn-primary" translate="no">
             Get started <i data-lucide="arrow-right" aria-hidden="true"></i>
           </a>
-          <a href="#catalogo" class="btn-ghost">
+          <a href="#catalogo" class="btn-ghost" translate="no">
             See equipment
           </a>
         </div>
 
         <div class="trust-bar reveal">
-          <span class="trust-check" aria-hidden="true">
+          <span class="trust-check" aria-hidden="true" translate="no">
             <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
               <path d="M5 13l4 4L19 7" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
             </svg>
           </span>
-          <p class="trust-text">100+ businesses already trust us</p>
+          <p class="trust-text" translate="no">100+ businesses already trust us</p>
         </div>
       </div>
 
@@ -384,14 +384,14 @@
   <div class="brand-strip">
     <div class="container">
       <div class="brand-strip-row">
-        <span class="brand-mark">Dejavoo</span>
-        <span class="brand-mark">Clover</span>
-        <span class="brand-mark">Sunmi</span>
-        <span class="brand-sep" aria-hidden="true"></span>
-        <span class="brand-mark">Kwick POS</span>
-        <span class="brand-mark">OnTheFly</span>
-        <span class="brand-mark">OrderPin</span>
-        <span class="brand-mark">Octopos POS</span>
+        <span class="brand-mark" translate="no">Dejavoo</span>
+        <span class="brand-mark" translate="no">Clover</span>
+        <span class="brand-mark" translate="no">Sunmi</span>
+        <span class="brand-sep" aria-hidden="true" translate="no"></span>
+        <span class="brand-mark" translate="no">Kwick POS</span>
+        <span class="brand-mark" translate="no">OnTheFly</span>
+        <span class="brand-mark" translate="no">OrderPin</span>
+        <span class="brand-mark" translate="no">Octopos POS</span>
       </div>
     </div>
   </div>
@@ -419,16 +419,16 @@
   </div>
   <div class="about-badge">
             <i data-lucide="users" aria-hidden="true"></i>
-            <span>100+ Active Businesses</span>
+            <span translate="no">100+ Active Businesses</span>
           </div>
         </div>
 
         <!-- Copy -->
         <div class="about-copy reveal-right">
-          <h2 class="section-title">
+          <h2 class="section-title" translate="no">
             The payment partner<br />your business needs.
           </h2>
-          <p class="about-desc">
+          <p class="about-desc" translate="no">
             Over 6 years connecting businesses — including high-risk ones other processors turn away — with sponsor banks, physical terminals, and virtual gateways, with support in Spanish and English from start to finish.
           </p>
 
@@ -438,8 +438,8 @@
                 <i data-lucide="landmark" aria-hidden="true"></i>
               </div>
               <div class="feature-text">
-                <h3>Multi-bank connectivity</h3>
-                <p>Access to sponsor banks to serve diverse sectors, including high-risk businesses.</p>
+                <h3 translate="no">Multi-bank connectivity</h3>
+                <p translate="no">Access to sponsor banks to serve diverse sectors, including high-risk businesses.</p>
               </div>
             </article>
 
@@ -448,8 +448,8 @@
                 <i data-lucide="zap" aria-hidden="true"></i>
               </div>
               <div class="feature-text">
-                <h3>Comprehensive solutions</h3>
-                <p>POS programs, competitive pricing, and fast funding: same day or next day.</p>
+                <h3 translate="no">Comprehensive solutions</h3>
+                <p translate="no">POS programs, competitive pricing, and fast funding: same day or next day.</p>
               </div>
             </article>
 
@@ -458,8 +458,8 @@
                 <i data-lucide="shield-check" aria-hidden="true"></i>
               </div>
               <div class="feature-text">
-                <h3>Chargeback mitigation</h3>
-                <p>Advanced technology to reduce disputes and protect every transaction in your business.</p>
+                <h3 translate="no">Chargeback mitigation</h3>
+                <p translate="no">Advanced technology to reduce disputes and protect every transaction in your business.</p>
               </div>
             </article>
 
@@ -468,8 +468,8 @@
                 <i data-lucide="headphones" aria-hidden="true"></i>
               </div>
               <div class="feature-text">
-                <h3>24/7 bilingual support</h3>
-                <p>A real team in Spanish and English, ready to solve technical or billing questions.</p>
+                <h3 translate="no">24/7 bilingual support</h3>
+                <p translate="no">A real team in Spanish and English, ready to solve technical or billing questions.</p>
               </div>
             </article>
           </div>
@@ -484,23 +484,23 @@
       <div class="stats-grid">
         <div class="stat-item">
           <i data-lucide="briefcase" aria-hidden="true" class="stat-icon"></i>
-          <span class="stat-num counter grad-text" data-target="6" data-prefix="+" data-suffix="">6</span>
-          <span class="stat-label">Years in business</span>
+          <span class="stat-num counter grad-text" data-target="6" data-prefix="+" data-suffix="" translate="no">6</span>
+          <span class="stat-label" translate="no">Years in business</span>
         </div>
         <div class="stat-item">
           <i data-lucide="users" aria-hidden="true" class="stat-icon"></i>
-          <span class="stat-num counter grad-text" data-target="100" data-prefix="" data-suffix="+">100</span>
-          <span class="stat-label">Businesses accepting payments</span>
+          <span class="stat-num counter grad-text" data-target="100" data-prefix="" data-suffix="+" translate="no">100</span>
+          <span class="stat-label" translate="no">Businesses accepting payments</span>
         </div>
         <div class="stat-item">
           <i data-lucide="layers" aria-hidden="true" class="stat-icon"></i>
-          <span class="stat-num counter grad-text" data-target="10" data-prefix="" data-suffix="+">10</span>
-          <span class="stat-label">Technology partners</span>
+          <span class="stat-num counter grad-text" data-target="10" data-prefix="" data-suffix="+" translate="no">10</span>
+          <span class="stat-label" translate="no">Technology partners</span>
         </div>
         <div class="stat-item">
           <i data-lucide="message-circle" aria-hidden="true" class="stat-icon"></i>
-          <span class="stat-num counter grad-text" data-target="100" data-prefix="" data-suffix="%">100</span>
-          <span class="stat-label">Bilingual support</span>
+          <span class="stat-num counter grad-text" data-target="100" data-prefix="" data-suffix="%" translate="no">100</span>
+          <span class="stat-label" translate="no">Bilingual support</span>
         </div>
       </div>
     </div>
@@ -511,11 +511,11 @@
   <div class="container">
 
 
-<h2 class="sr-only" id="termSrTitle">CatapultaPayment POS terminal simulator — enter an amount with the numeric keypad, choose a payment method, and process the transaction</h2>
+<h2 class="sr-only" id="termSrTitle" translate="no">CatapultaPayment POS terminal simulator — enter an amount with the numeric keypad, choose a payment method, and process the transaction</h2>
 <div class="pos-outer">
   <div class="section-header reveal">
-    <h2 class="section-title" id="termTitle">It's this easy to accept payments with CatapultaPayment</h2>
-    <p class="section-desc" id="termDesc">Enter the amount with the keypad, choose how to charge, and process in seconds.</p>
+    <h2 class="section-title" id="termTitle" translate="no">It's this easy to accept payments with CatapultaPayment</h2>
+    <p class="section-desc" id="termDesc" translate="no">Enter the amount with the keypad, choose how to charge, and process in seconds.</p>
   </div>
 
   <div class="pos-scene">
@@ -527,41 +527,41 @@
       <div class="pos-body">
         <div class="pos-screen-wrap">
           <div class="pos-topbar">
-            <span class="topbar-brand">CatapultaPayment</span>
-            <span class="topbar-time" id="posClk">--:--</span>
+            <span class="topbar-brand" translate="no">CatapultaPayment</span>
+            <span class="topbar-time" id="posClk" translate="no">--:--</span>
           </div>
           <div class="pos-screen-body" id="screenBody">
             <div class="screen-amount-display">
-              <span class="screen-entry-label">Enter amount</span>
-              <span class="screen-entry-value" id="screenAmt">$0.00<span class="screen-entry-cursor"></span></span>
+              <span class="screen-entry-label" translate="no">Enter amount</span>
+              <span class="screen-entry-value" id="screenAmt" translate="no">$0.00<span class="screen-entry-cursor" translate="no"></span></span>
             </div>
             <div class="screen-method-row" id="screenMethod">
               <i class="ti ti-credit-card" style="font-size:9px;"></i>
-              <span id="screenMethodTxt">Chip · CatapultaPayment ••4521</span>
+              <span id="screenMethodTxt" translate="no">Chip · CatapultaPayment ••4521</span>
             </div>
             <div class="screen-numpad">
-              <button type="button" class="skey" onclick="padPress('1')">1</button>
-              <button type="button" class="skey" onclick="padPress('2')">2</button>
-              <button type="button" class="skey" onclick="padPress('3')">3</button>
-              <button type="button" class="skey" onclick="padPress('4')">4</button>
-              <button type="button" class="skey" onclick="padPress('5')">5</button>
-              <button type="button" class="skey" onclick="padPress('6')">6</button>
-              <button type="button" class="skey" onclick="padPress('7')">7</button>
-              <button type="button" class="skey" onclick="padPress('8')">8</button>
-              <button type="button" class="skey" onclick="padPress('9')">9</button>
-              <button type="button" class="skey skey-del" onclick="padPress('DEL')">⌫ CLR</button>
-              <button type="button" class="skey" onclick="padPress('0')">0</button>
-              <button type="button" class="skey skey-ok" onclick="padPress('OK')">✓ OK</button>
+              <button type="button" class="skey" onclick="padPress('1')" translate="no">1</button>
+              <button type="button" class="skey" onclick="padPress('2')" translate="no">2</button>
+              <button type="button" class="skey" onclick="padPress('3')" translate="no">3</button>
+              <button type="button" class="skey" onclick="padPress('4')" translate="no">4</button>
+              <button type="button" class="skey" onclick="padPress('5')" translate="no">5</button>
+              <button type="button" class="skey" onclick="padPress('6')" translate="no">6</button>
+              <button type="button" class="skey" onclick="padPress('7')" translate="no">7</button>
+              <button type="button" class="skey" onclick="padPress('8')" translate="no">8</button>
+              <button type="button" class="skey" onclick="padPress('9')" translate="no">9</button>
+              <button type="button" class="skey skey-del" onclick="padPress('DEL')" translate="no">⌫ CLR</button>
+              <button type="button" class="skey" onclick="padPress('0')" translate="no">0</button>
+              <button type="button" class="skey skey-ok" onclick="padPress('OK')" translate="no">✓ OK</button>
             </div>
           </div>
         </div>
         <div class="pos-reader-strip">
           <i class="ti ti-credit-card" style="font-size:11px; color:#2a3550;"></i>
           <div class="reader-track"><div class="reader-glow" id="readerGlow"></div></div>
-          <span class="reader-tag">Chip / Swipe / NFC</span>
+          <span class="reader-tag" translate="no">Chip / Swipe / NFC</span>
         </div>
         <div class="pos-status-row">
-          <span class="pos-pci">PCI DSS v4</span>
+          <span class="pos-pci" translate="no">PCI DSS v4</span>
           <div class="pos-leds">
             <div class="pos-led on"></div>
             <div class="pos-led on"></div>
@@ -578,24 +578,24 @@
           <div class="mcard active" data-method="chip" data-icon="ti-credit-card" data-label="Chip · CatapultaPayment ••4521" onclick="pickMethod(this)">
             <div class="mcard-icon"><i class="ti ti-credit-card" aria-hidden="true"></i></div>
             <div class="mcard-info">
-              <p class="mcard-name">Chip card</p>
-              <p class="mcard-sub">•••• •••• •••• 4521 · Chip</p>
+              <p class="mcard-name" translate="no">Chip card</p>
+              <p class="mcard-sub" translate="no">•••• •••• •••• 4521 · Chip</p>
             </div>
             <i class="ti ti-circle-check mcard-check" aria-hidden="true"></i>
           </div>
           <div class="mcard" data-method="nfc" data-icon="ti-wifi" data-label="NFC · Apple/Google Pay" onclick="pickMethod(this)">
             <div class="mcard-icon"><i class="ti ti-wifi" aria-hidden="true"></i></div>
             <div class="mcard-info">
-              <p class="mcard-name">Contactless / NFC</p>
-              <p class="mcard-sub">Apple Pay · Google Pay</p>
+              <p class="mcard-name" translate="no">Contactless / NFC</p>
+              <p class="mcard-sub" translate="no">Apple Pay · Google Pay</p>
             </div>
             <i class="ti ti-circle-check mcard-check" aria-hidden="true"></i>
           </div>
           <div class="mcard" data-method="swipe" data-icon="ti-arrows-right-left" data-label="Swipe · CatapultaPayment ••8834" onclick="pickMethod(this)">
             <div class="mcard-icon"><i class="ti ti-arrows-right-left" aria-hidden="true"></i></div>
             <div class="mcard-info">
-              <p class="mcard-name">Magnetic stripe</p>
-              <p class="mcard-sub">•••• •••• •••• 8834 · Swipe</p>
+              <p class="mcard-name" translate="no">Magnetic stripe</p>
+              <p class="mcard-sub" translate="no">•••• •••• •••• 8834 · Swipe</p>
             </div>
             <i class="ti ti-circle-check mcard-check" aria-hidden="true"></i>
           </div>
@@ -606,22 +606,22 @@
         <div class="panel-section-title">Summary</div>
         <div class="summary-box">
           <div class="summary-row">
-            <span class="summary-key">Amount to charge</span>
-            <span class="summary-val big" id="sumAmt">$0.00</span>
+            <span class="summary-key" translate="no">Amount to charge</span>
+            <span class="summary-val big" id="sumAmt" translate="no">$0.00</span>
           </div>
           <div class="summary-divider"></div>
 <div class="summary-row">
-            <span class="summary-key">Estimated fee</span>
-            <span class="summary-val" id="sumFee">$0.00</span>
+            <span class="summary-key" translate="no">Estimated fee</span>
+            <span class="summary-val" id="sumFee" translate="no">$0.00</span>
           </div>
           <div class="summary-row">
-            <span class="summary-key">Net you receive</span>
-            <span class="summary-val teal" id="sumNet">$0.00</span>
+            <span class="summary-key" translate="no">Net amount received</span>
+            <span class="summary-val teal" id="sumNet" translate="no">$0.00</span>
           </div>
         </div>
       </div>
 
-      <button class="charge-btn" id="chargeBtn" disabled onclick="doCharge()">
+      <button class="charge-btn" id="chargeBtn" disabled onclick="doCharge()" translate="no">
         <i class="ti ti-bolt" aria-hidden="true"></i>
         Procesar pago
       </button>
@@ -632,7 +632,7 @@
 
       <div class="drag-hint" id="dragHint">
         <i class="ti ti-credit-card" aria-hidden="true"></i>
-        <span>Drag card onto the terminal</span>
+        <span translate="no">Drag card onto the terminal</span>
       </div>
       <button onclick="resetTerminal()"
         style="width:100%;display:flex;align-items:center;justify-content:center;gap:6px;
@@ -645,7 +645,7 @@
         cursor:pointer;font-family:var(--font-body);
         transition:color 0.15s,border-color 0.15s,background 0.15s;"
         onmouseover="this.style.color='#e24b4a';this.style.borderColor='rgba(226,75,74,0.4)';this.style.background='rgba(226,75,74,0.06)'"
-        onmouseout="this.style.color='';this.style.borderColor='rgba(255,255,255,0.09)';this.style.background='transparent'">
+        onmouseout="this.style.color='';this.style.borderColor='rgba(255,255,255,0.09)';this.style.background='transparent'" translate="no">
         <i class="ti ti-rotate" style="font-size:13px;"></i>
         Reset terminal
       </button>
@@ -665,8 +665,8 @@
           </div>
           <div class="drag-card-num">•••• •••• •••• 4521</div>
           <div class="drag-card-row">
-            <span class="drag-card-brand">CatapultaPayment</span>
-            <span class="drag-card-type">Chip</span>
+            <span class="drag-card-brand" translate="no">CatapultaPayment</span>
+            <span class="drag-card-type" translate="no">Chip</span>
           </div>
         </div>
         <div class="drag-card drag-card--dark" id="dragNfc" draggable="true"
@@ -675,8 +675,8 @@
           <i class="ti ti-wifi drag-card-nfc-icon" aria-hidden="true"></i>
           <div class="drag-card-num">Apple / Google Pay</div>
           <div class="drag-card-row">
-            <span class="drag-card-brand">NFC</span>
-            <span class="drag-card-type">Contactless</span>
+            <span class="drag-card-brand" translate="no">NFC</span>
+            <span class="drag-card-type" translate="no">Contactless</span>
           </div>
         </div>
       </div>
@@ -691,7 +691,7 @@
   <section id="solutions">
     <div class="container">
       <div class="section-header reveal">
-        <h2 class="section-title">
+        <h2 class="section-title" translate="no">
           Everything you need<br />to accept payments.
         </h2>
       </div>
@@ -705,9 +705,9 @@
           aria-selected="true"
           aria-controls="panelPhysical"
           data-tab="physical"
-        >
+         translate="no">
           <i data-lucide="monitor" aria-hidden="true"></i>
-          Physical Equipment
+          POS equipment
         </button>
         <button
           class="tab-pill"
@@ -716,9 +716,9 @@
           aria-selected="false"
           aria-controls="panelVirtual"
           data-tab="virtual"
-        >
+         translate="no">
           <i data-lucide="cloud" aria-hidden="true"></i>
-          Virtual Processing
+          Online payments
         </button>
       </div>
 
@@ -727,34 +727,34 @@
         <div class="solutions-grid">
           <article class="sol-card tilt-card reveal">
             <div class="sol-head"><div class="sol-icon"><i data-lucide="monitor" aria-hidden="true"></i></div>
-            <h3>Basic registers & terminals</h3></div>
-            <p>Countertop terminals for counter sales and basic retail.</p>
+            <h3 translate="no">Cash registers and terminals</h3></div>
+            <p translate="no">Cash registers and payment terminals for countertop sales and retail businesses.</p>
           </article>
           <article class="sol-card tilt-card reveal">
             <div class="sol-head"><div class="sol-icon"><i data-lucide="tablet" aria-hidden="true"></i></div>
-            <h3>Self-service kiosks</h3></div>
-            <p>Touchscreen with integrated readers for cafeterias and kiosks.</p>
+            <h3 translate="no">Self-service kiosks</h3></div>
+            <p translate="no">Touchscreens with integrated readers for cafés and self-service kiosks.</p>
           </article>
           <article class="sol-card tilt-card reveal">
             <div class="sol-head"><div class="sol-icon"><i data-lucide="smartphone" aria-hidden="true"></i></div>
-            <h3>Mobile readers</h3></div>
-            <p>Apps and readers for fairs, markets, and field services.</p>
+            <h3 translate="no">Mobile readers</h3></div>
+            <p translate="no">Apps and readers for fairs, markets, and mobile businesses.</p>
           </article>
           <article class="sol-card tilt-card reveal">
             <div class="sol-head"><div class="sol-icon"><i data-lucide="zap" aria-hidden="true"></i></div>
-            <h3>Smart terminals</h3></div>
-            <p>All-in-one devices with WiFi and mobile connectivity.</p>
+            <h3 translate="no">Smart terminals</h3></div>
+            <p translate="no">All-in-one devices with WiFi and mobile connectivity.</p>
           </article>
           <article class="sol-card tilt-card reveal">
             <div class="sol-head"><div class="sol-icon"><i data-lucide="store" aria-hidden="true"></i></div>
-            <h3>Point-of-sale systems</h3></div>
-            <p>Inventory, customer, and sales management with integrated terminal.</p>
+            <h3 translate="no">Point-of-sale systems</h3></div>
+            <p translate="no">Inventory, customer, and sales management with integrated payments.</p>
           </article>
           <article class="sol-card sol-card--cta tilt-card reveal">
             <div class="sol-head"><div class="sol-icon"><i data-lucide="box" aria-hidden="true"></i></div>
-            <h3>View full catalog</h3></div>
-            <p>Explore all equipment available for your business.</p>
-            <a href="#catalogo" class="sol-link">
+            <h3 translate="no">View full catalog</h3></div>
+            <p translate="no">Explore all equipment available for your business.</p>
+            <a href="#catalogo" class="sol-link" translate="no">
               Go to catalog <i data-lucide="arrow-right" aria-hidden="true"></i>
             </a>
           </article>
@@ -766,33 +766,33 @@
         <div class="solutions-grid">
           <article class="sol-card tilt-card reveal">
             <div class="sol-head"><div class="sol-icon"><i data-lucide="layout-dashboard" aria-hidden="true"></i></div>
-            <h3>E-commerce gateways</h3></div>
-            <p>Secure connection between your online store and the payment processor.</p>
+            <h3 translate="no">E-commerce gateways</h3></div>
+            <p translate="no">Secure connection between your online store and the payment processor.</p>
           </article>
           <article class="sol-card tilt-card reveal">
             <div class="sol-head"><div class="sol-icon"><i data-lucide="link" aria-hidden="true"></i></div>
-            <h3>Payment portals</h3></div>
-            <p>Recurring payments, QR codes, and links via email or SMS.</p>
+            <h3 translate="no">Payment portals</h3></div>
+            <p translate="no">Recurring payments, QR codes, and links via email or SMS.</p>
           </article>
           <article class="sol-card tilt-card reveal">
             <div class="sol-head"><div class="sol-icon"><i data-lucide="monitor" aria-hidden="true"></i></div>
-            <h3>Virtual terminal</h3></div>
-            <p>Cloud panel to enter payments without hardware.</p>
+            <h3 translate="no">Virtual terminal</h3></div>
+            <p translate="no">An online dashboard for entering payments without a physical terminal.</p>
           </article>
           <article class="sol-card tilt-card reveal">
             <div class="sol-head"><div class="sol-icon"><i data-lucide="smartphone" aria-hidden="true"></i></div>
-            <h3>Mobile POS apps</h3></div>
-            <p>Process from tablet or smartphone with full POS features.</p>
+            <h3 translate="no">Mobile POS apps</h3></div>
+            <p translate="no">Accept payments from a tablet or smartphone with point-of-sale features.</p>
           </article>
           <article class="sol-card tilt-card reveal">
             <div class="sol-head"><div class="sol-icon"><i data-lucide="lock" aria-hidden="true"></i></div>
-            <h3>PCI DSS–certified terminals</h3></div>
-            <p>We work with processors and terminals certified under PCI DSS; transaction data travels encrypted.</p>
+            <h3 translate="no">PCI DSS–certified terminals</h3></div>
+            <p translate="no">We work with processors and terminals certified under PCI DSS; transaction data travels encrypted.</p>
           </article>
           <article class="sol-card tilt-card reveal">
             <div class="sol-head"><div class="sol-icon"><i data-lucide="bar-chart-2" aria-hidden="true"></i></div>
-            <h3>Real-time reports</h3></div>
-            <p>Sales, chargebacks, and performance dashboard from any device.</p>
+            <h3 translate="no">Real-time reports</h3></div>
+            <p translate="no">Sales, chargebacks, and performance dashboard from any device.</p>
           </article>
         </div>
       </div>
@@ -802,18 +802,18 @@
   <section id="catalogo">
     <div class="container">
       <div class="section-header reveal">
-        <h2 class="section-title">
+        <h2 class="section-title" translate="no">
           Equipment for every<br />type of business.
         </h2>
-        <p class="section-desc">Rent, lease, or buy. All include setup and bilingual support.</p>
+        <p class="section-desc" translate="no">Rent, lease, or buy. All include setup and bilingual support.</p>
       </div>
 
       <div class="catalog-tabs" role="tablist">
-        <button class="catalog-tab active" data-brand="dejavoo" role="tab">Dejavoo</button>
-        <button class="catalog-tab" data-brand="clover" role="tab">Clover</button>
-        <button class="catalog-tab" data-brand="sunmi" role="tab">Sunmi</button>
-        <button class="catalog-tab" data-brand="pax" role="tab">PAX</button>
-        <button class="catalog-tab" data-brand="landi" role="tab">Landi</button>
+        <button class="catalog-tab active" data-brand="dejavoo" role="tab" translate="no">Dejavoo</button>
+        <button class="catalog-tab" data-brand="clover" role="tab" translate="no">Clover</button>
+        <button class="catalog-tab" data-brand="sunmi" role="tab" translate="no">Sunmi</button>
+        <button class="catalog-tab" data-brand="pax" role="tab" translate="no">PAX</button>
+        <button class="catalog-tab" data-brand="landi" role="tab" translate="no">Landi</button>
       </div>
 
       <!-- ── DEJAVOO ── -->
@@ -823,67 +823,40 @@
           <article class="catalog-card catalog-card--highlight reveal">
             <div class="catalog-img-wrap">
               <picture>
-                <source srcset="assets/images/catalog/dejavoo-p1.webp" type="image/webp" />
+                <source srcset="/assets/images/catalog/dejavoo-p1.webp" type="image/webp" />
                 <img src="/assets/images/catalog/dejavoo-p1.webp" alt="Dejavoo P1" width="700" height="700" loading="lazy" />
               </picture>
             </div>
             <div class="catalog-card-body">
               <div class="catalog-badge badge-gold">Most popular</div>
-              <h3>Dejavoo P1</h3>
-              <p class="catalog-specs">5.5" Touch screen · WiFi 2.4/5GHz · 4G · Chip · Swipe · Contactless · Printer</p>
-              <div class="catalog-price">
-                <span class="price-tag">$450</span>
-                <span class="price-note">Purchase · Rent/Lease available</span>
-              </div>
-              <ul class="catalog-features">
-                <li>Software: <strong>$15/mo</strong></li>
-                <li>With inventory: <strong>$30/mo</strong></li>
-                <li>Internet: <strong>$15/mo</strong> 10GB</li>
-              </ul>
+              <h3 translate="no">Dejavoo P1</h3>
+              <p class="catalog-specs" translate="no" data-spec-key="cat.spec.dj.p1">5.5" Touch screen · WiFi 2.4/5GHz · 4G · Chip · Swipe · Contactless · Printer</p>
             </div>
           </article>
 
           <article class="catalog-card reveal">
             <div class="catalog-img-wrap">
               <picture>
-                <source srcset="assets/images/catalog/dejavoo-qd2.webp" type="image/webp" />
+                <source srcset="/assets/images/catalog/dejavoo-qd2.webp" type="image/webp" />
                 <img src="/assets/images/catalog/dejavoo-qd2.webp" alt="Dejavoo QD2" width="300" height="300" loading="lazy" />
               </picture>
             </div>
             <div class="catalog-card-body">
-              <h3>Dejavoo QD2</h3>
-              <p class="catalog-specs">LCD 5.5" Touch · 58mm Printer · WiFi · Contactless · IPOSpays · SPIn</p>
-              <div class="catalog-price">
-                <span class="price-tag">$450</span>
-                <span class="price-note">Purchase · Rent/Lease available</span>
-              </div>
-              <ul class="catalog-features">
-                <li>Software: <strong>$15/mo</strong></li>
-                <li>With inventory: <strong>$30/mo</strong></li>
-                <li>Optional internet: <strong>$15/mo</strong> 10GB</li>
-              </ul>
+              <h3 translate="no">Dejavoo QD2</h3>
+              <p class="catalog-specs" translate="no" data-spec-key="cat.spec.dj.qd2">LCD 5.5" Touch · 58mm Printer · WiFi · Contactless · IPOSpays · SPIn</p>
             </div>
           </article>
 
           <article class="catalog-card reveal">
             <div class="catalog-img-wrap">
               <picture>
-                <source srcset="assets/images/catalog/dejavoo-d1.webp" type="image/webp" />
+                <source srcset="/assets/images/catalog/dejavoo-d1.webp" type="image/webp" />
                 <img src="/assets/images/catalog/dejavoo-d1.webp" alt="Dejavoo D1" width="700" height="700" loading="lazy" />
               </picture>
             </div>
             <div class="catalog-card-body">
-              <h3>Dejavoo D1</h3>
-              <p class="catalog-specs">For restaurants & retail · Quick setup · High speed</p>
-              <div class="catalog-price">
-                <span class="price-tag">$850</span>
-                <span class="price-note">Purchase · Rent/Lease available</span>
-              </div>
-              <ul class="catalog-features">
-                <li>Without inventory: <strong>$15/mo</strong></li>
-                <li>With inventory: <strong>$30/mo</strong></li>
-                <li>Optional internet: <strong>$15/mo</strong> 10GB</li>
-              </ul>
+              <h3 translate="no">Dejavoo D1</h3>
+              <p class="catalog-specs" translate="no" data-spec-key="cat.spec.dj.d1">For restaurants & retail · Quick setup · High speed</p>
             </div>
           </article>
 
@@ -897,67 +870,40 @@
           <article class="catalog-card reveal">
             <div class="catalog-img-wrap">
               <picture>
-                <source srcset="assets/images/catalog/clover-flex.webp" type="image/webp" />
+                <source srcset="/assets/images/catalog/clover-flex.webp" type="image/webp" />
                 <img src="/assets/images/catalog/clover-flex.webp" alt="Clover Flex" width="700" height="700" loading="lazy" />
               </picture>
             </div>
             <div class="catalog-card-body">
-              <h3>Clover Flex</h3>
-              <p class="catalog-specs">WiFi · 4G · Ethernet · Reader + Contactless · Printer · App Market</p>
-              <div class="catalog-price">
-                <span class="price-tag">$650</span>
-                <span class="price-note">Purchase · Rent/Lease subject to approval</span>
-              </div>
-              <ul class="catalog-features">
-                <li>Software: <strong>$20/mo</strong></li>
-                <li>Internet/Hosting: <strong>$15/mo</strong> opcional</li>
-                <li>Client app: <strong>$15/mo</strong></li>
-              </ul>
+              <h3 translate="no">Clover Flex</h3>
+              <p class="catalog-specs" translate="no" data-spec-key="cat.spec.cl.flex">WiFi · 4G · Ethernet · Reader + Contactless · Printer · App Market</p>
             </div>
           </article>
 
           <article class="catalog-card reveal">
             <div class="catalog-img-wrap">
               <picture>
-                <source srcset="assets/images/catalog/clover-mini.webp" type="image/webp" />
+                <source srcset="/assets/images/catalog/clover-mini.webp" type="image/webp" />
                 <img src="/assets/images/catalog/clover-mini.webp" alt="Clover Mini" width="700" height="700" loading="lazy" />
               </picture>
             </div>
             <div class="catalog-card-body">
-              <h3>Clover Mini</h3>
-              <p class="catalog-specs">WiFi · Ethernet · Printer · Contactless · App Market · Clover Market</p>
-              <div class="catalog-price">
-                <span class="price-tag">$650</span>
-                <span class="price-note">Purchase · Rent/Lease subject to approval</span>
-              </div>
-              <ul class="catalog-features">
-                <li>Software: <strong>$20/mo</strong></li>
-                <li>Internet/Hosting: <strong>$15/mo</strong> opcional</li>
-                <li>Client app: <strong>$15/mo</strong></li>
-              </ul>
+              <h3 translate="no">Clover Mini</h3>
+              <p class="catalog-specs" translate="no" data-spec-key="cat.spec.cl.mini">WiFi · Ethernet · Printer · Contactless · App Market · Clover Market</p>
             </div>
           </article>
 
           <article class="catalog-card catalog-card--highlight reveal">
             <div class="catalog-img-wrap">
               <picture>
-                <source srcset="assets/images/catalog/clover-station-duo.webp" type="image/webp" />
+                <source srcset="/assets/images/catalog/clover-station-duo.webp" type="image/webp" />
                 <img src="/assets/images/catalog/clover-station-duo.webp" alt="Clover Station Duo" width="700" height="700" loading="lazy" />
               </picture>
             </div>
             <div class="catalog-card-body">
               <div class="catalog-badge badge-teal">For large businesses</div>
-              <h3>Clover Station Duo</h3>
-              <p class="catalog-specs">WiFi · 4G · Ethernet · Dual 10" screen · Touch · App Market · Printer</p>
-              <div class="catalog-price">
-                <span class="price-tag">$2,200</span>
-                <span class="price-note">Purchase · Rent/Lease subject to approval</span>
-              </div>
-              <ul class="catalog-features">
-                <li>Software: <strong>$50/mo</strong></li>
-                <li>Internet/Hosting: <strong>$15/mo</strong> opcional</li>
-                <li>Client app: <strong>$15/mo</strong></li>
-              </ul>
+              <h3 translate="no">Clover Station Duo</h3>
+              <p class="catalog-specs" translate="no" data-spec-key="cat.spec.cl.duo">WiFi · 4G · Ethernet · Dual 10" screen · Touch · App Market · Printer</p>
             </div>
           </article>
 
@@ -971,21 +917,17 @@
           <article class="catalog-card reveal">
             <div class="catalog-img-wrap">
               <picture>
-                <source srcset="assets/images/catalog/sunmi-p2-pro.webp" type="image/webp" />
+                <source srcset="/assets/images/catalog/sunmi-p2-pro.webp" type="image/webp" />
                 <img src="/assets/images/catalog/sunmi-p2-pro.webp" alt="Sunmi P2 Pro" width="700" height="700" loading="lazy" />
               </picture>
             </div>
             <div class="catalog-card-body">
-              <h3>Sunmi P2 Pro</h3>
-              <p class="catalog-specs">5.99" HD+ screen · Quad-core · 1D/2D Scanner · 4G · WiFi · GPS · 58mm Printer</p>
-              <div class="catalog-price">
-                <span class="price-tag price-tag--consult">Contact us</span>
-                <span class="price-note">Purchase · Rent/Lease available</span>
-              </div>
+              <h3 translate="no">Sunmi P2 Pro</h3>
+              <p class="catalog-specs" translate="no" data-spec-key="cat.spec.su.p2pro">5.99" HD+ screen · Quad-core · 1D/2D Scanner · 4G · WiFi · GPS · 58mm Printer</p>
               <ul class="catalog-features">
-                <li>2580mAh long-lasting battery</li>
-                <li>USB Type-C · GPS &amp; A-GPS</li>
-                <li>Operation range -10°C to 50°C · 430g</li>
+                <li translate="no">2580mAh long-lasting battery</li>
+                <li translate="no">USB Type-C · GPS &amp; A-GPS</li>
+                <li translate="no">Operation range -10°C to 50°C · 430g</li>
               </ul>
             </div>
           </article>
@@ -993,44 +935,31 @@
           <article class="catalog-card catalog-card--highlight reveal">
             <div class="catalog-img-wrap">
               <picture>
-                <source srcset="assets/images/catalog/sunmi-t2s.webp" type="image/webp" />
+                <source srcset="/assets/images/catalog/sunmi-t2s.webp" type="image/webp" />
                 <img src="/assets/images/catalog/sunmi-t2s.webp" alt="Sunmi T2S" width="700" height="700" loading="lazy" />
               </picture>
             </div>
             <div class="catalog-card-body">
               <div class="catalog-badge badge-teal">Most advanced</div>
-              <h3>Sunmi T2S</h3>
-              <p class="catalog-specs">15" + 10" · Android · Camera · WiFi · Bluetooth · Handheld · SUNMI OS 3.0</p>
-              <div class="catalog-price">
-                <span class="price-tag">$1,900</span>
-                <span class="price-note">Purchase · Rent/Lease available</span>
-              </div>
-              <ul class="catalog-features">
-                <li>Basic software: <strong>$13/mo</strong></li>
-                <li>Full software: <strong>$30/mo</strong></li>
-                <li>Internet/Hosting: <strong>$15/mo</strong> opcional</li>
-              </ul>
+              <h3 translate="no">Sunmi T2S</h3>
+              <p class="catalog-specs" translate="no" data-spec-key="cat.spec.su.t2s">15" + 10" · Android · Camera · WiFi · Bluetooth · Handheld · SUNMI OS 3.0</p>
             </div>
           </article>
 
           <article class="catalog-card reveal">
             <div class="catalog-img-wrap">
               <picture>
-                <source srcset="assets/images/catalog/sunmi-p2-mini.webp" type="image/webp" />
+                <source srcset="/assets/images/catalog/sunmi-p2-mini.webp" type="image/webp" />
                 <img src="/assets/images/catalog/sunmi-p2-mini.webp" alt="Sunmi P2 Mini" width="700" height="700" loading="lazy" />
               </picture>
             </div>
             <div class="catalog-card-body">
-              <h3>Sunmi P2 Mini</h3>
-              <p class="catalog-specs">5" HD screen · 4G LTE · Dual WiFi · BT 5.0 · NFC · QR · PCI/EMV · Android 9.0</p>
-              <div class="catalog-price">
-                <span class="price-tag price-tag--consult">Contact us</span>
-                <span class="price-note">Purchase · Rent/Lease available</span>
-              </div>
+              <h3 translate="no">Sunmi P2 Mini</h3>
+              <p class="catalog-specs" translate="no" data-spec-key="cat.spec.su.p2mini">5" HD screen · 4G LTE · Dual WiFi · BT 5.0 · NFC · QR · PCI/EMV · Android 9.0</p>
               <ul class="catalog-features">
-                <li>Chip, swipe, NFC and QR</li>
-                <li>Drop-resistant up to 1.2m</li>
-                <li>200g · 15mm thick</li>
+                <li translate="no">Chip, swipe, NFC and QR</li>
+                <li translate="no">Drop-resistant up to 1.2m</li>
+                <li translate="no">200g · 15mm thick</li>
               </ul>
             </div>
           </article>
@@ -1038,21 +967,17 @@
           <article class="catalog-card reveal">
             <div class="catalog-img-wrap">
               <picture>
-                <source srcset="assets/images/catalog/sunmi-d3-pro.webp" type="image/webp" />
+                <source srcset="/assets/images/catalog/sunmi-d3-pro.webp" type="image/webp" />
                 <img src="/assets/images/catalog/sunmi-d3-pro.webp" alt="Sunmi D3 PRO" width="700" height="700" loading="lazy" />
               </picture>
             </div>
             <div class="catalog-card-body">
-              <h3>Sunmi D3 PRO</h3>
-              <p class="catalog-specs">15.6" FHD · Qualcomm · SUNMI OS 4.0 · 4GB RAM · 64GB ROM · Aluminum</p>
-              <div class="catalog-price">
-                <span class="price-tag price-tag--consult">Contact us</span>
-                <span class="price-note">Purchase · Rent/Lease available</span>
-              </div>
+              <h3 translate="no">Sunmi D3 PRO</h3>
+              <p class="catalog-specs" translate="no" data-spec-key="cat.spec.su.d3pro">15.6" FHD · Qualcomm · SUNMI OS 4.0 · 4GB RAM · 64GB ROM · Aluminum</p>
               <ul class="catalog-features">
-                <li>60% better performance</li>
-                <li>Optional modules: customer screen, NFC</li>
-                <li>Plug &amp; Play · Customizable with your brand</li>
+                <li translate="no">60% better performance</li>
+                <li translate="no">Optional modules: customer screen, NFC</li>
+                <li translate="no">Plug &amp; Play · Customizable with your brand</li>
               </ul>
             </div>
           </article>
@@ -1067,21 +992,30 @@
           <article class="catalog-card reveal">
             <div class="catalog-img-wrap">
               <picture>
-                <source srcset="assets/images/catalog/pax-a920-pro.webp" type="image/webp" />
+                <source srcset="/assets/images/catalog/pax-a920-pro.webp" type="image/webp" />
                 <img src="/assets/images/catalog/pax-a920-pro.webp" alt="PAX A920 Pro" width="700" height="700" loading="lazy" />
               </picture>
             </div>
             <div class="catalog-card-body">
-              <h3>PAX A920 Pro</h3>
-              <p class="catalog-specs">Android 8.1 · 5.5" IPS screen · 4G · WiFi · Bluetooth · 5MP Camera · Printer</p>
-              <div class="catalog-price">
-                <span class="price-tag">$500</span>
-                <span class="price-note">Purchase · Rent/Lease available</span>
-              </div>
+              <h3 translate="no">PAX A920 Pro</h3>
+              <p class="catalog-specs" translate="no" data-spec-key="cat.spec.px.a920">Android 8.1 · 5.5" IPS screen · 4G · WiFi · Bluetooth · 5MP Camera · Printer</p>
+            </div>
+          </article>
+
+          <article class="catalog-card catalog-card--highlight reveal">
+            <div class="catalog-img-wrap">
+              <picture>
+                <source srcset="/assets/images/catalog/pax-a920pro-duo.webp" type="image/webp" />
+                <img src="/assets/images/catalog/pax-a920pro-duo.webp" alt="PAX A920Pro Duo" width="700" height="700" loading="lazy" />
+              </picture>
+            </div>
+            <div class="catalog-card-body">
+              <div class="catalog-badge badge-teal">Dual screen</div>
+              <h3 translate="no">PAX A920Pro Duo</h3>
+              <p class="catalog-specs" translate="no" data-spec-key="cat.spec.px.a920duo">Dual-screen handheld · Built-in printer · 4G · WiFi</p>
               <ul class="catalog-features">
-                <li>Basic software: <strong>$13/mo</strong></li>
-                <li>Full software: <strong>$30/mo</strong></li>
-                <li>Optional internet: <strong>$15/mo</strong></li>
+                <li translate="no">Main screen + secondary customer-facing display</li>
+                <li translate="no">Great for face-to-face checkout with visible confirmation</li>
               </ul>
             </div>
           </article>
@@ -1089,21 +1023,68 @@
           <article class="catalog-card reveal">
             <div class="catalog-img-wrap">
               <picture>
-                <source srcset="assets/images/catalog/pax-elyse.webp" type="image/webp" />
+                <source srcset="/assets/images/catalog/pax-a77.webp" type="image/webp" />
+                <img src="/assets/images/catalog/pax-a77.webp" alt="PAX A77" width="700" height="700" loading="lazy" />
+              </picture>
+            </div>
+            <div class="catalog-card-body">
+              <h3 translate="no">PAX A77</h3>
+              <p class="catalog-specs" translate="no" data-spec-key="cat.spec.px.a77">Compact handheld · No printer · 4G · WiFi</p>
+              <ul class="catalog-features">
+                <li translate="no">Light and easy to carry around</li>
+                <li translate="no">Great for mobile checkout without printing a receipt</li>
+              </ul>
+            </div>
+          </article>
+
+          <article class="catalog-card reveal">
+            <div class="catalog-img-wrap">
+              <picture>
+                <source srcset="/assets/images/catalog/pax-a80.webp" type="image/webp" />
+                <img src="/assets/images/catalog/pax-a80.webp" alt="PAX A80" width="700" height="700" loading="lazy" />
+              </picture>
+            </div>
+            <div class="catalog-card-body">
+              <h3 translate="no">PAX A80</h3>
+              <p class="catalog-specs" translate="no" data-spec-key="cat.spec.px.a80">Wired countertop terminal · Touchscreen · Numeric keypad</p>
+              <ul class="catalog-features">
+                <li translate="no">Great for a fixed checkout point (counter, register)</li>
+                <li translate="no">Wired connection, always online</li>
+              </ul>
+            </div>
+          </article>
+
+          <article class="catalog-card reveal">
+            <div class="catalog-img-wrap">
+              <picture>
+                <source srcset="/assets/images/catalog/pax-a35.webp" type="image/webp" />
+                <img src="/assets/images/catalog/pax-a35.webp" alt="PAX A35" width="700" height="700" loading="lazy" />
+              </picture>
+            </div>
+            <div class="catalog-card-body">
+              <h3 translate="no">PAX A35</h3>
+              <p class="catalog-specs" translate="no" data-spec-key="cat.spec.px.a35">PIN pad with color touchscreen · Pairs with an Elys POS station</p>
+              <ul class="catalog-features">
+                <li translate="no">Customer-facing payment device next to the main station</li>
+                <li translate="no">Receipt printer sold separately</li>
+              </ul>
+            </div>
+          </article>
+
+          <article class="catalog-card reveal">
+            <div class="catalog-img-wrap">
+              <picture>
+                <source srcset="/assets/images/catalog/pax-elyse.webp" type="image/webp" />
                 <img src="/assets/images/catalog/pax-elyse.webp" alt="PAX Elyse" width="700" height="700" loading="lazy" />
               </picture>
             </div>
             <div class="catalog-card-body">
-              <h3>PAX Elyse</h3>
-              <p class="catalog-specs">Android 11 · 14" FHD Touch · Qualcomm Octa-Core 2.0GHz · 4GB RAM · 64GB ROM</p>
-              <div class="catalog-price">
-                <span class="price-tag price-tag--consult">Contact us</span>
-                <span class="price-note">Purchase · Rent/Lease available</span>
-              </div>
+              <h3 translate="no">PAX Elyse</h3>
+              <p class="catalog-specs" translate="no" data-spec-key="cat.spec.px.elyse">Android 11 · 14" FHD Touch · Qualcomm Octa-Core 2.0GHz · 4GB RAM · 64GB ROM</p>
               <ul class="catalog-features">
-                <li>5MP AF Camera · BT 5.0</li>
-                <li>Fingerprint reader on power button</li>
-                <li>USB Type-C · POGO PIN</li>
+                <li translate="no">5MP AF Camera · BT 5.0</li>
+                <li translate="no">Fingerprint reader on power button</li>
+                <li translate="no">USB Type-C · POGO PIN</li>
               </ul>
             </div>
           </article>
@@ -1111,21 +1092,17 @@
           <article class="catalog-card reveal">
             <div class="catalog-img-wrap">
               <picture>
-                <source srcset="assets/images/catalog/pax-elyse-sistema.webp" type="image/webp" />
+                <source srcset="/assets/images/catalog/pax-elyse-sistema.webp" type="image/webp" />
                 <img src="/assets/images/catalog/pax-elyse-sistema.webp" alt="PAX Elyse POS System" width="700" height="700" loading="lazy" />
               </picture>
             </div>
             <div class="catalog-card-body">
-              <h3>PAX Elyse Sistema</h3>
-              <p class="catalog-specs">Modular · PCI DSS · Red Dot Award · Workstation + Tablet + Scanner + Printer</p>
-              <div class="catalog-price">
-                <span class="price-tag price-tag--consult">Contact us</span>
-                <span class="price-note">Purchase · Rent/Lease available</span>
-              </div>
+              <h3 translate="no">PAX Elyse Sistema</h3>
+              <p class="catalog-specs" translate="no" data-spec-key="cat.spec.px.sistema">Modular · PCI DSS · Red Dot Award · Workstation + Tablet + Scanner + Printer</p>
               <ul class="catalog-features">
-                <li>Encryption, tokenization &amp; PCI DSS</li>
-                <li>260mm/s ultra-fast printer</li>
-                <li>Scanner with walkie-talkie function</li>
+                <li translate="no">Encryption, tokenization &amp; PCI DSS</li>
+                <li translate="no">260mm/s ultra-fast printer</li>
+                <li translate="no">Scanner with walkie-talkie function</li>
               </ul>
             </div>
           </article>
@@ -1133,21 +1110,17 @@
           <article class="catalog-card reveal">
             <div class="catalog-img-wrap">
               <picture>
-                <source srcset="assets/images/catalog/pax-e700.webp" type="image/webp" />
+                <source srcset="/assets/images/catalog/pax-e700.webp" type="image/webp" />
                 <img src="/assets/images/catalog/pax-e700.webp" alt="PAX E700" width="700" height="700" loading="lazy" />
               </picture>
             </div>
             <div class="catalog-card-body">
-              <h3>PAX E700</h3>
-              <p class="catalog-specs">12.5" HD screen · 4G · WiFi · Bluetooth · 3" Printer · PCI 5.x SRED · NFC</p>
-              <div class="catalog-price">
-                <span class="price-tag price-tag--consult">Contact us</span>
-                <span class="price-note">Purchase · Rent/Lease available</span>
-              </div>
+              <h3 translate="no">PAX E700</h3>
+              <p class="catalog-specs" translate="no" data-spec-key="cat.spec.px.e700">12.5" HD screen · 4G · WiFi · Bluetooth · 3" Printer · PCI 5.x SRED · NFC</p>
               <ul class="catalog-features">
-                <li>NFC contactless</li>
-                <li>PCI 5.x SRED certified</li>
-                <li>High-speed printer</li>
+                <li translate="no">NFC contactless</li>
+                <li translate="no">PCI 5.x SRED certified</li>
+                <li translate="no">High-speed printer</li>
               </ul>
             </div>
           </article>
@@ -1155,23 +1128,14 @@
           <article class="catalog-card catalog-card--highlight reveal">
             <div class="catalog-img-wrap">
               <picture>
-                <source srcset="assets/images/catalog/pax-kiosk.webp" type="image/webp" />
+                <source srcset="/assets/images/catalog/pax-kiosk.webp" type="image/webp" />
                 <img src="/assets/images/catalog/pax-kiosk.webp" alt="PAX Kiosk" width="700" height="700" loading="lazy" />
               </picture>
             </div>
             <div class="catalog-card-body">
               <div class="catalog-badge badge-teal">Self-service</div>
-              <h3>PAX Kiosk</h3>
-              <p class="catalog-specs">24" screen · Scanner · Ethernet · Printer · Card reader · Self-checkout</p>
-              <div class="catalog-price">
-                <span class="price-tag">$2,300</span>
-                <span class="price-note">Purchase · Rent/Lease available</span>
-              </div>
-              <ul class="catalog-features">
-                <li>Basic software: <strong>$13/mo</strong></li>
-                <li>Full software: <strong>$30/mo</strong></li>
-                <li>Optional internet: <strong>$15/mo</strong></li>
-              </ul>
+              <h3 translate="no">PAX Kiosk</h3>
+              <p class="catalog-specs" translate="no" data-spec-key="cat.spec.px.kiosk">24" screen · Scanner · Ethernet · Printer · Card reader · Self-checkout</p>
             </div>
           </article>
 
@@ -1185,21 +1149,17 @@
           <article class="catalog-card reveal">
             <div class="catalog-img-wrap">
               <picture>
-                <source srcset="assets/images/catalog/landi-m20.webp" type="image/webp" />
+                <source srcset="/assets/images/catalog/landi-m20.webp" type="image/webp" />
                 <img src="/assets/images/catalog/landi-m20.webp" alt="Landi M20" width="480" height="480" loading="lazy" />
               </picture>
             </div>
             <div class="catalog-card-body">
-              <h3>Landi M20</h3>
-              <p class="catalog-specs">Android 13 · Quad-core 2.0GHz · 6.5" screen · Designed for one-handed use</p>
-              <div class="catalog-price">
-                <span class="price-tag price-tag--consult">Contact us</span>
-                <span class="price-note">Purchase · Rent/Lease available</span>
-              </div>
+              <h3 translate="no">Landi M20</h3>
+              <p class="catalog-specs" translate="no" data-spec-key="cat.spec.la.m20">Android 13 · Quad-core 2.0GHz · 6.5" screen · Designed for one-handed use</p>
               <ul class="catalog-features">
-                <li>CE/CB/FCC/IC/RoHS certified</li>
-                <li>Supports SD 3.0 card</li>
-                <li>Immersive visual experience</li>
+                <li translate="no">CE/CB/FCC/IC/RoHS certified</li>
+                <li translate="no">Supports SD 3.0 card</li>
+                <li translate="no">Immersive visual experience</li>
               </ul>
             </div>
           </article>
@@ -1207,22 +1167,16 @@
           <article class="catalog-card catalog-card--highlight reveal">
             <div class="catalog-img-wrap">
               <picture>
-                <source srcset="assets/images/catalog/landi-c20-pro.webp" type="image/webp" />
+                <source srcset="/assets/images/catalog/landi-c20-pro.webp" type="image/webp" />
                 <img src="/assets/images/catalog/landi-c20-pro.webp" alt="Landi C20 Pro" width="700" height="700" loading="lazy" />
               </picture>
             </div>
             <div class="catalog-card-body">
               <div class="catalog-badge badge-teal">Dual screen</div>
-              <h3>Landi C20 Pro</h3>
-              <p class="catalog-specs">Android 13 · Qualcomm Octa-Core · Dual screen · SoftPOS compatible</p>
-              <div class="catalog-price">
-                <span class="price-tag">$500</span>
-                <span class="price-note">Purchase · Rent/Lease available</span>
-              </div>
+              <h3 translate="no">Landi C20 Pro</h3>
+              <p class="catalog-specs" translate="no" data-spec-key="cat.spec.la.c20pro">Android 13 · Qualcomm Octa-Core · Dual screen · SoftPOS compatible</p>
               <ul class="catalog-features">
-                <li>Basic software: <strong>$13/mo</strong></li>
-                <li>Full software: <strong>$30/mo</strong></li>
-                <li>Independent screens for customer &amp; operator</li>
+                <li translate="no">Independent screens for customer &amp; operator</li>
               </ul>
             </div>
           </article>
@@ -1231,12 +1185,12 @@
       </div>
 
       <div class="catalog-cta reveal">
-        <p>Can't find what you're looking for? We have more equipment available.</p>
+        <p translate="no">Can't find what you're looking for? We have more equipment available.</p>
         <div class="catalog-cta-btns">
-          <a href="#contact" class="btn-primary">
+          <a href="#contact" class="btn-primary" translate="no">
             Request advice <i data-lucide="arrow-right" aria-hidden="true"></i>
           </a>
-          <a href="/catalogo.html" class="btn-ghost">
+          <a href="/catalogo.html" class="btn-ghost" translate="no">
             <i data-lucide="download" aria-hidden="true"></i> View PDF catalog
           </a>
         </div>
@@ -1251,9 +1205,9 @@
     <div class="calc-wrapper">
 
       <div class="calc-header reveal">
-        <h2 class="section-title">
+        <h2 class="section-title" translate="no">
           Discover how much you can<br /><em class="grad-text">save with us.</em></h2>
-        <p class="section-desc">Move the sliders and see the real impact on your business.</p>
+        <p class="section-desc" translate="no">Adjust the sliders to estimate potential savings for your business.</p>
       </div>
 
       <div class="calc-body">
@@ -1263,8 +1217,8 @@
 
           <div class="calc-field">
             <div class="calc-field-header">
-              <label for="sliderSales">Monthly sales</label>
-              <span class="calc-field-value" id="valSales">$50,000</span>
+              <label for="sliderSales" translate="no">Monthly sales</label>
+              <span class="calc-field-value" id="valSales" translate="no">$50,000</span>
             </div>
             <div class="calc-slider-wrap">
               <input type="range" class="calc-slider" id="sliderSales"
@@ -1275,15 +1229,15 @@
               </div>
             </div>
             <div class="calc-slider-labels">
-              <span>$5,000</span>
-              <span>$500,000</span>
+              <span translate="no">$5,000</span>
+              <span translate="no">$500,000</span>
             </div>
           </div>
 
           <div class="calc-field">
             <div class="calc-field-header">
-              <label for="sliderRate">Your current processing rate</label>
-              <span class="calc-field-value" id="valRate">2.90%</span>
+              <label for="sliderRate" translate="no">Your current processing rate</label>
+              <span class="calc-field-value" id="valRate" translate="no">2.90%</span>
             </div>
             <div class="calc-slider-wrap">
               <input type="range" class="calc-slider" id="sliderRate"
@@ -1294,8 +1248,8 @@
               </div>
             </div>
             <div class="calc-slider-labels">
-              <span>1.50%</span>
-              <span>5.00%</span>
+              <span translate="no">1.50%</span>
+              <span translate="no">5.00%</span>
             </div>
           </div>
 
@@ -1305,9 +1259,9 @@
         <div class="calc-results">
 
           <div class="calc-result-card calc-result-current">
-            <span class="calc-result-label">You currently pay</span>
-            <span class="calc-result-amount" id="resCurrent" data-raw="0">$0</span>
-            <span class="calc-result-sub">per month in fees</span>
+            <span class="calc-result-label" translate="no">You currently pay</span>
+            <span class="calc-result-amount" id="resCurrent" data-raw="0" translate="no">$0</span>
+            <span class="calc-result-sub" translate="no">per month in fees</span>
           </div>
 
           <div class="calc-result-divider">
@@ -1317,28 +1271,28 @@
           </div>
 
           <div class="calc-result-card calc-result-catapulta">
-            <span class="calc-result-label">With CatapultaPayment</span>
-            <span class="calc-result-amount" id="resCatapulta" data-raw="0">$0</span>
-            <span class="calc-result-sub">per month in fees</span>
+            <span class="calc-result-label" translate="no">With CatapultaPayment</span>
+            <span class="calc-result-amount" id="resCatapulta" data-raw="0" translate="no">$0</span>
+            <span class="calc-result-sub" translate="no">per month in fees</span>
           </div>
 
           <div class="calc-savings-box">
             <div class="calc-savings-top">
               <i data-lucide="trending-up" aria-hidden="true"></i>
-              <span>Your estimated savings</span>
+              <span translate="no">Your estimated savings</span>
             </div>
             <div class="calc-savings-numbers">
               <div class="calc-savings-item">
-                <span class="calc-savings-value grad-text" id="resSavingMonth" data-raw="0">$0</span>
-                <span class="calc-savings-period">per month</span>
+                <span class="calc-savings-value grad-text" id="resSavingMonth" data-raw="0" translate="no">$0</span>
+                <span class="calc-savings-period" translate="no">per month</span>
               </div>
               <div class="calc-savings-sep">/</div>
               <div class="calc-savings-item">
-                <span class="calc-savings-value grad-text" id="resSavingYear" data-raw="0">$0</span>
-                <span class="calc-savings-period">per year</span>
+                <span class="calc-savings-value grad-text" id="resSavingYear" data-raw="0" translate="no">$0</span>
+                <span class="calc-savings-period" translate="no">per year</span>
               </div>
             </div>
-            <a href="#contact" class="btn-primary calc-cta-btn">
+            <a href="#contact" class="btn-primary calc-cta-btn" translate="no">
               I want those savings <i data-lucide="arrow-right" aria-hidden="true"></i>
             </a>
           </div>
@@ -1353,10 +1307,10 @@
   <section id="gallery">
     <div class="container">
       <div class="section-header reveal">
-        <h2 class="section-title">
+        <h2 class="section-title" translate="no">
           Our equipment<br />operating in the field.
         </h2>
-        <p class="section-desc">Real installations at our clients' businesses.</p>
+        <p class="section-desc" translate="no">Real installations at our clients' businesses.</p>
       </div>
 
       <div class="gallery-grid">
@@ -1367,9 +1321,9 @@
             width="900" height="1200"
             loading="lazy"
           />
-          <figcaption class="gallery-overlay">
-            <span class="gallery-device">Sunmi D3PRO</span>
-            <span class="gallery-client">Mi Pueblito Market</span>
+          <figcaption class="gallery-overlay" translate="no">
+            <span class="gallery-device" translate="no">Sunmi D3PRO</span>
+            <span class="gallery-client" translate="no">Mi Pueblito Market</span>
           </figcaption>
         </figure>
 
@@ -1380,9 +1334,9 @@
             width="900" height="1200"
             loading="lazy"
           />
-          <figcaption class="gallery-overlay">
-            <span class="gallery-device">Sunmi D3PRO</span>
-            <span class="gallery-client">Mi Pueblito Market</span>
+          <figcaption class="gallery-overlay" translate="no">
+            <span class="gallery-device" translate="no">Sunmi D3PRO</span>
+            <span class="gallery-client" translate="no">Mi Pueblito Market</span>
           </figcaption>
         </figure>
 
@@ -1393,9 +1347,9 @@
             width="900" height="1200"
             loading="lazy"
           />
-          <figcaption class="gallery-overlay">
-            <span class="gallery-device">Sunmi D3PRO</span>
-            <span class="gallery-client">Mi Pueblito Market</span>
+          <figcaption class="gallery-overlay" translate="no">
+            <span class="gallery-device" translate="no">Sunmi D3PRO</span>
+            <span class="gallery-client" translate="no">Mi Pueblito Market</span>
           </figcaption>
         </figure>
 
@@ -1406,9 +1360,9 @@
             width="900" height="1200"
             loading="lazy"
           />
-          <figcaption class="gallery-overlay">
-            <span class="gallery-device">Dejavoo D1</span>
-            <span class="gallery-client">Dulcería Don Chamoy</span>
+          <figcaption class="gallery-overlay" translate="no">
+            <span class="gallery-device" translate="no">Dejavoo D1</span>
+            <span class="gallery-client" translate="no">Dulcería Don Chamoy</span>
           </figcaption>
         </figure>
       </div>
@@ -1419,12 +1373,12 @@
   <section id="testimonials">
     <div class="container">
       <div class="section-header reveal">
-        <h2 class="section-title">
+        <h2 class="section-title" translate="no">
           Trust you<br />can feel.
         </h2>
-        <p class="section-desc">Real businesses, with their name and their review — not generic testimonials.</p>
+        <p class="section-desc" translate="no">See what some of our customers say about working with us.</p>
         <div class="testi-aggregate">
-          <span class="testi-aggregate-score">5.0</span>
+          <span class="testi-aggregate-score" translate="no">5.0</span>
           <div class="testi-aggregate-stars" role="img" aria-label="5 out of 5 stars">
             <i data-lucide="star" aria-hidden="true"></i>
             <i data-lucide="star" aria-hidden="true"></i>
@@ -1432,7 +1386,7 @@
             <i data-lucide="star" aria-hidden="true"></i>
             <i data-lucide="star" aria-hidden="true"></i>
           </div>
-          <span class="testi-aggregate-count">4 verified customers</span>
+          <span class="testi-aggregate-count" translate="no">4 verified customers</span>
         </div>
       </div>
 
@@ -1459,8 +1413,8 @@
             />
               </div>
                 <div class="testi-footer-info">
-            <span class="testi-name">Mi Pueblo Supermarket</span>
-                <span class="testi-role">Verified customer</span>
+            <span class="testi-name" translate="no">Mi Pueblo Supermarket</span>
+                <span class="testi-role" translate="no">Verified customer</span>
   </div>
           </footer>
         </article>
@@ -1487,8 +1441,8 @@
             />
               </div>
               <div class="testi-footer-info">
-            <span class="testi-name">Bandeño Mexican Food</span>
-            <span class="testi-role">Verified customer</span>
+            <span class="testi-name" translate="no">Bandeño Mexican Food</span>
+            <span class="testi-role" translate="no">Verified customer</span>
   </div>
           </footer>
         </article>
@@ -1515,8 +1469,8 @@
             />
             </div>
             <div class="testi-footer-info">
-            <span class="testi-name">Grand Tequila</span>
-                <span class="testi-role">Verified customer</span>
+            <span class="testi-name" translate="no">Grand Tequila</span>
+                <span class="testi-role" translate="no">Verified customer</span>
   </div>
           </footer>
         </article>
@@ -1543,8 +1497,8 @@
               />
             </div>
             <div class="testi-footer-info">
-              <span class="testi-name">Rodeo Jalisco</span>
-              <span class="testi-role">Verified customer</span>
+              <span class="testi-name" translate="no">Rodeo Jalisco</span>
+              <span class="testi-role" translate="no">Verified customer</span>
             </div>
           </footer>
         </article>
@@ -1552,17 +1506,17 @@
 
       <!-- Carousel controls: only shown where the grid above actually scrolls (mobile) -->
       <div class="gallery-controls testi-controls" id="testiControls">
-        <span class="gallery-status" id="testiStatus">1 / 4</span>
+        <span class="gallery-status" id="testiStatus" translate="no">1 / 4</span>
         <div class="gallery-dots" id="testiDots" role="tablist" aria-label="Success stories">
-          <button type="button" class="gallery-dot" role="tab" aria-current="true" aria-label="Story 1"></button>
-          <button type="button" class="gallery-dot" role="tab" aria-current="false" aria-label="Story 2"></button>
-          <button type="button" class="gallery-dot" role="tab" aria-current="false" aria-label="Story 3"></button>
-          <button type="button" class="gallery-dot" role="tab" aria-current="false" aria-label="Story 4"></button>
+          <button type="button" class="gallery-dot" role="tab" aria-current="true" aria-label="Story 1" translate="no"></button>
+          <button type="button" class="gallery-dot" role="tab" aria-current="false" aria-label="Story 2" translate="no"></button>
+          <button type="button" class="gallery-dot" role="tab" aria-current="false" aria-label="Story 3" translate="no"></button>
+          <button type="button" class="gallery-dot" role="tab" aria-current="false" aria-label="Story 4" translate="no"></button>
         </div>
-        <button type="button" class="gallery-arrow" id="testiPrev" aria-label="Previous story">
+        <button type="button" class="gallery-arrow" id="testiPrev" aria-label="Previous story" translate="no">
           <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M15 18l-6-6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
         </button>
-        <button type="button" class="gallery-arrow" id="testiNext" aria-label="Next story">
+        <button type="button" class="gallery-arrow" id="testiNext" aria-label="Next story" translate="no">
           <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M9 18l6-6-6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
         </button>
       </div>
@@ -1573,32 +1527,32 @@
   <section id="how-it-works">
     <div class="container">
       <div class="section-header reveal">
-        <h2 class="section-title">
+        <h2 class="section-title" translate="no">
           Start accepting payments<br />in 4 simple steps.
         </h2>
-        <p class="section-desc">From first contact to your first sale, we guide you through the whole process.</p>
+        <p class="section-desc" translate="no">From first contact to your first sale, we guide you through the whole process.</p>
       </div>
 
       <div class="steps-grid">
         <article class="step-card reveal">
           <div class="step-number">01</div>
-          <h3>Tell us about your business</h3>
-          <p>Fill out the form or call us. We learn your sales volume, industry, and real needs.</p>
+          <h3 translate="no">Tell us about your business</h3>
+          <p translate="no">Fill out the form or call us so we can learn about your sales volume, industry, and needs.</p>
         </article>
         <article class="step-card reveal">
           <div class="step-number">02</div>
-          <h3>Quote and approval</h3>
-          <p>We connect you with the ideal sponsor bank and put together a clear quote, no fine print.</p>
+          <h3 translate="no">Quote and approval</h3>
+          <p translate="no">We connect you with the ideal sponsor bank and put together a clear quote, no fine print.</p>
         </article>
         <article class="step-card reveal">
           <div class="step-number">03</div>
-          <h3>Installation and setup</h3>
-          <p>We configure your terminals or virtual gateway and train your team to use them with no friction.</p>
+          <h3 translate="no">Installation and setup</h3>
+          <p translate="no">We set up your terminals or payment gateway and train your team to use them.</p>
         </article>
         <article class="step-card reveal">
           <div class="step-number">04</div>
-          <h3>Start accepting payments</h3>
-          <p>Accept chip, contactless, swipe, and virtual payments from day one, with bilingual support always available.</p>
+          <h3 translate="no">Start accepting payments</h3>
+          <p translate="no">Accept chip, contactless, magnetic-stripe, and online payments from day one, with bilingual support.</p>
         </article>
       </div>
     </div>
@@ -1608,80 +1562,80 @@
   <section id="faq">
     <div class="container">
       <div class="section-header reveal">
-        <h2 class="section-title">
+        <h2 class="section-title" translate="no">
           Everything you need<br />to know before you start.
         </h2>
-        <p class="section-desc">Can't find your answer? Write to us and we'll help you personally.</p>
+        <p class="section-desc" translate="no">Can't find your answer? Write to us and we'll help you personally.</p>
       </div>
 
       <div class="faq-list reveal">
         <div class="faq-item">
-          <button class="faq-question" aria-expanded="false" aria-controls="faq-a1" id="faq-q1">
-            <span>How long does account approval take?</span>
+          <button class="faq-question" aria-expanded="false" aria-controls="faq-a1" id="faq-q1" translate="no">
+            <span translate="no">How long does account approval take?</span>
             <i data-lucide="chevron-down" class="faq-icon" aria-hidden="true"></i>
           </button>
           <div class="faq-answer" id="faq-a1" role="region" aria-labelledby="faq-q1">
-            <p>It depends on the sponsor bank and business type. For most merchants the process takes 24 to 48 business hours; high-risk businesses may need a bit more time due to additional review.</p>
+            <p translate="no">It depends on the sponsor bank and business type. For most merchants the process takes 24 to 48 business hours; high-risk businesses may need a bit more time due to additional review.</p>
           </div>
         </div>
 
         <div class="faq-item">
-          <button class="faq-question" aria-expanded="false" aria-controls="faq-a2" id="faq-q2">
-            <span>What point-of-sale software do you offer?</span>
+          <button class="faq-question" aria-expanded="false" aria-controls="faq-a2" id="faq-q2" translate="no">
+            <span translate="no">What point-of-sale software do you offer?</span>
             <i data-lucide="chevron-down" class="faq-icon" aria-hidden="true"></i>
           </button>
           <div class="faq-answer" id="faq-a2" role="region" aria-labelledby="faq-q2">
-            <p>We work with several software platforms depending on your business type: Kwick POS, OnTheFly, OrderPin, and Octopos POS. Each one is built for a different kind of operation (restaurants, retail, services), so we help you pick the one that fits yours best.</p>
+            <p translate="no">We work with several software platforms depending on your business type: Kwick POS, OnTheFly, OrderPin, and Octopos POS. Each one is built for a different kind of operation (restaurants, retail, services), so we help you pick the one that fits yours best.</p>
           </div>
         </div>
 
         <div class="faq-item">
-          <button class="faq-question" aria-expanded="false" aria-controls="faq-a3" id="faq-q3">
-            <span>How do I pick the right software for my business?</span>
+          <button class="faq-question" aria-expanded="false" aria-controls="faq-a3" id="faq-q3" translate="no">
+            <span translate="no">How do I pick the right software for my business?</span>
             <i data-lucide="chevron-down" class="faq-icon" aria-hidden="true"></i>
           </button>
           <div class="faq-answer" id="faq-a3" role="region" aria-labelledby="faq-q3">
-            <p>During your quote we review how your business operates — tables, inventory, delivery, multiple locations — and recommend the platform (Kwick POS, OnTheFly, OrderPin, or Octopos POS) that fits best, so you don't have to guess.</p>
+            <p translate="no">During your quote we review how your business operates — tables, inventory, delivery, multiple locations — and recommend the platform (Kwick POS, OnTheFly, OrderPin, or Octopos POS) that fits best, so you don't have to guess.</p>
           </div>
         </div>
 
         <div class="faq-item">
-          <button class="faq-question" aria-expanded="false" aria-controls="faq-a4" id="faq-q4">
-            <span>What terminals and equipment do you carry?</span>
+          <button class="faq-question" aria-expanded="false" aria-controls="faq-a4" id="faq-q4" translate="no">
+            <span translate="no">What terminals and equipment do you carry?</span>
             <i data-lucide="chevron-down" class="faq-icon" aria-hidden="true"></i>
           </button>
           <div class="faq-answer" id="faq-a4" role="region" aria-labelledby="faq-q4">
-            <p>We work with the market-leading brands: Dejavoo, Clover, Sunmi, PAX, and Landi. You can buy the equipment or access rent/lease, whichever works best for you — check our <a href="#catalogo">full catalog</a>.</p>
+            <p translate="no">We work with the market-leading brands: Dejavoo, Clover, Sunmi, PAX, and Landi. You can buy the equipment or access rent/lease, whichever works best for you — check our <a href="#catalogo" translate="no">full catalog</a>.</p>
           </div>
         </div>
 
         <div class="faq-item">
-          <button class="faq-question" aria-expanded="false" aria-controls="faq-a5" id="faq-q5">
-            <span>Can I accept Apple Pay and Google Pay?</span>
+          <button class="faq-question" aria-expanded="false" aria-controls="faq-a5" id="faq-q5" translate="no">
+            <span translate="no">Can I accept Apple Pay and Google Pay?</span>
             <i data-lucide="chevron-down" class="faq-icon" aria-hidden="true"></i>
           </button>
           <div class="faq-answer" id="faq-a5" role="region" aria-labelledby="faq-q5">
-            <p>Yes. All our terminals with a contactless/NFC reader accept Apple Pay, Google Pay, and contactless cards from any bank.</p>
+            <p translate="no">Yes. All our terminals with a contactless/NFC reader accept Apple Pay, Google Pay, and contactless cards from any bank.</p>
           </div>
         </div>
 
         <div class="faq-item">
-          <button class="faq-question" aria-expanded="false" aria-controls="faq-a6" id="faq-q6">
-            <span>How secure is my customers' information?</span>
+          <button class="faq-question" aria-expanded="false" aria-controls="faq-a6" id="faq-q6" translate="no">
+            <span translate="no">How secure is my customers' information?</span>
             <i data-lucide="chevron-down" class="faq-icon" aria-hidden="true"></i>
           </button>
           <div class="faq-answer" id="faq-a6" role="region" aria-labelledby="faq-q6">
-            <p>We work with processors and terminals certified under the PCI DSS standard, and card data travels encrypted on every transaction. We also use chargeback mitigation technology to protect every sale.</p>
+            <p translate="no">We work with processors and terminals certified under the PCI DSS standard, and card data travels encrypted on every transaction. We also use chargeback mitigation technology to protect every sale.</p>
           </div>
         </div>
 
         <div class="faq-item">
-          <button class="faq-question" aria-expanded="false" aria-controls="faq-a7" id="faq-q7">
-            <span>After my batch closes, how long until the money arrives?</span>
+          <button class="faq-question" aria-expanded="false" aria-controls="faq-a7" id="faq-q7" translate="no">
+            <span translate="no">After my batch closes, how long until the money arrives?</span>
             <i data-lucide="chevron-down" class="faq-icon" aria-hidden="true"></i>
           </button>
           <div class="faq-answer" id="faq-a7" role="region" aria-labelledby="faq-q7">
-            <p>It depends on the processor assigned to your business. Typically the deposit arrives the next business day after the batch closes, though in some cases it can take one extra day.</p>
+            <p translate="no">It depends on the processor assigned to your business. Typically the deposit arrives the next business day after the batch closes, though in some cases it can take one extra day.</p>
           </div>
         </div>
       </div>
@@ -1694,10 +1648,10 @@
       <div class="contact-grid">
         <!-- Info -->
         <div class="contact-info reveal-left">
-          <h2 class="section-title">
+          <h2 class="section-title" translate="no">
             Ready to accept<br />payments without complications?
           </h2>
-          <p class="contact-desc">
+          <p class="contact-desc" translate="no">
             Secure, fast payment solutions tailored to your business. Contact us and we'll help you choose the best option.
           </p>
 
@@ -1708,8 +1662,8 @@
               </div>
               <div>
                 <strong>West Zone</strong>
-                <a href="tel:+13109486153">+1 (310) 948-6153</a>
-                <a href="mailto:info@catapultapay.com">info@catapultapay.com</a>
+                <a href="tel:+13109486153" translate="no">+1 (310) 948-6153</a>
+                <a href="mailto:info@catapultapay.com" translate="no">info@catapultapay.com</a>
               </div>
             </div>
 
@@ -1719,8 +1673,8 @@
               </div>
               <div>
                 <strong>East Zone</strong>
-                <a href="mailto:backoffice@catapultapay.com">backoffice@catapultapay.com</a>
-                <a href="mailto:info@catapultapay.com">info@catapultapay.com</a>
+                <a href="mailto:backoffice@catapultapay.com" translate="no">backoffice@catapultapay.com</a>
+                <a href="mailto:info@catapultapay.com" translate="no">info@catapultapay.com</a>
               </div>
             </div>
 
@@ -1730,7 +1684,7 @@
               </div>
               <div>
                 <strong>Technical Support</strong>
-                <a href="mailto:support@catapultapay.zohodesk.com">support@catapultapay.zohodesk.com</a>
+                <a href="mailto:support@catapultapay.zohodesk.com" translate="no">support@catapultapay.zohodesk.com</a>
               </div>
             </div>
           </div>
@@ -1739,79 +1693,79 @@
         <!-- Formulario -->
         <div class="contact-form-wrap reveal-right">
           <div class="form-card">
-            <h3 class="form-title">Send us a message</h3>
+            <h3 class="form-title" translate="no">Send us a message</h3>
 
             <form id="contactForm" method="post" action="/" novalidate>
               <!-- Honeypot anti-spam: campo invisible para humanos, si un bot lo llena se descarta el envío -->
               <input type="text" name="honeypot" id="honeypot" class="form-honeypot" tabindex="-1" autocomplete="off" aria-hidden="true" />
               <div class="form-row">
                 <div class="form-group">
-                  <label for="firstName">First Name <span class="form-required" aria-hidden="true">*</span></label>
+                  <label for="firstName" translate="no">First Name <span class="form-required" aria-hidden="true" translate="no">*</span></label>
                   <input type="text" id="firstName" name="firstName" placeholder="Your first name" autocomplete="given-name" required maxlength="80" aria-describedby="err-firstName">
-                  <span class="form-error" id="err-firstName">Enter your first name.</span>
+                  <span class="form-error" id="err-firstName" translate="no">Enter your first name.</span>
                 </div>
                 <div class="form-group">
-                  <label for="lastName">Last Name <span class="form-required" aria-hidden="true">*</span></label>
+                  <label for="lastName" translate="no">Last Name <span class="form-required" aria-hidden="true" translate="no">*</span></label>
                   <input type="text" id="lastName" name="lastName" placeholder="Your last name" autocomplete="family-name" required maxlength="80" aria-describedby="err-lastName">
-                  <span class="form-error" id="err-lastName">Enter your last name.</span>
+                  <span class="form-error" id="err-lastName" translate="no">Enter your last name.</span>
                 </div>
               </div>
 
               <div class="form-group">
-                <label for="company">Business name</label>
+                <label for="company" translate="no">Business name</label>
                 <input type="text" id="company" name="company" placeholder="Your business name" autocomplete="organization" maxlength="160">
               </div>
 
               <div class="form-group">
-                <label for="email">Email address <span class="form-required" aria-hidden="true">*</span></label>
+                <label for="email" translate="no">Email address <span class="form-required" aria-hidden="true" translate="no">*</span></label>
                 <input type="email" id="email" name="email" placeholder="you@company.com" autocomplete="email" required maxlength="254" inputmode="email" aria-describedby="err-email">
-                <span class="form-error" id="err-email">Enter a valid email.</span>
+                <span class="form-error" id="err-email" translate="no">Enter a valid email address.</span>
               </div>
 
               <div class="form-group">
-                <label for="phone">Phone</label>
+                <label for="phone" translate="no">Phone</label>
                 <input type="tel" id="phone" name="phone" placeholder="+1 (555) 000-0000" autocomplete="tel" maxlength="40">
               </div>
 
               <div class="form-group">
-                <label id="subjectLabel" for="subjectTrigger">How can we help you? <span class="form-required" aria-hidden="true">*</span></label>
+                <label id="subjectLabel" for="subjectTrigger" translate="no">How can we help you? <span class="form-required" aria-hidden="true" translate="no">*</span></label>
                 <div class="custom-select" data-custom-select>
                   <select id="subject" name="subject" class="custom-select-native sr-only" tabindex="-1" aria-hidden="true" required>
-                    <option value="" disabled selected>Select an option</option>
-                    <option value="pos">Physical POS terminal</option>
-                    <option value="virtual">Virtual processing</option>
-                    <option value="support">Technical support</option>
-                    <option value="general">General inquiry</option>
+                    <option value="" disabled selected translate="no">Select an option</option>
+                    <option value="pos" translate="no">POS terminal and system</option>
+                    <option value="virtual" translate="no">Virtual processing</option>
+                    <option value="support" translate="no">Technical support</option>
+                    <option value="general" translate="no">General inquiry</option>
                   </select>
                   <button type="button" class="custom-select-trigger" id="subjectTrigger"
                     aria-haspopup="listbox" aria-expanded="false" aria-controls="subjectListbox"
-                    aria-labelledby="subjectLabel subjectTrigger" aria-describedby="err-subject">
-                    <span class="custom-select-value" data-placeholder="Select an option">Select an option</span>
+                    aria-labelledby="subjectLabel subjectTrigger" aria-describedby="err-subject" translate="no">
+                    <span class="custom-select-value" data-placeholder="Select an option" translate="no">Select an option</span>
                     <i data-lucide="chevron-down" class="custom-select-chevron" aria-hidden="true"></i>
                   </button>
                   <ul class="custom-select-list" id="subjectListbox" role="listbox" aria-labelledby="subjectLabel" tabindex="-1" hidden>
-                    <li role="option" data-value="pos">Physical POS terminal</li>
-                    <li role="option" data-value="virtual">Virtual processing</li>
-                    <li role="option" data-value="support">Technical support</li>
-                    <li role="option" data-value="general">General inquiry</li>
+                    <li role="option" data-value="pos" translate="no">POS terminal and system</li>
+                    <li role="option" data-value="virtual" translate="no">Virtual processing</li>
+                    <li role="option" data-value="support" translate="no">Technical support</li>
+                    <li role="option" data-value="general" translate="no">General inquiry</li>
                   </ul>
                 </div>
-                <span class="form-error" id="err-subject">Select an option.</span>
+                <span class="form-error" id="err-subject" translate="no">Select an option.</span>
               </div>
 
               <div class="form-group">
-                <label for="message">Message <span class="form-required" aria-hidden="true">*</span></label>
+                <label for="message" translate="no">Message <span class="form-required" aria-hidden="true" translate="no">*</span></label>
                 <textarea id="message" name="message" placeholder="Tell us about your business..." rows="4" required maxlength="4000" aria-describedby="err-message"></textarea>
-                <span class="form-error" id="err-message">Briefly tell us what you need.</span>
+                <span class="form-error" id="err-message" translate="no">Briefly tell us what you need.</span>
               </div>
 
-              <button type="submit" class="btn-primary btn-full" disabled>
+              <button type="submit" class="btn-primary btn-full" disabled translate="no">
                 Send message <i data-lucide="arrow-right" aria-hidden="true"></i>
               </button>
 
-              <p class="form-consent">Al enviar, solicitas que te contactemos conforme al <a class="form-terms-link" href="/privacy.html">Aviso de privacidad</a> y los <a class="form-terms-link" href="/terms.html">Terms of use</a>.</p>
-              <p id="contactStatus" class="contact-status sr-only" role="status" aria-live="polite"></p>
-              <noscript><p class="form-consent">To use the form, enable JavaScript. You can also email us directly at <a href="mailto:info@catapultapay.com">info@catapultapay.com</a>.</p></noscript>
+              <p class="form-consent" translate="no">Al enviar, solicitas que te contactemos conforme al <a class="form-terms-link" href="/privacy.html" translate="no">Aviso de privacidad</a> y los <a class="form-terms-link" href="/terms.html" translate="no">Terms of use</a>.</p>
+              <p id="contactStatus" class="contact-status sr-only" role="status" aria-live="polite" translate="no"></p>
+              <noscript><p class="form-consent" translate="no">To use the form, enable JavaScript. You can also email us directly at <a href="mailto:info@catapultapay.com" translate="no">info@catapultapay.com</a>.</p></noscript>
             </form>
           </div>
         </div>
@@ -1826,20 +1780,20 @@
       <div class="footer-grid">
         <!-- Marca -->
         <div class="footer-brand">
-          <a href="#hero">
+          <a href="#hero" translate="no">
             <img src="/assets/icons/logo-site.webp" alt="CatapultaPayment" width="64" height="34" />
           </a>
-          <p class="footer-desc">
+          <p class="footer-desc" translate="no">
             Payment processing solutions for businesses of all sizes. We connect your company with the best processors.
           </p>
           <div class="footer-social">
-            <a href="https://www.facebook.com/profile.php?id=61579278503414" target="_blank" rel="noopener noreferrer" aria-label="Follow CatapultaPayment on Facebook">
+            <a href="https://www.facebook.com/profile.php?id=61579278503414" target="_blank" rel="noopener noreferrer" aria-label="Follow CatapultaPayment on Facebook" translate="no">
               <i data-lucide="facebook" aria-hidden="true"></i>
             </a>
-            <a href="https://www.instagram.com/paycatapulta" target="_blank" rel="noopener noreferrer" aria-label="Follow CatapultaPayment on Instagram">
+            <a href="https://www.instagram.com/paycatapulta" target="_blank" rel="noopener noreferrer" aria-label="Follow CatapultaPayment on Instagram" translate="no">
               <i data-lucide="instagram" aria-hidden="true"></i>
             </a>
-            <a href="https://catapultapay.com" target="_blank" rel="noopener noreferrer" aria-label="CatapultaPayment website">
+            <a href="https://catapultapay.com" target="_blank" rel="noopener noreferrer" aria-label="CatapultaPayment website" translate="no">
               <i data-lucide="globe" aria-hidden="true"></i>
             </a>
           </div>
@@ -1847,26 +1801,26 @@
 
         <!-- Soluciones -->
         <div class="footer-col">
-          <h4 class="footer-col-title">Solutions</h4>
+          <h4 class="footer-col-title" translate="no">Solutions</h4>
           <ul role="list">
-            <li><a href="#solutions">Physical POS Equipment</a></li>
-            <li><a href="#solutions">Virtual Processing</a></li>
-            <li><a href="#solutions">Payment Gateways</a></li>
-            <li><a href="#catalogo">Equipment Catalog</a></li>
+            <li translate="no"><a href="#solutions" translate="no">Physical POS Equipment</a></li>
+            <li translate="no"><a href="#solutions" translate="no">Online payments</a></li>
+            <li translate="no"><a href="#solutions" translate="no">Payment Gateways</a></li>
+            <li translate="no"><a href="#catalogo" translate="no">Equipment Catalog</a></li>
           </ul>
         </div>
 
         <!-- Empresa -->
         <div class="footer-col">
-          <h4 class="footer-col-title">Company</h4>
+          <h4 class="footer-col-title" translate="no">Company</h4>
           <ul role="list">
-            <li><a href="#about">About</a></li>
-            <li><a href="#testimonials">Success Stories</a></li>
-            <li><a href="#faq">FAQ</a></li>
-            <li><a href="#contact">Contact</a></li>
-            <li><a href="/terms.html">Terms of use</a></li>
-            <li>
-              <a href="/catalogo.html">
+            <li translate="no"><a href="#about" translate="no">About</a></li>
+            <li translate="no"><a href="#testimonials" translate="no">Success Stories</a></li>
+            <li translate="no"><a href="#faq" translate="no">FAQ</a></li>
+            <li translate="no"><a href="#contact" translate="no">Contact</a></li>
+            <li translate="no"><a href="/terms.html" translate="no">Terms of use</a></li>
+            <li translate="no">
+              <a href="/catalogo.html" translate="no">
                 View catalog
               </a>
             </li>
@@ -1874,10 +1828,10 @@
         </div>
       </div>
 
-      <nav class="legal-links" aria-label="Legal information"><a href="/privacy.html">Privacy</a><a href="/cookies.html">Cookies and storage</a><a href="/terms.html">Terms of use</a></nav>
+      <nav class="legal-links" aria-label="Legal information"><a href="/privacy.html" translate="no">Privacy</a><a href="/cookies.html" translate="no">Cookies and storage</a><a href="/terms.html" translate="no">Terms of use</a></nav>
       <div class="footer-bottom">
-        <p>&copy; 2026 CATAPULTA PAYMENT SYSTEMS. Todos los derechos reservados.</p>
-        <p><a href="https://catapultapay.com" target="_blank" rel="noopener noreferrer">catapultapay.com</a></p>
+        <p translate="no">&copy; 2026 CATAPULTA PAYMENT SYSTEMS. Todos los derechos reservados.</p>
+        <p translate="no"><a href="https://catapultapay.com" target="_blank" rel="noopener noreferrer" translate="no">catapultapay.com</a></p>
       </div>
     </div>
   </footer>
@@ -1885,8 +1839,8 @@
   <!-- Toast notification -->
   <div class="toast" id="toast" role="status" aria-live="polite" aria-atomic="true">
     <div class="toast-icon" aria-hidden="true"><i data-lucide="check-circle" aria-hidden="true"></i></div>
-    <div class="toast-copy"><strong class="toast-title">Request received</strong><span class="toast-message">Our team will be in touch soon.</span></div>
-    <button type="button" class="toast-close" aria-label="Dismiss notification"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><path d="m7 7 10 10M7 17 17 7"/></svg></button>
+    <div class="toast-copy"><strong class="toast-title">Request received</strong><span class="toast-message" translate="no">Our team will be in touch soon.</span></div>
+    <button type="button" class="toast-close" aria-label="Dismiss notification" translate="no"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><path d="m7 7 10 10M7 17 17 7"/></svg></button>
   </div>
 
   <!-- Script -->
@@ -1894,24 +1848,24 @@
        perezosa desde script.js (initHeroModel) para no competir por ancho de
        banda ni CPU con el contenido crítico durante la carga inicial. -->
   <!-- Formulario de contacto: envía a mail/send.php (SMTP propio vía IONOS) -->
-  <script src="/runtime.js?v=66" defer></script>
-  <script src="/script.js?v=66" defer></script>
-  <script src="/assets/js/custom-select.js?v=66" defer></script>
+  <script src="/runtime.js?v=67" defer></script>
+  <script src="/script.js?v=67" defer></script>
+  <script src="/assets/js/custom-select.js?v=67" defer></script>
   <a href="https://wa.me/13109486153?text=Hello%2C+I%27m+interested+in+CatapultaPayment"
-   class="whatsapp-float" target="_blank" rel="noopener noreferrer" aria-label="WhatsApp">
+   class="whatsapp-float" target="_blank" rel="noopener noreferrer" aria-label="WhatsApp" translate="no">
   <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
     <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
   </svg>
 </a>
 
-<button class="scroll-top-btn" id="scrollTopBtn" aria-label="Back to top">
+<button class="scroll-top-btn" id="scrollTopBtn" aria-label="Back to top" translate="no">
   <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
     <path d="M12 19V5M5 12l7-7 7 7" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
   </svg>
 </button>
 
-<script src="/i18n.js?v=66" defer></script>
-<script src="/design.js?v=66" defer></script>
+<script src="/i18n.js?v=67" defer></script>
+<script src="/design.js?v=67" defer></script>
 
 
 <script>

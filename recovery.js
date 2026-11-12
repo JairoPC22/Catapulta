@@ -2,11 +2,13 @@
 document.addEventListener('DOMContentLoaded', () => {
   let language = 'es';
   try {
-    document.documentElement.dataset.theme = localStorage.getItem('cpay-theme') === 'light' ? 'light' : 'dark';
+    document.documentElement.dataset.theme = localStorage.getItem('cpay-theme') === 'dark' ? 'dark' : 'light';
     language = localStorage.getItem('cpay-lang') === 'en' ? 'en' : 'es';
   } catch { /* Recovery screens also work with storage disabled. */ }
   document.documentElement.lang = language;
   const kind = document.body.dataset.errorKind;
+  const home = language === 'en' ? '/en/' : '/';
+  if (kind !== 'offline') document.querySelector('.recovery-primary').href = home;
   if (language === 'en') {
     const copy = {
       '404': ['Page not found', 'This path leads nowhere.', 'The page you are looking for has moved or is no longer available. Start fresh from our homepage.', 'LINK UNAVAILABLE', 'NOT FOUND', '/UNKNOWN'],

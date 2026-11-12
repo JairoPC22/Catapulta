@@ -49,6 +49,41 @@ test('language swap still waits for the fade transition and applies once',()=>{
   callbacks.transitionend();timers.forEach(fn=>fn());
   assert.deepEqual(applied,['en']);assert.equal(classes.has('lang-fade'),false);
 });
+
+test('rapid language clicks honor the last choice without dropping the fade',()=>{
+  const {I18N,classes,callbacks,timers}=setup();const applied=[];
+  I18N.currentLang='es';I18N.apply=lang=>{I18N.currentLang=lang;applied.push(lang);};
+  for(const lang of ['en','es','en','es'])I18N.switchTo(lang);
+  assert.equal(classes.has('lang-fade'),true);assert.equal(timers.length,1);
+  callbacks.transitionend();timers.forEach(fn=>fn());
+  assert.deepEqual(applied,['es']);assert.equal(classes.has('lang-fade'),false);
+});
+
+test('product specifications follow their key even when cards change order',()=>{
+  const {I18N,TRANSLATIONS,selections}=setup();
+  const products=['cat.spec.px.elyse','cat.spec.px.a920duo','cat.spec.la.c20pro'].map(key=>({dataset:{specKey:key},textContent:''}));
+  selections.set('.catalog-specs',products);
+  for(const lang of ['en','es','en']) {
+    I18N._applyCatalogItems(lang,TRANSLATIONS[lang]);
+    for(const p of products)assert.equal(p.textContent,TRANSLATIONS[lang][p.dataset.specKey]);
+    products.reverse();
+  }
+});
+
+test('static catalogs contain identical models with correct localized specifications',()=>{
+  const {TRANSLATIONS}=setup();const names=[];
+  for(const [file,lang]of [['index.html','es'],['en/index.html','en']]) {
+    const html=fs.readFileSync(path.join(root,file),'utf8');
+    const cards=[...html.matchAll(/<article\b[^>]*class="[^"]*catalog-card[^"]*"[^>]*>[\s\S]*?<\/article>/g)].map(m=>m[0]);
+    names.push(cards.map(card=>card.match(/<h3\b[^>]*>(.*?)<\/h3>/)[1]));
+    assert.equal(cards.length,21);
+    for(const card of cards) {
+      const spec=card.match(/<p class="catalog-specs"[^>]*data-spec-key="([^"]+)"[^>]*>([\s\S]*?)<\/p>/);
+      assert.ok(spec);assert.equal(spec[2],TRANSLATIONS[lang][spec[1]]);
+    }
+  }
+  assert.deepEqual(names[0],names[1]);
+});
 test('static language pages expose matching canonical and alternates',()=>{
   for(const [file,lang]of [['index.html','es'],['en/index.html','en']]) {
     const html=fs.readFileSync(path.join(root,file),'utf8');

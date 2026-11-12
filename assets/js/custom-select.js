@@ -11,6 +11,8 @@
     if (!nativeSelect || !trigger || !list) return;
     const valueSpan = trigger.querySelector('.custom-select-value');
     const options = Array.from(list.querySelectorAll('[role="option"]'));
+    if (!valueSpan || !options.length) return;
+    trigger.setAttribute('role', 'combobox');
     let activeIndex = -1;
 
     const syncFromNative = () => {
@@ -32,6 +34,7 @@
       if (list.hidden) return;
       list.hidden = true;
       trigger.setAttribute('aria-expanded', 'false');
+      trigger.removeAttribute('aria-activedescendant');
       root.classList.remove('is-open');
       if (returnFocus) trigger.focus();
     };
@@ -41,11 +44,14 @@
       list.hidden = false;
       trigger.setAttribute('aria-expanded', 'true');
       root.classList.add('is-open');
-      const current = options[activeIndex] || options[0];
+      activeIndex = Math.max(0, activeIndex);
+      const current = options[activeIndex];
       options.forEach(opt => opt.tabIndex = -1);
+      options.forEach(opt => opt.classList.remove('is-focused'));
       current?.scrollIntoView({ block: 'nearest' });
       current?.classList.add('is-focused');
       list.setAttribute('aria-activedescendant', current?.id || '');
+      trigger.setAttribute('aria-activedescendant', current?.id || '');
     };
 
     const focusOption = index => {
@@ -55,6 +61,7 @@
       opt.classList.add('is-focused');
       opt.scrollIntoView({ block: 'nearest' });
       list.setAttribute('aria-activedescendant', opt.id || '');
+      trigger.setAttribute('aria-activedescendant', opt.id || '');
     };
 
     const choose = option => {
@@ -76,11 +83,18 @@
     trigger.addEventListener('keydown', event => {
       if (['ArrowDown', 'ArrowUp', 'Enter', ' '].includes(event.key)) {
         event.preventDefault();
-        if (list.hidden) open(); else if (event.key === 'Enter' || event.key === ' ') choose(options[activeIndex]);
-        if (event.key === 'ArrowDown') focusOption((activeIndex < 0 ? -1 : activeIndex) + 1);
-        if (event.key === 'ArrowUp') focusOption((activeIndex < 0 ? options.length : activeIndex) - 1);
+        if (list.hidden) {
+          open();
+          if (event.key === 'ArrowUp' && !nativeSelect.value) focusOption(options.length - 1);
+        } else if (event.key === 'Enter' || event.key === ' ') choose(options[activeIndex]);
+        else if (event.key === 'ArrowDown') focusOption(activeIndex + 1);
+        else if (event.key === 'ArrowUp') focusOption(activeIndex - 1);
       } else if (event.key === 'Escape' && !list.hidden) {
         event.preventDefault(); close();
+      } else if (event.key === 'Tab') {
+        close();
+      } else if (!list.hidden && (event.key === 'Home' || event.key === 'End')) {
+        event.preventDefault(); focusOption(event.key === 'Home' ? 0 : options.length - 1);
       }
     });
 
@@ -97,6 +111,9 @@
     });
 
     document.addEventListener('click', event => {
+      if (!root.contains(event.target)) close();
+    });
+    document.addEventListener('focusin', event => {
       if (!root.contains(event.target)) close();
     });
 

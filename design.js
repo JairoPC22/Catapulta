@@ -51,6 +51,7 @@ function structureHeroTitle() {
       else {
         const word = document.createElement('span');
         word.className = 'title-word';
+        word.translate = false;
         word.textContent = part;
         if (hideWords) word.style.opacity = '0';
         fragment.append(word);
@@ -398,7 +399,7 @@ function initTestimonialCarousel() {
 
   const goTo = index => {
     current = Math.max(0, Math.min(slides.length - 1, index));
-    slides[current].scrollIntoView({ behavior: 'smooth', inline: 'center', block: 'nearest' });
+    slides[current].scrollIntoView({ behavior: CP.reducedMotion() ? 'instant' : 'smooth', inline: 'center', block: 'nearest' });
     update();
   };
 
@@ -412,10 +413,11 @@ function initTestimonialCarousel() {
     scheduled = true;
     requestAnimationFrame(() => {
       scheduled = false;
-      const trackCenter = track.scrollLeft + track.clientWidth / 2;
+      const trackCenter = track.getBoundingClientRect().left + track.clientWidth / 2;
       let closest = 0, closestDistance = Infinity;
       slides.forEach((slide, i) => {
-        const distance = Math.abs((slide.offsetLeft + slide.offsetWidth / 2) - trackCenter);
+        const rect = slide.getBoundingClientRect();
+        const distance = Math.abs((rect.left + rect.width / 2) - trackCenter);
         if (distance < closestDistance) { closestDistance = distance; closest = i; }
       });
       if (closest !== current) { current = closest; update(); }

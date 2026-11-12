@@ -232,3 +232,17 @@ Corregida la restauración del español al entrar desde la página inglesa: las 
 La caché se actualiza a v62. tools/build-i18n.cjs sincroniza características, atributos y datos estructurados sin regenerar el diseño. tests/i18n.cjs cubre cambio reversible de catálogo, metadatos, URLs de entrada, etiquetas accesibles y la espera de la animación.
 
 Los dos videos se rediseñan con personajes vectoriales articulados y escenas sincronizadas con la locución original. Se mantienen formato, duración y audio AAC idéntico. Solo se guardan los dos MP4 finales en videos/. Guion de tiempos, requisitos gratuitos y validación en content/VIDEOS.md.
+
+## Revisión de textos e interacción — 11 de noviembre de 2026
+
+Se revisaron portadas ES/EN, catálogo, documentos legales y pantallas de recuperación. Se corrigió redacción poco natural y terminología inconsistente en soluciones, instrucciones y formulario. Se mantienen las citas de clientes, nombres propios, precios y condiciones comerciales. La calculadora describe sus resultados como estimaciones.
+
+El catálogo inglés tenía 17 modelos frente a 21 en español. Ahora ambos se generan a partir de las mismas fichas y las especificaciones se traducen por una clave de modelo, evitando asignar datos a otro equipo por su posición. Se corrigieron el último idioma elegido al pulsar ES/EN rápidamente, la selección del PDF, los enlaces de regreso al inicio, el estado «Enviando» al cambiar de idioma y el idioma guardado no válido que podía ocultar todo el catálogo. La atenuación del selector se conserva.
+
+El selector del formulario admite Enter, flechas, Inicio, Fin, Escape y Tab, cierra al salir del control y comunica la opción activa. Los indicadores del carrusel móvil usan coordenadas compatibles y respetan la preferencia de movimiento reducido. Los errores en inglés regresan a `/en/`; la ayuda por correo sigue disponible sin conexión y el botón de reintento conserva la URL solicitada. El aviso sin conexión pide mantener la página abierta y reintentar, sin prometer almacenamiento persistente del formulario.
+
+La protección de traducción se amplía a elementos de texto para Safari además de las indicaciones de Chrome. Caché y referencias de recursos actualizadas a v67. No se modifican los videos.
+
+Validación: 56 pruebas Node aprobadas y 47 comprobaciones PHP aprobadas, incluyendo SQLite, validación HTTP, envío duplicado, errores de conexión, dos destinatarios con plantillas distintas, TLS y reintentos selectivos mediante un servidor SMTP local. No se enviaron correos reales. En Windows se usó `PHP_EXT_DIR` para cargar `pdo_sqlite` y `OPENSSL_BINARY` para el ejecutable de OpenSSL; sin esas dependencias, las pruebas de integración no se pueden considerar verificadas. Las pruebas están en `tests/`.
+
+Limitaciones: el navegador local está desactivado en Work, por lo que no se realizó una inspección visual ni una prueba real de traducción en Chrome/Safari. La configuración y los archivos publicados se verifican por HTTP. Las pruebas locales del correo no demuestran recepción en las bandejas reales de IONOS/Gmail.

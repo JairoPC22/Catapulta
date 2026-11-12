@@ -74,6 +74,8 @@ Las dos portadas (`/` y `/en/`) declaran `translate="no"`, la clase de compatibi
 
 Se conservan `lang`, los enlaces `hreflang`, los canonical y las reglas de indexación. No se añade `noindex` ni una prohibición de rastreo. El atributo de traducción es una indicación a herramientas compatibles, no un bloqueo absoluto de extensiones o de traducciones forzadas por el visitante. Una pestaña ya traducida puede necesitar «Mostrar original» y una recarga después de publicar la corrección.
 
-El encabezado estático y el diccionario usan las mismas frases revisadas en cada idioma. Las portadas y el service worker cargan la versión 66 de los recursos; las pruebas comprueban el texto, las indicaciones de traducción, la correspondencia de recursos ES/EN y la transición del selector.
+El encabezado estático y el diccionario usan las mismas frases revisadas en cada idioma. Las portadas y el service worker cargan la versión 67 de los recursos; las pruebas comprueban el texto, las indicaciones de traducción, la correspondencia de recursos ES/EN y la transición del selector.
 
 Referencias: [documentación de Chromium sobre traducción](https://www.chromium.org/developers/design-documents/translate/) y [atributo translate de HTML](https://html.spec.whatwg.org/multipage/dom.html#the-translate-attribute).
+
+Safari: se marca también `translate="no"` en los elementos concretos de texto (encabezados, párrafos, enlaces, etiquetas y controles), siguiendo la recomendación de [WebKit](https://webkit.org/blog/11340/new-webkit-features-in-safari-14/#webpage-translation). Las palabras que genera la animación del encabezado llevan la misma indicación. `tools/protect-translations.cjs` aplica esta protección a portadas, catálogo, documentos legales y pantallas de recuperación; los generadores la conservan al reconstruir las páginas. Esto no sustituye una comprobación real en cada versión de Chrome y Safari, ni garantiza bloquear extensiones o traducciones forzadas.

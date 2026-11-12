@@ -1,13 +1,14 @@
 // Source of truth: content/legal-content.json. Run: node tools/build-legal.cjs
 const fs = require('node:fs');
 const path = require('node:path');
+const {protectTranslations} = require('./protect-translations.cjs');
 const root = path.resolve(__dirname, '..');
 const pages = JSON.parse(fs.readFileSync(path.join(root, 'content/legal-content.json'), 'utf8'));
 const escape = value => value.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
 for (const [slug, page] of Object.entries(pages)) {
   const sections = language => page.sections.map(section => `<section><h2>${escape(section[language][0])}</h2><p>${escape(section[language][1])}</p></section>`).join('\n');
   const html = `<!DOCTYPE html>
-<html lang="es" data-theme="dark">
+<html lang="es" data-theme="light">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -15,11 +16,11 @@ for (const [slug, page] of Object.entries(pages)) {
   <meta name="description" content="${escape(page.intro.es)}" />
   <title>${escape(page.title.es)} | CatapultaPayment</title>
   <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
-  <link rel="stylesheet" href="/styles.css?v=29" />
-  <link rel="stylesheet" href="/design.css?v=29" />
-  <link rel="stylesheet" href="/legal.css?v=29" />
-  <script src="/runtime.js?v=29" defer></script>
-  <script src="/legal.js?v=29" defer></script>
+  <link rel="stylesheet" href="/styles.css?v=67" />
+  <link rel="stylesheet" href="/design.css?v=67" />
+  <link rel="stylesheet" href="/legal.css?v=67" />
+  <script src="/runtime.js?v=67" defer></script>
+  <script src="/legal.js?v=67" defer></script>
 </head>
 <body class="legal-page" data-title-es="${escape(page.title.es)}" data-title-en="${escape(page.title.en)}">
   <header class="legal-header">
@@ -38,6 +39,6 @@ for (const [slug, page] of Object.entries(pages)) {
 </body>
 </html>
 `;
-  fs.writeFileSync(path.join(root, `${slug}.html`), html);
+  fs.writeFileSync(path.join(root, `${slug}.html`), protectTranslations(html));
 }
 console.log('Generated privacy.html, terms.html and cookies.html.');

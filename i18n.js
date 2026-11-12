@@ -62,7 +62,7 @@ const TRANSLATIONS = {
     // CALCULATOR
     'calc.label': 'Calculadora de ahorro',
     'calc.title': 'Descubre cuánto puedes<br /><em class="grad-text">ahorrar con nosotros.</em>',
-    'calc.desc': 'Mueve los controles y ve el impacto real en tu negocio.',
+    'calc.desc': 'Ajusta los controles para obtener una estimación de ahorro para tu negocio.',
     'calc.sales.label': 'Ventas mensuales', 'calc.rate.label': 'Tu tasa actual de procesamiento',
     'calc.note': 'Tasa CatapultaPayment desde <strong>1.89%</strong> · Sin cargos ocultos',
     'calc.current.label': 'Pagas actualmente', 'calc.current.sub': 'al mes en comisiones',
@@ -73,32 +73,32 @@ const TRANSLATIONS = {
     // SOLUTIONS
     'sol.label': 'Soluciones',
     'sol.title': 'Todo lo que necesitas<br />para cobrar sin límites.',
-    'sol.tab.physical': 'Equipo Físico', 'sol.tab.virtual': 'Procesamiento Virtual',
-    'sol.p1.title': 'Registros y terminales básicos',
-    'sol.p1.desc': 'Cajas con terminales para ventas en mostrador y retail básico.',
+    'sol.tab.physical': 'Equipos físicos', 'sol.tab.virtual': 'Procesamiento virtual',
+    'sol.p1.title': 'Cajas registradoras y terminales',
+    'sol.p1.desc': 'Cajas registradoras y terminales para ventas en mostrador y comercios minoristas.',
     'sol.p2.title': 'Cajas de autoservicio',
     'sol.p2.desc': 'Pantalla táctil con lectores integrados para cafeterías y kioscos.',
     'sol.p3.title': 'Lectores móviles',
-    'sol.p3.desc': 'Apps y lectores para ferias, mercados y servicios en campo.',
+    'sol.p3.desc': 'Aplicaciones y lectores para ferias, mercados y servicios a domicilio.',
     'sol.p4.title': 'Terminales inteligentes',
     'sol.p4.desc': 'Dispositivos todo en uno con WiFi y conectividad móvil.',
     'sol.p5.title': 'Puntos de venta POS',
-    'sol.p5.desc': 'Gestión de inventario, clientes y ventas con terminal integrado.',
+    'sol.p5.desc': 'Gestión de inventario, clientes y ventas con cobros integrados.',
     'sol.p6.title': 'Ver catálogo completo',
     'sol.p6.desc': 'Explora todos los equipos disponibles para tu negocio.',
     'sol.p6.link': 'Ir al catálogo',
-    'sol.v1.title': 'Pasarelas ecommerce',
-    'sol.v1.desc': 'Conexión segura entre tu tienda online y el procesador de pago.',
+    'sol.v1.title': 'Pasarelas de comercio electrónico',
+    'sol.v1.desc': 'Conexión segura entre tu tienda en línea y el procesador de pagos.',
     'sol.v2.title': 'Portales de pago',
-    'sol.v2.desc': 'Pagos recurrentes, QR y links por email o SMS.',
+    'sol.v2.desc': 'Pagos recurrentes, códigos QR y enlaces por correo electrónico o SMS.',
     'sol.v3.title': 'Terminal virtual',
-    'sol.v3.desc': 'Panel cloud para ingresar pagos sin necesidad de hardware.',
-    'sol.v4.title': 'Apps POS móviles',
-    'sol.v4.desc': 'Procesa desde tablet o smartphone con funciones POS completas.',
+    'sol.v3.desc': 'Panel en la nube para ingresar pagos sin una terminal física.',
+    'sol.v4.title': 'Aplicaciones POS móviles',
+    'sol.v4.desc': 'Procesa pagos desde una tableta o un teléfono con funciones de punto de venta.',
     'sol.v5.title': 'Terminales certificados PCI DSS',
     'sol.v5.desc': 'Trabajamos con procesadoras y terminales certificados bajo PCI DSS; los datos de cada transacción viajan cifrados.',
     'sol.v6.title': 'Reportes en tiempo real',
-    'sol.v6.desc': 'Dashboard de ventas, contracargos y rendimiento desde cualquier dispositivo.',
+    'sol.v6.desc': 'Panel de ventas, contracargos y rendimiento desde cualquier dispositivo.',
     // CATALOG
     'cat.label': 'Catálogo de equipos',
     'cat.title': 'Equipos para cada<br />tipo de negocio.',
@@ -137,39 +137,39 @@ const TRANSLATIONS = {
     'cat.feat.sw.basic': 'Software básico:', 'cat.feat.sw.full': 'Software completo:',
     'cat.feat.sw': 'Software:', 'cat.feat.inv.with': 'Con inventario:',
     'cat.feat.inv.without': 'Sin inventario:', 'cat.feat.internet': 'Internet:',
-    'cat.feat.internet.opt': 'Internet opcional:', 'cat.feat.host': 'Internet/Hosting:',
-    'cat.feat.app.client': 'App cliente:', 'cat.feat.per.month': '/mes',
+    'cat.feat.internet.opt': 'Internet opcional:', 'cat.feat.host': 'Internet y alojamiento:',
+    'cat.feat.app.client': 'Aplicación para clientes:', 'cat.feat.per.month': '/mes',
     // Sunmi-specific features
     'cat.feat.su.bat': 'Batería 2580mAh de larga duración',
-    'cat.feat.su.usb': 'USB Tipo C · GPS y A-GPS',
-    'cat.feat.su.temp': 'Operación -10°C a 50°C · 430g',
+    'cat.feat.su.usb': 'USB tipo C · GPS y A-GPS',
+    'cat.feat.su.temp': 'Funcionamiento de -10 °C a 50 °C · 430 g',
     'cat.feat.su.chip': 'Chip, banda, NFC y QR',
-    'cat.feat.su.drop': 'Resistente a caídas de 1.2m',
-    'cat.feat.su.weight': '200g · 15mm de grosor',
+    'cat.feat.su.drop': 'Resistente a caídas de 1.2 m',
+    'cat.feat.su.weight': '200 g · 15 mm de grosor',
     'cat.feat.su.perf': '60% mejor rendimiento',
     'cat.feat.su.modules': 'Módulos opcionales: pantalla cliente, NFC',
     'cat.feat.su.pnp': 'Plug &amp; Play · Personalizable con tu marca',
     // PAX-specific features
-    'cat.feat.px.cam': 'Cámara 5MP Auto Focus · BT 5.0',
-    'cat.feat.px.fp': 'Lector de huella en encendido',
-    'cat.feat.px.usb': 'USB Tipo C · POGO PIN',
+    'cat.feat.px.cam': 'Cámara de 5 MP con enfoque automático · BT 5.0',
+    'cat.feat.px.fp': 'Lector de huellas en el botón de encendido',
+    'cat.feat.px.usb': 'USB tipo C · POGO PIN',
     'cat.feat.px.enc': 'Cifrado, tokenización y PCI DSS',
     'cat.feat.px.printer': 'Impresora 260mm/s ultrarrápida',
-    'cat.feat.px.scanner': 'Scanner con función walkie-talkie',
+    'cat.feat.px.scanner': 'Escáner con función de walkie-talkie',
     'cat.feat.px.nfc': 'NFC sin contacto',
     'cat.feat.px.pci': 'PCI 5.x SRED certificado',
     'cat.feat.px.hiprinter': 'Impresora de alta velocidad',
     'cat.feat.px.duoscreen': 'Pantalla principal + pantalla secundaria para el cliente',
     'cat.feat.px.duouse': 'Ideal para cobro frente al cliente con confirmación visible',
     'cat.feat.px.a77light': 'Ligero y fácil de transportar',
-    'cat.feat.px.a77use': 'Ideal para cobro móvil sin necesidad de imprimir recibo',
+    'cat.feat.px.a77use': 'Ideal para cobros móviles sin necesidad de imprimir recibos',
     'cat.feat.px.a80fixed': 'Ideal para punto fijo de cobro (mostrador, caja)',
     'cat.feat.px.a80wired': 'Conexión por cable, siempre en línea',
     'cat.feat.px.a35pay': 'Dispositivo de pago para el cliente, frente a la estación principal',
-    'cat.feat.px.a35printer': 'Impresora de recibo por separado',
+    'cat.feat.px.a35printer': 'Impresora de recibos por separado',
     // Landi-specific features
     'cat.feat.la.cert': 'Certificado CE/CB/FCC/IC/RoHS',
-    'cat.feat.la.sd': 'Soporta tarjeta SD 3.0',
+    'cat.feat.la.sd': 'Compatible con tarjetas SD 3.0',
     'cat.feat.la.visual': 'Experiencia visual inmersiva',
     'cat.feat.la.screen': 'Pantalla independiente para cliente y operador',
     // GALLERY
@@ -179,7 +179,7 @@ const TRANSLATIONS = {
     // TESTIMONIALS
     'testi.label': 'Casos de éxito',
     'testi.title': 'Confianza que<br />se siente.',
-    'testi.desc': 'Negocios reales, con su nombre y su reseña — no testimonios genéricos.',
+    'testi.desc': 'Conoce la experiencia de algunos de nuestros clientes.',
     'testi.count': '4 clientes verificados',
     'testi.q1': '"Implementar su sistema de pagos fue un acierto total. Nuestros comensales ahora pagan rápido y seguro. Hemos aumentado ventas especialmente en fines de semana. Una excelente inversión."',
     'testi.q2': '"El terminal virtual se sincronizó perfectamente con nuestro sistema. Ahora aceptamos pagos sin contacto y las transacciones son un 30% más rápidas."',
@@ -190,14 +190,14 @@ const TRANSLATIONS = {
     'steps.label': 'Cómo funciona',
     'steps.title': 'Empieza a cobrar en<br />4 pasos simples.',
     'steps.desc': 'Del primer contacto a tu primera venta, te acompañamos en todo el proceso.',
-    'steps.s1.title': 'Cuéntanos tu negocio',
-    'steps.s1.desc': 'Completa el formulario o llámanos. Conocemos tu volumen de ventas, industria y necesidades reales.',
+    'steps.s1.title': 'Cuéntanos sobre tu negocio',
+    'steps.s1.desc': 'Completa el formulario o llámanos para conocer tu volumen de ventas, tu sector y tus necesidades.',
     'steps.s2.title': 'Cotización y aprobación',
     'steps.s2.desc': 'Te conectamos con el banco patrocinador ideal y armamos una cotización clara, sin letras chiquitas.',
     'steps.s3.title': 'Instalación y configuración',
-    'steps.s3.desc': 'Configuramos tus terminales o pasarela virtual y capacitamos a tu equipo para usarlos sin fricción.',
+    'steps.s3.desc': 'Configuramos tus terminales o tu pasarela de pagos y capacitamos a tu equipo para utilizarlas.',
     'steps.s4.title': 'Empieza a cobrar',
-    'steps.s4.desc': 'Acepta chip, contactless, banda y pagos virtuales desde el día uno, con soporte bilingüe siempre disponible.',
+    'steps.s4.desc': 'Acepta pagos con chip, sin contacto, con banda magnética y en línea desde el primer día, con soporte bilingüe.',
     // FAQ
     'faq.label': 'Preguntas frecuentes',
     'faq.title': 'Todo lo que necesitas<br />saber antes de empezar.',
@@ -220,14 +220,14 @@ const TRANSLATIONS = {
     'contact.label': 'Contacto',
     'contact.title': '¿Listo para aceptar<br />pagos sin complicaciones?',
     'contact.desc': 'Soluciones de pago seguras, rápidas y adaptadas a tu negocio. Contáctanos y te ayudamos a elegir la mejor opción.',
-    'contact.west': 'Zona Oeste', 'contact.east': 'Zona Este', 'contact.support': 'Soporte Técnico',
+    'contact.west': 'Zona Oeste', 'contact.east': 'Zona Este', 'contact.support': 'Soporte técnico',
     'form.title': 'Envíanos un mensaje',
     'form.firstname': 'Nombre', 'form.firstname.ph': 'Tu nombre',
     'form.lastname': 'Apellido', 'form.lastname.ph': 'Tu apellido',
     'form.email': 'Correo electrónico', 'form.email.ph': 'tu@empresa.com',
     'form.phone': 'Teléfono', 'form.phone.ph': '+1 (555) 000-0000',
     'form.subject': '¿En qué podemos ayudarte?',
-    'form.opt.default': 'Selecciona una opción', 'form.opt.pos': 'Terminal POS físico',
+    'form.opt.default': 'Selecciona una opción', 'form.opt.pos': 'Terminal y sistema POS',
     'form.opt.virtual': 'Procesamiento virtual', 'form.opt.support': 'Soporte técnico',
     'form.opt.general': 'Consulta general',
     'form.message': 'Mensaje', 'form.message.ph': 'Cuéntanos sobre tu negocio...',
@@ -235,18 +235,18 @@ const TRANSLATIONS = {
     'form.submit': 'Enviar mensaje', 'form.sending': 'Enviando...',
     'form.err.firstname': 'Ingresa tu nombre.',
     'form.err.lastname': 'Ingresa tu apellido.',
-    'form.err.email': 'Ingresa un correo válido.',
+    'form.err.email': 'Ingresa un correo electrónico válido.',
     'form.err.subject': 'Selecciona una opción.',
     'form.err.message': 'Cuéntanos brevemente qué necesitas.',
-    'form.consent': 'Tus datos se usan solo para responder tu solicitud, nunca se comparten con terceros. Al enviar aceptas nuestros',
-    'form.terms': 'Términos y Condiciones',
+    'form.consent': 'Al enviar, solicitas que te contactemos conforme a nuestro',
+    'form.terms': 'Términos de uso',
     // MODAL TÉRMINOS
     // FOOTER
     'footer.desc': 'Soluciones de procesamiento de pagos para negocios de todos los tamaños. Conectamos tu empresa con los mejores procesadores.',
     'footer.col1': 'Soluciones', 'footer.col2': 'Empresa',
-    'footer.sol.physical': 'Equipo Físico POS', 'footer.sol.virtual': 'Procesamiento Virtual',
-    'footer.sol.gateway': 'Pasarelas de Pago', 'footer.sol.catalog': 'Catálogo de Equipos',
-    'footer.about': 'Nosotros', 'footer.success': 'Casos de Éxito',
+    'footer.sol.physical': 'Equipos POS', 'footer.sol.virtual': 'Procesamiento virtual',
+    'footer.sol.gateway': 'Pasarelas de pago', 'footer.sol.catalog': 'Catálogo de equipos',
+    'footer.about': 'Nosotros', 'footer.success': 'Casos de éxito',
     'footer.faq': 'Preguntas frecuentes',
     'footer.contact': 'Contacto', 'footer.terms': 'Términos de uso',
     'footer.download': 'Ver catálogo',
@@ -330,7 +330,7 @@ const TRANSLATIONS = {
     // CALCULATOR
     'calc.label': 'Savings calculator',
     'calc.title': 'Discover how much you can<br /><em class="grad-text">save with us.</em>',
-    'calc.desc': 'Move the sliders and see the real impact on your business.',
+    'calc.desc': 'Adjust the sliders to estimate potential savings for your business.',
     'calc.sales.label': 'Monthly sales', 'calc.rate.label': 'Your current processing rate',
     'calc.note': 'CatapultaPayment rate from <strong>1.89%</strong> · No hidden fees',
     'calc.current.label': 'You currently pay', 'calc.current.sub': 'per month in fees',
@@ -341,17 +341,17 @@ const TRANSLATIONS = {
     // SOLUTIONS
     'sol.label': 'Solutions',
     'sol.title': 'Everything you need<br />to accept payments.',
-    'sol.tab.physical': 'Physical Equipment', 'sol.tab.virtual': 'Virtual Processing',
-    'sol.p1.title': 'Basic registers & terminals',
-    'sol.p1.desc': 'Countertop terminals for counter sales and basic retail.',
+    'sol.tab.physical': 'POS equipment', 'sol.tab.virtual': 'Online payments',
+    'sol.p1.title': 'Cash registers and terminals',
+    'sol.p1.desc': 'Cash registers and payment terminals for countertop sales and retail businesses.',
     'sol.p2.title': 'Self-service kiosks',
-    'sol.p2.desc': 'Touchscreen with integrated readers for cafeterias and kiosks.',
+    'sol.p2.desc': 'Touchscreens with integrated readers for cafés and self-service kiosks.',
     'sol.p3.title': 'Mobile readers',
-    'sol.p3.desc': 'Apps and readers for fairs, markets, and field services.',
+    'sol.p3.desc': 'Apps and readers for fairs, markets, and mobile businesses.',
     'sol.p4.title': 'Smart terminals',
     'sol.p4.desc': 'All-in-one devices with WiFi and mobile connectivity.',
     'sol.p5.title': 'Point-of-sale systems',
-    'sol.p5.desc': 'Inventory, customer, and sales management with integrated terminal.',
+    'sol.p5.desc': 'Inventory, customer, and sales management with integrated payments.',
     'sol.p6.title': 'View full catalog',
     'sol.p6.desc': 'Explore all equipment available for your business.',
     'sol.p6.link': 'Go to catalog',
@@ -360,9 +360,9 @@ const TRANSLATIONS = {
     'sol.v2.title': 'Payment portals',
     'sol.v2.desc': 'Recurring payments, QR codes, and links via email or SMS.',
     'sol.v3.title': 'Virtual terminal',
-    'sol.v3.desc': 'Cloud panel to enter payments without hardware.',
+    'sol.v3.desc': 'An online dashboard for entering payments without a physical terminal.',
     'sol.v4.title': 'Mobile POS apps',
-    'sol.v4.desc': 'Process from tablet or smartphone with full POS features.',
+    'sol.v4.desc': 'Accept payments from a tablet or smartphone with point-of-sale features.',
     'sol.v5.title': 'PCI DSS–certified terminals',
     'sol.v5.desc': 'We work with processors and terminals certified under PCI DSS; transaction data travels encrypted.',
     'sol.v6.title': 'Real-time reports',
@@ -447,7 +447,7 @@ const TRANSLATIONS = {
     // TESTIMONIALS
     'testi.label': 'Success stories',
     'testi.title': 'Trust you<br />can feel.',
-    'testi.desc': 'Real businesses, with their name and their review — not generic testimonials.',
+    'testi.desc': 'See what some of our customers say about working with us.',
     'testi.count': '4 verified customers',
     'testi.q1': '"Implementing their payment system was a total success. Our diners now pay quickly and securely. We increased sales especially on weekends. An excellent investment."',
     'testi.q2': '"The virtual terminal synced perfectly with our system. We now accept contactless payments and transactions are 30% faster."',
@@ -459,13 +459,13 @@ const TRANSLATIONS = {
     'steps.title': 'Start accepting payments<br />in 4 simple steps.',
     'steps.desc': 'From first contact to your first sale, we guide you through the whole process.',
     'steps.s1.title': 'Tell us about your business',
-    'steps.s1.desc': 'Fill out the form or call us. We learn your sales volume, industry, and real needs.',
+    'steps.s1.desc': 'Fill out the form or call us so we can learn about your sales volume, industry, and needs.',
     'steps.s2.title': 'Quote and approval',
     'steps.s2.desc': 'We connect you with the ideal sponsor bank and put together a clear quote, no fine print.',
     'steps.s3.title': 'Installation and setup',
-    'steps.s3.desc': 'We configure your terminals or virtual gateway and train your team to use them with no friction.',
+    'steps.s3.desc': 'We set up your terminals or payment gateway and train your team to use them.',
     'steps.s4.title': 'Start accepting payments',
-    'steps.s4.desc': 'Accept chip, contactless, swipe, and virtual payments from day one, with bilingual support always available.',
+    'steps.s4.desc': 'Accept chip, contactless, magnetic-stripe, and online payments from day one, with bilingual support.',
     // FAQ
     'faq.label': 'FAQ',
     'faq.title': 'Everything you need<br />to know before you start.',
@@ -495,7 +495,7 @@ const TRANSLATIONS = {
     'form.email': 'Email address', 'form.email.ph': 'you@company.com',
     'form.phone': 'Phone', 'form.phone.ph': '+1 (555) 000-0000',
     'form.subject': 'How can we help you?',
-    'form.opt.default': 'Select an option', 'form.opt.pos': 'Physical POS terminal',
+    'form.opt.default': 'Select an option', 'form.opt.pos': 'POS terminal and system',
     'form.opt.virtual': 'Virtual processing', 'form.opt.support': 'Technical support',
     'form.opt.general': 'General inquiry',
     'form.message': 'Message', 'form.message.ph': 'Tell us about your business...',
@@ -503,11 +503,11 @@ const TRANSLATIONS = {
     'form.submit': 'Send message', 'form.sending': 'Sending...',
     'form.err.firstname': 'Enter your first name.',
     'form.err.lastname': 'Enter your last name.',
-    'form.err.email': 'Enter a valid email.',
+    'form.err.email': 'Enter a valid email address.',
     'form.err.subject': 'Select an option.',
     'form.err.message': 'Briefly tell us what you need.',
-    'form.consent': "We only use your info to reply to your request, never shared with third parties. By submitting you accept our",
-    'form.terms': 'Terms & Conditions',
+    'form.consent': 'By submitting, you ask us to contact you in accordance with our',
+    'form.terms': 'Terms of use',
     // TERMS MODAL
     // FOOTER
     'footer.desc': 'Payment processing solutions for businesses of all sizes. We connect your company with the best processors.',
@@ -531,7 +531,7 @@ const TRANSLATIONS = {
     'term.summary.title': 'Summary',
     'term.summary.amount': 'Amount to charge',
     'term.summary.fee': 'Estimated fee',
-    'term.summary.net': 'Net you receive',
+    'term.summary.net': 'Net amount received',
     'term.btn.process': 'Try a payment',
     'term.reader.tag': 'Chip / Swipe / NFC',
     'term.method.chip.name': 'Chip card',
@@ -628,19 +628,9 @@ const I18N = {
   _applyCatalogItems(lang, t) {
     this._cacheIfNeeded();
 
-    // Lista de keys de specs en el MISMO orden que aparecen en el HTML
-    const specKeys = [
-      'cat.spec.dj.p1', 'cat.spec.dj.qd2', 'cat.spec.dj.d1',       // Dejavoo (3)
-      'cat.spec.cl.flex', 'cat.spec.cl.mini', 'cat.spec.cl.duo',     // Clover (3)
-      'cat.spec.su.p2pro', 'cat.spec.su.t2s', 'cat.spec.su.p2mini',  // Sunmi (3)
-      'cat.spec.su.d3pro',                                             // Sunmi D3 (1)
-      'cat.spec.px.a920', 'cat.spec.px.a920duo', 'cat.spec.px.a77', 'cat.spec.px.a80', 'cat.spec.px.a35', // PAX OnTheFly (5)
-      'cat.spec.px.elyse', 'cat.spec.px.sistema', // PAX (2)
-      'cat.spec.px.e700', 'cat.spec.px.kiosk',                        // PAX (2)
-      'cat.spec.la.m20', 'cat.spec.la.c20pro',                        // Landi (2)
-    ];
     this._qa('.catalog-specs').forEach((el, i) => {
-      if (specKeys[i] && t[specKeys[i]]) el.textContent = t[specKeys[i]];
+      const key = el.dataset.specKey;
+      if (key && t[key]) el.textContent = t[key];
       else if (lang === 'es' && this._specsCache[i]) el.textContent = this._specsCache[i];
     });
 
@@ -1100,7 +1090,8 @@ const I18N = {
         }
       });
     }
-    this._setBtn('#contactForm button[type="submit"]', 'form.submit', t);
+    const busy = this._q('#contactForm')?.getAttribute('aria-busy') === 'true';
+    this._setBtn('#contactForm button[type="submit"]', busy ? 'form.sending' : 'form.submit', t);
     // Mensajes de error inline
     const errKeys = { firstName:'form.err.firstname', lastName:'form.err.lastname', email:'form.err.email', subject:'form.err.subject', message:'form.err.message' };
     Object.entries(errKeys).forEach(([id, key]) => {
@@ -1170,14 +1161,19 @@ const I18N = {
 
   /* ── Inicialización ── */
   switchTo(lang) {
-    if (!TRANSLATIONS[lang] || lang === this.currentLang) return;
+    if (!TRANSLATIONS[lang]) return;
+    if (this._switching) { this._nextLang = lang; return; }
+    if (lang === this.currentLang) return;
     const root = document.documentElement;
     if (matchMedia('(prefers-reduced-motion: reduce)').matches) { this.apply(lang); return; }
+    this._switching = true;
+    this._nextLang = lang;
     let swapped = false;
     const swap = () => {
       if (swapped) return;
       swapped = true;
-      this.apply(lang);
+      this.apply(this._nextLang);
+      this._switching = false;
       requestAnimationFrame(() => root.classList.remove('lang-fade'));
     };
     // Swap right as the dim-down finishes, so the new text only ever appears
@@ -1191,9 +1187,7 @@ const I18N = {
   _bindLangButtons() {
     document.querySelectorAll('.lang-btn').forEach(btn => {
       btn.addEventListener('click', () => {
-        if (btn.dataset.lang !== this.currentLang) {
-          this.switchTo(btn.dataset.lang);
-        }
+        this.switchTo(btn.dataset.lang);
       });
     });
   },

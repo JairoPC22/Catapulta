@@ -302,7 +302,7 @@ function initContactForm() {
       focusTarget.focus();
       return;
     }
-    if (!navigator.onLine) { notify(text('No hay conexión. Conservamos tu mensaje; vuelve a intentarlo al conectarte.', 'You are offline. Your message is still here; reconnect and try again.'), true); return; }
+    if (!navigator.onLine) { notify(text('No hay conexión. Mantén esta página abierta y reintenta el envío cuando recuperes la conexión.', 'You are offline. Keep this page open and try sending again when you reconnect.'), true); return; }
     const snapshot = new FormData(form);
     const controls = [...form.querySelectorAll('input,textarea,select,button')];
     const disabledBefore = controls.map(control => control.disabled);
