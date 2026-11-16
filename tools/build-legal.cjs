@@ -16,15 +16,14 @@ for (const [slug, page] of Object.entries(pages)) {
   <meta name="description" content="${escape(page.intro.es)}" />
   <title>${escape(page.title.es)} | CatapultaPayment</title>
   <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
-  <link rel="stylesheet" href="/styles.css?v=67" />
-  <link rel="stylesheet" href="/design.css?v=67" />
-  <link rel="stylesheet" href="/legal.css?v=67" />
-  <script src="/runtime.js?v=67" defer></script>
-  <script src="/legal.js?v=67" defer></script>
+  <link rel="stylesheet" href="/core.css?v=68" />
+  <link rel="stylesheet" href="/legal.css?v=68" />
+  <script src="/runtime.js?v=68" defer></script>
+  <script src="/legal.js?v=68" defer></script>
 </head>
 <body class="legal-page" data-title-es="${escape(page.title.es)}" data-title-en="${escape(page.title.en)}">
   <header class="legal-header">
-    <a href="/" aria-label="CatapultaPayment, inicio"><img src="/imagecata.png" width="108" height="58" alt="CatapultaPayment" /></a>
+    <a href="/" aria-label="CatapultaPayment, inicio"><img src="/assets/icons/logo-site.webp" width="108" height="58" alt="CatapultaPayment" /></a>
     <div class="lang-toggle" role="group" aria-label="Idioma / Language"><button class="lang-btn active" data-lang="es" aria-pressed="true">ES</button><button class="lang-btn" data-lang="en" aria-pressed="false">EN</button></div>
   </header>
   <main class="legal-main">
