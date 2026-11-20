@@ -101,6 +101,27 @@ document.addEventListener('DOMContentLoaded', () => {
   document.querySelectorAll('.about-image-wrap, .catalog-grid, .calc-wrapper, .steps-grid').forEach(el => observer.observe(el));
   reduced.addEventListener('change', () => { if (reduced.matches) active.forEach(animation => animation.cancel()); });
 
+  const brandRow = document.querySelector('.brand-strip-row');
+  if (brandRow) {
+    const marks = [...brandRow.children].filter(el => el.classList.contains('brand-mark'));
+    const brandObserver = new IntersectionObserver(entries => {
+      entries.forEach(entry => {
+        if (!entry.isIntersecting) return;
+        brandObserver.disconnect();
+        if (reduced.matches) return;
+        marks.forEach((mark, i) => {
+          const animation = animateIn(mark, [
+            { opacity: 0, transform: 'translateY(10px) scale(.92)' },
+            { opacity: 1, transform: 'none' }
+          ], { duration: 500, delay: i * 80, easing: 'cubic-bezier(.16,1,.3,1)', fill: 'backwards' });
+          active.add(animation);
+          animation.finished.then(() => active.delete(animation)).catch(() => active.delete(animation));
+        });
+      });
+    }, { threshold: .3 });
+    brandObserver.observe(brandRow);
+  }
+
   initPhotoCarousel(reduced);
   initTestimonialCarousel();
   initTestimonialReveal(reduced);
