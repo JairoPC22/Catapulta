@@ -1146,8 +1146,6 @@ const I18N = {
         if (pair) el.setAttribute(attr, pair[lang === 'en' ? 1 : 0]);
       }
     });
-    const skip = this._q('.skip-link');
-    if (skip) skip.textContent = lang === 'en' ? 'Skip to main content' : 'Saltar al contenido principal';
   },
 
   _applyMisc(t) {

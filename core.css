@@ -100,24 +100,6 @@ textarea {
   background-clip: text;
 }
 
-.skip-link {
-  position: absolute;
-  top: -100%;
-  left: 1rem;
-  z-index: 10001;
-  padding: 0.85rem 1.4rem;
-  background: var(--color-teal);
-  color: #07140f;
-  font-weight: 700;
-  font-size: 0.9rem;
-  border-radius: var(--radius-sm);
-  transition: top 0.2s ease;
-}
-
-.skip-link:focus {
-  top: 1rem;
-}
-
 .sr-only {
   position: absolute;
   width: 1px;

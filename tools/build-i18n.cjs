@@ -56,8 +56,7 @@ for(const [file,lang] of [['index.html','es'],['en/index.html','en']]) {
     return pair ? attr+'="'+pair[lang==='en'?1:0]+'"' : whole;
   });
   if(lang==='en') {
-    html=html.replace('>Saltar al contenido principal</a>','>Skip to main content</a>')
-      .replace('href="/privacy.html">Privacidad</a>','href="/privacy.html">Privacy</a>')
+    html=html.replace('href="/privacy.html">Privacidad</a>','href="/privacy.html">Privacy</a>')
       .replace('href="/cookies.html">Cookies y almacenamiento</a>','href="/cookies.html">Cookies and storage</a>');
   }
   html=html.replace(/(<script type="application\/ld\+json">)([\s\S]*?)(<\/script>)/,(_,open,json,close)=>open+'\n'+JSON.stringify(I18N._localizedGraph(JSON.parse(json),lang,TRANSLATIONS[lang]),null,2)+'\n'+close);
