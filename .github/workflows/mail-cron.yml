@@ -1,0 +1,56 @@
+name: Mail queue cron (fallback, no IONOS panel access needed)
+
+# Stopgap for when nobody can log into the IONOS control panel to set up a
+# native "Tarea programada" / cron job that runs mail/worker.php every
+# minute (see mail/SETUP.md). This workflow uploads a small token file to
+# the server and then calls mail/cron.php over HTTPS on a schedule, which
+# runs the exact same queue-processing code as worker.php.
+#
+# This is NOT a replacement for the real IONOS cron: GitHub only guarantees
+# scheduled workflows run at 5-minute granularity, and can delay or skip
+# runs under load, and schedules are disabled automatically after 60 days
+# with no commits to the repo. Switch back to a native IONOS cron job once
+# panel access is available again, and then this workflow can be removed
+# (just delete this file and mail/cron.php; mail/worker.php and the private
+# config.php are untouched either way).
+#
+# Setup (one time): in GitHub, this repo > Settings > Secrets and variables
+# > Actions > New repository secret, named exactly MAIL_CRON_TOKEN, value
+# any long random string (e.g. generate with
+# `node -e "console.log(require('crypto').randomBytes(32).toString('hex'))"`).
+# Reuses the same IONOS_FTP_* secrets as deploy-ionos.yml.
+
+on:
+  schedule:
+    - cron: '*/5 * * * *'
+  workflow_dispatch: {}
+
+jobs:
+  trigger:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Install lftp
+        run: sudo apt-get update && sudo apt-get install -y lftp
+
+      - name: Upload the current cron token to the server
+        env:
+          IONOS_FTP_SERVER: ${{ secrets.IONOS_FTP_SERVER }}
+          IONOS_FTP_USERNAME: ${{ secrets.IONOS_FTP_USERNAME }}
+          IONOS_FTP_PASSWORD: ${{ secrets.IONOS_FTP_PASSWORD }}
+          MAIL_CRON_TOKEN: ${{ secrets.MAIL_CRON_TOKEN }}
+        run: |
+          if [ -z "$MAIL_CRON_TOKEN" ]; then
+            echo "::error::MAIL_CRON_TOKEN secret is not set — see this workflow's comments for setup."
+            exit 1
+          fi
+          printf '<?php\nreturn %s;\n' "$(node -e 'console.log(JSON.stringify(process.env.MAIL_CRON_TOKEN))')" > cron-token.php
+          lftp -u "$IONOS_FTP_USERNAME","$IONOS_FTP_PASSWORD" sftp://$IONOS_FTP_SERVER:22 <<'EOF'
+          set sftp:auto-confirm yes
+          put cron-token.php -o mail/cron-token.php
+          EOF
+
+      - name: Trigger the mail queue over HTTPS
+        env:
+          MAIL_CRON_TOKEN: ${{ secrets.MAIL_CRON_TOKEN }}
+        run: |
+          curl -fsS "https://catapultapay.com/mail/cron.php?token=$MAIL_CRON_TOKEN"

@@ -2,6 +2,14 @@
 
 No requiere una API de pago. El buzón y la tarea programada deben estar incluidos en el contrato existente; no contratar extras para esta implementación.
 
+## Respaldo sin acceso al panel de IONOS (20/11/2026)
+
+Si nadie tiene acceso al panel de IONOS para crear la tarea programada de `mail/worker.php`, el workflow `.github/workflows/mail-cron.yml` la reemplaza temporalmente: cada 5 minutos sube un token a `mail/cron-token.php` (generado al vuelo desde el secreto de GitHub `MAIL_CRON_TOKEN`, nunca guardado en git) y llama a `https://catapultapay.com/mail/cron.php?token=...`, que ejecuta exactamente el mismo código de `worker.php` (compartido ahora en `mail/processor.php`).
+
+Para activarlo: en GitHub, este repositorio > Settings > Secrets and variables > Actions > New repository secret, nombre exacto `MAIL_CRON_TOKEN`, valor una cadena larga aleatoria (por ejemplo con `node -e "console.log(require('crypto').randomBytes(32).toString('hex'))"`). Reutiliza los mismos secretos `IONOS_FTP_*` que ya usa el despliegue normal.
+
+Esto no sustituye una tarea cron real de IONOS: GitHub solo garantiza una granularidad mínima de 5 minutos para workflows programados, puede retrasar o saltarse ejecuciones bajo carga, y desactiva automáticamente los `schedule` si el repositorio pasa 60 días sin commits. En cuanto se recupere el acceso al panel de IONOS, configurar la tarea nativa (ver más abajo) y entonces se puede borrar `.github/workflows/mail-cron.yml` y `mail/cron.php` sin afectar nada más.
+
 ## Buzón
 
 1. En IONOS, Correo > Crear dirección > Mail Basic, usar Crear si existe un buzón disponible. Si aparece precio o Pedir/Solicitar, detenerse antes de contratar.
@@ -43,7 +51,7 @@ Las pruebas PHP usan SQLite en memoria y un remitente simulado: validación, ded
 Se intenta en cada carga de inicio. Si autoplay se bloquea, hay un único intento con una interacción real dentro de diez segundos. Escape o esconder la pestaña cancela el sonido. No se garantiza audio sin interacción porque depende del navegador; no hay botón flotante ni reproducción tardía al volver a una sección.
 
 ## Destinatarios administrados desde GitHub
-La lista activa esta en mail/recipients.php. send.php y worker.php la cargan despues del config.php privado; por tanto cualquier lista antigua de ese config no se utiliza. Cambiar destinatarios requiere actualizar recipients.php y desplegar. La contraseña, storage_dir y storage_secret siguen solo en config.php de IONOS. Administrador confirmado: jairo.pena@catapultapay.com.
+La lista activa esta en mail/recipients.php. send.php, worker.php y cron.php la cargan despues del config.php privado; por tanto cualquier lista antigua de ese config no se utiliza. Cambiar destinatarios requiere actualizar recipients.php y desplegar. La contraseña, storage_dir y storage_secret siguen solo en config.php de IONOS. Administradores confirmados: barthallen25@gmail.com, jairoparker22@gmail.com (actualizado 20/11/2026).
 
 ## Plantillas y entregabilidad (30/10/2026)
 Administrador y cliente reciben plantillas distintas, con referencia compartida. El logo se adjunta como PNG inline con Content-ID, sin imagen data: base64 dentro del HTML. El mensaje tiene versiones texto/HTML, contenido quoted-printable con lineas acotadas, Message-ID y asuntos UTF-8 plegados. El aspecto final puede variar por cliente de correo y sus opciones de imagenes.
