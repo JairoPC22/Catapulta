@@ -2,6 +2,19 @@
 declare(strict_types=1);
 require __DIR__.'/contact-store.php';
 require __DIR__.'/smtp-mailer.php';
+// Optional relay override (e.g. Gmail SMTP) for when IONOS's own SPF isn't
+// authorizing its mail server yet — see mail/SETUP.md "Respaldo de envio".
+// Not in git: uploaded by .github/workflows/mail-cron.yml from GitHub
+// secrets, same pattern as mail/cron-token.php. from_email/admin_recipients
+// stay whatever config.php/recipients.php already say; this only swaps the
+// smtp_* transport fields when present.
+function cp_smtp_config(array $config): array {
+    if (is_file(__DIR__.'/smtp-override.php')) {
+        $override = require __DIR__.'/smtp-override.php';
+        if (is_array($override)) $config = array_merge($config, $override);
+    }
+    return $config;
+}
 function cp_template(string $file,array $vars): string {
     $html=file_get_contents(__DIR__.'/../'.$file);
     if ($html===false) throw new RuntimeException('Missing template');

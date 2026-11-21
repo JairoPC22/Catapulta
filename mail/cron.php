@@ -22,5 +22,5 @@ require __DIR__.'/processor.php';
 if (!is_file(__DIR__.'/config.php')) { http_response_code(503); echo 'not_configured'; exit; }
 $config=require __DIR__.'/config.php';
 $config['admin_recipients']=require __DIR__.'/recipients.php';
-cp_process(cp_store($config),$config,new SmtpMailer($config));
+cp_process(cp_store($config),$config,new SmtpMailer(cp_smtp_config($config)));
 echo 'ok';

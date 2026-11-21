@@ -19,6 +19,17 @@ name: Mail queue cron (fallback, no IONOS panel access needed)
 # any long random string (e.g. generate with
 # `node -e "console.log(require('crypto').randomBytes(32).toString('hex'))"`).
 # Reuses the same IONOS_FTP_* secrets as deploy-ionos.yml.
+#
+# Optional Gmail relay: IONOS's own SMTP server isn't authorized by
+# catapultapay.com's SPF record yet, so mail sent through it can silently
+# fail to reach external inboxes (see mail/SETUP.md). As a stopgap that
+# still sends as notificaciones@catapultapay.com, add two more secrets —
+# GMAIL_SMTP_USER (a Gmail address with that address added and verified
+# under Gmail's own Settings > Accounts > "Send mail as") and
+# GMAIL_SMTP_PASSWORD (a 16-character Gmail "App password", needs 2-Step
+# Verification enabled first) — and this workflow uploads a relay override
+# the same way it uploads the cron token. Leave either secret unset to keep
+# sending through IONOS as before.
 
 on:
   schedule:
@@ -47,6 +58,35 @@ jobs:
           lftp -u "$IONOS_FTP_USERNAME","$IONOS_FTP_PASSWORD" sftp://$IONOS_FTP_SERVER:22 <<'EOF'
           set sftp:auto-confirm yes
           put cron-token.php -o mail/cron-token.php
+          EOF
+
+      - name: Upload the Gmail relay override, if configured
+        env:
+          IONOS_FTP_SERVER: ${{ secrets.IONOS_FTP_SERVER }}
+          IONOS_FTP_USERNAME: ${{ secrets.IONOS_FTP_USERNAME }}
+          IONOS_FTP_PASSWORD: ${{ secrets.IONOS_FTP_PASSWORD }}
+          GMAIL_SMTP_USER: ${{ secrets.GMAIL_SMTP_USER }}
+          GMAIL_SMTP_PASSWORD: ${{ secrets.GMAIL_SMTP_PASSWORD }}
+        run: |
+          if [ -z "$GMAIL_SMTP_USER" ] || [ -z "$GMAIL_SMTP_PASSWORD" ]; then
+            echo "GMAIL_SMTP_USER/GMAIL_SMTP_PASSWORD not set — removing any override so IONOS is used again."
+            lftp -u "$IONOS_FTP_USERNAME","$IONOS_FTP_PASSWORD" sftp://$IONOS_FTP_SERVER:22 -e "set sftp:auto-confirm yes; rm -f mail/smtp-override.php; bye" || true
+            exit 0
+          fi
+          node -e '
+            const user = JSON.stringify(process.env.GMAIL_SMTP_USER);
+            const pass = JSON.stringify(process.env.GMAIL_SMTP_PASSWORD);
+            console.log("<?php\nreturn [\n" +
+              "    \x27smtp_host\x27 => \x27smtp.gmail.com\x27,\n" +
+              "    \x27smtp_port\x27 => 465,\n" +
+              "    \x27smtp_secure\x27 => \x27ssl\x27,\n" +
+              "    \x27smtp_user\x27 => " + user + ",\n" +
+              "    \x27smtp_pass\x27 => " + pass + ",\n" +
+              "];\n");
+          ' > smtp-override.php
+          lftp -u "$IONOS_FTP_USERNAME","$IONOS_FTP_PASSWORD" sftp://$IONOS_FTP_SERVER:22 <<'EOF'
+          set sftp:auto-confirm yes
+          put smtp-override.php -o mail/smtp-override.php
           EOF
 
       - name: Trigger the mail queue over HTTPS

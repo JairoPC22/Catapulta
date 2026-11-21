@@ -9,3 +9,8 @@ mail/config.php
 # Token del disparador HTTP del cron de correo — nunca va a git, lo sube el
 # workflow mail-cron.yml a partir del secreto MAIL_CRON_TOKEN de GitHub
 mail/cron-token.php
+
+# Relay SMTP alternativo (Gmail) mientras el SPF de IONOS no autoriza su
+# propio servidor — nunca va a git, lo sube mail-cron.yml a partir de los
+# secretos GMAIL_SMTP_USER / GMAIL_SMTP_PASSWORD de GitHub
+mail/smtp-override.php

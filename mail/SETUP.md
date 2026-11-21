@@ -10,6 +10,22 @@ Para activarlo: en GitHub, este repositorio > Settings > Secrets and variables >
 
 Esto no sustituye una tarea cron real de IONOS: GitHub solo garantiza una granularidad mínima de 5 minutos para workflows programados, puede retrasar o saltarse ejecuciones bajo carga, y desactiva automáticamente los `schedule` si el repositorio pasa 60 días sin commits. En cuanto se recupere el acceso al panel de IONOS, configurar la tarea nativa (ver más abajo) y entonces se puede borrar `.github/workflows/mail-cron.yml` y `mail/cron.php` sin afectar nada más.
 
+## Relay de Gmail mientras el SPF de IONOS no autoriza su propio servidor (21/11/2026)
+
+Confirmado end-to-end: una solicitud procesada por el mismo código y el mismo intento SMTP exitoso llega a una dirección del propio dominio (jairo.pena@catapultapay.com) pero no a una externa (Gmail) — ver sección de destinatarios más abajo. La causa es el SPF del dominio, que solo autoriza a Google y no a IONOS; corregirlo requiere el panel de DNS, al que tampoco hay acceso ahorita.
+
+Como respaldo que no toca DNS ni el panel de IONOS en absoluto, `mail/processor.php` expone `cp_smtp_config()`: si existe `mail/smtp-override.php` (no está en git), sus valores reemplazan solo los campos `smtp_*` antes de instanciar `SmtpMailer`, dejando intactos `from_email` (sigue mostrando notificaciones@catapultapay.com) y `admin_recipients`. `mail/worker.php` y `mail/cron.php` ya lo usan.
+
+Para activarlo, se necesita una cuenta de Gmail que el responsable del sitio controle:
+
+1. En esa cuenta, Gmail > Configuración (engranaje) > Ver toda la configuración > pestaña "Cuentas e importación" > "Enviar correo como" > Agregar otra dirección de correo. Nombre: "CatapultaPayment"; correo: notificaciones@catapultapay.com. Siguiente paso > Enviar verificación.
+2. Gmail manda un correo de verificación a notificaciones@catapultapay.com. Entrar al webmail de IONOS de ese buzón (acceso ya confirmado) y abrir el enlace o copiar el código de confirmación de vuelta en el diálogo de Gmail.
+3. En esa misma cuenta de Gmail: Cuenta de Google > Seguridad > activar Verificación en dos pasos si no está activa > Contraseñas de aplicaciones > generar una para "Correo"/"Otra". Son 16 caracteres; se puede revocar cuando se quiera sin afectar la cuenta.
+4. En GitHub, este repositorio > Settings > Secrets and variables > Actions > New repository secret, dos secretos: `GMAIL_SMTP_USER` (la dirección de Gmail completa) y `GMAIL_SMTP_PASSWORD` (la contraseña de aplicación de 16 caracteres, sin espacios). Nunca escribir esto en el chat de ningún asistente ni en ningún archivo del repositorio.
+5. El workflow `mail-cron.yml` sube `mail/smtp-override.php` en cada ejecución (cada 5 minutos o manual, igual que el token de cron) con esos dos valores y host/puerto/seguridad fijos para Gmail (`smtp.gmail.com:465` SSL). Si cualquiera de los dos secretos falta, ese paso no sube nada y el envío sigue usando IONOS como antes.
+
+Para volver a usar IONOS una vez corregido el SPF: borrar los dos secretos de GitHub (`GMAIL_SMTP_USER`/`GMAIL_SMTP_PASSWORD`). La siguiente corrida del workflow detecta que faltan y borra `mail/smtp-override.php` del servidor automáticamente (no hace falta FTP ni panel), así que el envío vuelve a usar IONOS sin ningún otro paso.
+
 ## Buzón
 
 1. En IONOS, Correo > Crear dirección > Mail Basic, usar Crear si existe un buzón disponible. Si aparece precio o Pedir/Solicitar, detenerse antes de contratar.
