@@ -53,6 +53,8 @@ Se intenta en cada carga de inicio. Si autoplay se bloquea, hay un único intent
 ## Destinatarios administrados desde GitHub
 La lista activa esta en mail/recipients.php. send.php, worker.php y cron.php la cargan despues del config.php privado; por tanto cualquier lista antigua de ese config no se utiliza. Cambiar destinatarios requiere actualizar recipients.php y desplegar. La contraseña, storage_dir y storage_secret siguen solo en config.php de IONOS. Administrador confirmado: jairo.pena@catapultapay.com (revertido 21/11/2026: barthallen25@gmail.com y jairoparker22@gmail.com, probados el 20/11/2026, no llegaban porque el SPF del dominio solo autoriza a Google, no a IONOS — ver sección de respaldo de cron más arriba. Entrega a direcciones del mismo dominio/Workspace sí funciona; volver a poner direcciones externas solo después de corregir el SPF).
 
+Prueba confirmatoria 21/11/2026: dos solicitudes enviadas en paralelo por la misma vía (mismo job, mismo intento SMTP exitoso según cron-status.php) — la que fue a jairo.pena@catapultapay.com llegó; la de confirmación al cliente, a barthallen25@gmail.com, no llegó. Diagnóstico de SPF confirmado end-to-end, no es solo teoría de cabeceras DNS.
+
 ## Plantillas y entregabilidad (30/10/2026)
 Administrador y cliente reciben plantillas distintas, con referencia compartida. El logo se adjunta como PNG inline con Content-ID, sin imagen data: base64 dentro del HTML. El mensaje tiene versiones texto/HTML, contenido quoted-printable con lineas acotadas, Message-ID y asuntos UTF-8 plegados. El aspecto final puede variar por cliente de correo y sus opciones de imagenes.
 
